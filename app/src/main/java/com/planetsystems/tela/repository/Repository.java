@@ -7,9 +7,12 @@ import androidx.lifecycle.LiveData;
 import com.planetsystems.tela.dao.EmployeeRoleDao;
 import com.planetsystems.tela.dao.SyncClockInDao;
 import com.planetsystems.tela.dao.SyncClockOutsDao;
+import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
+import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendancesDao;
 import com.planetsystems.tela.dao.SyncTeachersDao;
 import com.planetsystems.tela.database.TelaRoomDatabase;
 import com.planetsystems.tela.enties.SyncClockOuts;
+import com.planetsystems.tela.enties.SyncConfirmTimeOnSiteAttendance;
 import com.planetsystems.tela.enties.SyncTeacher;
 
 import java.util.List;
@@ -20,6 +23,8 @@ public class Repository {
     private SyncTeachersDao syncTeachersDao;
     private SyncClockOutsDao syncClockOutsDao;
     private SyncClockInDao syncClockInDao;
+    private SyncConfirmTimeOnSiteAttendanceDao timeOnSiteAttendanceDao;
+    private SyncConfirmTimeOnTaskAttendancesDao timeOnTaskAttendancesDao;
 
     public Repository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
@@ -27,6 +32,8 @@ public class Repository {
         syncTeachersDao = telaRoomDatabase.getSyncTeachersDao();
         syncClockOutsDao = telaRoomDatabase.getSyncClockOuts();
         syncClockInDao = telaRoomDatabase.getSyncClockInDao();
+        timeOnSiteAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnSiteAttendanceDao();
+        timeOnTaskAttendancesDao = telaRoomDatabase.getSyncConfirmTimeOnTaskAttendancesDao();
     }
 
     //Enroll new staff member
