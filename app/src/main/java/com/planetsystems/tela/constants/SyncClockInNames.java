@@ -19,4 +19,5 @@ public class SyncClockInNames {
     public static final String EMPLOYEE_LAST_NAME = "empLastName";
     public static final String ROW_VER = "rowVer";
     public static final String ROW_ID = "rowID";
+    public static final String DAY = "day";
 }
