@@ -11,6 +11,7 @@ import com.planetsystems.tela.constants.EmployeeRoleName;
 @Entity(tableName = EmployeeRoleName.TABLE_NAME)
 public class EmployeeRole {
     @PrimaryKey
+    @NonNull
     @ColumnInfo(name = EmployeeRoleName.ID)
     private String id;
 
