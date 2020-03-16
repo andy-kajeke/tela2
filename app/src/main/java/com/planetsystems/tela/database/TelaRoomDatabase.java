@@ -7,6 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.planetsystems.tela.dao.EmployeeRoleDao;
+import com.planetsystems.tela.dao.SyncAttendanceRecordsDao;
 import com.planetsystems.tela.dao.SyncClockOutsDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;
@@ -34,6 +35,7 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
     public abstract SyncClockInDao getSyncClockInDao();
     public abstract SyncConfirmTimeOnTaskAttendanceDao getSyncConfirmTimeOnTaskAttendancesDao();
     public abstract SyncConfirmTimeOnSiteAttendanceDao getSyncConfirmTimeOnSiteAttendanceDao();
+    public abstract SyncAttendanceRecordsDao getSyncAttendanceRecordsDao();
 
 
     private  static volatile TelaRoomDatabase tela_DB;
