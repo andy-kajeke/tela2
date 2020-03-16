@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "EmployeeRoles")
-public class EmployeeRoles {
+public class EmployeeRole {
     @PrimaryKey
     @ColumnInfo(name = "id")
     private String id;
