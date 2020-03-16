@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 
 import com.planetsystems.tela.constants.SyncTableConstants;
 
-@Entity(tableName = SyncTableConstants.SyncClockOuts)
+@Entity(tableName = SyncTableConstants.SyncConfirmTimeOnTaskAttendances)
 public class SyncConfirmTimeOnTaskAttendance {
 
     @PrimaryKey
