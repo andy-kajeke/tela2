@@ -1,15 +1,32 @@
 package com.planetsystems.tela.dao;
 
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.Update;
 
+import com.planetsystems.tela.constants.EmployeeRoleName;
 import com.planetsystems.tela.enties.EmployeeRole;
+
+import java.util.List;
 
 @Dao
 public interface EmployeeRoleDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertEmployeeRole(EmployeeRole employeeRole);
+
+    @Query("SELECT * from " + EmployeeRoleName.TABLE_NAME)
+    LiveData<List<EmployeeRole>> queryAllEmployeeRoles();
+
+    @Update(entity = EmployeeRole.class)
+    void updateStudent(EmployeeRole employeeRole);
+
+    @Delete(entity = EmployeeRole.class)
+    void deleteStudent(EmployeeRole employeeRole);
 
 }
