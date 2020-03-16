@@ -28,7 +28,7 @@ public class SyncTeachers {
 
 
     @ColumnInfo(name = "fingerPrint")
-    @NonNull
+    //@NonNull
     private Byte[] fingerPrint;
 
 
@@ -109,7 +109,7 @@ public class SyncTeachers {
         return fingerPrint;
     }
 
-    public void setFingerPrint(@NonNull Byte[] fingerPrint) {
+    public void setFingerPrint( Byte[] fingerPrint) {
         this.fingerPrint = fingerPrint;
     }
 
@@ -184,7 +184,7 @@ public class SyncTeachers {
         this.schoolId = schoolId;
     }
 
-    public SyncTeachers(@NonNull String id, String MPSComputerNumber, @NonNull String dob, String emailAddress, @NonNull Byte[] fingerPrint, @NonNull String firstName, @NonNull String lastName, @NonNull String gender, @NonNull String initials, int licensed, @NonNull String nationalId, @NonNull String phoneNumber, @NonNull String schoolId) {
+    public SyncTeachers(@NonNull String id, String MPSComputerNumber, @NonNull String dob, String emailAddress, Byte[] fingerPrint, @NonNull String firstName, @NonNull String lastName, @NonNull String gender, @NonNull String initials, int licensed, @NonNull String nationalId, @NonNull String phoneNumber, @NonNull String schoolId) {
         this.id = id;
         this.MPSComputerNumber = MPSComputerNumber;
         this.dob = dob;
