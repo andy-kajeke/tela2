@@ -23,4 +23,5 @@ public class SyncEmployeeMaterialRequestName {
     public static final String APPROVAL_DATE = "approvalDate";
     public static final String ROW_VER = "rowVer";
     public static final String ROW_ID = "rowId";
+    public static final String TABLE_NAME = "material_request";
 }
