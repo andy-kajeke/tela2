@@ -2,7 +2,6 @@ package com.planetsystems.tela.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Database;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -10,7 +9,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.planetsystems.tela.constants.SyncTableConstants;
-import com.planetsystems.tela.enties.SyncTeachers;
+import com.planetsystems.tela.enties.SyncTeacher;
 
 import java.util.List;
 
@@ -18,14 +17,14 @@ import java.util.List;
 @Dao
 public interface SyncTeachersDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void addNewStaff(SyncTeachers syncTeachers);
+    void addNewStaff(SyncTeacher syncTeacher);
 
     @Update
-    void updateStaff(SyncTeachers syncTeachers);
+    void updateStaff(SyncTeacher syncTeacher);
 
     @Delete
-    void deleteStaff(SyncTeachers syncTeachers);
+    void deleteStaff(SyncTeacher syncTeacher);
 
     @Query("SELECT * FROM " + SyncTableConstants.SyncTeachers)
-    LiveData<List<SyncTeachers>> getAllTeachers();
+    LiveData<List<SyncTeacher>> getAllTeachers();
 }

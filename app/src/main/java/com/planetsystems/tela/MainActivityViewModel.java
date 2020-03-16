@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.dao.SyncTeachersDao;
-import com.planetsystems.tela.enties.SyncTeachers;
+import com.planetsystems.tela.enties.SyncTeacher;
 import com.planetsystems.tela.repository.Repository;
 
 import java.util.List;
@@ -20,11 +20,11 @@ public class MainActivityViewModel extends AndroidViewModel {
         repository = new Repository(application);
     }
 
-    public LiveData<List<SyncTeachers>> teachers(){
+    public LiveData<List<SyncTeacher>> teachers(){
         return repository.getAllTeachers();
     }
 
-    public  void insertTeacher(SyncTeachers syncTeachers){
-        repository.addNewStaff(syncTeachers);
+    public  void insertTeacher(SyncTeacher syncTeacher){
+        repository.addNewStaff(syncTeacher);
     }
 }

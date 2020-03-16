@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.planetsystems.tela.enties.SyncTeachers;
+import com.planetsystems.tela.enties.SyncTeacher;
 
 import java.util.List;
 
@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
         mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
-        mainActivityViewModel.teachers().observe(this, new Observer<List<SyncTeachers>>() {
+        mainActivityViewModel.teachers().observe(this, new Observer<List<SyncTeacher>>() {
             @Override
-            public void onChanged(List<SyncTeachers> syncTeachers) {
+            public void onChanged(List<SyncTeacher> syncTeachers) {
                 Toast.makeText(MainActivity.this, "size is: " + String.valueOf(syncTeachers.size()), Toast.LENGTH_LONG).show();
             }
         });
@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SyncTeachers syncTeachers = new SyncTeachers("dhlijjsdcdaiooo", null, "23/1/1990",
+                SyncTeacher syncTeacher = new SyncTeacher("dhlijjsdcdaiooo", null, "23/1/1990",
                         null, null, "andrew", "kajeke", "M",
                 "ak",1, "wweer", "12344","cdsgs4y5e43");
-                mainActivityViewModel.insertTeacher(syncTeachers);
+                mainActivityViewModel.insertTeacher(syncTeacher);
             }
         });
     }
