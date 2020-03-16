@@ -16,7 +16,12 @@ import com.planetsystems.tela.dao.SyncEmployeeTimeOffRequestDMsDao;
 import com.planetsystems.tela.dao.SyncTeachersDao;
 import com.planetsystems.tela.enties.EmployeeRole;
 import com.planetsystems.tela.dao.SyncClockInDao;
+import com.planetsystems.tela.enties.SyncAttendanceRecords;
 import com.planetsystems.tela.enties.SyncClockIn;
+import com.planetsystems.tela.enties.SyncClockOuts;
+import com.planetsystems.tela.enties.SyncConfirmTimeOnSiteAttendance;
+import com.planetsystems.tela.enties.SyncConfirmTimeOnTaskAttendance;
+import com.planetsystems.tela.enties.SyncEmployeeMaterialRequest;
 import com.planetsystems.tela.enties.SyncTeacher;
 
 import java.util.concurrent.ExecutorService;
@@ -28,6 +33,12 @@ import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
         EmployeeRole.class,
         SyncTeacher.class,
         SyncClockIn.class,
+        SyncClockOuts.class,
+        SyncAttendanceRecordsDao.class,
+        SyncAttendanceRecords.class,
+        SyncConfirmTimeOnSiteAttendance.class,
+        SyncConfirmTimeOnTaskAttendance.class,
+        SyncEmployeeMaterialRequest.class,
     }, version = 1, exportSchema = false)
 public abstract class TelaRoomDatabase extends RoomDatabase {
 
