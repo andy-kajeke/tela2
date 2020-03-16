@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import com.planetsystems.tela.constants.SyncTableConstants;
 
 @Entity(tableName = SyncTableConstants.SyncClockOuts)
-public class SyncConfirmTimeOnTaskAttendances {
+public class SyncConfirmTimeOnTaskAttendance {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
@@ -58,10 +58,10 @@ public class SyncConfirmTimeOnTaskAttendances {
     @ColumnInfo(name = "transactionDate")
     private String transactionDate;
 
-    public SyncConfirmTimeOnTaskAttendances(@NonNull String id, String dateCreated, String dateUpdated, int status, String comment,
-                                            @NonNull String employeeId, @NonNull String employeeNumber, @NonNull String endTime,
-                                            @NonNull String startTime, String supervisionStatus, String supervisorId, String taskDescription,
-                                            String taskId, String transactionDate) {
+    public SyncConfirmTimeOnTaskAttendance(@NonNull String id, String dateCreated, String dateUpdated, int status, String comment,
+                                           @NonNull String employeeId, @NonNull String employeeNumber, @NonNull String endTime,
+                                           @NonNull String startTime, String supervisionStatus, String supervisorId, String taskDescription,
+                                           String taskId, String transactionDate) {
         this.id = id;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;

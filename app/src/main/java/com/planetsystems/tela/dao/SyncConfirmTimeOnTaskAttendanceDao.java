@@ -8,21 +8,21 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.planetsystems.tela.constants.SyncTableConstants;
-import com.planetsystems.tela.enties.SyncConfirmTimeOnTaskAttendances;
+import com.planetsystems.tela.enties.SyncConfirmTimeOnTaskAttendance;
 
 import java.util.List;
 
-public interface SyncConfirmTimeOnTaskAttendancesDao {
+public interface SyncConfirmTimeOnTaskAttendanceDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void addNew(SyncConfirmTimeOnTaskAttendances syncConfirmTimeOnTaskAttendances);
+    void addNew(SyncConfirmTimeOnTaskAttendance syncConfirmTimeOnTaskAttendance);
 
     @Update
-    void update(SyncConfirmTimeOnTaskAttendances syncConfirmTimeOnTaskAttendances);
+    void update(SyncConfirmTimeOnTaskAttendance syncConfirmTimeOnTaskAttendance);
 
     @Delete
-    void delete(SyncConfirmTimeOnTaskAttendances syncConfirmTimeOnTaskAttendances);
+    void delete(SyncConfirmTimeOnTaskAttendance syncConfirmTimeOnTaskAttendance);
 
     @Query("SELECT * FROM " + SyncTableConstants.SyncConfirmTimeOnTaskAttendances)
-    LiveData<List<SyncConfirmTimeOnTaskAttendances>> getAllRecords();
+    LiveData<List<SyncConfirmTimeOnTaskAttendance>> getAllRecords();
 }
