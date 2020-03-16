@@ -7,11 +7,19 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.planetsystems.tela.dao.EmployeeRoleDao;
+<<<<<<< HEAD
+import com.planetsystems.tela.dao.SyncClockOutsDao;
+import com.planetsystems.tela.dao.SyncTeachersDao;
+import com.planetsystems.tela.enties.EmployeeRole;
+import com.planetsystems.tela.enties.SyncClockOuts;
+import com.planetsystems.tela.enties.SyncTeachers;
+=======
 import com.planetsystems.tela.dao.SyncClockInDao;
 import com.planetsystems.tela.dao.SyncTeachersDao;
 import com.planetsystems.tela.enties.EmployeeRole;
 import com.planetsystems.tela.enties.SyncClockIn;
 import com.planetsystems.tela.enties.SyncTeacher;
+>>>>>>> e4f3522571cc3f633a4b82de99886e364a591535
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,7 +35,11 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
 
     public abstract EmployeeRoleDao getEmployeeRoleDao();
     public abstract SyncTeachersDao getSyncTeachersDao();
+<<<<<<< HEAD
+    public abstract SyncClockOutsDao getSyncClockOuts();
+=======
     public abstract SyncClockInDao getSyncClockInDao();
+>>>>>>> e4f3522571cc3f633a4b82de99886e364a591535
 
     private  static volatile TelaRoomDatabase tela_DB;
     public static final int NUMBER_OF_THREADS = 4;
