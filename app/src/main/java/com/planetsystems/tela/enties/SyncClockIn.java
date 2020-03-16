@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 
 import com.planetsystems.tela.constants.SyncClockInNames;
 
-@Entity(tableName = "sync_clock_in")
+@Entity(tableName = SyncClockInNames.TABLE_NAME)
 public class SyncClockIn {
     @PrimaryKey
     @NonNull
