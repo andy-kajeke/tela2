@@ -18,7 +18,11 @@ import java.util.concurrent.Executors;
 
 import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
 
-@Database(entities = {EmployeeRole.class, SyncTeacher.class}, version = 1, exportSchema = false)
+@Database(entities = {
+        EmployeeRole.class,
+        SyncTeacher.class,
+        SyncClockIn.class,
+    }, version = 1, exportSchema = false)
 public abstract class TelaRoomDatabase extends RoomDatabase {
 
     public abstract EmployeeRoleDao getEmployeeRoleDao();
