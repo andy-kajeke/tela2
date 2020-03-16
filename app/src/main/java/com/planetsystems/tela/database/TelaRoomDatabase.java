@@ -34,7 +34,6 @@ import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
         SyncTeacher.class,
         SyncClockIn.class,
         SyncClockOuts.class,
-        SyncAttendanceRecordsDao.class,
         SyncAttendanceRecords.class,
         SyncConfirmTimeOnSiteAttendance.class,
         SyncConfirmTimeOnTaskAttendance.class,
