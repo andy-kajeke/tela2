@@ -11,7 +11,6 @@ import com.planetsystems.tela.dao.SyncTeachersDao;
 import com.planetsystems.tela.enties.EmployeeRole;
 import com.planetsystems.tela.enties.SyncTeachers;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -23,19 +22,19 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
     public abstract EmployeeRoleDao getEmployeeRoleDao();
     public abstract SyncTeachersDao getSyncTeachersDao();
 
-    private  static volatile TelaRoomDatabase telaDB;
+    private  static volatile TelaRoomDatabase tela_DB;
     public static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService db_executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static TelaRoomDatabase getInstance(final Context context){
-        if (telaDB ==null){
+        if (tela_DB ==null){
             synchronized (TelaRoomDatabase.class){
-                if (telaDB == null){
-                    telaDB = Room.databaseBuilder(context.getApplicationContext(), TelaRoomDatabase.class,
+                if (tela_DB == null){
+                    tela_DB = Room.databaseBuilder(context.getApplicationContext(), TelaRoomDatabase.class,
                             Tela_DB).build();
                 }
             }
         }
-        return telaDB;
+        return tela_DB;
     }
 }
