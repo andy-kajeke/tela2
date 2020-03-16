@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import com.planetsystems.tela.constants.SyncTableConstants;
 
 @Entity(tableName = SyncTableConstants.SyncTeachers)
-public class SyncTeachers {
+public class SyncTeacher {
     @PrimaryKey
     @ColumnInfo(name = "id")
     @NonNull
@@ -184,7 +184,7 @@ public class SyncTeachers {
         this.schoolId = schoolId;
     }
 
-    public SyncTeachers(@NonNull String id, String MPSComputerNumber, @NonNull String dob, String emailAddress, String fingerPrint, @NonNull String firstName, @NonNull String lastName, @NonNull String gender, @NonNull String initials, int licensed, @NonNull String nationalId, @NonNull String phoneNumber, @NonNull String schoolId) {
+    public SyncTeacher(@NonNull String id, String MPSComputerNumber, @NonNull String dob, String emailAddress, String fingerPrint, @NonNull String firstName, @NonNull String lastName, @NonNull String gender, @NonNull String initials, int licensed, @NonNull String nationalId, @NonNull String phoneNumber, @NonNull String schoolId) {
         this.id = id;
         this.MPSComputerNumber = MPSComputerNumber;
         this.dob = dob;

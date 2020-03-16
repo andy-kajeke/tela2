@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 import com.planetsystems.tela.dao.EmployeeRoleDao;
 import com.planetsystems.tela.dao.SyncTeachersDao;
 import com.planetsystems.tela.database.TelaRoomDatabase;
-import com.planetsystems.tela.enties.SyncTeachers;
+import com.planetsystems.tela.enties.SyncTeacher;
 
 import java.util.List;
 
@@ -22,16 +22,16 @@ public class Repository {
         syncTeachersDao = telaRoomDatabase.getSyncTeachersDao();
     }
 
-    public void addNewStaff(final SyncTeachers syncTeachers){
+    public void addNewStaff(final SyncTeacher syncTeacher){
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
-                syncTeachersDao.addNewStaff(syncTeachers);
+                syncTeachersDao.addNewStaff(syncTeacher);
             }
         });
     }
 
-    public LiveData<List<SyncTeachers>> getAllTeachers(){
+    public LiveData<List<SyncTeacher>> getAllTeachers(){
         return syncTeachersDao.getAllTeachers();
     }
 }
