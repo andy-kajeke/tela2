@@ -8,10 +8,12 @@ import androidx.room.RoomDatabase;
 
 import com.planetsystems.tela.dao.EmployeeRoleDao;
 import com.planetsystems.tela.dao.SyncClockOutsDao;
+import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.dao.SyncTeachersDao;
 import com.planetsystems.tela.enties.EmployeeRole;
 import com.planetsystems.tela.dao.SyncClockInDao;
 import com.planetsystems.tela.enties.SyncClockIn;
+import com.planetsystems.tela.enties.SyncConfirmTimeOnSiteAttendance;
 import com.planetsystems.tela.enties.SyncTeacher;
 
 import java.util.concurrent.ExecutorService;
