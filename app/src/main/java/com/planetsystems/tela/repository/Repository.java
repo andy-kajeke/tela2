@@ -5,13 +5,17 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.dao.EmployeeRoleDao;
+import com.planetsystems.tela.dao.SyncAttendanceRecordsDao;
 import com.planetsystems.tela.dao.SyncClockInDao;
 import com.planetsystems.tela.dao.SyncClockOutsDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;
+import com.planetsystems.tela.dao.SyncEmployeeTimeOffRequestDMsDao;
 import com.planetsystems.tela.dao.SyncTeachersDao;
 import com.planetsystems.tela.database.TelaRoomDatabase;
+import com.planetsystems.tela.enties.SyncAttendanceRecords;
 import com.planetsystems.tela.enties.SyncClockOuts;
+import com.planetsystems.tela.enties.SyncEmployeeTimeOffRequestDMs;
 import com.planetsystems.tela.enties.SyncTeacher;
 
 import java.util.List;
@@ -24,6 +28,8 @@ public class Repository {
     private SyncClockInDao syncClockInDao;
     private SyncConfirmTimeOnSiteAttendanceDao timeOnSiteAttendanceDao;
     private SyncConfirmTimeOnTaskAttendanceDao timeOnTaskAttendanceDao;
+    private SyncAttendanceRecordsDao syncAttendanceRecordsDao;
+    private SyncEmployeeTimeOffRequestDMsDao syncEmployeeTimeOffRequestDMsDao;
 
     public Repository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
@@ -31,8 +37,10 @@ public class Repository {
         syncTeachersDao = telaRoomDatabase.getSyncTeachersDao();
         syncClockOutsDao = telaRoomDatabase.getSyncClockOuts();
         syncClockInDao = telaRoomDatabase.getSyncClockInDao();
+        syncAttendanceRecordsDao = telaRoomDatabase.getSyncAttendanceRecordsDao();
         timeOnSiteAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnSiteAttendanceDao();
         timeOnTaskAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnTaskAttendancesDao();
+        syncEmployeeTimeOffRequestDMsDao = telaRoomDatabase.getSyncEmployeeTimeOffRequestDMsDao();
     }
 
     //Enroll new staff member

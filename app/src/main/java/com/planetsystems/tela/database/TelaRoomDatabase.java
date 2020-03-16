@@ -11,6 +11,7 @@ import com.planetsystems.tela.dao.SyncAttendanceRecordsDao;
 import com.planetsystems.tela.dao.SyncClockOutsDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;
+import com.planetsystems.tela.dao.SyncEmployeeTimeOffRequestDMsDao;
 import com.planetsystems.tela.dao.SyncTeachersDao;
 import com.planetsystems.tela.enties.EmployeeRole;
 import com.planetsystems.tela.dao.SyncClockInDao;
@@ -36,6 +37,7 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
     public abstract SyncConfirmTimeOnTaskAttendanceDao getSyncConfirmTimeOnTaskAttendancesDao();
     public abstract SyncConfirmTimeOnSiteAttendanceDao getSyncConfirmTimeOnSiteAttendanceDao();
     public abstract SyncAttendanceRecordsDao getSyncAttendanceRecordsDao();
+    public abstract SyncEmployeeTimeOffRequestDMsDao getSyncEmployeeTimeOffRequestDMsDao();
 
 
     private  static volatile TelaRoomDatabase tela_DB;
