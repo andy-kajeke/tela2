@@ -5,8 +5,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "SyncTeachers")
-public class SyncTeacher {
+import com.planetsystems.tela.constants.SyncTableConstants;
+
+@Entity(tableName = SyncTableConstants.SyncTeachers)
+public class SyncTeachers {
     @PrimaryKey
     @ColumnInfo(name = "id")
     @NonNull
@@ -160,7 +162,7 @@ public class SyncTeacher {
         this.schoolId = schoolId;
     }
 
-    public SyncTeacher(@NonNull String id, String MPSComputerNumber, @NonNull String dob, String emailAddress, @NonNull Byte[] fingerPrint, @NonNull String firstName, @NonNull String lastName, @NonNull String gender, @NonNull String initials, int licensed, @NonNull String nationalId, @NonNull String phoneNumber, @NonNull String schoolId) {
+    public SyncTeachers(@NonNull String id, String MPSComputerNumber, @NonNull String dob, String emailAddress, @NonNull Byte[] fingerPrint, @NonNull String firstName, @NonNull String lastName, @NonNull String gender, @NonNull String initials, int licensed, @NonNull String nationalId, @NonNull String phoneNumber, @NonNull String schoolId) {
         this.id = id;
         this.MPSComputerNumber = MPSComputerNumber;
         this.dob = dob;
