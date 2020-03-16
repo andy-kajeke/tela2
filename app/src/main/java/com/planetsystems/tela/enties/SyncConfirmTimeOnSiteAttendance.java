@@ -49,4 +49,125 @@ public class SyncConfirmTimeOnSiteAttendance {
 
     @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.ROW_ID)
     private String rowId;
+
+    public SyncConfirmTimeOnSiteAttendance(@NonNull String id, String dateCreated, String dateUpdated, String status, String employeeId, String employeeNo, String supervisionDate, String supervisionDay, String supervisionStatus, String supervisionComment, String supervisionId, String rowVer, String rowId) {
+        this.id = id;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.status = status;
+        this.employeeId = employeeId;
+        this.employeeNo = employeeNo;
+        this.supervisionDate = supervisionDate;
+        this.supervisionDay = supervisionDay;
+        this.supervisionStatus = supervisionStatus;
+        this.supervisionComment = supervisionComment;
+        this.supervisionId = supervisionId;
+        this.rowVer = rowVer;
+        this.rowId = rowId;
+    }
+
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
+
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public String getDateUpdated() {
+        return dateUpdated;
+    }
+
+    public void setDateUpdated(String dateUpdated) {
+        this.dateUpdated = dateUpdated;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public String getEmployeeNo() {
+        return employeeNo;
+    }
+
+    public void setEmployeeNo(String employeeNo) {
+        this.employeeNo = employeeNo;
+    }
+
+    public String getSupervisionDate() {
+        return supervisionDate;
+    }
+
+    public void setSupervisionDate(String supervisionDate) {
+        this.supervisionDate = supervisionDate;
+    }
+
+    public String getSupervisionDay() {
+        return supervisionDay;
+    }
+
+    public void setSupervisionDay(String supervisionDay) {
+        this.supervisionDay = supervisionDay;
+    }
+
+    public String getSupervisionStatus() {
+        return supervisionStatus;
+    }
+
+    public void setSupervisionStatus(String supervisionStatus) {
+        this.supervisionStatus = supervisionStatus;
+    }
+
+    public String getSupervisionComment() {
+        return supervisionComment;
+    }
+
+    public void setSupervisionComment(String supervisionComment) {
+        this.supervisionComment = supervisionComment;
+    }
+
+    public String getSupervisionId() {
+        return supervisionId;
+    }
+
+    public void setSupervisionId(String supervisionId) {
+        this.supervisionId = supervisionId;
+    }
+
+    public String getRowVer() {
+        return rowVer;
+    }
+
+    public void setRowVer(String rowVer) {
+        this.rowVer = rowVer;
+    }
+
+    public String getRowId() {
+        return rowId;
+    }
+
+    public void setRowId(String rowId) {
+        this.rowId = rowId;
+    }
 }
