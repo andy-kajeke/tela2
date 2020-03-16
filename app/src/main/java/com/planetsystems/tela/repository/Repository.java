@@ -26,6 +26,7 @@ public class Repository {
         employeeRoleDao = telaRoomDatabase.getEmployeeRoleDao();
         syncTeachersDao = telaRoomDatabase.getSyncTeachersDao();
         syncClockOutsDao = telaRoomDatabase.getSyncClockOuts();
+        syncClockInDao = telaRoomDatabase.getSyncClockInDao();
     }
 
     //Enroll new staff member
