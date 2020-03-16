@@ -22,6 +22,7 @@ import com.planetsystems.tela.enties.SyncClockOuts;
 import com.planetsystems.tela.enties.SyncConfirmTimeOnSiteAttendance;
 import com.planetsystems.tela.enties.SyncConfirmTimeOnTaskAttendance;
 import com.planetsystems.tela.enties.SyncEmployeeMaterialRequest;
+import com.planetsystems.tela.enties.SyncEmployeeTimeOffRequestDMs;
 import com.planetsystems.tela.enties.SyncTeacher;
 
 import java.util.concurrent.ExecutorService;
@@ -34,6 +35,7 @@ import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
         SyncTeacher.class,
         SyncClockIn.class,
         SyncClockOuts.class,
+        SyncEmployeeTimeOffRequestDMs.class,
         SyncAttendanceRecords.class,
         SyncConfirmTimeOnSiteAttendance.class,
         SyncConfirmTimeOnTaskAttendance.class,
