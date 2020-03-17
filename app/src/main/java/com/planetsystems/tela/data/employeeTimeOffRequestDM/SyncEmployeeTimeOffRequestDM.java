@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import com.planetsystems.tela.constants.SyncTableConstants;
 
 @Entity(tableName = SyncTableConstants.SyncEmployeeTimeOffRequestDMs)
-public class SyncEmployeeTimeOffRequestDMs {
+public class SyncEmployeeTimeOffRequestDM {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
@@ -78,12 +78,12 @@ public class SyncEmployeeTimeOffRequestDMs {
     @ColumnInfo(name = "typeOfLeave")
     private String typeOfLeave;
 
-    public SyncEmployeeTimeOffRequestDMs(@NonNull String id, String dateCreated, String dateUpdated, int status, String comment,
-                                         String approvalStatus, String confirmation, String deploymentSite,
-                                         String deploymentSiteId, String deploymentUnit, String deploymentUnitId,
-                                         String employee, String employeeId, String employeeRequestType,
-                                         String fromDate, String fromTime, String generalComment, String requestDate,
-                                         String approvalDate, String toDate, String toTime, String typeOfLeave) {
+    public SyncEmployeeTimeOffRequestDM(@NonNull String id, String dateCreated, String dateUpdated, int status, String comment,
+                                        String approvalStatus, String confirmation, String deploymentSite,
+                                        String deploymentSiteId, String deploymentUnit, String deploymentUnitId,
+                                        String employee, String employeeId, String employeeRequestType,
+                                        String fromDate, String fromTime, String generalComment, String requestDate,
+                                        String approvalDate, String toDate, String toTime, String typeOfLeave) {
         this.id = id;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;

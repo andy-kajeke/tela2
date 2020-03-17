@@ -11,7 +11,8 @@ import com.planetsystems.tela.data.clockOut.SyncClockOutDao;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.data.confirmTimeOnTaskAttendance.SyncConfirmTimeOnTaskAttendanceDao;
 import com.planetsystems.tela.data.employeeMaterialRequest.SyncEmployeeMaterialRequestDao;
-import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDMsDao;
+import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDM;
+import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDMDao;
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.employeeRole.EmployeeRole;
@@ -22,7 +23,6 @@ import com.planetsystems.tela.data.clockOut.SyncClockOut;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendance;
 import com.planetsystems.tela.data.confirmTimeOnTaskAttendance.SyncConfirmTimeOnTaskAttendance;
 import com.planetsystems.tela.data.employeeMaterialRequest.SyncEmployeeMaterialRequest;
-import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDMs;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
 import java.util.concurrent.ExecutorService;
@@ -35,7 +35,7 @@ import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
         SyncTeacher.class,
         SyncClockIn.class,
         SyncClockOut.class,
-        SyncEmployeeTimeOffRequestDMs.class,
+        SyncEmployeeTimeOffRequestDM.class,
         SyncAttendanceRecord.class,
         SyncConfirmTimeOnSiteAttendance.class,
         SyncConfirmTimeOnTaskAttendance.class,
@@ -51,7 +51,7 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
     public abstract SyncConfirmTimeOnSiteAttendanceDao getSyncConfirmTimeOnSiteAttendanceDao();
     public abstract SyncAttendanceRecordDao getSyncAttendanceRecordsDao();
     public abstract SyncEmployeeMaterialRequestDao getSyncEmployeeMaterialRequest();
-    public abstract SyncEmployeeTimeOffRequestDMsDao getSyncEmployeeTimeOffRequestDMsDao();
+    public abstract SyncEmployeeTimeOffRequestDMDao getSyncEmployeeTimeOffRequestDMsDao();
 
 
     private  static volatile TelaRoomDatabase tela_DB;

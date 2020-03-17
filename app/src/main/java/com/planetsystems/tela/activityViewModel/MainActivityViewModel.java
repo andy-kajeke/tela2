@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
-import com.planetsystems.tela.repository.Repository;
 
 import java.util.List;
 
