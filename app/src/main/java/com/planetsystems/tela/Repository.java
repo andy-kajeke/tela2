@@ -11,7 +11,7 @@ import com.planetsystems.tela.data.clockOut.SyncClockOutDao;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.data.confirmTimeOnTaskAttendance.SyncConfirmTimeOnTaskAttendanceDao;
 import com.planetsystems.tela.data.employeeMaterialRequest.SyncEmployeeMaterialRequestDao;
-import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDMsDao;
+import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDMDao;
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
@@ -29,7 +29,7 @@ public class Repository {
     private SyncConfirmTimeOnTaskAttendanceDao timeOnTaskAttendanceDao;
     private SyncEmployeeMaterialRequestDao syncEmployeeMaterialRequestDao;
     private SyncAttendanceRecordDao syncAttendanceRecordDao;
-    private SyncEmployeeTimeOffRequestDMsDao syncEmployeeTimeOffRequestDMsDao;
+    private SyncEmployeeTimeOffRequestDMDao syncEmployeeTimeOffRequestDMDao;
 
     public Repository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
@@ -42,7 +42,7 @@ public class Repository {
         timeOnTaskAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnTaskAttendancesDao();
         syncEmployeeMaterialRequestDao = telaRoomDatabase.getSyncEmployeeMaterialRequest();
         syncAttendanceRecordDao = telaRoomDatabase.getSyncAttendanceRecordsDao();
-        syncEmployeeTimeOffRequestDMsDao = telaRoomDatabase.getSyncEmployeeTimeOffRequestDMsDao();
+        syncEmployeeTimeOffRequestDMDao = telaRoomDatabase.getSyncEmployeeTimeOffRequestDMsDao();
     }
 
     //Enroll new staff member

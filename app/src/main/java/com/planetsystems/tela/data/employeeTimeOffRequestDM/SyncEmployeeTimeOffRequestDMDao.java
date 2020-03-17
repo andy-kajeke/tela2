@@ -13,17 +13,17 @@ import com.planetsystems.tela.constants.SyncTableConstants;
 import java.util.List;
 
 @Dao
-public interface SyncEmployeeTimeOffRequestDMsDao {
+public interface SyncEmployeeTimeOffRequestDMDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void addNew(SyncEmployeeTimeOffRequestDMs syncEmployeeTimeOffRequestDMs);
+    void addNew(SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM);
 
     @Update
-    void update(SyncEmployeeTimeOffRequestDMs syncEmployeeTimeOffRequestDMs);
+    void update(SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM);
 
     @Delete
-    void delete(SyncEmployeeTimeOffRequestDMs syncEmployeeTimeOffRequestDMs);
+    void delete(SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM);
 
     @Query("SELECT * FROM " + SyncTableConstants.SyncEmployeeTimeOffRequestDMs)
-    LiveData<List<SyncEmployeeTimeOffRequestDMs>> getAllRecords();
+    LiveData<List<SyncEmployeeTimeOffRequestDM>> getAllRecords();
 }
