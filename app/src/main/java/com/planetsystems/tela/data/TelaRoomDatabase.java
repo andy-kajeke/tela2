@@ -30,8 +30,6 @@ import com.planetsystems.tela.data.smc.SyncSMC;
 import com.planetsystems.tela.data.smc.SyncSMCDao;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
-import com.planetsystems.tela.data.timetble.SyncTimeTable;
-import com.planetsystems.tela.data.timetble.SyncTimeTableDao;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -50,7 +48,7 @@ import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
         SyncEmployeeMaterialRequest.class,
         SynTimeOnTask.class,
         HelpRequest.class,
-        SyncTimeTable.class,
+        SyncSMC.class,
         SyncSMC.class
     }, version = 1, exportSchema = false)
 public abstract class TelaRoomDatabase extends RoomDatabase {
@@ -66,7 +64,7 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
     public abstract SyncEmployeeTimeOffRequestDMDao getSyncEmployeeTimeOffRequestDMsDao();
     public abstract SynTimeOnTaskDao getSyncTimeOnTaskDao();
     public abstract HelpRequestDao getHelpRequestDao();
-    public abstract SyncTimeTableDao getSyncTimeTableDao();
+    public abstract SyncSMCDao getSyncTimeTableDao();
     public abstract SyncSMCDao getSyncSMCDao();
 
 
