@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.planetsystems.tela.activityViewModel.MainActivityViewModel;
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.enties.SyncTeacher;
+import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
 import java.util.List;
 
