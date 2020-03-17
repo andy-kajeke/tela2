@@ -1,53 +1,51 @@
-package com.planetsystems.tela.enties;
+package com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.planetsystems.tela.constants.SyncConfirmTimeOnSiteAttendanceName;
-
-@Entity(tableName = SyncConfirmTimeOnSiteAttendanceName.TABLE_NAME)
+@Entity(tableName = SyncConfirmTimeOnSiteAttendanceConstant.TABLE_NAME)
 public class SyncConfirmTimeOnSiteAttendance {
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.ID)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.ID)
     private String id;
 
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.DATE_CREATED)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.DATE_CREATED)
     private String dateCreated;
 
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.DATE_UPDATED)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.DATE_UPDATED)
     private String dateUpdated;
 
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.STATUS)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.STATUS)
     private String status;
 
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.EMPLOYEE_ID)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.EMPLOYEE_ID)
     private String employeeId;
 
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.EMPLOYEE_NO)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.EMPLOYEE_NO)
     private String employeeNo;
 
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.SUPERVISION_DATE)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.SUPERVISION_DATE)
     private String supervisionDate;
 
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.SUPERVISION_DAY)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.SUPERVISION_DAY)
     private String supervisionDay;
 
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.SUPERVISION_STATUS)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.SUPERVISION_STATUS)
     private String supervisionStatus;
 
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.SUPERVISION_COMMENT)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.SUPERVISION_COMMENT)
     private String supervisionComment;
 
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.SUPERVISOR_ID)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.SUPERVISOR_ID)
     private String supervisionId;
 
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.ROW_VER)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.ROW_VER)
     private String rowVer;
 
-    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceName.ROW_ID)
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.ROW_ID)
     private String rowId;
 
     public SyncConfirmTimeOnSiteAttendance(@NonNull String id, String dateCreated, String dateUpdated, String status, String employeeId, String employeeNo, String supervisionDate, String supervisionDay, String supervisionStatus, String supervisionComment, String supervisionId, String rowVer, String rowId) {

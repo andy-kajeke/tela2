@@ -1,6 +1,6 @@
-package com.planetsystems.tela.constants;
+package com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance;
 
-public class SyncConfirmTimeOnSiteAttendanceName {
+public class SyncConfirmTimeOnSiteAttendanceConstant {
     public static final String TABLE_NAME = "sync_confirm_time_on_site_attendance";
     public static final String ID = "id";
     public static final String DATE_CREATED = "dateCreated";

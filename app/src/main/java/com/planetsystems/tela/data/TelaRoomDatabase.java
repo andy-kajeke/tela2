@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import com.planetsystems.tela.data.attendance.SyncAttendanceRecordDao;
 import com.planetsystems.tela.data.clockOut.SyncClockOutDao;
-import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
+import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;
 import com.planetsystems.tela.dao.SyncEmployeeMaterialRequestDao;
 import com.planetsystems.tela.dao.SyncEmployeeTimeOffRequestDMsDao;
@@ -19,7 +19,7 @@ import com.planetsystems.tela.data.employeeRole.EmployeeRoleDao;
 import com.planetsystems.tela.data.attendance.SyncAttendanceRecord;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
-import com.planetsystems.tela.enties.SyncConfirmTimeOnSiteAttendance;
+import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendance;
 import com.planetsystems.tela.enties.SyncConfirmTimeOnTaskAttendance;
 import com.planetsystems.tela.enties.SyncEmployeeMaterialRequest;
 import com.planetsystems.tela.enties.SyncEmployeeTimeOffRequestDMs;

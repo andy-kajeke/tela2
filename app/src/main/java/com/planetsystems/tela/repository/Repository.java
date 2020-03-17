@@ -8,13 +8,14 @@ import com.planetsystems.tela.data.attendance.SyncAttendanceRecordDao;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 import com.planetsystems.tela.data.clockOut.SyncClockOutDao;
-import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
+import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;
 import com.planetsystems.tela.dao.SyncEmployeeMaterialRequestDao;
 import com.planetsystems.tela.dao.SyncEmployeeTimeOffRequestDMsDao;
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
+import com.planetsystems.tela.data.employeeRole.EmployeeRoleDao;
 
 import java.util.List;
 
