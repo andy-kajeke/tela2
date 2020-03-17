@@ -1,6 +1,7 @@
 package com.planetsystems.tela.data.timeOnTask;
 
 public class SynTimeOnTaskConstant {
+    public static final String TABLE_NAME = "sync_time_on_tasks";
     public static final String ID = "id";
     public static final String DATE_CREATED = "dateCreated";
     public static final String DATE_UPDATED = "dateUpdated";
