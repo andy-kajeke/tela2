@@ -1,6 +1,7 @@
 package com.planetsystems.tela.data.timetable;
 
 class SyncTimeTableConstant {
+    static final String SUBJECT_ID = "subjectId";
     static final String TABLE_NAME = "time_table_table";
     static final String ID = "id";
     static final String DATE_CREATED = "dateCreated";
