@@ -36,7 +36,6 @@ public class Repository {
     private SynTimeOnTaskDao synTimeOnTaskDao;
     private HelpRequestDao helpRequestDao;
     private SyncSMCDao syncSMCDao;
-    private SyncSMCDao syncSMCDao;
 
     public Repository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
@@ -52,7 +51,6 @@ public class Repository {
         syncEmployeeTimeOffRequestDMDao = telaRoomDatabase.getSyncEmployeeTimeOffRequestDMsDao();
         synTimeOnTaskDao = telaRoomDatabase.getSyncTimeOnTaskDao();
         helpRequestDao = telaRoomDatabase.getHelpRequestDao();
-        syncSMCDao = telaRoomDatabase.getSyncTimeTableDao();
         syncSMCDao = telaRoomDatabase.getSyncSMCDao();
 
     }

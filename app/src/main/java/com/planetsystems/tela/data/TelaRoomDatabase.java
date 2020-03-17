@@ -49,7 +49,6 @@ import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
         SynTimeOnTask.class,
         HelpRequest.class,
         SyncSMC.class,
-        SyncSMC.class
     }, version = 1, exportSchema = false)
 public abstract class TelaRoomDatabase extends RoomDatabase {
 
@@ -64,7 +63,6 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
     public abstract SyncEmployeeTimeOffRequestDMDao getSyncEmployeeTimeOffRequestDMsDao();
     public abstract SynTimeOnTaskDao getSyncTimeOnTaskDao();
     public abstract HelpRequestDao getHelpRequestDao();
-    public abstract SyncSMCDao getSyncTimeTableDao();
     public abstract SyncSMCDao getSyncSMCDao();
 
 
