@@ -1,11 +1,9 @@
-package com.planetsystems.tela.enties;
+package com.planetsystems.tela.data.ClockIn;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import com.planetsystems.tela.constants.SyncClockInNames;
 
 @Entity(tableName = SyncClockInNames.TABLE_NAME)
 public class SyncClockIn {

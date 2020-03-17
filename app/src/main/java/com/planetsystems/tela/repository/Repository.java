@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.dao.SyncAttendanceRecordsDao;
-import com.planetsystems.tela.dao.SyncClockInDao;
+import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.dao.SyncClockOutsDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;

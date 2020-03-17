@@ -1,4 +1,4 @@
-package com.planetsystems.tela.constants;
+package com.planetsystems.tela.data.ClockIn;
 
 public class SyncClockInNames {
     public static final String TABLE_NAME = "sync_clock_in";

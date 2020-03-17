@@ -1,12 +1,9 @@
-package com.planetsystems.tela.dao;
+package com.planetsystems.tela.data.ClockIn;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
-
-import com.planetsystems.tela.constants.SyncClockInNames;
-import com.planetsystems.tela.enties.SyncClockIn;
 
 import java.util.List;
 
