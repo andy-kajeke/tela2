@@ -16,6 +16,7 @@ import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.employeeRole.EmployeeRoleDao;
+import com.planetsystems.tela.data.helprequest.HelpRequestDao;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
 
@@ -33,6 +34,7 @@ public class Repository {
     private SyncAttendanceRecordDao syncAttendanceRecordDao;
     private SyncEmployeeTimeOffRequestDMDao syncEmployeeTimeOffRequestDMDao;
     private SynTimeOnTaskDao synTimeOnTaskDao;
+    private HelpRequestDao helpRequestDao;
 
     public Repository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
@@ -47,6 +49,8 @@ public class Repository {
         syncAttendanceRecordDao = telaRoomDatabase.getSyncAttendanceRecordsDao();
         syncEmployeeTimeOffRequestDMDao = telaRoomDatabase.getSyncEmployeeTimeOffRequestDMsDao();
         synTimeOnTaskDao = telaRoomDatabase.getSyncTimeOnTaskDao();
+        helpRequestDao = telaRoomDatabase.getHelpRequestDao();
+
     }
 
     //Enroll new staff member
