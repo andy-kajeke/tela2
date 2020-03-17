@@ -1,4 +1,4 @@
-package com.planetsystems.tela.repository;
+package com.planetsystems.tela;
 
 import android.app.Application;
 
