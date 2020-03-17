@@ -9,7 +9,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.planetsystems.tela.constants.SyncTableConstants;
-import com.planetsystems.tela.enties.SyncClockOuts;
 import com.planetsystems.tela.enties.SyncEmployeeTimeOffRequestDMs;
 
 import java.util.List;
