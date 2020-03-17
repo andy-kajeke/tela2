@@ -1,7 +1,7 @@
 package com.planetsystems.tela.data.smc;
 
 public class SyncSMCConstant {
-    static final String TABLE_NAME = "time_table_table";
+    static final String TABLE_NAME = "smc_table";
     static final String ID = "id";
     static final String DATE_CREATED = "dateCreated";
     static final String DATE_UPDATED = "dateUpdated";
