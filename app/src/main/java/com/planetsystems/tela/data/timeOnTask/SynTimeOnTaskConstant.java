@@ -19,5 +19,5 @@ public class SynTimeOnTaskConstant {
     public static final String EMPLOYEE_LAST_NAME = "employeeLastName";
     public static final String END_TIME = "endTime";
     public static final String START_TIME = "startTime";
-    public static final String TASK_TIME = "taskTime";
+    public static final String TASK_NAME = "taskName";
 }
