@@ -6,14 +6,14 @@ import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.data.attendance.SyncAttendanceRecordDao;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
-import com.planetsystems.tela.data.clockOut.SyncClockOutsDao;
+import com.planetsystems.tela.data.clockOut.SyncClockOut;
+import com.planetsystems.tela.data.clockOut.SyncClockOutDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;
 import com.planetsystems.tela.dao.SyncEmployeeMaterialRequestDao;
 import com.planetsystems.tela.dao.SyncEmployeeTimeOffRequestDMsDao;
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.TelaRoomDatabase;
-import com.planetsystems.tela.data.clockOut.SyncClockOuts;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class Repository {
 
     private EmployeeRoleDao employeeRoleDao;
     private SyncTeacherDao syncTeacherDao;
-    private SyncClockOutsDao syncClockOutsDao;
+    private SyncClockOutDao syncClockOutDao;
     private SyncClockInDao syncClockInDao;
     private SyncConfirmTimeOnSiteAttendanceDao timeOnSiteAttendanceDao;
     private SyncConfirmTimeOnTaskAttendanceDao timeOnTaskAttendanceDao;
@@ -34,7 +34,7 @@ public class Repository {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
         employeeRoleDao = telaRoomDatabase.getEmployeeRoleDao();
         syncTeacherDao = telaRoomDatabase.getSyncTeachersDao();
-        syncClockOutsDao = telaRoomDatabase.getSyncClockOuts();
+        syncClockOutDao = telaRoomDatabase.getSyncClockOuts();
         syncClockInDao = telaRoomDatabase.getSyncClockInDao();
         syncAttendanceRecordDao = telaRoomDatabase.getSyncAttendanceRecordsDao();
         timeOnSiteAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnSiteAttendanceDao();
@@ -60,11 +60,11 @@ public class Repository {
         return syncTeacherDao.getAllTeachers();
     }
 
-    public void addNew(final SyncClockOuts syncClockOuts){
+    public void addNew(final SyncClockOut syncClockOut){
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
-                syncClockOutsDao.addNew(syncClockOuts);
+                syncClockOutDao.addNew(syncClockOut);
             }
         });
     }

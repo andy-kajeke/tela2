@@ -9,21 +9,20 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.planetsystems.tela.constants.SyncTableConstants;
-import com.planetsystems.tela.data.clockOut.SyncClockOuts;
 
 import java.util.List;
 
 @Dao
-public interface SyncClockOutsDao {
+public interface SyncClockOutDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void addNew(SyncClockOuts syncTeachers);
+    void addNew(SyncClockOut syncTeachers);
 
     @Update
-    void update(SyncClockOuts syncTeachers);
+    void update(SyncClockOut syncTeachers);
 
     @Delete
-    void delete(SyncClockOuts syncTeachers);
+    void delete(SyncClockOut syncTeachers);
 
     @Query("SELECT * FROM " + SyncTableConstants.SyncClockOuts)
-    LiveData<List<SyncClockOuts>> getAllRecords();
+    LiveData<List<SyncClockOut>> getAllRecords();
 }
