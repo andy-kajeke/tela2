@@ -1,6 +1,6 @@
-package com.planetsystems.tela.constants;
+package com.planetsystems.tela.data.employeeMaterialRequest;
 
-public class SyncEmployeeMaterialRequestName {
+public class SyncEmployeeMaterialRequestConstant {
     public static final String ID = "id";
     public static final String DATE_CREATED = "dateCreated";
     public static final String DATE_UPDATED = "dateUpdated";

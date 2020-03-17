@@ -1,81 +1,79 @@
-package com.planetsystems.tela.enties;
+package com.planetsystems.tela.data.employeeMaterialRequest;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.planetsystems.tela.constants.SyncEmployeeMaterialRequestName;
-
-@Entity(tableName = SyncEmployeeMaterialRequestName.TABLE_NAME)
+@Entity(tableName = SyncEmployeeMaterialRequestConstant.TABLE_NAME)
 public class SyncEmployeeMaterialRequest {
 
     @PrimaryKey
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.ID)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.ID)
     @NonNull
     private String id;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.DATE_CREATED)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.DATE_CREATED)
     private String dateCreated;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.DATE_UPDATED)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.DATE_UPDATED)
     private String dateUpdated;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.STATUS)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.STATUS)
     private String status;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.APPROVED_STATUS)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.APPROVED_STATUS)
     private String approvedStatus;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.CONFIRMATION)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.CONFIRMATION)
     private String confirmation;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.COMMENT)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.COMMENT)
     private String comment;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.DATE_REQUIRED)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.DATE_REQUIRED)
     private String dateRequired;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.DEPLOYMENT_SITE)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.DEPLOYMENT_SITE)
     private String deploymentSite;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.DEPLOYMENT_SITE_ID)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.DEPLOYMENT_SITE_ID)
     private String deploymentSiteId;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.DEPLOYMENT_UNIT)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.DEPLOYMENT_UNIT)
     private String deploymentUnit;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.DEPLOYMENT_UNIT_ID)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.DEPLOYMENT_UNIT_ID)
     private String deploymentUnitId;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.EMPLOYEE)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.EMPLOYEE)
     private String employee;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.EMPLOYEE_ID)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.EMPLOYEE_ID)
     private String employeeId;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.EMPLOYEE_REQUEST_TYPE)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.EMPLOYEE_REQUEST_TYPE)
     private String employeeRequestType;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.ITEM_ID)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.ITEM_ID)
     private String itemId;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.ITEM_NAME)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.ITEM_NAME)
     private String itemName;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.QUANTITY)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.QUANTITY)
     private String quantity;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.REQUEST_DATE)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.REQUEST_DATE)
     private String requestDate;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.APPROVAL_DATE)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.APPROVAL_DATE)
     private String approval;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.ROW_VER)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.ROW_VER)
     private String rowVer;
 
-    @ColumnInfo(name = SyncEmployeeMaterialRequestName.ROW_ID)
+    @ColumnInfo(name = SyncEmployeeMaterialRequestConstant.ROW_ID)
     private String rowId;
 
     public SyncEmployeeMaterialRequest(@NonNull String id, String dateCreated, String dateUpdated, String status, String approvedStatus, String confirmation, String comment, String dateRequired, String deploymentSite, String deploymentSiteId, String deploymentUnit, String deploymentUnitId, String employee, String employeeId, String employeeRequestType, String itemId, String itemName, String quantity, String requestDate, String approval, String rowVer, String rowId) {
