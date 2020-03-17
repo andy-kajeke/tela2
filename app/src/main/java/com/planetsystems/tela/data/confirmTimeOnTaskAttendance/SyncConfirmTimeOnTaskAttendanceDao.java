@@ -1,4 +1,4 @@
-package com.planetsystems.tela.dao;
+package com.planetsystems.tela.data.confirmTimeOnTaskAttendance;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -9,7 +9,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.planetsystems.tela.constants.SyncTableConstants;
-import com.planetsystems.tela.enties.SyncConfirmTimeOnTaskAttendance;
+import com.planetsystems.tela.data.confirmTimeOnTaskAttendance.SyncConfirmTimeOnTaskAttendance;
 
 import java.util.List;
 
