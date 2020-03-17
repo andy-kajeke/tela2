@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Dao
-public interface SyncTeachersDao {
+public interface SyncTeacherDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void addNewStaff(SyncTeacher syncTeacher);
 

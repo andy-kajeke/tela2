@@ -11,7 +11,7 @@ import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;
 import com.planetsystems.tela.dao.SyncEmployeeMaterialRequestDao;
 import com.planetsystems.tela.dao.SyncEmployeeTimeOffRequestDMsDao;
-import com.planetsystems.tela.data.Teacher.SyncTeachersDao;
+import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.enties.SyncClockOuts;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
@@ -21,7 +21,7 @@ import java.util.List;
 public class Repository {
 
     private EmployeeRoleDao employeeRoleDao;
-    private SyncTeachersDao syncTeachersDao;
+    private SyncTeacherDao syncTeacherDao;
     private SyncClockOutsDao syncClockOutsDao;
     private SyncClockInDao syncClockInDao;
     private SyncConfirmTimeOnSiteAttendanceDao timeOnSiteAttendanceDao;
@@ -33,7 +33,7 @@ public class Repository {
     public Repository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
         employeeRoleDao = telaRoomDatabase.getEmployeeRoleDao();
-        syncTeachersDao = telaRoomDatabase.getSyncTeachersDao();
+        syncTeacherDao = telaRoomDatabase.getSyncTeachersDao();
         syncClockOutsDao = telaRoomDatabase.getSyncClockOuts();
         syncClockInDao = telaRoomDatabase.getSyncClockInDao();
         syncAttendanceRecordsDao = telaRoomDatabase.getSyncAttendanceRecordsDao();
@@ -50,14 +50,14 @@ public class Repository {
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
-                syncTeachersDao.addNewStaff(syncTeacher);
+                syncTeacherDao.addNewStaff(syncTeacher);
             }
         });
     }
 
     //Fetch all enrolled staff members
     public LiveData<List<SyncTeacher>> getAllTeachers(){
-        return syncTeachersDao.getAllTeachers();
+        return syncTeacherDao.getAllTeachers();
     }
 
     public void addNew(final SyncClockOuts syncClockOuts){

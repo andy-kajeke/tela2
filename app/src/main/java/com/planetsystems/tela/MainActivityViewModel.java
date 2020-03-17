@@ -6,14 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.planetsystems.tela.data.Teacher.SyncTeachersDao;
+import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.repository.Repository;
 
 import java.util.List;
 
 public class MainActivityViewModel extends AndroidViewModel {
-    private SyncTeachersDao syncTeachersDao;
+    private SyncTeacherDao syncTeacherDao;
     private Repository repository;
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
