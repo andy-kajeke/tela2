@@ -8,39 +8,6 @@
     android:background="#fff"
     tools:context=".activities.ClockIn_ClockOut">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/hool_1">
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/profileToolBar"
-            android:background="@color/colorPrimary">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/update"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/telalogo" />
-
-            </RelativeLayout>
-
-
-        </androidx.appcompat.widget.Toolbar>
-
-    </LinearLayout>
-
     <ImageView
         android:id="@+id/imageClock"
         android:layout_width="60px"
@@ -51,7 +18,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         tools:ignore="UnknownId" />
 
     <TextClock
@@ -100,7 +67,7 @@
         card_view:contentPadding="5dp"
         card_view:cardCornerRadius="5dp"
         card_view:cardMaxElevation="5dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="100dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginStart="15dp"
