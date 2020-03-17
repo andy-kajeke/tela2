@@ -24,6 +24,7 @@ import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOn
 import com.planetsystems.tela.data.confirmTimeOnTaskAttendance.SyncConfirmTimeOnTaskAttendance;
 import com.planetsystems.tela.data.employeeMaterialRequest.SyncEmployeeMaterialRequest;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
+import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -40,6 +41,7 @@ import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
         SyncConfirmTimeOnSiteAttendance.class,
         SyncConfirmTimeOnTaskAttendance.class,
         SyncEmployeeMaterialRequest.class,
+        SynTimeOnTask.class
     }, version = 1, exportSchema = false)
 public abstract class TelaRoomDatabase extends RoomDatabase {
 
@@ -52,6 +54,7 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
     public abstract SyncAttendanceRecordDao getSyncAttendanceRecordsDao();
     public abstract SyncEmployeeMaterialRequestDao getSyncEmployeeMaterialRequest();
     public abstract SyncEmployeeTimeOffRequestDMDao getSyncEmployeeTimeOffRequestDMsDao();
+    public abstract SynTimeOnTask getSyncTimeOnTaskDao();
 
 
     private  static volatile TelaRoomDatabase tela_DB;
