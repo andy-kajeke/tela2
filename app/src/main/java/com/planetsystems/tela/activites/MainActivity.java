@@ -1,4 +1,4 @@
-package com.planetsystems.tela;
+package com.planetsystems.tela.activites;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.planetsystems.tela.activityViewModel.MainActivityViewModel;
+import com.planetsystems.tela.R;
 import com.planetsystems.tela.enties.SyncTeacher;
 
 import java.util.List;
