@@ -1,6 +1,7 @@
 package com.planetsystems.tela.data.helprequest;
 
 class HelpRequestConstant {
+    public static final String TABLE_NAME = "help_request";
     static final String ID = "id";
     static final String DATE_CREATED = "dateCreated";
     static final String DATE_UPDATED = "dateUpdated";
