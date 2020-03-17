@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activities.ClockIn_ClockOut"></activity>
         <activity android:name=".activities.EnrollmentActivity" />
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
