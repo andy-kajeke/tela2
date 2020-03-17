@@ -11,10 +11,10 @@ import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;
 import com.planetsystems.tela.dao.SyncEmployeeMaterialRequestDao;
 import com.planetsystems.tela.dao.SyncEmployeeTimeOffRequestDMsDao;
-import com.planetsystems.tela.dao.SyncTeachersDao;
+import com.planetsystems.tela.data.Teacher.SyncTeachersDao;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.enties.SyncClockOuts;
-import com.planetsystems.tela.enties.SyncTeacher;
+import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
 import java.util.List;
 

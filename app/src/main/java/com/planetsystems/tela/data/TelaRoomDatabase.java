@@ -12,7 +12,7 @@ import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;
 import com.planetsystems.tela.dao.SyncEmployeeMaterialRequestDao;
 import com.planetsystems.tela.dao.SyncEmployeeTimeOffRequestDMsDao;
-import com.planetsystems.tela.dao.SyncTeachersDao;
+import com.planetsystems.tela.data.Teacher.SyncTeachersDao;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.employeeRole.EmployeeRole;
 import com.planetsystems.tela.data.employeeRole.EmployeeRoleDao;
@@ -23,7 +23,7 @@ import com.planetsystems.tela.enties.SyncConfirmTimeOnSiteAttendance;
 import com.planetsystems.tela.enties.SyncConfirmTimeOnTaskAttendance;
 import com.planetsystems.tela.enties.SyncEmployeeMaterialRequest;
 import com.planetsystems.tela.enties.SyncEmployeeTimeOffRequestDMs;
-import com.planetsystems.tela.enties.SyncTeacher;
+import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

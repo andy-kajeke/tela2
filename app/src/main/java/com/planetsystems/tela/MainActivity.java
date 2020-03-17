@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.planetsystems.tela.enties.SyncTeacher;
+import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
 import java.util.List;
 

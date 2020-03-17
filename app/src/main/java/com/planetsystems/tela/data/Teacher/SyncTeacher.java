@@ -1,4 +1,4 @@
-package com.planetsystems.tela.enties;
+package com.planetsystems.tela.data.Teacher;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

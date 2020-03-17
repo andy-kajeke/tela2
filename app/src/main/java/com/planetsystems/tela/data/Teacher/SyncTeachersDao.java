@@ -1,4 +1,4 @@
-package com.planetsystems.tela.dao;
+package com.planetsystems.tela.data.Teacher;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -9,7 +9,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.planetsystems.tela.constants.SyncTableConstants;
-import com.planetsystems.tela.enties.SyncTeacher;
 
 import java.util.List;
 

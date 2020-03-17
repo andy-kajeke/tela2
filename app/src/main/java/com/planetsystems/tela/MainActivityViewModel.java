@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.planetsystems.tela.dao.SyncTeachersDao;
-import com.planetsystems.tela.enties.SyncTeacher;
+import com.planetsystems.tela.data.Teacher.SyncTeachersDao;
+import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.repository.Repository;
 
 import java.util.List;
