@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.planetsystems.tela.dao.SyncAttendanceRecordsDao;
+import com.planetsystems.tela.data.attendance.SyncAttendanceRecordDao;
 import com.planetsystems.tela.dao.SyncClockOutsDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;
@@ -16,7 +16,7 @@ import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.employeeRole.EmployeeRole;
 import com.planetsystems.tela.data.employeeRole.EmployeeRoleDao;
-import com.planetsystems.tela.enties.SyncAttendanceRecords;
+import com.planetsystems.tela.data.attendance.SyncAttendanceRecord;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.enties.SyncClockOuts;
 import com.planetsystems.tela.enties.SyncConfirmTimeOnSiteAttendance;
@@ -36,7 +36,7 @@ import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
         SyncClockIn.class,
         SyncClockOuts.class,
         SyncEmployeeTimeOffRequestDMs.class,
-        SyncAttendanceRecords.class,
+        SyncAttendanceRecord.class,
         SyncConfirmTimeOnSiteAttendance.class,
         SyncConfirmTimeOnTaskAttendance.class,
         SyncEmployeeMaterialRequest.class,
@@ -49,7 +49,7 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
     public abstract SyncClockInDao getSyncClockInDao();
     public abstract SyncConfirmTimeOnTaskAttendanceDao getSyncConfirmTimeOnTaskAttendancesDao();
     public abstract SyncConfirmTimeOnSiteAttendanceDao getSyncConfirmTimeOnSiteAttendanceDao();
-    public abstract SyncAttendanceRecordsDao getSyncAttendanceRecordsDao();
+    public abstract SyncAttendanceRecordDao getSyncAttendanceRecordsDao();
     public abstract SyncEmployeeMaterialRequestDao getSyncEmployeeMaterialRequest();
     public abstract SyncEmployeeTimeOffRequestDMsDao getSyncEmployeeTimeOffRequestDMsDao();
 

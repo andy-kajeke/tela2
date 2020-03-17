@@ -1,4 +1,4 @@
-package com.planetsystems.tela.enties;
+package com.planetsystems.tela.data.attendance;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import com.planetsystems.tela.constants.SyncTableConstants;
 
 @Entity(tableName = SyncTableConstants.SyncAttendanceRecords)
-public class SyncAttendanceRecords {
+public class SyncAttendanceRecord {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
@@ -54,10 +54,10 @@ public class SyncAttendanceRecords {
     @ColumnInfo(name = "taskDay")
     private String taskDay;
 
-    public SyncAttendanceRecords(@NonNull String id, String dateCreated, String dateUpdated, int status,
-                                 String comment, String deploymentUnit, String deploymentUnitId, String femaleAbsent,
-                                 String femalePresent, String maleAbsent, String malePresent, String submissionDate,
-                                 String supervisorId, String taskDay) {
+    public SyncAttendanceRecord(@NonNull String id, String dateCreated, String dateUpdated, int status,
+                                String comment, String deploymentUnit, String deploymentUnitId, String femaleAbsent,
+                                String femalePresent, String maleAbsent, String malePresent, String submissionDate,
+                                String supervisorId, String taskDay) {
         this.id = id;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;

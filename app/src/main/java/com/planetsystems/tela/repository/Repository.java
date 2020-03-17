@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.planetsystems.tela.dao.SyncAttendanceRecordsDao;
+import com.planetsystems.tela.data.attendance.SyncAttendanceRecordDao;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.dao.SyncClockOutsDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
@@ -27,7 +27,7 @@ public class Repository {
     private SyncConfirmTimeOnSiteAttendanceDao timeOnSiteAttendanceDao;
     private SyncConfirmTimeOnTaskAttendanceDao timeOnTaskAttendanceDao;
     private SyncEmployeeMaterialRequestDao syncEmployeeMaterialRequestDao;
-    private SyncAttendanceRecordsDao syncAttendanceRecordsDao;
+    private SyncAttendanceRecordDao syncAttendanceRecordDao;
     private SyncEmployeeTimeOffRequestDMsDao syncEmployeeTimeOffRequestDMsDao;
 
     public Repository(Application application) {
@@ -36,11 +36,11 @@ public class Repository {
         syncTeacherDao = telaRoomDatabase.getSyncTeachersDao();
         syncClockOutsDao = telaRoomDatabase.getSyncClockOuts();
         syncClockInDao = telaRoomDatabase.getSyncClockInDao();
-        syncAttendanceRecordsDao = telaRoomDatabase.getSyncAttendanceRecordsDao();
+        syncAttendanceRecordDao = telaRoomDatabase.getSyncAttendanceRecordsDao();
         timeOnSiteAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnSiteAttendanceDao();
         timeOnTaskAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnTaskAttendancesDao();
         syncEmployeeMaterialRequestDao = telaRoomDatabase.getSyncEmployeeMaterialRequest();
-        syncAttendanceRecordsDao = telaRoomDatabase.getSyncAttendanceRecordsDao();
+        syncAttendanceRecordDao = telaRoomDatabase.getSyncAttendanceRecordsDao();
         syncEmployeeTimeOffRequestDMsDao = telaRoomDatabase.getSyncEmployeeTimeOffRequestDMsDao();
     }
 
