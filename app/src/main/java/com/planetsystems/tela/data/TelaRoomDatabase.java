@@ -1,4 +1,4 @@
-package com.planetsystems.tela.database;
+package com.planetsystems.tela.data;
 
 import android.content.Context;
 
@@ -6,7 +6,6 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.planetsystems.tela.dao.EmployeeRoleDao;
 import com.planetsystems.tela.dao.SyncAttendanceRecordsDao;
 import com.planetsystems.tela.dao.SyncClockOutsDao;
 import com.planetsystems.tela.dao.SyncConfirmTimeOnSiteAttendanceDao;
@@ -14,8 +13,9 @@ import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;
 import com.planetsystems.tela.dao.SyncEmployeeMaterialRequestDao;
 import com.planetsystems.tela.dao.SyncEmployeeTimeOffRequestDMsDao;
 import com.planetsystems.tela.dao.SyncTeachersDao;
-import com.planetsystems.tela.enties.EmployeeRole;
 import com.planetsystems.tela.dao.SyncClockInDao;
+import com.planetsystems.tela.data.employeeRole.EmployeeRole;
+import com.planetsystems.tela.data.employeeRole.EmployeeRoleDao;
 import com.planetsystems.tela.enties.SyncAttendanceRecords;
 import com.planetsystems.tela.enties.SyncClockIn;
 import com.planetsystems.tela.enties.SyncClockOuts;

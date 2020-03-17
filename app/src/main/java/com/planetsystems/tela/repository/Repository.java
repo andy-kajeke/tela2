@@ -4,7 +4,6 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.planetsystems.tela.dao.EmployeeRoleDao;
 import com.planetsystems.tela.dao.SyncAttendanceRecordsDao;
 import com.planetsystems.tela.dao.SyncClockInDao;
 import com.planetsystems.tela.dao.SyncClockOutsDao;
@@ -13,7 +12,7 @@ import com.planetsystems.tela.dao.SyncConfirmTimeOnTaskAttendanceDao;
 import com.planetsystems.tela.dao.SyncEmployeeMaterialRequestDao;
 import com.planetsystems.tela.dao.SyncEmployeeTimeOffRequestDMsDao;
 import com.planetsystems.tela.dao.SyncTeachersDao;
-import com.planetsystems.tela.database.TelaRoomDatabase;
+import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.enties.SyncClockOuts;
 import com.planetsystems.tela.enties.SyncTeacher;
 

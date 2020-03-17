@@ -8,8 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.planetsystems.tela.constants.EmployeeRoleName;
-import com.planetsystems.tela.enties.EmployeeRole;
+import com.planetsystems.tela.data.employeeRole.EmployeeRoleConstants;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public interface EmployeeRoleDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertEmployeeRole(com.planetsystems.tela.enties.EmployeeRole employeeRole);
 
-    @Query("SELECT * from " + EmployeeRoleName.TABLE_NAME)
+    @Query("SELECT * from " + EmployeeRoleConstants.TABLE_NAME)
     LiveData<List<com.planetsystems.tela.enties.EmployeeRole>> queryAllEmployeeRoles();
 
     @Update(entity = com.planetsystems.tela.enties.EmployeeRole.class)

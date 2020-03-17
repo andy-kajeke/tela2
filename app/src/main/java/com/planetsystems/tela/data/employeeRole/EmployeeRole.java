@@ -5,25 +5,23 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.planetsystems.tela.constants.EmployeeRoleName;
-
-@Entity(tableName = EmployeeRoleName.TABLE_NAME)
+@Entity(tableName = EmployeeRoleConstants.TABLE_NAME)
 public class EmployeeRole {
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = EmployeeRoleName.ID)
+    @ColumnInfo(name = EmployeeRoleConstants.ID)
     private String id;
 
-    @ColumnInfo(name = EmployeeRoleName.DATE_CREATED)
+    @ColumnInfo(name = EmployeeRoleConstants.DATE_CREATED)
     private String dateCreated;
 
-    @ColumnInfo(name = EmployeeRoleName.DATE_UPDATED)
+    @ColumnInfo(name = EmployeeRoleConstants.DATE_UPDATED)
     private String dateUpdated;
 
-    @ColumnInfo(name = EmployeeRoleName.DESCRIPTION)
+    @ColumnInfo(name = EmployeeRoleConstants.DESCRIPTION)
     private String description;
 
-    @ColumnInfo(name = EmployeeRoleName.EMPLOYEE_ROLE)
+    @ColumnInfo(name = EmployeeRoleConstants.EMPLOYEE_ROLE)
     private String employeeRole;
 
     @ColumnInfo(name = "status")
