@@ -1,27 +1,27 @@
 package com.planetsystems.tela.data.employeeMaterialRequest;
 
-public class SyncEmployeeMaterialRequestConstant {
-    public static final String ID = "id";
-    public static final String DATE_CREATED = "dateCreated";
-    public static final String DATE_UPDATED = "dateUpdated";
-    public static final String STATUS = "status";
-    public static final String APPROVED_STATUS = "approvedStatus";
-    public static final String CONFIRMATION = "confirmation";
-    public static final String COMMENT = "comment";
-    public static final String DATE_REQUIRED = "dateRequired";
-    public static final String DEPLOYMENT_SITE = "deploymentSite";
-    public static final String DEPLOYMENT_SITE_ID = "deploymentSiteId";
-    public static final String DEPLOYMENT_UNIT = "deploymentUnit";
-    public static final String DEPLOYMENT_UNIT_ID = "deploymentUnitId";
-    public static final String EMPLOYEE = "employee";
-    public static final String EMPLOYEE_ID = "employeeId";
-    public static final String EMPLOYEE_REQUEST_TYPE = "employeeRequestTime";
-    public static final String ITEM_ID = "itemId";
-    public static final String ITEM_NAME = "itemName";
-    public static final String QUANTITY = "quantity";
-    public static final String REQUEST_DATE = "requestDate";
-    public static final String APPROVAL_DATE = "approvalDate";
-    public static final String ROW_VER = "rowVer";
-    public static final String ROW_ID = "rowId";
-    public static final String TABLE_NAME = "material_request";
+class SyncEmployeeMaterialRequestConstant {
+    static final String ID = "id";
+    static final String DATE_CREATED = "dateCreated";
+    static final String DATE_UPDATED = "dateUpdated";
+    static final String STATUS = "status";
+    static final String APPROVED_STATUS = "approvedStatus";
+    static final String CONFIRMATION = "confirmation";
+    static final String COMMENT = "comment";
+    static final String DATE_REQUIRED = "dateRequired";
+    static final String DEPLOYMENT_SITE = "deploymentSite";
+    static final String DEPLOYMENT_SITE_ID = "deploymentSiteId";
+    static final String DEPLOYMENT_UNIT = "deploymentUnit";
+    static final String DEPLOYMENT_UNIT_ID = "deploymentUnitId";
+    static final String EMPLOYEE = "employee";
+    static final String EMPLOYEE_ID = "employeeId";
+    static final String EMPLOYEE_REQUEST_TYPE = "employeeRequestTime";
+    static final String ITEM_ID = "itemId";
+    static final String ITEM_NAME = "itemName";
+    static final String QUANTITY = "quantity";
+    static final String REQUEST_DATE = "requestDate";
+    static final String APPROVAL_DATE = "approvalDate";
+    static final String ROW_VER = "rowVer";
+    static final String ROW_ID = "rowId";
+    static final String TABLE_NAME = "material_request";
 }
