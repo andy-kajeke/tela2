@@ -54,7 +54,7 @@ public class SyncTimeTable {
     @ColumnInfo(name = SyncTimeTableConstant.TASK_ID)
     private String taskId;
 
-    @ColumnInfo(name = SyncTimeTableConstant.START_TIME)
+    @ColumnInfo(name = SyncTimeTableConstant.TASK_NAME)
     private String taskName;
 
     @ColumnInfo(name = SyncTimeTableConstant.ROW_ID)

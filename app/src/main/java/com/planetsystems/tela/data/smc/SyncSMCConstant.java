@@ -12,7 +12,7 @@ public class SyncSMCConstant {
     static final String P_1 = "p_1";
     static final String P_2 = "p_2";
     static final String P_3 = "p_3";
-    static final String P_4 = "p_3";
+    static final String P_4 = "p_4";
     static final String P_5 = "p_5";
     static final String P_6 = "p_6";
     static final String P_7 = "p_7";
