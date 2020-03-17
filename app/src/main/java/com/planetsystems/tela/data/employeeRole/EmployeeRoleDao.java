@@ -8,7 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.planetsystems.tela.data.employeeRole.EmployeeRoleConstants;
 
 import java.util.List;
 
@@ -16,15 +15,15 @@ import java.util.List;
 public interface EmployeeRoleDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertEmployeeRole(com.planetsystems.tela.enties.EmployeeRole employeeRole);
+    void insertEmployeeRole(EmployeeRole employeeRole);
 
     @Query("SELECT * from " + EmployeeRoleConstants.TABLE_NAME)
-    LiveData<List<com.planetsystems.tela.enties.EmployeeRole>> queryAllEmployeeRoles();
+    LiveData<List<EmployeeRole>> queryAllEmployeeRoles();
 
-    @Update(entity = com.planetsystems.tela.enties.EmployeeRole.class)
-    void updateStudent(com.planetsystems.tela.enties.EmployeeRole employeeRole);
+    @Update(entity = EmployeeRole.class)
+    void updateStudent(EmployeeRole employeeRole);
 
-    @Delete(entity = com.planetsystems.tela.enties.EmployeeRole.class)
+    @Delete(entity = EmployeeRole.class)
     void deleteStudent(EmployeeRole employeeRole);
 
 }
