@@ -26,6 +26,8 @@ import com.planetsystems.tela.data.employeeMaterialRequest.SyncEmployeeMaterialR
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.helprequest.HelpRequest;
 import com.planetsystems.tela.data.helprequest.HelpRequestDao;
+import com.planetsystems.tela.data.smc.SyncSMC;
+import com.planetsystems.tela.data.smc.SyncSMCDao;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
 import com.planetsystems.tela.data.timetble.SyncTimeTable;
@@ -48,7 +50,8 @@ import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
         SyncEmployeeMaterialRequest.class,
         SynTimeOnTask.class,
         HelpRequest.class,
-        SyncTimeTable.class
+        SyncTimeTable.class,
+        SyncSMC.class
     }, version = 1, exportSchema = false)
 public abstract class TelaRoomDatabase extends RoomDatabase {
 
@@ -64,6 +67,7 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
     public abstract SynTimeOnTaskDao getSyncTimeOnTaskDao();
     public abstract HelpRequestDao getHelpRequestDao();
     public abstract SyncTimeTableDao getSyncTimeTableDao();
+    public abstract SyncSMCDao getSyncSMCDao();
 
 
     private  static volatile TelaRoomDatabase tela_DB;

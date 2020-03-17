@@ -17,6 +17,7 @@ import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.employeeRole.EmployeeRoleDao;
 import com.planetsystems.tela.data.helprequest.HelpRequestDao;
+import com.planetsystems.tela.data.smc.SyncSMCDao;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
 import com.planetsystems.tela.data.timetble.SyncTimeTableDao;
 
@@ -36,6 +37,7 @@ public class Repository {
     private SynTimeOnTaskDao synTimeOnTaskDao;
     private HelpRequestDao helpRequestDao;
     private SyncTimeTableDao syncTimeTableDao;
+    private SyncSMCDao syncSMCDao;
 
     public Repository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
@@ -51,7 +53,8 @@ public class Repository {
         syncEmployeeTimeOffRequestDMDao = telaRoomDatabase.getSyncEmployeeTimeOffRequestDMsDao();
         synTimeOnTaskDao = telaRoomDatabase.getSyncTimeOnTaskDao();
         helpRequestDao = telaRoomDatabase.getHelpRequestDao();
-        syncTimeTableDao = telaRoomDatabase.getSyncTimeTableDao()
+        syncTimeTableDao = telaRoomDatabase.getSyncTimeTableDao();
+        syncSMCDao = telaRoomDatabase.getSyncSMCDao();
 
     }
 
