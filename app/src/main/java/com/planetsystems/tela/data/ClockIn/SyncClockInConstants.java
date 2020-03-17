@@ -1,6 +1,6 @@
 package com.planetsystems.tela.data.ClockIn;
 
-public class SyncClockInNames {
+public class SyncClockInConstants {
     public static final String TABLE_NAME = "sync_clock_in";
     public static final String ID = "id";
     public static final String DATE_CREATED = "dateCreated";

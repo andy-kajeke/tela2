@@ -13,6 +13,6 @@ public interface SyncClockInDao {
     @Insert
     void insertClockIn(SyncClockIn clockIn);
 
-    @Query("SELECT * FROM " + SyncClockInNames.TABLE_NAME)
+    @Query("SELECT * FROM " + SyncClockInConstants.TABLE_NAME)
     LiveData<List<SyncClockIn>> getAllClockIn();
 }
