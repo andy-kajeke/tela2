@@ -11,7 +11,7 @@ import com.planetsystems.tela.data.clockOut.SyncClockOutDao;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.data.confirmTimeOnTaskAttendance.SyncConfirmTimeOnTaskAttendanceDao;
 import com.planetsystems.tela.data.employeeMaterialRequest.SyncEmployeeMaterialRequestDao;
-import com.planetsystems.tela.dao.SyncEmployeeTimeOffRequestDMsDao;
+import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDMsDao;
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
