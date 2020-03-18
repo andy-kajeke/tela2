@@ -13,15 +13,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextClock;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.planetsystems.tela.R;
 import com.suprema.BioMiniFactory;
@@ -177,7 +180,7 @@ public class FingerPrintActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
+                Toast.makeText(FingerPrintActivity.this, msg, Toast.LENGTH_LONG).show();
 //                ((TextView) findViewById(R.id.revText)).setText(msg);
             }
         });
@@ -247,48 +250,8 @@ public class FingerPrintActivity extends AppCompatActivity {
         textClock.setFormat24Hour("hh:mm:ss a EEE MMM d");
         textClock.animate();
         textDate = findViewById(R.id.date_view);
-        textDate.setText(getCurrentDate());
 
-        teacherViewModel = new ViewModelProvider(this).get(TeacherViewModel.class);
-
-        enroll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ((teacherCapturedTemplate != null)) {
-                    Intent intent = new Intent(MainActivity.this, EnrollActivity.class);
-                    intent.setAction(EnrollActivity.ACTION_ENROLL);
-                    intent.putExtra(EnrollActivity.CAPTURED_BITMAP, teacherImage);
-                    intent.putExtra(EnrollActivity.CAPTURED_TEMPLATE, teacherCapturedTemplate.data);
-                    startActivityForResult(intent, ENROLL_TEACHTER);
-                } else {
-                    Toast.makeText(MainActivity.this, "Please Capture your fingerprint", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        verify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, VerifyActivity.class);
-                intent.setAction(EnrollActivity.ACTION_VERIFY);
-                startActivity(intent);
-            }
-        });
-
-        findViewById(R.id.clock_in).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clockInTeacher(v);
-            }
-        });
-
-        findViewById(R.id.clock_out).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clockOutTeacher(v);
-            }
-        });
-
+        fingerPrintActivityViewModel = new ViewModelProvider(this).get(FingerPrintActivityViewModel.class);
 
         findViewById(R.id.capture).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -305,14 +268,6 @@ public class FingerPrintActivity extends AppCompatActivity {
             }
         });
 
-        attendance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TeacherListActivity.class);
-                startActivity(intent);
-            }
-        });
-
         if(mBioMiniFactory != null) {
             mBioMiniFactory.close();
         }
@@ -321,52 +276,6 @@ public class FingerPrintActivity extends AppCompatActivity {
 
 //        printRev(""+mBioMiniFactory.getSDKInfo());
 
-    }
-
-    private void clockInTeacher(View v) {
-        teacherViewModel.getTeachers().observe(this, new Observer<List<Teacher>>() {
-            @Override
-            public void onChanged(List<Teacher> teachers) {
-                for (int i = 0; i < teachers.size(); i++) {
-                    Teacher teacher = teachers.get(i);
-                    if (mCurrentDevice != null) {
-                        if (mCurrentDevice.verify(teacherCapturedTemplate.data, teacher.getFingerPrint())) {
-                            Snackbar.make(
-                                    findViewById(android.R.id.content),
-                                    "Clocked In " + teacher.getFirstName() + " " + getCurrentTime(),
-                                    Snackbar.LENGTH_LONG).show();
-                        }
-                        if ( i == teachers.size()) {
-                            Toast.makeText(MainActivity.this, "Teacher NOT found Enroll", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                }
-            }
-        });
-    }
-
-    private void clockOutTeacher(View v) {
-        teacherViewModel.getTeachers().observe(this, new Observer<List<Teacher>>() {
-            @Override
-            public void onChanged(List<Teacher> teachers) {
-                for (int i = 0; i < teachers.size(); i++) {
-                    Teacher teacher = teachers.get(i);
-                    if (mCurrentDevice != null) {
-                        if (mCurrentDevice.verify(teacherCapturedTemplate.data, teacher.getFingerPrint())) {
-                            Snackbar.make(
-                                    findViewById(android.R.id.content),
-                                    "Clocked Out " + teacher.getFirstName() + " " + getCurrentTime(),
-                                    Snackbar.LENGTH_LONG).show();
-                        }
-                        if ( i == teachers.size()) {
-                            Toast.makeText(MainActivity.this, "Teacher NOT found Enroll", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                }
-            }
-        });
     }
 
     void restartBioMini() {
@@ -469,11 +378,6 @@ public class FingerPrintActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
     }
 
-    private String getCurrentDate() {
-        Date toDay = Calendar.getInstance().getTime();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
-        return simpleDateFormat.format(toDay);
-    }
 
     private void disableButton(Button view) {
         view.setEnabled(false);
@@ -486,30 +390,5 @@ public class FingerPrintActivity extends AppCompatActivity {
         view.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         view.setTextColor(getResources().getColor(R.color.colorLight));
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_activity_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.setting:
-                // do some settings
-                return true;
-
-            case R.id.about:
-                // do about things
-                return true;
-
-            case R.id.help:
-                // do some help
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
 }
