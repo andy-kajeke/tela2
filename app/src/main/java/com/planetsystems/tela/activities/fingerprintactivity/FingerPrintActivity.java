@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.PendingIntent;
 import android.graphics.Bitmap;
+import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 
 import com.planetsystems.tela.R;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
+
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class FingerPrintActivity extends AppCompatActivity implements DeviceBroadcastReceiver.OnDeviceConnectionListener{
     public static final String ACTION_USB_PERMISSION = "com.planetsystems.tela.activities.fingerprintactivity.FingerPrintActivity";
@@ -49,6 +53,17 @@ public class FingerPrintActivity extends AppCompatActivity implements DeviceBroa
 //                ((TextView) findViewById(R.id.revText)).setText(msg);
             }
         });
+    }
+
+    public void checkDevice() {
+        if (mUsbManager == null ) {
+            log("checkDevice");
+            HashMap<String, UsbDevice> deviceList = mUsbManager.getDeviceList();
+            Iterator<UsbDevice> usbDeviceIterator = deviceList.values().iterator();
+            while (usbDeviceIterator.hasNext()) {
+                UsbDevice _device = usbDeviceIterator.next();
+            }
+        }
     }
 
 
