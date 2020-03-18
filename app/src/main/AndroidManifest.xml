@@ -14,6 +14,7 @@
         <activity android:name=".activities.ClockIn_ClockOut" />
         <activity
             android:name=".activities.EnrollmentActivity"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".activities.ClockIn_ClockOut" />
         <activity
             android:name=".activities.MainActivity"
