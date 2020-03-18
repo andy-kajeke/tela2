@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.planetsystems.tela.R;
@@ -22,6 +23,7 @@ public class ClockIn_ClockOut extends AppCompatActivity {
 
     TextView dateDisplay;
     TextView close_clockIn, close_clockOut;
+    Button btnFingerprint_In, btnStaffId_In, btnFingerprint_Out, btnStaffId_Out;
     CardView checkin, checkout, datacenter;
     Dialog checkInDialog, checkOutDialog;
     @Override
@@ -87,6 +89,24 @@ public class ClockIn_ClockOut extends AppCompatActivity {
     public void ClockIn(){
         checkInDialog.setContentView(R.layout.check_in_popup);
         close_clockIn = checkInDialog.findViewById(R.id.txclose);
+        btnFingerprint_In = checkInDialog.findViewById(R.id.finger_in);
+        btnStaffId_In = checkInDialog.findViewById(R.id.staffId_in);
+
+        //Clock in with fingerprint
+        btnFingerprint_In.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        //Clock in with staff ID
+        btnStaffId_In.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         //Close clock in dialog
         close_clockIn.setText("X");
@@ -104,6 +124,24 @@ public class ClockIn_ClockOut extends AppCompatActivity {
     public void ClockOut(){
         checkOutDialog.setContentView(R.layout.check_out_popup);
         close_clockOut = checkOutDialog.findViewById(R.id.txclose);
+        btnFingerprint_Out = checkOutDialog.findViewById(R.id.finger_out);
+        btnStaffId_Out = checkOutDialog.findViewById(R.id.staffId_out);
+
+        //Clock out with fingerprint
+        btnFingerprint_Out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        //Clock out with staff ID
+        btnStaffId_Out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         //Close clock out dialog
         close_clockOut.setText("X");
