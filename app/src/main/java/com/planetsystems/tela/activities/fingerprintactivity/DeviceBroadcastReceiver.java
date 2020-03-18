@@ -11,7 +11,7 @@ public class DeviceBroadcastReceiver extends BroadcastReceiver {
 
     public DeviceBroadcastReceiver(Context context) {
         super();
-        listener = (FingerPrintActivity)context;
+//        listener = (FingerPrintActivity)context;
     }
 
     @Override

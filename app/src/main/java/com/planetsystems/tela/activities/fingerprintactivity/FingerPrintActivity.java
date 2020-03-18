@@ -40,7 +40,7 @@ public class FingerPrintActivity extends AppCompatActivity {
 
     //Flag.
     public static final boolean mbUsbExternalUSBManager = false;
-    private static final String ACTION_USB_PERMISSION = "com.planetsystems.tela.activities.fingerprintactivity.USB_PERMISSION";
+    public static final String ACTION_USB_PERMISSION = "com.planetsystems.tela.activities.fingerprintactivity.USB_PERMISSION";
     private UsbManager mUsbManager = null;
     private PendingIntent mPermissionIntent= null;
     //
