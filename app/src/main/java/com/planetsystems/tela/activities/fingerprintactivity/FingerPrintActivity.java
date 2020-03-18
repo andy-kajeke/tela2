@@ -3,7 +3,9 @@ package com.planetsystems.tela.activities.fingerprintactivity;
 import android.app.PendingIntent;
 import android.graphics.Bitmap;
 import android.hardware.usb.UsbManager;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +13,8 @@ import com.planetsystems.tela.R;
 import com.suprema.BioMiniFactory;
 import com.suprema.CaptureResponder;
 import com.suprema.IBioMiniDevice;
+
+import java.util.Locale;
 
 public class FingerPrintActivity extends AppCompatActivity {
 
@@ -43,7 +47,7 @@ public class FingerPrintActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     if(capturedImage != null) {
-                        ImageView iv = (ImageView) findViewById(R.id.imagePreview);
+                        ImageView iv = (ImageView) findViewById(R.id.finger_image);
                         if(iv != null) {
                             iv.setImageBitmap(capturedImage);
                         }
@@ -76,7 +80,7 @@ public class FingerPrintActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     if(capturedImage != null) {
-                        ImageView iv = (ImageView) findViewById(R.id.imagePreview);
+                        ImageView iv = (ImageView) findViewById(R.id.finger_image);
                         if(iv != null) {
                             iv.setImageBitmap(capturedImage);
                         }
@@ -98,7 +102,7 @@ public class FingerPrintActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ((TextView)findViewById(R.id.textStatus)).setText(str);
+                ((TextView)findViewById(R.id.status_view)).setText(str);
             }
         });
 
