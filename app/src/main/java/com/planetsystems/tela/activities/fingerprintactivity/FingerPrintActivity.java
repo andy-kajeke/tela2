@@ -73,6 +73,7 @@ public class FingerPrintActivity extends AppCompatActivity implements DeviceBroa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finger_print);
+        mainContext = this;
     }
 
     @Override
