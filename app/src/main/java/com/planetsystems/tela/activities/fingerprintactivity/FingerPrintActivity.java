@@ -3,9 +3,11 @@ package com.planetsystems.tela.activities.fingerprintactivity;
 import android.app.PendingIntent;
 import android.graphics.Bitmap;
 import android.hardware.usb.UsbManager;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.planetsystems.tela.R;
 import com.suprema.BioMiniFactory;
 import com.suprema.CaptureResponder;
 import com.suprema.IBioMiniDevice;
