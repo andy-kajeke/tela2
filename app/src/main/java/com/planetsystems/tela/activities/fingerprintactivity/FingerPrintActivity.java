@@ -9,6 +9,7 @@ import com.planetsystems.tela.R;
 import com.suprema.IBioMiniDevice;
 
 public class FingerPrintActivity extends AppCompatActivity {
+    public static final String ACTION_USB_PERMISSION = "com.planetsystems.tela.activities.fingerprintactivity.FingerPrintActivity";
     public IBioMiniDevice.TemplateData teacherCapturedTemplate;
     private Bitmap teacherImage;
 

@@ -7,6 +7,8 @@ import android.content.Intent;
 public class DeviceBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        String action =  intent.getAction();
+
 
     }
 }
