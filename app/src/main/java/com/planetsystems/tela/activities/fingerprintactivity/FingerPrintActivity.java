@@ -13,12 +13,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.planetsystems.tela.R;
 import com.suprema.BioMiniFactory;
@@ -34,9 +37,7 @@ public class FingerPrintActivity extends AppCompatActivity {
 
     //Flag.
     public static final boolean mbUsbExternalUSBManager = false;
-    private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
-    private static final String CLOCK_DIALOG_TAG = "co.planetsystems.tela.MainActivity.CLOCK_IN_OUT_DIALOG_TAG";
-    public static final int ENROLL_TEACHTER = 542;
+    private static final String ACTION_USB_PERMISSION = "com.planetsystems.tela.activities.fingerprintactivity.USB_PERMISSION";
     private UsbManager mUsbManager = null;
     private PendingIntent mPermissionIntent= null;
     //
@@ -44,7 +45,7 @@ public class FingerPrintActivity extends AppCompatActivity {
     private static BioMiniFactory mBioMiniFactory = null;
     public static final int REQUEST_WRITE_PERMISSION = 786;
     public IBioMiniDevice mCurrentDevice = null;
-    private MainActivity mainContext;
+    private FingerPrintActivity mainContext;
 
     public final static String TAG = "Tela Log";
     private TextView mLogView;
@@ -61,7 +62,7 @@ public class FingerPrintActivity extends AppCompatActivity {
     private Button clockOut;
     public IBioMiniDevice.TemplateData teacherCapturedTemplate;
     private Bitmap teacherImage;
-    private TeacherViewModel teacherViewModel;
+    private FingerPrintActivityViewModel fingerPrintActivityViewModel;
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
     private CaptureResponder mCaptureResponseDefault = new CaptureResponder() {
