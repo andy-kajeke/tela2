@@ -28,6 +28,16 @@ public class FingerPrintActivity extends AppCompatActivity implements DeviceBroa
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
 
+    synchronized public void printState(final CharSequence str){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // print the message
+            }
+        });
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
