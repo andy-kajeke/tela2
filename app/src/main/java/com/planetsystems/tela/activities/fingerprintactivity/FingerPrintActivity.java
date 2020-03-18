@@ -93,6 +93,20 @@ public class FingerPrintActivity extends AppCompatActivity implements DeviceBroa
 //                }
 //            });
         }
+
+        restartBioMini();
+
+        printRev(""+mBioMiniFactory.getSDKInfo());
+        bindComponents();
+
+    }
+
+    private void bindComponents() {
+
+    }
+
+    private void restartBioMini() {
+
     }
 
     @Override
