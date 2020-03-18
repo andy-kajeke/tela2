@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 public class ClockIn_ClockOut extends AppCompatActivity {
 
     TextView dateDisplay;
+    TextView close_clockIn, close_clockOut;
     CardView checkin, checkout, datacenter;
     Dialog checkInDialog, checkOutDialog;
     @Override
@@ -85,12 +86,34 @@ public class ClockIn_ClockOut extends AppCompatActivity {
 
     public void ClockIn(){
         checkInDialog.setContentView(R.layout.check_in_popup);
+        close_clockIn = checkInDialog.findViewById(R.id.txclose);
+
+        //Close clock in dialog
+        close_clockIn.setText("X");
+        close_clockIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkInDialog.dismiss();
+            }
+        });
+
         checkInDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         checkInDialog.show();
     }
 
     public void ClockOut(){
         checkOutDialog.setContentView(R.layout.check_out_popup);
+        close_clockOut = checkOutDialog.findViewById(R.id.txclose);
+
+        //Close clock out dialog
+        close_clockOut.setText("X");
+        close_clockOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkOutDialog.dismiss();
+            }
+        });
+
         checkOutDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         checkOutDialog.show();
     }
