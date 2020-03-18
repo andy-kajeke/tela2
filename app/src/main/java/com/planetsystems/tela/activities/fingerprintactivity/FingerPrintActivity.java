@@ -1,8 +1,13 @@
 package com.planetsystems.tela.activities.fingerprintactivity;
 
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +21,8 @@ import com.suprema.BioMiniFactory;
 import com.suprema.CaptureResponder;
 import com.suprema.IBioMiniDevice;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 
 public class FingerPrintActivity extends AppCompatActivity {
@@ -146,7 +153,7 @@ public class FingerPrintActivity extends AppCompatActivity {
 
 
     private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver(){
-        public void onReceive(Context context,Intent intent){
+        public void onReceive(Context context, Intent intent){
             String action = intent.getAction();
             if(ACTION_USB_PERMISSION.equals(action)){
                 synchronized(this){
@@ -182,31 +189,7 @@ public class FingerPrintActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FingerPrint.fingerPrintPower(1);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        // Auto generated above
+        setContentView(R.layout.activity_finger_print);
 
         mainContext = this;
 
