@@ -38,6 +38,12 @@ public class FingerPrintActivity extends AppCompatActivity implements DeviceBroa
 
     }
 
+    synchronized public void log(final String msg)
+    {
+//        print the log
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
