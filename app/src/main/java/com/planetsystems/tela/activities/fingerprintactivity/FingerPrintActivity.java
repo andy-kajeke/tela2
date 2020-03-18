@@ -38,9 +38,17 @@ public class FingerPrintActivity extends AppCompatActivity implements DeviceBroa
 
     }
 
-    synchronized public void log(final String msg)
-    {
+    synchronized public void log(final String msg) {
 //        print the log
+    }
+
+    synchronized public void printRev(final String msg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//                ((TextView) findViewById(R.id.revText)).setText(msg);
+            }
+        });
     }
 
 
