@@ -1,15 +1,20 @@
 package com.planetsystems.tela.activities.fingerprintactivity;
 
 import android.app.PendingIntent;
+import android.graphics.Bitmap;
 import android.hardware.usb.UsbManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.suprema.BioMiniFactory;
+import com.suprema.CaptureResponder;
+import com.suprema.IBioMiniDevice;
 
 public class FingerPrintActivity extends AppCompatActivity {
 
     //Flag.
     public static final boolean mbUsbExternalUSBManager = false;
-    private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
+    private static final String ACTION_USB_PERMISSION = "com.planetsystems.tela.activities.fingerprintactivity.USB_PERMISSION";
     private UsbManager mUsbManager = null;
     private PendingIntent mPermissionIntent= null;
     //
@@ -18,31 +23,9 @@ public class FingerPrintActivity extends AppCompatActivity {
     private static BioMiniFactory mBioMiniFactory = null;
     public static final int REQUEST_WRITE_PERMISSION = 786;
     public IBioMiniDevice mCurrentDevice = null;
-    private MainActivity mainContext;
+    private FingerPrintActivity mainContext;
 
     public final static String TAG = "BioMini Sample";
-    private EditText mLogView;
-    private ScrollView mScrollLog = null;
-
-    private ViewPager mPager;
-
-    private int []mNaviPicks= { R.id.pageindexImage_0 , R.id.pageindexImage_1 , R.id.pageindexImage_2, R.id.pageindexImage_3};
-
-    int nInfComponents [] = {R.id.editLog, R.id.scrollLog ,
-            R.id.seekBarSensitivity , R.id.seekBarSecurityLevel , R.id.seekBarTimeout , R.id.checkBoxFastMode , R.id.checkBoxCropMode, R.id.buttonReadCaptureParam , R.id.buttonWriteCaptureParam,
-            R.id.buttonEnroll , R.id.buttonVerify , R.id.buttonDeleteAll ,
-            R.id.buttonExportBmp, R.id.buttonExportWsq , R.id.buttonTemplate, R.id.button19794_4};
-
-    int nLayouts[] = { R.layout.log_view , R.layout.setting_capture , R.layout.enrollment , R.layout.export};
-    class UserData {
-        String name;
-        byte[] template;
-        public UserData(String name, byte[] data, int len) {
-            this.name = name;
-            this.template = Arrays.copyOf(data, len);
-        }
-    }
-    private ArrayList<UserData> mUsers = new ArrayList<>();
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
     private CaptureResponder mCaptureResponseDefault = new CaptureResponder() {
