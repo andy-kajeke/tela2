@@ -8,6 +8,7 @@ import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 
 import com.planetsystems.tela.R;
+import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
 
 public class FingerPrintActivity extends AppCompatActivity implements DeviceBroadcastReceiver.OnDeviceConnectionListener{
@@ -19,6 +20,13 @@ public class FingerPrintActivity extends AppCompatActivity implements DeviceBroa
     private UsbManager mUsbManager = null;
     private PendingIntent mPermissionIntent= null;
     //
+
+    private static BioMiniFactory mBioMiniFactory = null;
+    public static final int REQUEST_WRITE_PERMISSION = 786;
+    public IBioMiniDevice mCurrentDevice = null;
+    private FingerPrintActivity mainContext;
+
+    private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
