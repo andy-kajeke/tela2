@@ -59,9 +59,11 @@ public class FingerPrintActivity extends AppCompatActivity implements DeviceBroa
         if (mUsbManager == null ) {
             log("checkDevice");
             HashMap<String, UsbDevice> deviceList = mUsbManager.getDeviceList();
-            Iterator<UsbDevice> usbDeviceIterator = deviceList.values().iterator();
-            while (usbDeviceIterator.hasNext()) {
-                UsbDevice _device = usbDeviceIterator.next();
+            for (UsbDevice _device : deviceList.values()) {
+                if (_device.getDeviceId() == 0x16d1) {
+                    // Suprema vendor ID
+                    mUsbManager.requestPermission(_device, mPermissionIntent);
+                }
             }
         }
     }
