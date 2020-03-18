@@ -74,6 +74,25 @@ public class FingerPrintActivity extends AppCompatActivity implements DeviceBroa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finger_print);
         mainContext = this;
+
+        mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
+
+        if (mBioMiniFactory != null ) {
+            mBioMiniFactory.close();
+        }
+
+        if( !mbUsbExternalUSBManager ){
+//            Button btn_checkDevice = (Button)findViewById(R.id.buttonCheckDevice);
+//            btn_checkDevice.setClickable(false);
+//            btn_checkDevice.setEnabled(false);
+        }else{
+//            ((Button)findViewById(R.id.buttonCheckDevice)).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    checkDevice();
+//                }
+//            });
+        }
     }
 
     @Override
