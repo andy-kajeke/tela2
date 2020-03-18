@@ -4,7 +4,9 @@ import android.app.PendingIntent;
 import android.graphics.Bitmap;
 import android.hardware.usb.UsbManager;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +34,8 @@ public class FingerPrintActivity extends AppCompatActivity {
     private FingerPrintActivity mainContext;
 
     public final static String TAG = "BioMini Sample";
+    private TextView mLogView;
+    private ScrollView mScrollLog = null;
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
     private CaptureResponder mCaptureResponseDefault = new CaptureResponder() {
@@ -114,7 +118,7 @@ public class FingerPrintActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if( mLogView == null){
-                    mLogView = (EditText) findViewById(R.id.editLog );
+                    mLogView = (TextView) findViewById(R.id.log_text );
                 }
                 if(mLogView != null) {
                     mLogView.append(msg + "\n");
@@ -135,7 +139,7 @@ public class FingerPrintActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ((TextView) findViewById(R.id.revText)).setText(msg);
+//                ((TextView) findViewById(R.id.revText)).setText(msg);
             }
         });
     }
