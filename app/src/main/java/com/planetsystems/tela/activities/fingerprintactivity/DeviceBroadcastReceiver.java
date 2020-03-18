@@ -7,23 +7,26 @@ import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 
 public class DeviceBroadcastReceiver extends BroadcastReceiver {
-    private Context context;
+    private OnDeviceConnectionListener listener;
 
     public DeviceBroadcastReceiver(Context context) {
         super();
-        this.context = context;
+        listener = (FingerPrintActivity)context;
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         String action =  intent.getAction();
         if ( FingerPrintActivity.ACTION_USB_PERMISSION.equals(action)) {
-            UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-            if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
-                if ( device != null ) {
+            synchronized (this) {
+                UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+                    if ( device != null ) {
+                        listener.onDeviceConnectionSuccess();
+                    }
+                } else {
+                    listener.onDeviceConnectionError();
                 }
-            } else {
-                // permission denied
             }
         }
 
