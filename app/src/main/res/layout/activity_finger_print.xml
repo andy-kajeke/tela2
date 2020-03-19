@@ -82,14 +82,13 @@
 
     <LinearLayout
         android:id="@+id/linearLayoutButton"
-        android:layout_gravity="bottom"
-        android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_horizontal"
         android:layout_marginTop="20dp">
 
         <androidx.cardview.widget.CardView
@@ -112,7 +111,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="0dp"
                 android:text="Capture"
-                android:textColor="#ff0000"
+                android:textColor="#008000"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
@@ -125,7 +124,6 @@
             android:layout_marginStart="0dp"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="35dp"
-            android:layout_marginEnd="70dp"
             android:layout_marginRight="70dp"
             android:layout_marginBottom="27dp"
             app:cardBackgroundColor="@color/white"
