@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.activities.fingerprint.EnrollFingerPrint;
+import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 
 public class EnrollmentActivity extends AppCompatActivity {
 
@@ -35,7 +35,7 @@ public class EnrollmentActivity extends AppCompatActivity {
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(EnrollmentActivity.this, EnrollFingerPrint.class);
+                Intent i = new Intent(EnrollmentActivity.this, FingerPrintActivity.class);
 //                i.putExtra("time",clock_in_time.getText());
 //                i.putExtra("date",dayString);
                 startActivity(i);

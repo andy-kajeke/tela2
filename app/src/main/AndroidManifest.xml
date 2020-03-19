@@ -21,7 +21,7 @@
             android:theme="@android:style/Theme.Dialog"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.fingerprint.EnrollFingerPrint"
+            android:name=".activities.fingerprint.FingerPrintActivity"
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".activities.ClockIn_ClockOut" />
         <activity
