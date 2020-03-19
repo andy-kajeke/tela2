@@ -40,6 +40,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:background="@color/logBackgroundBlack"
         android:id="@+id/scrollViewLog">
 
@@ -51,11 +54,10 @@
             android:text="Example Log"/>
     </ScrollView>
     <LinearLayout
+        android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/staffid"
-        android:layout_marginTop="20dp">
+        android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/google_"
@@ -82,16 +84,12 @@
             android:layout_centerHorizontal="true"
             android:layout_marginStart="0dp"
             android:layout_marginLeft="0dp"
-
-            android:layout_marginRight="70dp"
-            android:layout_marginBottom="27dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="20dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="0dp"
                 android:text="Enroll"
                 android:textColor="#008000"
                 android:textSize="18dp"
@@ -102,7 +100,6 @@
             android:layout_width="90dp"
             android:layout_height="40dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="27dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="20dp">
             <TextView
