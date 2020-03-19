@@ -134,4 +134,13 @@ public class FingerPrintActivity extends AppCompatActivity {
             }
         });
     }
+
+    synchronized public void printRev(final String msg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//                ((TextView) findViewById(R.id.revText)).setText(msg);
+            }
+        });
+    }
 }
