@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -184,5 +185,11 @@ public class FingerPrintActivity extends AppCompatActivity {
             }else{
             }
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_finger_print);
     }
 }
