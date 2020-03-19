@@ -9,9 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ClockIn_with_StaffId"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@android:style/Theme.Dialog"/>
         <activity android:name=".activities.fingerprintactivity.FingerPrintActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.ClockIn_with_StaffId"
+            android:theme="@android:style/Theme.Dialog"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.EnrollFingerPrint"
             android:theme="@android:style/Theme.Dialog" />
