@@ -2,8 +2,13 @@ package com.planetsystems.tela.activities.fingerprintactivity;
 
 import android.app.PendingIntent;
 import android.hardware.usb.UsbManager;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.suprema.BioMiniFactory;
+import com.suprema.IBioMiniDevice;
 
 public class FingerPrintActivity extends AppCompatActivity {
     //Flag.
@@ -12,6 +17,14 @@ public class FingerPrintActivity extends AppCompatActivity {
     private UsbManager mUsbManager = null;
     private PendingIntent mPermissionIntent= null;
     //
+    private static BioMiniFactory mBioMiniFactory = null;
+    public static final int REQUEST_WRITE_PERMISSION = 786;
+    public IBioMiniDevice mCurrentDevice = null;
+    private FingerPrintActivity mainContext;
+
+    public final static String TAG = "BioMini Sample";
+    private TextView mLogView;
+    private ScrollView mScrollLog = null;
 
 
 }
