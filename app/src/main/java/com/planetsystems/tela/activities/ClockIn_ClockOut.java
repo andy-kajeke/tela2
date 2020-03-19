@@ -104,7 +104,10 @@ public class ClockIn_ClockOut extends AppCompatActivity {
         btnStaffId_In.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(ClockIn_ClockOut.this, Clockin_with_StaffId.class);
+//                i.putExtra("time",clock_in_time.getText());
+//                i.putExtra("date",dayString);
+                startActivity(i);
             }
         });
 

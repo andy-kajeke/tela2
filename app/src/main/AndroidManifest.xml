@@ -9,13 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.EnrollFingerPrint"
+        <activity android:name=".activities.Clockin_with_StaffId"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@android:style/Theme.Dialog"/>
+        <activity
+            android:name=".activities.EnrollFingerPrint"
+            android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".activities.ClockIn_ClockOut" />
         <activity
             android:name=".activities.EnrollmentActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".activities.ClockIn_ClockOut" />
+            android:parentActivityName=".activities.ClockIn_ClockOut"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

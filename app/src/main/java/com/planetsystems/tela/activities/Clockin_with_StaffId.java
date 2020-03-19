@@ -1,9 +1,13 @@
 package com.planetsystems.tela.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.os.Bundle;
 
-public class Clockin_with_StaffId extends AppCompatActivity {
+import com.planetsystems.tela.R;
+
+public class Clockin_with_StaffId extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

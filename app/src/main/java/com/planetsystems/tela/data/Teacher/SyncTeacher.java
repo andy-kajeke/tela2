@@ -17,35 +17,28 @@ public class SyncTeacher {
     @ColumnInfo(name = "MPSComputerNumber")
     private String MPSComputerNumber;
 
-
     @ColumnInfo(name = "dob")
     @NonNull
     private String dob;
 
-
     @ColumnInfo(name = "emailAddress")
     private String emailAddress;
-
 
     @ColumnInfo(name = "fingerPrint")
     //@NonNull
     private String fingerPrint;
 
-
     @ColumnInfo(name = "firstName")
     @NonNull
     private String firstName;
-
 
     @ColumnInfo(name = "lastName")
     @NonNull
     private String lastName;
 
-
     @ColumnInfo(name = "gender")
     @NonNull
     private String gender;
-
 
     @ColumnInfo(name = "initials")
     @NonNull
@@ -55,16 +48,13 @@ public class SyncTeacher {
     @NonNull
     private int licensed;
 
-
     @ColumnInfo(name = "nationalId")
     @NonNull
     private String nationalId;
 
-
     @ColumnInfo(name = "phoneNumber")
     @NonNull
     private String phoneNumber;
-
 
     @ColumnInfo(name = "schoolId")
     @NonNull

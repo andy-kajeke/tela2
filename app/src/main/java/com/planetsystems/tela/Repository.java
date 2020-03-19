@@ -59,7 +59,6 @@ public class Repository {
     }
 
     //Enroll new staff member
-
     public void addNewStaff(final SyncTeacher syncTeacher){
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
