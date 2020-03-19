@@ -1,7 +1,11 @@
 package com.planetsystems.tela.activities.fingerprintactivity;
 
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.util.Log;
 import android.widget.ImageView;
@@ -143,4 +147,25 @@ public class FingerPrintActivity extends AppCompatActivity {
             }
         });
     }
+
+    private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver(){
+        public void onReceive(Context context, Intent intent){
+            String action = intent.getAction();
+            if(ACTION_USB_PERMISSION.equals(action)){
+                synchronized(this){
+                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    if(intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)){
+                        if(device != null){
+                            if( mBioMiniFactory == null) return;
+                            mBioMiniFactory.addDevice(device);
+                            log(String.format(Locale.ENGLISH ,"Initialized device count- BioMiniFactory (%d)" , mBioMiniFactory.getDeviceCount() ));
+                        }
+                    }
+                    else{
+                        Log.d(TAG, "permission denied for device"+ device);
+                    }
+                }
+            }
+        }
+    };
 }
