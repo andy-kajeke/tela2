@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.fingerprint.EnrollFingerPrint;
 
 public class EnrollmentActivity extends AppCompatActivity {
 

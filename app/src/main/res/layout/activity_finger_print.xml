@@ -70,7 +70,8 @@
         android:background="@color/logBackgroundBlack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/linearLayoutButton">
+        app:layout_constraintBottom_toTopOf="@id/linearLayoutButton"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
