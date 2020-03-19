@@ -226,47 +226,29 @@ public class FingerPrintActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_finger_print);
 
         mainContext = this;
-        attendance = findViewById(R.id.list_teachers);
-        enroll = findViewById(R.id.enroll);
-        verify = findViewById(R.id.verify);
-        clockIn = findViewById(R.id.clock_in);
-        clockOut = findViewById(R.id.clock_out);
-        capture = findViewById(R.id.capture);
 
-        // disable very thing
-        disableButton(enroll);
-        disableButton(verify);
-        disableButton(clockIn);
-        disableButton(clockOut);
-        disableButton(capture);
 
         mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
-        backgroundCard = findViewById(R.id.card_background);
-        mStatusView = findViewById(R.id.status_view);
-        textClock = findViewById(R.id.textClock);
-        textClock.setFormat24Hour("hh:mm:ss a EEE MMM d");
-        textClock.animate();
-        textDate = findViewById(R.id.date_view);
 
         fingerPrintActivityViewModel = new ViewModelProvider(this).get(FingerPrintActivityViewModel.class);
 
-        findViewById(R.id.capture).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backgroundCard.setCardBackgroundColor(getResources().getColor(R.color.colorBackgroundCapturing));
-                ((ImageView) findViewById(R.id.finger_image)).setImageDrawable(getDrawable(R.drawable.ic_fingerprint_black_24dp));
-                if(mCurrentDevice != null) {
-                    //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
-                    mCurrentDevice.captureSingle(
-                            mCaptureOptionDefault,
-                            mCaptureResponseDefault,
-                            true);
-                }
-            }
-        });
+//        findViewById(R.id.capture).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                backgroundCard.setCardBackgroundColor(getResources().getColor(R.color.colorBackgroundCapturing));
+//                ((ImageView) findViewById(R.id.finger_image)).setImageDrawable(getDrawable(R.drawable.ic_fingerprint_black_24dp));
+//                if(mCurrentDevice != null) {
+//                    //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
+//                    mCurrentDevice.captureSingle(
+//                            mCaptureOptionDefault,
+//                            mCaptureResponseDefault,
+//                            true);
+//                }
+//            }
+//        });
 
         if(mBioMiniFactory != null) {
             mBioMiniFactory.close();
