@@ -54,6 +54,13 @@ public class FingerPrintActivity extends AppCompatActivity {
             return true;
         }
 
+        @Override
+        public void onCaptureError(Object contest, int errorCode, String error) {
+            log("onCaptureError : " + error + " ErrorCode :" + errorCode);
+            if( errorCode != IBioMiniDevice.ErrorCode.OK.value())
+                printState(getResources().getText(R.string.capture_single_fail) + "("+error+")");
+        }
+
     };
 
     private void printState(CharSequence message) {
