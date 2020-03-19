@@ -28,4 +28,10 @@ public class CustomCaptureResponder extends CaptureResponder {
     public void onCaptureError(Object contest, int errorCode, String errorMessage) {
         super.onCaptureError(contest, errorCode, errorMessage);
     }
+
+    public interface OnCustomCaptureResponderResponseListener {
+        void onCapture(Object contest, IBioMiniDevice.FingerState fingerState);
+        boolean onCaptureEx(Object contest, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState);
+        void onCaptureError(Object contest, int errorCode, String errorMessage);
+    }
 }
