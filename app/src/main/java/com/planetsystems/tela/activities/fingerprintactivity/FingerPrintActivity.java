@@ -17,7 +17,7 @@ import com.planetsystems.tela.R;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
 
-public class FingerPrintActivity extends AppCompatActivity {
+public class FingerPrintActivity extends AppCompatActivity implements DeviceBroadcastReceiver.OnDeviceConnectionListener{
     public static final String ACTION_USB_PERMISSION = "com.planetsystems.tela.activities.fingerprintactivity.ACTION_USB_PERMISSION";
     public static final boolean mUsbExternalUSBManager = false;
     private UsbManager usbManager;
@@ -35,6 +35,7 @@ public class FingerPrintActivity extends AppCompatActivity {
     private IBioMiniDevice.CaptureOption captureOption = new IBioMiniDevice.CaptureOption();
     private CustomCaptureResponder customCaptureResponder;
     private DefaultCaptureResponder defaultCaptureResponder;
+    private DeviceBroadcastReceiver deviceBroadcastReceiver;
 
 
     @Override
@@ -66,5 +67,30 @@ public class FingerPrintActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    synchronized public void log(final String logMessage) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if ( logView == null ) {
+                    logView = findViewById(R.id.textViewLog);
+                }
+
+                if ( logView != null ) {
+                    logView.append( logMessage + "\n");
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onDeviceConnectionSuccess() {
+
+    }
+
+    @Override
+    public void onDeviceConnectionError() {
+
     }
 }
