@@ -52,4 +52,6 @@
     <string name="write_params_fail">Write Parameters FAIL</string>
 
     <string name="menu_finger_print_setting">Setting</string>
+    <string name="device_attached">Device Attached</string>
+    <string name="device_detached">Device Removed</string>
 </resources>

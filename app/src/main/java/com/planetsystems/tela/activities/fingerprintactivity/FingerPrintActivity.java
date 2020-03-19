@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.planetsystems.tela.R;
 import com.suprema.BioMiniFactory;
 import com.suprema.CaptureResponder;
 import com.suprema.IBioMiniDevice;
+import com.suprema.IUsbEventHandler;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -217,7 +219,37 @@ public class FingerPrintActivity extends AppCompatActivity {
         }
 
         restartBioMini();
+        mScrollLog = (ScrollView) findViewById(R.id.scrollViewLog);
 
         printRev(""+mBioMiniFactory.getSDKInfo());
+    }
+
+    void handleDevChange(IUsbEventHandler.DeviceChangeEvent event, Object dev) {
+        if (event == IUsbEventHandler.DeviceChangeEvent.DEVICE_ATTACHED && mCurrentDevice == null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int cnt = 0;
+                    while (mBioMiniFactory == null && cnt < 20) {
+                        SystemClock.sleep(1000);
+                        cnt++;
+                    }
+                    if (mBioMiniFactory != null) {
+                        mCurrentDevice = mBioMiniFactory.getDevice(0);
+                        printState(getResources().getText(R.string.device_attached));
+                        Log.d(TAG, "mCurrentDevice attached : " + mCurrentDevice);
+                        if (mCurrentDevice != null /*&& mCurrentDevice.getDeviceInfo() != null*/) {
+                            log(" DeviceName : " + mCurrentDevice.getDeviceInfo().deviceName);
+                            log("         SN : " + mCurrentDevice.getDeviceInfo().deviceSN);
+                            log("SDK version : " + mCurrentDevice.getDeviceInfo().versionSDK);
+                        }
+                    }
+                }
+            }).start();
+        } else if (mCurrentDevice != null && event == IUsbEventHandler.DeviceChangeEvent.DEVICE_DETACHED && mCurrentDevice.isEqual(dev)) {
+            printState(getResources().getText(R.string.device_detached));
+            Log.d(TAG, "mCurrentDevice removed : " + mCurrentDevice);
+            mCurrentDevice = null;
+        }
     }
 }
