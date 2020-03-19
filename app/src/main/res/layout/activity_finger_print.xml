@@ -17,6 +17,7 @@
         android:textSize="30sp"/>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_background_id"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         app:cardBackgroundColor="@color/colorDeviceNoteConnected"
@@ -28,11 +29,27 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/imageView_fingerprint"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_fingerprint_black_24dp"/>
+                android:src="@drawable/ic_fingerprint_black_24dp"
+                android:contentDescription="" />
         </androidx.cardview.widget.CardView>
     </androidx.cardview.widget.CardView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/logBackgroundBlack"
+        android:id="@+id/scrollViewLog">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewLog"
+            android:textColor="@color/colorAccent"
+            android:text="Example Log"/>
+    </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
