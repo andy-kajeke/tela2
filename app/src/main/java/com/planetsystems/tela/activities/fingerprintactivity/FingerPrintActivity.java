@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
@@ -251,5 +252,39 @@ public class FingerPrintActivity extends AppCompatActivity {
             Log.d(TAG, "mCurrentDevice removed : " + mCurrentDevice);
             mCurrentDevice = null;
         }
+    }
+
+    void restartBioMini() {
+        if(mBioMiniFactory != null) {
+            mBioMiniFactory.close();
+        }
+        if( mbUsbExternalUSBManager ){
+            mUsbManager = (UsbManager)getSystemService(Context.USB_SERVICE);
+            mBioMiniFactory = new BioMiniFactory(mainContext, mUsbManager){
+                @Override
+                public void onDeviceChange(DeviceChangeEvent event, Object dev) {
+                    log("----------------------------------------");
+                    log("onDeviceChange : " + event + " using external usb-manager");
+                    log("----------------------------------------");
+                    handleDevChange(event, dev);
+                }
+            };
+            //
+            mPermissionIntent = PendingIntent.getBroadcast(this,0,new Intent(ACTION_USB_PERMISSION),0);
+            IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+            registerReceiver(mUsbReceiver, filter);
+            checkDevice();
+        }else {
+            mBioMiniFactory = new BioMiniFactory(mainContext) {
+                @Override
+                public void onDeviceChange(DeviceChangeEvent event, Object dev) {
+                    log("----------------------------------------");
+                    log("onDeviceChange : " + event);
+                    log("----------------------------------------");
+                    handleDevChange(event, dev);
+                }
+            };
+        }
+        //mBioMiniFactory.setTransferMode(IBioMiniDevice.TransferMode.MODE2);
     }
 }
