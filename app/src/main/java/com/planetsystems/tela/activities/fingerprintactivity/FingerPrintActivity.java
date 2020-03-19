@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
@@ -64,7 +65,19 @@ public class FingerPrintActivity extends AppCompatActivity implements
     }
 
     private void restartBioMini() {
+        if (bioMiniFactory != null ) {
+            bioMiniFactory.close();
+        }
 
+        if (mUsbExternalUSBManager) {
+            usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
+            bioMiniFactory = new BioMiniFactory() {
+                @Override
+                public void onDeviceChange(DeviceChangeEvent deviceChangeEvent, Object o) {
+
+                }
+            }
+        }
     }
 
     @Override
