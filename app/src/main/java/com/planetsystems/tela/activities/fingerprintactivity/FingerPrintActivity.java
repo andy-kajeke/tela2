@@ -24,7 +24,9 @@ import java.util.Iterator;
 import java.util.Locale;
 
 public class FingerPrintActivity extends AppCompatActivity implements
-        DeviceBroadcastReceiver.OnDeviceConnectionListener, DefaultCaptureResponder.OnDefaultCaptureResponderResponseListener{
+        DeviceBroadcastReceiver.OnDeviceConnectionListener,
+        DefaultCaptureResponder.OnDefaultCaptureResponderResponseListener,
+        CustomCaptureResponder.OnCustomCaptureResponderResponseListener {
     public static final String ACTION_USB_PERMISSION = "com.planetsystems.tela.activities.fingerprintactivity.ACTION_USB_PERMISSION";
     public static final boolean mUsbExternalUSBManager = false;
     private UsbManager usbManager;
@@ -119,11 +121,6 @@ public class FingerPrintActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onCapture(Object o, IBioMiniDevice.FingerState fingerState) {
-        log("Capture: Starting to capture");
-    }
-
-    @Override
     public boolean onDefaultCaptureResponderCaptureEx(Object o, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
         log("Capturing: Capture successful");
         return true;
@@ -132,5 +129,25 @@ public class FingerPrintActivity extends AppCompatActivity implements
     @Override
     public void onDefaultCaptureResponderCaptureError(Object contest, int errorCode, String errorMessage) {
         log(("Capture: Capture Error"));
+    }
+
+    @Override
+    public void onDefaultCaptureResponderCapture(Object o, IBioMiniDevice.FingerState fingerState) {
+
+    }
+
+    @Override
+    public void onCustomCaptureResponderResponseCapture(Object contest, IBioMiniDevice.FingerState fingerState) {
+
+    }
+
+    @Override
+    public boolean onCustomCaptureResponderResponseCaptureEx(Object contest, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
+        return false;
+    }
+
+    @Override
+    public void onCustomCaptureResponderResponseCaptureError(Object contest, int errorCode, String errorMessage) {
+
     }
 }

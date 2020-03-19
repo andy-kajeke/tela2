@@ -17,7 +17,7 @@ public class DefaultCaptureResponder extends CaptureResponder {
     @Override
     public void onCapture(Object o, IBioMiniDevice.FingerState fingerState) {
         super.onCapture(o, fingerState);
-        responseListener.onCapture(o, fingerState);
+        responseListener.onDefaultCaptureResponderCapture(o, fingerState);
     }
 
     @Override
@@ -38,6 +38,6 @@ public class DefaultCaptureResponder extends CaptureResponder {
     public interface OnDefaultCaptureResponderResponseListener {
         boolean onDefaultCaptureResponderCaptureEx(Object o, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState);
         void onDefaultCaptureResponderCaptureError(Object contest, int errorCode, String errorMessage);
-        void onCapture(Object o, IBioMiniDevice.FingerState fingerState);
+        void onDefaultCaptureResponderCapture(Object o, IBioMiniDevice.FingerState fingerState);
     }
 }
