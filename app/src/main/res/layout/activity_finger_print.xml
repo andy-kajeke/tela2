@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="16dp"
     android:orientation="vertical"
     tools:context=".activities.fingerprintactivity.FingerPrintActivity">
 
     <TextView
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="The Your finger on the device and press capture"
+        android:text="Place Your finger on the Scanner and press capture"
         android:gravity="center"
         android:textSize="30sp"/>
 
