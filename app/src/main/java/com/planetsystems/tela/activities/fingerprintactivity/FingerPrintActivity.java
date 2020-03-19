@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.planetsystems.tela.R;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
+import com.suprema.IUsbEventHandler;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -52,6 +54,16 @@ public class FingerPrintActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finger_print);
         captureOption.frameRate = IBioMiniDevice.FrameRate.SHIGH;
+
+        if (bioMiniFactory != null ) {
+            bioMiniFactory.close();
+        }
+
+        restartBioMini();
+        log("" + bioMiniFactory.getSDKInfo());
+    }
+
+    private void restartBioMini() {
 
     }
 
@@ -150,5 +162,30 @@ public class FingerPrintActivity extends AppCompatActivity implements
     @Override
     public void onCustomCaptureResponderResponseCaptureError(Object contest, int errorCode, String errorMessage) {
         log("Capturing: Capture error");
+    }
+
+    void handleDeviceChange(IUsbEventHandler.DeviceChangeEvent event, Object device) {
+        if (event == IUsbEventHandler.DeviceChangeEvent.DEVICE_ATTACHED && iBioMiniDevice == null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int count = 0;
+                    while (bioMiniFactory == null && count < 20) {
+                        SystemClock.sleep(1000);
+                        count++;
+                    }
+
+                    if (bioMiniFactory != null ) {
+                        iBioMiniDevice = bioMiniFactory.getDevice(0);
+                        printState("Device connected");
+                        if ( iBioMiniDevice != null ) {
+                            log("DeviceName: " + iBioMiniDevice.getDeviceInfo().deviceName);
+                            log("        SN: " + iBioMiniDevice.getDeviceInfo().deviceSN);
+                            log("SDK version: " + iBioMiniDevice.getDeviceInfo().versionSDK);
+                        }
+                    }
+                }
+            }).start();
+        }
     }
 }
