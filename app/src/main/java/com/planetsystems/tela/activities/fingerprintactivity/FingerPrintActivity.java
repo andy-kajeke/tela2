@@ -287,7 +287,6 @@ public class FingerPrintActivity extends AppCompatActivity {
                 }
             };
         }
-        //mBioMiniFactory.setTransferMode(IBioMiniDevice.TransferMode.MODE2);
     }
 
     @Override
@@ -299,8 +298,6 @@ public class FingerPrintActivity extends AppCompatActivity {
         if( mbUsbExternalUSBManager ){
             unregisterReceiver(mUsbReceiver);
         }
-
-//        FingerPrint.fingerPrintPower(0);
         super.onDestroy();
     }
 
