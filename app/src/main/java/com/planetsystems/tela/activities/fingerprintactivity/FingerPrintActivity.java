@@ -19,6 +19,8 @@ import com.suprema.BioMiniFactory;
 import com.suprema.CaptureResponder;
 import com.suprema.IBioMiniDevice;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 
 public class FingerPrintActivity extends AppCompatActivity {
@@ -168,4 +170,19 @@ public class FingerPrintActivity extends AppCompatActivity {
             }
         }
     };
+
+    public void checkDevice(){
+        if(mUsbManager == null) return;
+        log("checkDevice");
+        HashMap<String , UsbDevice> deviceList = mUsbManager.getDeviceList();
+        Iterator<UsbDevice> deviceIter = deviceList.values().iterator();
+        while(deviceIter.hasNext()){
+            UsbDevice _device = deviceIter.next();
+            if( _device.getVendorId() ==0x16d1 ){
+                //Suprema vendor ID
+                mUsbManager.requestPermission(_device , mPermissionIntent);
+            }else{
+            }
+        }
+    }
 }
