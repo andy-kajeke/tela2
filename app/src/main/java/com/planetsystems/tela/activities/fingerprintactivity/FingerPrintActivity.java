@@ -29,7 +29,8 @@ import java.util.Locale;
 public class FingerPrintActivity extends AppCompatActivity implements
         DeviceBroadcastReceiver.OnDeviceConnectionListener,
         DefaultCaptureResponder.OnDefaultCaptureResponderResponseListener,
-        CustomCaptureResponder.OnCustomCaptureResponderResponseListener {
+        CustomCaptureResponder.OnCustomCaptureResponderResponseListener,
+        TelaBioMiniFactory.OnTelaDeviceChangeListener{
     public static final String ACTION_USB_PERMISSION = "com.planetsystems.tela.activities.fingerprintactivity.ACTION_USB_PERMISSION";
     public static final boolean mUsbExternalUSBManager = false;
     private UsbManager usbManager;
@@ -71,8 +72,8 @@ public class FingerPrintActivity extends AppCompatActivity implements
 
         if (mUsbExternalUSBManager) {
             usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
-
-        }
+            telaBioMiniFactory = new TelaBioMiniFactory(this, usbManager);
+        } else telaBioMiniFactory = new TelaBioMiniFactory(this);
     }
 
     @Override
@@ -198,5 +199,10 @@ public class FingerPrintActivity extends AppCompatActivity implements
             printState("device attached");
             iBioMiniDevice = null;
         }
+    }
+
+    @Override
+    public void onTelaDeviceChange(IUsbEventHandler.DeviceChangeEvent deviceChangeEvent, Object contest) {
+
     }
 }
