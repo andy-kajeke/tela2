@@ -7,18 +7,17 @@ import com.suprema.CaptureResponder;
 import com.suprema.IBioMiniDevice;
 
 public class DefaultCaptureResponder extends CaptureResponder {
+    private OnDefaultCaptureResponderResponseListener responseListener;
 
 
-    DefaultCaptureResponder(Context context) {
-
-    }
-    public DefaultCaptureResponder() {
-        super();
+    public DefaultCaptureResponder(Context context) {
+        responseListener = (OnDefaultCaptureResponderResponseListener) context;
     }
 
     @Override
     public void onCapture(Object o, IBioMiniDevice.FingerState fingerState) {
         super.onCapture(o, fingerState);
+        responseListener.onCapture(o, fingerState);
     }
 
     @Override
@@ -28,13 +27,12 @@ public class DefaultCaptureResponder extends CaptureResponder {
             IBioMiniDevice.TemplateData templateData,
             IBioMiniDevice.FingerState fingerState) {
 
-        // return results to the activity
-        return true;
+        return responseListener.onDefaultCaptureResponderCaptureEx(o, bitmap, templateData, fingerState);
     }
 
     @Override
     public void onCaptureError(Object contest, int errorCode, String errorMessage) {
-        super.onCaptureError(contest, errorCode, errorMessage);
+        responseListener.onDefaultCaptureResponderCaptureError(contest, errorCode, errorMessage);
     }
 
     public interface OnDefaultCaptureResponderResponseListener {
