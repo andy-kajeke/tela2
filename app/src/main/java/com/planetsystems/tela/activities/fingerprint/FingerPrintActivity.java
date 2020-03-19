@@ -1,7 +1,5 @@
 package com.planetsystems.tela.activities.fingerprint;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -197,7 +195,7 @@ public class FingerPrintActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_enroll_finger_print);
+        setContentView(R.layout.activity_finger_print);
         setTitle(R.string.capture);
 
         mainContext = this;
