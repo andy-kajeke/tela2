@@ -35,7 +35,7 @@ public class FingerPrintActivity extends AppCompatActivity implements
     private UsbManager usbManager;
     private PendingIntent pendingIntent;
 
-    private static BioMiniFactory bioMiniFactory;
+    private TelaBioMiniFactory telaBioMiniFactory;
     public static final int REQUEST_WRITE_PERMISSION = 3456;
     public IBioMiniDevice iBioMiniDevice;
 
@@ -56,27 +56,22 @@ public class FingerPrintActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_finger_print);
         captureOption.frameRate = IBioMiniDevice.FrameRate.SHIGH;
 
-        if (bioMiniFactory != null ) {
-            bioMiniFactory.close();
+        if (telaBioMiniFactory != null ) {
+            telaBioMiniFactory.close();
         }
 
         restartBioMini();
-        log("" + bioMiniFactory.getSDKInfo());
+        log("" + telaBioMiniFactory.getSDKInfo());
     }
 
     private void restartBioMini() {
-        if (bioMiniFactory != null ) {
-            bioMiniFactory.close();
+        if (telaBioMiniFactory != null ) {
+            telaBioMiniFactory.close();
         }
 
         if (mUsbExternalUSBManager) {
             usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
-            bioMiniFactory = new BioMiniFactory() {
-                @Override
-                public void onDeviceChange(DeviceChangeEvent deviceChangeEvent, Object o) {
 
-                }
-            }
         }
     }
 
@@ -122,9 +117,9 @@ public class FingerPrintActivity extends AppCompatActivity implements
 
     @Override
     public void onDeviceConnectionSuccess(UsbDevice usbDevice) {
-        if ( bioMiniFactory == null ) return;
-        bioMiniFactory.addDevice(usbDevice);
-        log(String.format(Locale.ENGLISH, "Initialized device count- BioMiniFactory (%d)", bioMiniFactory.getDeviceCount()));
+        if ( telaBioMiniFactory == null ) return;
+        telaBioMiniFactory.addDevice(usbDevice);
+        log(String.format(Locale.ENGLISH, "Initialized device count- BioMiniFactory (%d)", telaBioMiniFactory.getDeviceCount()));
     }
 
     @Override
@@ -183,13 +178,13 @@ public class FingerPrintActivity extends AppCompatActivity implements
                 @Override
                 public void run() {
                     int count = 0;
-                    while (bioMiniFactory == null && count < 20) {
+                    while (telaBioMiniFactory == null && count < 20) {
                         SystemClock.sleep(1000);
                         count++;
                     }
 
-                    if (bioMiniFactory != null ) {
-                        iBioMiniDevice = bioMiniFactory.getDevice(0);
+                    if (telaBioMiniFactory != null ) {
+                        iBioMiniDevice = telaBioMiniFactory.getDevice(0);
                         printState("Device connected");
                         if ( iBioMiniDevice != null ) {
                             log("DeviceName: " + iBioMiniDevice.getDeviceInfo().deviceName);
