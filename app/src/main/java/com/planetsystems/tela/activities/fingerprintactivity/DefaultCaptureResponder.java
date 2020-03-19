@@ -37,5 +37,9 @@ public class DefaultCaptureResponder extends CaptureResponder {
         super.onCaptureError(contest, errorCode, errorMessage);
     }
 
-
+    public interface OnDefaultCaptureResponderResponseListener {
+        boolean onDefaultCaptureResponderCaptureEx(Object o, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState);
+        void onDefaultCaptureResponderCaptureError(Object contest, int errorCode, String errorMessage);
+        void onCapture(Object o, IBioMiniDevice.FingerState fingerState);
+    }
 }
