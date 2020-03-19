@@ -33,7 +33,7 @@ public class DeviceBroadcastReceiver extends BroadcastReceiver {
     }
 
     public interface OnDeviceConnectionListener {
-        public void onDeviceConnectionSuccess(UsbDevice usbDevice);
-        public void onDeviceConnectionError();
+        void onDeviceConnectionSuccess(UsbDevice usbDevice);
+        void onDeviceConnectionError();
     }
 }

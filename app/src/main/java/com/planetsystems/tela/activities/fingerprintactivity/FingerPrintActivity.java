@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.PendingIntent;
+import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
@@ -22,7 +23,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 
-public class FingerPrintActivity extends AppCompatActivity implements DeviceBroadcastReceiver.OnDeviceConnectionListener{
+public class FingerPrintActivity extends AppCompatActivity implements
+        DeviceBroadcastReceiver.OnDeviceConnectionListener, DefaultCaptureResponder.OnDefaultCaptureResponderResponseListener{
     public static final String ACTION_USB_PERMISSION = "com.planetsystems.tela.activities.fingerprintactivity.ACTION_USB_PERMISSION";
     public static final boolean mUsbExternalUSBManager = false;
     private UsbManager usbManager;
@@ -114,5 +116,20 @@ public class FingerPrintActivity extends AppCompatActivity implements DeviceBroa
                 usbManager.requestPermission(usbDevice, pendingIntent);
             }
         }
+    }
+
+    @Override
+    public boolean onDefaultCaptureResponderCaptureEx(Object o, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
+        return false;
+    }
+
+    @Override
+    public void onDefaultCaptureResponderCaptureError(Object contest, int errorCode, String errorMessage) {
+
+    }
+
+    @Override
+    public void onCapture(Object o, IBioMiniDevice.FingerState fingerState) {
+
     }
 }
