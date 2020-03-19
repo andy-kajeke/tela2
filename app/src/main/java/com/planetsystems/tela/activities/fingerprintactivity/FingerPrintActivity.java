@@ -186,6 +186,9 @@ public class FingerPrintActivity extends AppCompatActivity implements
                     }
                 }
             }).start();
+        } else if (iBioMiniDevice != null && event == IUsbEventHandler.DeviceChangeEvent.DEVICE_ATTACHED && iBioMiniDevice.isEqual(device)) {
+            printState("device attached");
+            iBioMiniDevice = null;
         }
     }
 }
