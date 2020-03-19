@@ -59,7 +59,7 @@ public class FingerPrintActivity extends Activity {
                 @Override
                 public void run() {
                     if (capturedImage != null) {
-                        ImageView iv = (ImageView) findViewById(R.id.imageView_fingerprint);
+                        ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
                         if (iv != null) {
                             iv.setImageBitmap(capturedImage);
                         }
@@ -94,7 +94,7 @@ public class FingerPrintActivity extends Activity {
                 @Override
                 public void run() {
                     if(capturedImage != null) {
-                        ImageView iv = (ImageView) findViewById(R.id.imageView_fingerprint);
+                        ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
                         if(iv != null) {
                             iv.setImageBitmap(capturedImage);
                         }
@@ -114,37 +114,10 @@ public class FingerPrintActivity extends Activity {
     };
 
     synchronized public void printState(final CharSequence str){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ((TextView)findViewById(R.id.textViewDeviceStatus)).setText(str);
-            }
-        });
 
     }
 
-    synchronized public void log(final String msg)
-    {
-        Log.d(TAG, msg);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if( mLogView == null){
-                    mLogView = (TextView) findViewById(R.id.textViewLog );
-                }
-                if(mLogView != null) {
-                    mLogView.append(msg + "\n");
-                    if(mScrollLog != null) {
-                        mScrollLog.fullScroll(mScrollLog.FOCUS_DOWN);
-                    }else{
-                        Log.d("Log " , "ScrollView is null");
-                    }
-                }
-                else {
-                    Log.d("", msg);
-                }
-            }
-        });
+    synchronized public void log(final String msg) {
     }
 
     synchronized public void printRev(final String msg) {
@@ -202,10 +175,10 @@ public class FingerPrintActivity extends Activity {
 
         mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
 
-        findViewById(R.id.cardViewCaptureId).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.cardViewCapture).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ImageView) findViewById(R.id.imageView_fingerprint)).setImageBitmap(null);
+                ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
                 if(mCurrentDevice != null) {
                     //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
                     mCurrentDevice.captureSingle(
@@ -221,7 +194,6 @@ public class FingerPrintActivity extends Activity {
         }
 
         restartBioMini();
-        mScrollLog = (ScrollView) findViewById(R.id.scrollViewLog);
 
         printRev(""+mBioMiniFactory.getSDKInfo());
     }

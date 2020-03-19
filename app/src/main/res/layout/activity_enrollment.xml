@@ -216,7 +216,7 @@
             android:layout_marginEnd="70dp"
             android:layout_marginBottom="27dp"
             card_view:cardBackgroundColor="@color/white"
-            android:layout_below="@+id/staffid"
+            android:layout_below="@+id/imageViewFingerPrint"
             android:layout_centerHorizontal="true">
 
             <TextView
