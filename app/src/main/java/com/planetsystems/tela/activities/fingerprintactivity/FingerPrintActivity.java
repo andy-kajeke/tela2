@@ -101,7 +101,13 @@ public class FingerPrintActivity extends AppCompatActivity {
         }
     };
 
-    private void printState(CharSequence message) {
+    synchronized public void printState(final CharSequence str){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((TextView)findViewById(R.id.textViewDeviceStatus)).setText(str);
+            }
+        });
 
     }
 
