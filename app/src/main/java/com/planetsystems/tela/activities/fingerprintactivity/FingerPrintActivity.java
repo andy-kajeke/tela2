@@ -32,6 +32,10 @@ public class FingerPrintActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button captureButton, actionButton;
 
+    private IBioMiniDevice.CaptureOption captureOption = new IBioMiniDevice.CaptureOption();
+    private CustomCaptureResponder customCaptureResponder;
+    private DefaultCaptureResponder defaultCaptureResponder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,5 +55,16 @@ public class FingerPrintActivity extends AppCompatActivity {
             Toast.makeText(this, "Setting clicked", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    synchronized public void printState(final CharSequence charSequence) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (statusView != null) {
+                    statusView.setText(charSequence);
+                }
+            }
+        });
     }
 }
