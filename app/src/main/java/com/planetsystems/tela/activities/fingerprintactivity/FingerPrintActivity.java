@@ -111,7 +111,27 @@ public class FingerPrintActivity extends AppCompatActivity {
 
     }
 
-    private void log(String message) {
-
+    synchronized public void log(final String msg)
+    {
+        Log.d(TAG, msg);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if( mLogView == null){
+                    mLogView = (TextView) findViewById(R.id.textViewLog );
+                }
+                if(mLogView != null) {
+                    mLogView.append(msg + "\n");
+                    if(mScrollLog != null) {
+                        mScrollLog.fullScroll(mScrollLog.FOCUS_DOWN);
+                    }else{
+                        Log.d("Log " , "ScrollView is null");
+                    }
+                }
+                else {
+                    Log.d("", msg);
+                }
+            }
+        });
     }
 }
