@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
@@ -73,6 +75,10 @@ public class FingerPrintActivity extends AppCompatActivity implements
         if (mUsbExternalUSBManager) {
             usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
             telaBioMiniFactory = new TelaBioMiniFactory(this, usbManager);
+            pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+            IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+            registerReceiver(deviceBroadcastReceiver, filter);
+            checkDevice();
         } else telaBioMiniFactory = new TelaBioMiniFactory(this);
     }
 
@@ -203,6 +209,22 @@ public class FingerPrintActivity extends AppCompatActivity implements
 
     @Override
     public void onTelaDeviceChange(IUsbEventHandler.DeviceChangeEvent deviceChangeEvent, Object contest) {
+        log("-----------------------------");
+        log("Device Changed : " + deviceChangeEvent);
+        log("-----------------------------");
+        handleDeviceChange(deviceChangeEvent, contest);
+    }
 
+    @Override
+    protected void onDestroy() {
+        if ( telaBioMiniFactory != null ) {
+            telaBioMiniFactory.close();
+            telaBioMiniFactory = null;
+        }
+
+        if (mUsbExternalUSBManager) {
+            unregisterReceiver(deviceBroadcastReceiver);
+        }
+        super.onDestroy();
     }
 }
