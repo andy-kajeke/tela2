@@ -18,6 +18,8 @@ import com.planetsystems.tela.R;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 
 public class FingerPrintActivity extends AppCompatActivity implements DeviceBroadcastReceiver.OnDeviceConnectionListener{
@@ -96,5 +98,19 @@ public class FingerPrintActivity extends AppCompatActivity implements DeviceBroa
 
     @Override
     public void onDeviceConnectionError() {
+    }
+
+    public void checkDevice() {
+        if (usbManager == null ) return;
+        log("Checking Device...");
+        HashMap<String, UsbDevice> usbDeviceHashMap = usbManager.getDeviceList();
+        Iterator<UsbDevice> usbDeviceIterator = usbDeviceHashMap.values().iterator();
+        while (usbDeviceIterator.hasNext()) {
+            UsbDevice usbDevice = usbDeviceIterator.next();
+            if (usbDevice.getVendorId() == 0x16d1) {
+                // Suprema
+                usbManager.requestPermission(usbDevice, pendingIntent);
+            }
+        }
     }
 }
