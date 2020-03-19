@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.PendingIntent;
+import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import com.planetsystems.tela.R;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
+
+import java.util.Locale;
 
 public class FingerPrintActivity extends AppCompatActivity implements DeviceBroadcastReceiver.OnDeviceConnectionListener{
     public static final String ACTION_USB_PERMISSION = "com.planetsystems.tela.activities.fingerprintactivity.ACTION_USB_PERMISSION";
@@ -85,12 +88,13 @@ public class FingerPrintActivity extends AppCompatActivity implements DeviceBroa
     }
 
     @Override
-    public void onDeviceConnectionSuccess() {
-
+    public void onDeviceConnectionSuccess(UsbDevice usbDevice) {
+        if ( bioMiniFactory == null ) return;
+        bioMiniFactory.addDevice(usbDevice);
+        log(String.format(Locale.ENGLISH, "Initialized device count- BioMiniFactory (%d)", bioMiniFactory.getDeviceCount()));
     }
 
     @Override
     public void onDeviceConnectionError() {
-
     }
 }

@@ -22,7 +22,7 @@ public class DeviceBroadcastReceiver extends BroadcastReceiver {
                 UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
                 if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
                     if ( device != null ) {
-                        listener.onDeviceConnectionSuccess();
+                        listener.onDeviceConnectionSuccess(device);
                     }
                 } else {
                     listener.onDeviceConnectionError();
@@ -33,7 +33,7 @@ public class DeviceBroadcastReceiver extends BroadcastReceiver {
     }
 
     public interface OnDeviceConnectionListener {
-        public void onDeviceConnectionSuccess();
+        public void onDeviceConnectionSuccess(UsbDevice usbDevice);
         public void onDeviceConnectionError();
     }
 }
