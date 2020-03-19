@@ -122,4 +122,5 @@
     <string name="school">School</string>
     <string name="OK">confirm_sigin</string>
     <string name="clock_in_and_out">Please Confirm</string>
+    <string name="setting">Setting</string>
 </resources>
