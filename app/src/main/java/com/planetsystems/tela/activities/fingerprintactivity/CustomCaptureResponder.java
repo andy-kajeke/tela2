@@ -25,8 +25,8 @@ public class CustomCaptureResponder extends CaptureResponder {
             Bitmap bitmap,
             IBioMiniDevice.TemplateData templateData,
             IBioMiniDevice.FingerState fingerState) {
-        responseListener.onCustomCaptureResponderResponseCaptureEx(contest, bitmap, templateData, fingerState);
-        return super.onCaptureEx(contest, bitmap, templateData, fingerState);
+        return responseListener.onCustomCaptureResponderResponseCaptureEx(contest, bitmap, templateData, fingerState);
+
     }
 
     @Override

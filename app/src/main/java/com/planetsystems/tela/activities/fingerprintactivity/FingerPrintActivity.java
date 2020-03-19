@@ -133,21 +133,22 @@ public class FingerPrintActivity extends AppCompatActivity implements
 
     @Override
     public void onDefaultCaptureResponderCapture(Object o, IBioMiniDevice.FingerState fingerState) {
-
+        log("Capturing: Capturing it");
     }
 
     @Override
     public void onCustomCaptureResponderResponseCapture(Object contest, IBioMiniDevice.FingerState fingerState) {
-
+        log("Capturing: Capturing");
     }
 
     @Override
     public boolean onCustomCaptureResponderResponseCaptureEx(Object contest, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
-        return false;
+        log("Capturing: Capture successful");
+        return true;
     }
 
     @Override
     public void onCustomCaptureResponderResponseCaptureError(Object contest, int errorCode, String errorMessage) {
-
+        log("Capturing: Capture error");
     }
 }
