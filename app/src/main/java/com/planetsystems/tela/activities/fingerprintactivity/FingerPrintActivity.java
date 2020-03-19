@@ -9,6 +9,8 @@ import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -191,5 +193,31 @@ public class FingerPrintActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finger_print);
+
+        mainContext = this;
+
+        mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
+
+        findViewById(R.id.cardViewCaptureId).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ImageView) findViewById(R.id.imageView_fingerprint)).setImageBitmap(null);
+                if(mCurrentDevice != null) {
+                    //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
+                    mCurrentDevice.captureSingle(
+                            mCaptureOptionDefault,
+                            mCaptureResponseDefault,
+                            true);
+                }
+            }
+        });
+
+        if(mBioMiniFactory != null) {
+            mBioMiniFactory.close();
+        }
+
+        restartBioMini();
+
+        printRev(""+mBioMiniFactory.getSDKInfo());
     }
 }
