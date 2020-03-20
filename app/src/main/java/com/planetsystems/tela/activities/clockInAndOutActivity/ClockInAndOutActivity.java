@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.ClockIn_with_StaffId;
@@ -359,16 +360,17 @@ public class ClockInAndOutActivity extends AppCompatActivity implements FingerPr
 
     @Override
     public void onFingerPrintCaptureResponseCapture(Object contest, IBioMiniDevice.FingerState fingerState) {
-
+        Toast.makeText(this, "Capture", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public boolean onFingerPrintCaptureResponseCaptureEx(Object o, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
-        return false;
+        Toast.makeText(this, "Capture success", Toast.LENGTH_LONG).show();
+        return true;
     }
 
     @Override
     public void onFingerPrintCaptureResponseCaptureError(Object contest, int errorCode, String errorMessage) {
-
+        Toast.makeText(this, "Capture error", Toast.LENGTH_LONG).show();
     }
 }
