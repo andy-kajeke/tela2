@@ -12,7 +12,7 @@
         <activity android:name=".activities.ClockIn_with_StaffId"
             android:windowSoftInputMode="stateHidden"
             android:theme="@android:style/Theme.Dialog"/>
-        <activity android:name=".activities.fingerprintactivity.FingerPrintActivity">
+        <activity android:name=".activities.fingerprint.FingerPrintActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
