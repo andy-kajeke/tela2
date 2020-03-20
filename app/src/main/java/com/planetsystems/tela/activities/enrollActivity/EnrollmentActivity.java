@@ -35,10 +35,16 @@ public class EnrollmentActivity extends AppCompatActivity {
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(EnrollmentActivity.this, FingerPrintActivity.class);
-//                i.putExtra("time",clock_in_time.getText());
-//                i.putExtra("date",dayString);
-                startActivity(i);
+                Intent intent = new Intent(EnrollmentActivity.this, FingerPrintActivity.class);
+                intent.setAction(FingerPrintActivity.ACTION_ENROLL);
+                intent.putExtra(FingerPrintActivity.FIRST_NAME, edit_fName.getText().toString());
+                intent.putExtra(FingerPrintActivity.LAST_NAME, edit_lName.getText().toString());
+                intent.putExtra(FingerPrintActivity.INITIALS, edit_initials.getText().toString());
+                intent.putExtra(FingerPrintActivity.EMAIL_ADDRESS, edit_email.getText().toString());
+                intent.putExtra(FingerPrintActivity.PHONE_NUMBER, edit_phone_No.getText().toString());
+                intent.putExtra(FingerPrintActivity.NATIONAL_ID, edit_nationalID.getText().toString());
+                intent.putExtra(FingerPrintActivity.GENDER, edit_gender.getText().toString());
+                startActivity(intent);
             }
         });
     }
