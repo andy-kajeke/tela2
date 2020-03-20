@@ -41,14 +41,6 @@ public class FingerPrintActivity extends Activity {
     public static final String ACTION_CLOCK_IN = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_CLOCK_IN";
     public static final String ACTION_CLOCK_OUT = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_CLOCK_OUT";
 
-
-
-
-
-
-
-
-
     //Flag.
     public static final boolean mbUsbExternalUSBManager = false;
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
@@ -63,6 +55,9 @@ public class FingerPrintActivity extends Activity {
     public final static String TAG = "BioMini Sample";
     private TextView statusTextView;
     private ScrollView mScrollLog = null;
+    private Intent intent;
+    private IBioMiniDevice.TemplateData capturedTemplate;
+    private Bitmap capturedImage;
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
     private CaptureResponder mCaptureResponseDefault = new CaptureResponder() {
@@ -211,6 +206,8 @@ public class FingerPrintActivity extends Activity {
                             mCaptureResponseDefault,
                             true);
                 }
+
+
             }
         });
 
