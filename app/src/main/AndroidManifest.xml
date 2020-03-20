@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.planetsystems.tela">
@@ -74,5 +73,4 @@
         </activity>
     </application>
 
->>>>>>> 20dbe0a8887c8fe8fcca49ccbd17dc87b13a9de1
 </manifest>
