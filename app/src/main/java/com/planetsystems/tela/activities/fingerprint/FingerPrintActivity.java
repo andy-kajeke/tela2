@@ -305,23 +305,34 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
     @Override
     public boolean onFingerPrintCaptureResponseCaptureEx(Object contest, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
-        log("onCapture : Capture successful!");
-        printState(getResources().getText(R.string.capture_single_ok));
-        capturedTemplateData = templateData;
-        capturedImageData = bitmap;
+        if (Objects.equals(startActivityIntent.getAction(), ACTION_ENROLL)) {
+            log("onCapture : Capture successful!");
+            printState(getResources().getText(R.string.capture_single_ok));
+            capturedTemplateData = templateData;
+            capturedImageData = bitmap;
 
-        log(((IBioMiniDevice) contest).popPerformanceLog());
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (capturedImageData != null) {
-                    ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
-                    if (iv != null) {
-                        iv.setImageBitmap(capturedImageData);
+            log(((IBioMiniDevice) contest).popPerformanceLog());
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (capturedImageData != null) {
+                        ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
+                        if (iv != null) {
+                            iv.setImageBitmap(capturedImageData);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
+
+        if (Objects.equals(startActivityIntent.getAction(), ACTION_CLOCK_IN )){
+            // clock in here
+        }
+
+        if (Objects.equals(startActivityIntent.getAction(), ACTION_CLOCK_OUT)) {
+            // clock out
+        }
+
         return true;
     }
 
