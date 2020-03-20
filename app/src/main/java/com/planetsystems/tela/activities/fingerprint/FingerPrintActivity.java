@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 
-public class FingerPrintActivity extends Activity {
+public class FingerPrintActivity extends Activity implements FingerPrintCaptureResponder.OnFingerPrintCaptureResponseListener{
     public static final String FIRST_NAME = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.FIRST_NAME";
     public static final String LAST_NAME = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.LAST_NAME";
     public static final String INITIALS = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.INITIALS";
@@ -60,72 +60,6 @@ public class FingerPrintActivity extends Activity {
     private Bitmap capturedImage;
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
-    private CaptureResponder mCaptureResponseDefault = new CaptureResponder() {
-        @Override
-        public boolean onCaptureEx(final Object context, final Bitmap capturedImage,
-                                   final IBioMiniDevice.TemplateData capturedTemplate,
-                                   final IBioMiniDevice.FingerState fingerState) {
-            log("onCapture : Capture successful!");
-            printState(getResources().getText(R.string.capture_single_ok));
-
-            log(((IBioMiniDevice) context).popPerformanceLog());
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (capturedImage != null) {
-                        ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
-                        if (iv != null) {
-                            iv.setImageBitmap(capturedImage);
-                        }
-                    }
-                }
-            });
-            return true;
-        }
-
-        @Override
-        public void onCaptureError(Object contest, int errorCode, String error) {
-            log("onCaptureError : " + error + " ErrorCode :" + errorCode);
-            if( errorCode != IBioMiniDevice.ErrorCode.OK.value())
-                printState(getResources().getText(R.string.capture_single_fail) + "("+error+")");
-        }
-
-    };
-
-    private CaptureResponder mCaptureResponsePrev = new CaptureResponder() {
-        @Override
-        public boolean onCaptureEx(final Object context, final Bitmap capturedImage,
-                                   final IBioMiniDevice.TemplateData capturedTemplate,
-                                   final IBioMiniDevice.FingerState fingerState) {
-
-            Log.d("CaptureResponsePrev", String.format(Locale.ENGLISH , "captureTemplate.size (%d) , fingerState(%s)" , capturedTemplate== null? 0 : capturedTemplate.data.length, String.valueOf(fingerState.isFingerExist)));
-            printState(getResources().getText(R.string.start_capture_ok));
-            byte[] pImage_raw =null;
-            if( (mCurrentDevice!= null && (pImage_raw = mCurrentDevice.getCaptureImageAsRAW_8() )!= null)) {
-                Log.d("CaptureResponsePrev ", String.format(Locale.ENGLISH, "pImage (%d) , FP Quality(%d)", pImage_raw.length , mCurrentDevice.getFPQuality(pImage_raw, mCurrentDevice.getImageWidth(), mCurrentDevice.getImageHeight(), 2)));
-            }
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if(capturedImage != null) {
-                        ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
-                        if(iv != null) {
-                            iv.setImageBitmap(capturedImage);
-                        }
-                    }
-                }
-            });
-            return true;
-        }
-
-        @Override
-        public void onCaptureError(Object context, int errorCode, String error) {
-            log("onCaptureError : " + error);
-            log(((IBioMiniDevice)context).popPerformanceLog());
-            if( errorCode != IBioMiniDevice.ErrorCode.OK.value())
-                printState(getResources().getText(R.string.start_capture_fail));
-        }
-    };
 
     synchronized public void printState(final CharSequence str){
         runOnUiThread(new Runnable() {
@@ -203,7 +137,7 @@ public class FingerPrintActivity extends Activity {
                     //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
                     mCurrentDevice.captureSingle(
                             mCaptureOptionDefault,
-                            mCaptureResponseDefault,
+                            new FingerPrintCaptureResponder(mainContext),
                             true);
                 }
 
@@ -309,5 +243,37 @@ public class FingerPrintActivity extends Activity {
     public void onPostCreate(Bundle savedInstanceState){
         requestPermission();
         super.onPostCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onFingerPrintCaptureResponseCapture(Object contest, IBioMiniDevice.FingerState fingerState) {
+
+    }
+
+    @Override
+    public boolean onFingerPrintCaptureResponseCaptureEx(Object contest, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
+        log("onCapture : Capture successful!");
+        printState(getResources().getText(R.string.capture_single_ok));
+
+        log(((IBioMiniDevice) contest).popPerformanceLog());
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (capturedImage != null) {
+                    ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
+                    if (iv != null) {
+                        iv.setImageBitmap(capturedImage);
+                    }
+                }
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public void onFingerPrintCaptureResponseCaptureError(Object contest, int errorCode, String errorMessage) {
+        log("onCaptureError : " + errorCode + " ErrorCode :" + errorCode);
+        if( errorCode != IBioMiniDevice.ErrorCode.OK.value())
+            printState(getResources().getText(R.string.capture_single_fail) + "("+errorMessage+")");
     }
 }
