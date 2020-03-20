@@ -21,6 +21,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.planetsystems.tela.R;
 import com.suprema.BioMiniFactory;
@@ -61,6 +63,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     private Intent intent;
     private IBioMiniDevice.TemplateData capturedTemplateData;
     private Bitmap capturedImageData;
+    private FingerPrintActivityViewModel printActivityViewModel;
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
 
@@ -121,7 +124,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,6 +132,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
         mainContext = this;
         statusTextView = findViewById(R.id.textViewStatus);
+        printActivityViewModel = new ViewModelProvider((ViewModelStoreOwner) this).get(FingerPrintActivityViewModel.class);
 
         mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
 
