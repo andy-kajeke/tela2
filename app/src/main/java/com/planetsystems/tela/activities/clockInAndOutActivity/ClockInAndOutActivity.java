@@ -133,6 +133,9 @@ public class ClockInAndOutActivity extends AppCompatActivity implements FingerPr
         checkin = findViewById(R.id.cardview3);
         checkout = findViewById(R.id.cardview4);
 
+        mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
+
+
         checkInDialog = new Dialog(this);
         checkOutDialog = new Dialog(this);
 
@@ -158,6 +161,13 @@ public class ClockInAndOutActivity extends AppCompatActivity implements FingerPr
                 ClockOut();
             }
         });
+        if(mBioMiniFactory != null) {
+            mBioMiniFactory.close();
+        }
+
+        restartBioMini();
+
+        printRev(""+mBioMiniFactory.getSDKInfo());
     }
 
     @Override
