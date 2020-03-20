@@ -25,6 +25,6 @@ public class MainActivityViewModel extends AndroidViewModel {
     }
 
     public  void insertTeacher(SyncTeacher syncTeacher){
-        repository.addNewStaff(syncTeacher);
+        repository.enrollTeacher(syncTeacher);
     }
 }
