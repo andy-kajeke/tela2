@@ -1,6 +1,5 @@
 package com.planetsystems.tela.activities.clockInAndOutActivity;
 
-import androidx.appcompat.R;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -29,6 +28,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.ClockIn_with_StaffId;
 import com.planetsystems.tela.activities.FingerPrintCaptureResponder;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.suprema.BioMiniFactory;
