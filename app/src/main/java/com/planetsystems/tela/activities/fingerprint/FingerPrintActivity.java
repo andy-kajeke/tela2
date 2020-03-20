@@ -14,10 +14,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import com.planetsystems.tela.R;
 import com.suprema.BioMiniFactory;
@@ -118,6 +121,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +145,13 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             true);
                 }
 
+
+            }
+        });
+
+        findViewById(R.id.cardViewAction).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });
