@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,10 +20,12 @@ import android.widget.TextView;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.ClockIn_with_StaffId;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
+import com.planetsystems.tela.activities.fingerprint.FingerPrintCaptureResponder;
+import com.suprema.IBioMiniDevice;
 
 import java.text.SimpleDateFormat;
 
-public class ClockInAndOutActivity extends AppCompatActivity {
+public class ClockInAndOutActivity extends AppCompatActivity implements FingerPrintCaptureResponder.OnFingerPrintCaptureResponseListener {
 
     TextView dateDisplay;
     TextView close_clockIn, close_clockOut;
@@ -160,5 +163,20 @@ public class ClockInAndOutActivity extends AppCompatActivity {
 
         checkOutDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         checkOutDialog.show();
+    }
+
+    @Override
+    public void onFingerPrintCaptureResponseCapture(Object contest, IBioMiniDevice.FingerState fingerState) {
+
+    }
+
+    @Override
+    public boolean onFingerPrintCaptureResponseCaptureEx(Object o, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
+        return false;
+    }
+
+    @Override
+    public void onFingerPrintCaptureResponseCaptureError(Object contest, int errorCode, String errorMessage) {
+
     }
 }
