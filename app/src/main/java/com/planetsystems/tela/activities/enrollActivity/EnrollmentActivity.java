@@ -18,8 +18,7 @@ public class EnrollmentActivity extends AppCompatActivity {
     private EnrollmentActivityViewModel activityViewModel;
 
     public static final int CAPTURE_FINGER_PRINT_REQUEST = 343;
-
-
+    
     EditText edit_fName, edit_lName;
     EditText edit_initials, edit_phone_No;
     EditText edit_email, edit_nationalID, edit_gender;
