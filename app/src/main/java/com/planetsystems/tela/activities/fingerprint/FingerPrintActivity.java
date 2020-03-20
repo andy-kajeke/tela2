@@ -30,6 +30,25 @@ import java.util.Iterator;
 import java.util.Locale;
 
 public class FingerPrintActivity extends Activity {
+    public static final String FIRST_NAME = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.FIRST_NAME";
+    public static final String LAST_NAME = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.LAST_NAME";
+    public static final String INITIALS = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.INITIALS";
+    public static final String PHONE_NUMBER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.PHONE_NUMBER";
+    public static final String EMAIL_ADDRESS = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.EMAIL_ADDRESS";
+    public static final String NATIONAL_ID = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.NATIONAL_ID";
+    public static final String GENDER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.GENDER";
+    public static final String ACTION_ENROLL = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_ENROLL";
+    public static final String ACTION_CLOCK_IN = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_CLOCK_IN";
+    public static final String ACTION_CLOCK_OUT = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_CLOCK_OUT";
+
+
+
+
+
+
+
+
+
     //Flag.
     public static final boolean mbUsbExternalUSBManager = false;
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
