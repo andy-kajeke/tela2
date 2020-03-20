@@ -161,6 +161,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             public void onClick(View v) {
                 if (capturedTemplateData == null ) {
                     Toast.makeText(FingerPrintActivity.this, "Please take fingerprint to proceed", Toast.LENGTH_LONG).show();
+                    setResult(RESULT_CANCELED);
                 } else {
                     Intent intent = new Intent();
                     intent.putExtra(FIRST_NAME, startActivityIntent.getStringExtra(FIRST_NAME));
@@ -173,8 +174,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
                     intent.putExtra(FINGER_PRINT_IMAGE, capturedImageData);
                     setResult(RESULT_OK, intent);
-                    finish();
                 }
+                finish();
             }
         });
 

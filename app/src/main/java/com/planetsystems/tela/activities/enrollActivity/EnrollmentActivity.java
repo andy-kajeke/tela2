@@ -61,9 +61,11 @@ public class EnrollmentActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAPTURE_FINGER_PRINT_REQUEST) {
+        if (requestCode == CAPTURE_FINGER_PRINT_REQUEST && resultCode == RESULT_OK) {
             assert data != null;
             Toast.makeText(this, data.getStringExtra(FingerPrintActivity.FIRST_NAME), Toast.LENGTH_LONG).show();
+        } else if (requestCode == CAPTURE_FINGER_PRINT_REQUEST && resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "Finger print Capture Canceled", Toast.LENGTH_LONG).show();
         }
     }
 }
