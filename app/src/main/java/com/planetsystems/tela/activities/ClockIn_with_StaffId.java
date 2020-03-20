@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.planetsystems.tela.R;
 
-public class Clockin_with_StaffId extends Activity {
+public class ClockIn_with_StaffId extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
