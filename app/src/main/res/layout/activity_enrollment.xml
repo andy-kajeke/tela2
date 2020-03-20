@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".activities.EnrollmentActivity">
+    tools:context=".activities.enrollActivity.EnrollmentActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -216,7 +216,7 @@
             android:layout_marginEnd="70dp"
             android:layout_marginBottom="27dp"
             card_view:cardBackgroundColor="@color/white"
-            android:layout_below="@+id/staffid"
+            android:layout_below="@+id/imageViewFingerPrint"
             android:layout_centerHorizontal="true">
 
             <TextView

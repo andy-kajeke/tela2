@@ -7,29 +7,6 @@
     <string name="start_capture">Start Capture</string>
     <string name="abort_capture">Abort Capture</string>
 
-    <string name="verify">Verify</string>
-    <string name="clear_log">Clear Log</string>
-    <string name="check_device">Check Device</string>
-    <string name="start_capturing">Start Capturing</string>
-    <string name="sample_date">20th</string>
-    <string name="sample_month">Oct</string>
-    <string name="sample_year">2020</string>
-    <string name="total_50">Total : 50</string>
-    <string name="present_20">Present: 20</string>
-    <string name="am">am</string>
-    <string name="_45">45</string>
-    <string name="_3">3</string>
-    <string name="colon">:</string>
-    <string name="_8">8</string>
-    <string name="_0">0</string>
-    <string name="simple_full_date">20th - October - 2020</string>
-    <string name="ojok_simon_peter">Ojok Simon Peter</string>
-
-    <string name="clock_out">Clock Out</string>
-
-    <string name="checkdevice"> Check Device </string>
-    <string name="capturesingle">Capture Single</string>
-
     <string name="label_capture">CheckDevice and Capture</string>
     <string name="save_as_bmp">Save as BMP</string>
     <string name="save_as_wsq">Save as WSQ</string>
@@ -74,52 +51,7 @@
     <string name="write_params_ok">Write Parameters OK</string>
     <string name="write_params_fail">Write Parameters FAIL</string>
 
-    <string name="device_attached">Device Connected</string>
-    <string name="device_detached">Device Disconnected</string>
-    <string name="device_not_ready">Device Missing</string>
-    <string name="action_enroll">Enroll Teacher</string>
-    <string name="hint_tr_firstName">First Name</string>
-    <string name="hint_tr_lastNames">Last Name</string>
-    <string name="hint_tr_id">Id Number</string>
-    <string name="text_save">Save</string>
-    <string name="hint_tr_email">Email</string>
-    <string name="hint_tr_telephone">Telephone</string>
-    <string name="hint_tr_gender">Gender</string>
-    <string name="hint_tr_nin">National ID</string>
-    <string name="hint_tr_school">School Name</string>
-    <string name="hint_tr_district">District</string>
-    <string name="hint_tr_role">Role</string>
-    <string name="save">Save</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="example_name">Janet Museveni</string>
-    <string name="list_teachers">Attendance</string>
-    <string name="moe">Ministry of Education</string>
-    <string name="menu_setting">Setting</string>
-    <string name="help">Help</string>
-    <string name="about">About</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="mobile_phone">Mobile Phone</string>
-    <string name="basic_last_name">User Ico</string>
-    <string name="basic_lastname_hint">Last Name</string>
-    <string name="basic_first_name">First Name</string>
-    <string name="email_address">Email Address</string>
-    <string name="email_ico">Email Icon</string>
-    <string name="gender">Gender</string>
-    <string name="gender_image">Gender Image</string>
-    <string name="national_id">National ID</string>
-    <string name="school_name">School Name</string>
-    <string name="school_ico">School Icon</string>
-    <string name="district_name">District Name</string>
-    <string name="distric_icon">District Icon</string>
-    <string name="district_icon">District Icon</string>
-    <string name="role">Role</string>
-    <string name="role_icon">Roll Icon</string>
-    <string name="fingerprint_image">Fingerprint Image</string>
-    <string name="example_time">08:30am</string>
-    <string name="clock_in">Clock In</string>
-    <string name="enrolled_on">Enrolled On</string>
-    <string name="school">School</string>
-    <string name="OK">confirm_sigin</string>
-    <string name="clock_in_and_out">Please Confirm</string>
+    <string name="menu_finger_print_setting">Setting</string>
+    <string name="device_attached">Device Attached</string>
+    <string name="device_detached">Device Removed</string>
 </resources>

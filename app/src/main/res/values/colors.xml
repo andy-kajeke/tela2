@@ -10,9 +10,9 @@
     <color name="colorLight">#cff5bc</color>
     <color name="colorRed">#e70004</color>
     <color name="logBackgroundBlack">#000000</color>
-    <color name="colorBackgroundCapturing">#FF5722</color>
-    <color name="colorBackgroundError">#B90407</color>
-    <color name="colorBackgroundSuccess">#54F009</color>
-    <color name="colorBackgroundNormal">#CDDC39</color>
-    <color name="colorBackgroundConnected">#3F51B5</color>
+    <color name="colorDeviceNoteConnected">#ff0000</color>
+    <color name="colorDeviceConnected">#0000ff</color>
+    <color name="colorDeviceCapturing">#00bfff</color>
+    <color name="colorDeviceCapturedSuccess">#228b22</color>
+    <color name="colorDeviceCapturedError">#ffff00</color>
 </resources>

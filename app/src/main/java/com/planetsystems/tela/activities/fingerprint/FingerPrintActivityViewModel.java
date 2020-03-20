@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities.fingerprintactivity;
+package com.planetsystems.tela.activities.fingerprint;
 
 import android.app.Application;
 

@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
 import com.planetsystems.tela.activityViewModel.MainActivityViewModel;
 import com.planetsystems.tela.R;
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                Intent home = new Intent(MainActivity.this, ClockIn_ClockOut.class);
+                Intent home = new Intent(MainActivity.this, ClockInAndOutActivity.class);
                 startActivity(home);
                 finish();
             }
