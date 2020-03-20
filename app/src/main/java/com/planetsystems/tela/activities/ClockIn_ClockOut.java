@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -97,7 +98,7 @@ public class ClockIn_ClockOut extends AppCompatActivity {
         btnFingerprint_In.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.d("ClickIn", "clocking in ");
             }
         });
 
@@ -135,7 +136,7 @@ public class ClockIn_ClockOut extends AppCompatActivity {
         btnFingerprint_Out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.d("Clock Out", "clocking out");
             }
         });
 
