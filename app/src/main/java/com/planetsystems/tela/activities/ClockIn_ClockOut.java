@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 
 import java.text.SimpleDateFormat;
 

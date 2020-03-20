@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities;
+package com.planetsystems.tela.activities.enrollActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
