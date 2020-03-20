@@ -206,6 +206,13 @@ public class ClockInAndOutActivity extends AppCompatActivity implements FingerPr
             @Override
             public void onClick(View v) {
                 Log.d("ClickIn", "clocking in ");
+                if(mCurrentDevice != null) {
+                    //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
+                    mCurrentDevice.captureSingle(
+                            mCaptureOptionDefault,
+                            new FingerPrintCaptureResponder(mainContext),
+                            true);
+                }
             }
         });
 
@@ -244,6 +251,13 @@ public class ClockInAndOutActivity extends AppCompatActivity implements FingerPr
             @Override
             public void onClick(View v) {
                 Log.d("Clock Out", "clocking out");
+                if(mCurrentDevice != null) {
+                    //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
+                    mCurrentDevice.captureSingle(
+                            mCaptureOptionDefault,
+                            new FingerPrintCaptureResponder(mainContext),
+                            true);
+                }
             }
         });
 
