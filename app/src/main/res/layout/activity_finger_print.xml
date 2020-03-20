@@ -36,12 +36,23 @@
         android:layout_marginRight="20dp"
         android:layout_marginEnd="20dp"/>
 
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/imageViewFingerPrint"
+        android:id="@+id/textViewStatus"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:text="Device Not Connected"
+        android:textSize="20sp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/imageViewFingerPrint"
-        android:layout_marginTop="20dp">
+        android:layout_below="@+id/textViewStatus"
+        android:layout_marginTop="10dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="120dp"
