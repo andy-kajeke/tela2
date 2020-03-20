@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.ClockIn_with_StaffId;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
-import com.planetsystems.tela.activities.fingerprint.FingerPrintCaptureResponder;
+import com.planetsystems.tela.activities.FingerPrintCaptureResponder;
 import com.suprema.IBioMiniDevice;
 
 import java.text.SimpleDateFormat;
