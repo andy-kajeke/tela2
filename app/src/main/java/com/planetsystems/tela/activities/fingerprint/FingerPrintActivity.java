@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -121,6 +122,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             UsbDevice _device = deviceIter.next();
             if( _device.getVendorId() ==0x16d1 ){
                 //Suprema vendor ID
+                Toast.makeText(this, "Requesting permission", Toast.LENGTH_LONG).show();
                 mUsbManager.requestPermission(_device , mPermissionIntent);
             }else{
             }
@@ -157,19 +159,22 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         findViewById(R.id.cardViewAction).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra(FIRST_NAME, startActivityIntent.getStringExtra(FIRST_NAME));
-                intent.putExtra(LAST_NAME, startActivityIntent.getStringExtra(LAST_NAME));
-                intent.putExtra(INITIALS, startActivityIntent.getStringExtra(INITIALS));
-                intent.putExtra(EMAIL_ADDRESS, startActivityIntent.getStringExtra(EMAIL_ADDRESS));
-                intent.putExtra(PHONE_NUMBER, startActivityIntent.getStringExtra(PHONE_NUMBER));
-                intent.putExtra(NATIONAL_ID, startActivityIntent.getStringExtra(NATIONAL_ID));
-                intent.putExtra(GENDER, startActivityIntent.getStringExtra(GENDER));
-                intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
-                intent.putExtra(FINGER_PRINT_IMAGE, capturedImageData);
-                setResult(RESULT_OK, intent);
-
-                finish();
+                if (capturedTemplateData == null ) {
+                    Toast.makeText(FingerPrintActivity.this, "Please take fingerprint to proceed", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent();
+                    intent.putExtra(FIRST_NAME, startActivityIntent.getStringExtra(FIRST_NAME));
+                    intent.putExtra(LAST_NAME, startActivityIntent.getStringExtra(LAST_NAME));
+                    intent.putExtra(INITIALS, startActivityIntent.getStringExtra(INITIALS));
+                    intent.putExtra(EMAIL_ADDRESS, startActivityIntent.getStringExtra(EMAIL_ADDRESS));
+                    intent.putExtra(PHONE_NUMBER, startActivityIntent.getStringExtra(PHONE_NUMBER));
+                    intent.putExtra(NATIONAL_ID, startActivityIntent.getStringExtra(NATIONAL_ID));
+                    intent.putExtra(GENDER, startActivityIntent.getStringExtra(GENDER));
+                    intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
+                    intent.putExtra(FINGER_PRINT_IMAGE, capturedImageData);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         });
 

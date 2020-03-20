@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 
-public class ClockInAndOutActivity extends AppCompatActivity implements FingerPrintCaptureResponder.OnFingerPrintCaptureResponseListener {
+public class ClockInAndOutActivity extends AppCompatActivity {
 
     TextView dateDisplay;
     TextView close_clockIn, close_clockOut;
@@ -52,78 +52,7 @@ public class ClockInAndOutActivity extends AppCompatActivity implements FingerPr
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
     private UsbManager mUsbManager = null;
     private PendingIntent mPermissionIntent= null;
-    //
-    private static BioMiniFactory mBioMiniFactory = null;
-    public static final int REQUEST_WRITE_PERMISSION = 786;
-    public IBioMiniDevice mCurrentDevice = null;
-    private ClockInAndOutActivity mainContext;
 
-    public final static String TAG = "BioMini Sample";
-    private TextView statusTextView;
-    private ScrollView mScrollLog = null;
-    private Intent intent;
-    private IBioMiniDevice.TemplateData capturedTemplateData;
-    private Bitmap capturedImageData;
-    private ClockInAndOutActivityViewModel printActivityViewModel;
-
-    private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
-
-    synchronized public void printState(final CharSequence str){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                statusTextView.setText(str);
-            }
-        });
-    }
-
-    synchronized public void log(final String msg) {
-    }
-
-    synchronized public void printRev(final String msg) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-//                ((TextView) findViewById(R.id.revText)).setText(msg);
-            }
-        });
-    }
-
-    private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver(){
-        public void onReceive(Context context, Intent intent){
-            String action = intent.getAction();
-            if(ACTION_USB_PERMISSION.equals(action)){
-                synchronized(this){
-                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-                    if(intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)){
-                        if(device != null){
-                            if( mBioMiniFactory == null) return;
-                            mBioMiniFactory.addDevice(device);
-                            log(String.format(Locale.ENGLISH ,"Initialized device count- BioMiniFactory (%d)" , mBioMiniFactory.getDeviceCount() ));
-                        }
-                    }
-                    else{
-                        Log.d(TAG, "permission denied for device"+ device);
-                    }
-                }
-            }
-        }
-    };
-
-    public void checkDevice(){
-        if(mUsbManager == null) return;
-        log("checkDevice");
-        HashMap<String , UsbDevice> deviceList = mUsbManager.getDeviceList();
-        Iterator<UsbDevice> deviceIter = deviceList.values().iterator();
-        while(deviceIter.hasNext()){
-            UsbDevice _device = deviceIter.next();
-            if( _device.getVendorId() ==0x16d1 ){
-                //Suprema vendor ID
-                mUsbManager.requestPermission(_device , mPermissionIntent);
-            }else{
-            }
-        }
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,9 +62,6 @@ public class ClockInAndOutActivity extends AppCompatActivity implements FingerPr
         datacenter = findViewById(R.id.cardview2);
         checkin = findViewById(R.id.cardview3);
         checkout = findViewById(R.id.cardview4);
-        mainContext = this;
-
-        mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
 
 
         checkInDialog = new Dialog(this);
@@ -163,13 +89,6 @@ public class ClockInAndOutActivity extends AppCompatActivity implements FingerPr
                 ClockOut();
             }
         });
-        if(mBioMiniFactory != null) {
-            mBioMiniFactory.close();
-        }
-
-        restartBioMini();
-
-        printRev(""+mBioMiniFactory.getSDKInfo());
     }
 
     @Override
@@ -206,13 +125,7 @@ public class ClockInAndOutActivity extends AppCompatActivity implements FingerPr
             @Override
             public void onClick(View v) {
                 Log.d("ClickIn", "clocking in ");
-                if(mCurrentDevice != null) {
-                    //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
-                    mCurrentDevice.captureSingle(
-                            mCaptureOptionDefault,
-                            new FingerPrintCaptureResponder(mainContext),
-                            true);
-                }
+
             }
         });
 
@@ -251,13 +164,7 @@ public class ClockInAndOutActivity extends AppCompatActivity implements FingerPr
             @Override
             public void onClick(View v) {
                 Log.d("Clock Out", "clocking out");
-                if(mCurrentDevice != null) {
-                    //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
-                    mCurrentDevice.captureSingle(
-                            mCaptureOptionDefault,
-                            new FingerPrintCaptureResponder(mainContext),
-                            true);
-                }
+
             }
         });
 
@@ -282,110 +189,5 @@ public class ClockInAndOutActivity extends AppCompatActivity implements FingerPr
         checkOutDialog.show();
     }
 
-    void handleDevChange(IUsbEventHandler.DeviceChangeEvent event, Object dev) {
-        if (event == IUsbEventHandler.DeviceChangeEvent.DEVICE_ATTACHED && mCurrentDevice == null) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    int cnt = 0;
-                    while (mBioMiniFactory == null && cnt < 20) {
-                        SystemClock.sleep(1000);
-                        cnt++;
-                    }
-                    if (mBioMiniFactory != null) {
-                        mCurrentDevice = mBioMiniFactory.getDevice(0);
-                        printState(getResources().getText(R.string.device_attached));
-                        Log.d(TAG, "mCurrentDevice attached : " + mCurrentDevice);
-                        if (mCurrentDevice != null /*&& mCurrentDevice.getDeviceInfo() != null*/) {
-                            log(" DeviceName : " + mCurrentDevice.getDeviceInfo().deviceName);
-                            log("         SN : " + mCurrentDevice.getDeviceInfo().deviceSN);
-                            log("SDK version : " + mCurrentDevice.getDeviceInfo().versionSDK);
-                        }
-                    }
-                }
-            }).start();
-        } else if (mCurrentDevice != null && event == IUsbEventHandler.DeviceChangeEvent.DEVICE_DETACHED && mCurrentDevice.isEqual(dev)) {
-            printState(getResources().getText(R.string.device_detached));
-            Log.d(TAG, "mCurrentDevice removed : " + mCurrentDevice);
-            mCurrentDevice = null;
-        }
-    }
 
-    void restartBioMini() {
-        if(mBioMiniFactory != null) {
-            mBioMiniFactory.close();
-        }
-        if( mbUsbExternalUSBManager ){
-            mUsbManager = (UsbManager)getSystemService(Context.USB_SERVICE);
-            mBioMiniFactory = new BioMiniFactory(mainContext, mUsbManager){
-                @Override
-                public void onDeviceChange(DeviceChangeEvent event, Object dev) {
-                    log("----------------------------------------");
-                    log("onDeviceChange : " + event + " using external usb-manager");
-                    log("----------------------------------------");
-                    handleDevChange(event, dev);
-                }
-            };
-            //
-            mPermissionIntent = PendingIntent.getBroadcast(this,0,new Intent(ACTION_USB_PERMISSION),0);
-            IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
-            registerReceiver(mUsbReceiver, filter);
-            checkDevice();
-        }else {
-            mBioMiniFactory = new BioMiniFactory(mainContext) {
-                @Override
-                public void onDeviceChange(DeviceChangeEvent event, Object dev) {
-                    log("----------------------------------------");
-                    log("onDeviceChange : " + event);
-                    log("----------------------------------------");
-                    handleDevChange(event, dev);
-                }
-            };
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (mBioMiniFactory != null) {
-            mBioMiniFactory.close();
-            mBioMiniFactory = null;
-        }
-        if( mbUsbExternalUSBManager ){
-            unregisterReceiver(mUsbReceiver);
-        }
-        super.onDestroy();
-    }
-
-    private void requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},  REQUEST_WRITE_PERMISSION);
-        }
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == REQUEST_WRITE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            log("permission granted");
-        }
-    }
-    @Override
-    public void onPostCreate(Bundle savedInstanceState){
-        requestPermission();
-        super.onPostCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onFingerPrintCaptureResponseCapture(Object contest, IBioMiniDevice.FingerState fingerState) {
-        Toast.makeText(this, "Capture", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public boolean onFingerPrintCaptureResponseCaptureEx(Object o, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
-        Toast.makeText(this, "Capture success", Toast.LENGTH_LONG).show();
-        return true;
-    }
-
-    @Override
-    public void onFingerPrintCaptureResponseCaptureError(Object contest, int errorCode, String errorMessage) {
-        Toast.makeText(this, "Capture error", Toast.LENGTH_LONG).show();
-    }
 }
