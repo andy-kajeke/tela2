@@ -16,10 +16,10 @@
         <activity
             android:name=".activities.fingerprint.FingerPrintActivity"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".activities.ClockIn_ClockOut" />
+        <activity android:name=".activities.clockInAndOutActivity.ClockInAndOutActivity" />
         <activity
             android:name=".activities.enrollActivity.EnrollmentActivity"
-            android:parentActivityName=".activities.ClockIn_ClockOut"
+            android:parentActivityName=".activities.clockInAndOutActivity.ClockInAndOutActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.MainActivity"

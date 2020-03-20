@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="0dp"
     android:background="#fff"
-    tools:context=".activities.ClockIn_ClockOut">
+    tools:context=".activities.clockInAndOutActivity.ClockInAndOutActivity">
 
     <ImageView
         android:id="@+id/imageClock"

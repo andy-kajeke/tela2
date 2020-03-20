@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities;
+package com.planetsystems.tela.activities.clockInAndOutActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -17,11 +17,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.ClockIn_with_StaffId;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 
 import java.text.SimpleDateFormat;
 
-public class ClockIn_ClockOut extends AppCompatActivity {
+public class ClockInAndOutActivity extends AppCompatActivity {
 
     TextView dateDisplay;
     TextView close_clockIn, close_clockOut;
@@ -77,7 +78,7 @@ public class ClockIn_ClockOut extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.enroll:
-                Intent home = new Intent(ClockIn_ClockOut.this, EnrollmentActivity.class);
+                Intent home = new Intent(ClockInAndOutActivity.this, EnrollmentActivity.class);
                 startActivity(home);
                 return true;
             case R.id.settings:
@@ -106,7 +107,7 @@ public class ClockIn_ClockOut extends AppCompatActivity {
         btnStaffId_In.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ClockIn_ClockOut.this, ClockIn_with_StaffId.class);
+                Intent i = new Intent(ClockInAndOutActivity.this, ClockIn_with_StaffId.class);
 //                i.putExtra("time",clock_in_time.getText());
 //                i.putExtra("date",dayString);
                 startActivity(i);
