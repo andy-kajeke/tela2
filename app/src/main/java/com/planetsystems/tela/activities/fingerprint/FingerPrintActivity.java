@@ -154,7 +154,9 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         findViewById(R.id.cardViewAction).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
 
