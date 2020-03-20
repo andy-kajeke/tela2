@@ -56,8 +56,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     private TextView statusTextView;
     private ScrollView mScrollLog = null;
     private Intent intent;
-    private IBioMiniDevice.TemplateData capturedTemplate;
-    private Bitmap capturedImage;
+    private IBioMiniDevice.TemplateData capturedTemplateData;
+    private Bitmap capturedImageData;
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
 
@@ -254,15 +254,17 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     public boolean onFingerPrintCaptureResponseCaptureEx(Object contest, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
         log("onCapture : Capture successful!");
         printState(getResources().getText(R.string.capture_single_ok));
+        capturedTemplateData = templateData;
+        capturedImageData = bitmap;
 
         log(((IBioMiniDevice) contest).popPerformanceLog());
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (capturedImage != null) {
+                if (capturedImageData != null) {
                     ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
                     if (iv != null) {
-                        iv.setImageBitmap(capturedImage);
+                        iv.setImageBitmap(capturedImageData);
                     }
                 }
             }
