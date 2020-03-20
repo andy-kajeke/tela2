@@ -2,6 +2,7 @@ package com.planetsystems.tela.activities.enrollActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 
 public class EnrollmentActivity extends AppCompatActivity {
+    private EnrollmentActivityViewModel activityViewModel;
 
     EditText edit_fName, edit_lName;
     EditText edit_initials, edit_phone_No;
@@ -31,6 +33,8 @@ public class EnrollmentActivity extends AppCompatActivity {
         edit_nationalID = findViewById(R.id.nationalId);
         edit_gender = findViewById(R.id.gender);
         addUser = findViewById(R.id.adduser);
+
+        activityViewModel = new ViewModelProvider(this).get(EnrollmentActivityViewModel.class);
 
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
