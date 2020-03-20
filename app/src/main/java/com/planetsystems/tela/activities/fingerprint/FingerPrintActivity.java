@@ -19,11 +19,14 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.FingerPrintCaptureResponder;
+import com.planetsystems.tela.activityViewModel.MainActivityViewModel;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
 import com.suprema.IUsbEventHandler;
@@ -130,8 +133,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
         mainContext = this;
         statusTextView = findViewById(R.id.textViewStatus);
-        printActivityViewModel = new ViewModelProvider((ViewModelStoreOwner) this).get(FingerPrintActivityViewModel.class);
-
         mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
 
         findViewById(R.id.cardViewCapture).setOnClickListener(new View.OnClickListener() {
