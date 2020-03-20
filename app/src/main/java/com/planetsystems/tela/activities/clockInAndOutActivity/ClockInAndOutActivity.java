@@ -133,6 +133,7 @@ public class ClockInAndOutActivity extends AppCompatActivity implements FingerPr
         datacenter = findViewById(R.id.cardview2);
         checkin = findViewById(R.id.cardview3);
         checkout = findViewById(R.id.cardview4);
+        mainContext = this;
 
         mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
 
