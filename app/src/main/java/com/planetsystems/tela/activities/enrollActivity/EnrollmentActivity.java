@@ -23,14 +23,14 @@ public class EnrollmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_enrollment);
         setTitle(R.string.enroll);
 
-        edit_fName = (EditText) findViewById(R.id.fName);
-        edit_lName = (EditText) findViewById(R.id.lName);
-        edit_initials = (EditText) findViewById(R.id.initials);
-        edit_email = (EditText) findViewById(R.id.email);
-        edit_phone_No = (EditText) findViewById(R.id.phoneNo);
-        edit_nationalID = (EditText) findViewById(R.id.nationalId);
-        edit_gender = (EditText) findViewById(R.id.gender);
-        addUser = (CardView) findViewById(R.id.adduser);
+        edit_fName = findViewById(R.id.fName);
+        edit_lName = findViewById(R.id.lName);
+        edit_initials = findViewById(R.id.initials);
+        edit_email = findViewById(R.id.email);
+        edit_phone_No = findViewById(R.id.phoneNo);
+        edit_nationalID = findViewById(R.id.nationalId);
+        edit_gender = findViewById(R.id.gender);
+        addUser = findViewById(R.id.adduser);
 
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
