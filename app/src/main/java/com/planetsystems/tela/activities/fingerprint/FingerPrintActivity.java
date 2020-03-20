@@ -46,6 +46,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     public static final String ACTION_ENROLL = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_ENROLL";
     public static final String ACTION_CLOCK_IN = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_CLOCK_IN";
     public static final String ACTION_CLOCK_OUT = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_CLOCK_OUT";
+    public static final String FINGER_PRINT_DATA = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.FINGER_PRINT_DATA";
+    public static final String FINGER_PRINT_IMAGE = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.FINGER_PRINT_IMAGE";
 
     //Flag.
     public static final boolean mbUsbExternalUSBManager = false;
@@ -61,7 +63,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     public final static String TAG = "BioMini Sample";
     private TextView statusTextView;
     private ScrollView mScrollLog = null;
-    private Intent intent;
+    private Intent startActivityIntent;
     private IBioMiniDevice.TemplateData capturedTemplateData;
     private Bitmap capturedImageData;
     private FingerPrintActivityViewModel printActivityViewModel;
@@ -134,6 +136,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         mainContext = this;
         statusTextView = findViewById(R.id.textViewStatus);
         mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
+        startActivityIntent = getIntent();
 
         findViewById(R.id.cardViewCapture).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +158,17 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
+                intent.putExtra(FIRST_NAME, startActivityIntent.getStringExtra(FIRST_NAME));
+                intent.putExtra(LAST_NAME, startActivityIntent.getStringExtra(LAST_NAME));
+                intent.putExtra(INITIALS, startActivityIntent.getStringExtra(INITIALS));
+                intent.putExtra(EMAIL_ADDRESS, startActivityIntent.getStringExtra(EMAIL_ADDRESS));
+                intent.putExtra(PHONE_NUMBER, startActivityIntent.getStringExtra(PHONE_NUMBER));
+                intent.putExtra(NATIONAL_ID, startActivityIntent.getStringExtra(NATIONAL_ID));
+                intent.putExtra(GENDER, startActivityIntent.getStringExtra(GENDER));
+                intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
+                intent.putExtra(FINGER_PRINT_IMAGE, capturedImageData);
                 setResult(RESULT_OK, intent);
+
                 finish();
             }
         });
