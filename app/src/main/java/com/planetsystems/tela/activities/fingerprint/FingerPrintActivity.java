@@ -42,7 +42,7 @@ public class FingerPrintActivity extends Activity {
     private FingerPrintActivity mainContext;
 
     public final static String TAG = "BioMini Sample";
-    private TextView mLogView;
+    private TextView statusTextView;
     private ScrollView mScrollLog = null;
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
@@ -114,7 +114,12 @@ public class FingerPrintActivity extends Activity {
     };
 
     synchronized public void printState(final CharSequence str){
-
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                statusTextView.setText(str);
+            }
+        });
     }
 
     synchronized public void log(final String msg) {
@@ -172,6 +177,7 @@ public class FingerPrintActivity extends Activity {
         setTitle(R.string.capture);
 
         mainContext = this;
+        statusTextView = findViewById(R.id.textViewStatus);
 
         mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
 

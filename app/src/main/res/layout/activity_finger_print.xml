@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tool=""
     android:background="@color/colorPrimary"
     tools:context=".activities.fingerprint.FingerPrintActivity">
 
@@ -45,7 +44,7 @@
         android:textColor="@color/white"
         android:gravity="center_horizontal"
         android:layout_height="wrap_content"
-        tool:text="Device Not Connected"
+        android:text="Device Not Connected"
         android:textSize="20sp"/>
 
     <LinearLayout
