@@ -1,5 +1,6 @@
 package com.planetsystems.tela.activities.clockInAndOutActivity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -32,6 +33,7 @@ import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.ClockIn_with_StaffId;
 import com.planetsystems.tela.activities.FingerPrintCaptureResponder;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
+import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
 import com.suprema.IUsbEventHandler;
@@ -48,10 +50,8 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     Button btnFingerprint_In, btnStaffId_In, btnFingerprint_Out, btnStaffId_Out;
     CardView checkin, checkout, datacenter;
     Dialog checkInDialog, checkOutDialog;
-    public static final boolean mbUsbExternalUSBManager = false;
-    private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
-    private UsbManager mUsbManager = null;
-    private PendingIntent mPermissionIntent= null;
+    public static final int CLOCK_IN_ACTIVITY_REQUEST_CODE = 2345;
+    public static final int CLOCK_OUT_ACTIVITY_REQUEST_CODE = 2345;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +124,9 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         btnFingerprint_In.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ClickIn", "clocking in ");
+                Intent intent = new Intent(ClockInAndOutActivity.this, FingerPrintActivity.class);
+                intent.setAction(FingerPrintActivity.ACTION_CLOCK_IN);
+                startActivityForResult(intent, CLOCK_IN_ACTIVITY_REQUEST_CODE);
 
             }
         });
@@ -164,6 +166,9 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("Clock Out", "clocking out");
+                Intent intent = new Intent(ClockInAndOutActivity.this, FingerPrintActivity.class);
+                intent.setAction(FingerPrintActivity.ACTION_CLOCK_IN);
+                startActivityForResult(intent, CLOCK_OUT_ACTIVITY_REQUEST_CODE);
 
             }
         });
@@ -190,4 +195,8 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
