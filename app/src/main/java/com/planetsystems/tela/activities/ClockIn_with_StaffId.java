@@ -1,18 +1,13 @@
 package com.planetsystems.tela.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,9 +18,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.planetsystems.tela.R;
-
-import java.util.List;
-import java.util.Locale;
+import com.planetsystems.tela.staff.regularStaff.TeacherHome;
 
 public class ClockIn_with_StaffId extends Activity {
 
@@ -68,6 +61,9 @@ public class ClockIn_with_StaffId extends Activity {
                     } else {
                         //new GET_EMPLOYEE_INFO().execute(API + employeeNumber + "/" + latitude + "/" + longitude);
                         if (staffid.getText().equals("2001")){
+
+                            Intent teacherHome = new Intent(ClockIn_with_StaffId.this, TeacherHome.class);
+                            startActivity(teacherHome);
 
                         }else if (staffid.getText().equals("3001")){
 
