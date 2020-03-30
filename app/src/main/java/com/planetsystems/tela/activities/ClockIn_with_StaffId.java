@@ -60,14 +60,14 @@ public class ClockIn_with_StaffId extends Activity {
 
                     } else {
                         //new GET_EMPLOYEE_INFO().execute(API + employeeNumber + "/" + latitude + "/" + longitude);
-                        if (staffid.getText().equals("2001")){
+                        if (employeeNumber.equals("2001")){
 
                             Intent teacherHome = new Intent(ClockIn_with_StaffId.this, TeacherHome.class);
                             startActivity(teacherHome);
 
-                        }else if (staffid.getText().equals("3001")){
+                        }else if (employeeNumber.equals("3001")){
 
-                        }else if (staffid.getText().equals("5001")){
+                        }else if (employeeNumber.equals("5001")){
 
                         }
                     }
