@@ -31,16 +31,16 @@ public class TeacherHome extends AppCompatActivity implements PopupMenu.OnMenuIt
     TextView datetoday;
     String namez="";
     String empNo="";
-    TextView uiName;
-    TextView uiempNo;
+    TextView emp_Name;
+    TextView emp_Id;
     TextView tvname;
     //TextView datetoday;
     Button submit, selfmenu;
 //    ArrayList<Tasks> markList;
 //    TaskAdapter adapter;
     public String id_extra;
-    String lat_extra;
-    String long_extra;
+    String lat_extra, long_extra;
+    String emp_id_extra, emp_name_extra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +48,21 @@ public class TeacherHome extends AppCompatActivity implements PopupMenu.OnMenuIt
         setContentView(R.layout.activity_teacher_home);
 
         lstView1 = findViewById(R.id.card_listView);
-        uiName = findViewById(R.id.namexx);
-        uiempNo = findViewById(R.id.staffId);
+        emp_Name = findViewById(R.id.namexx);
+        emp_Id = findViewById(R.id.staffId);
         datetoday = findViewById(R.id.datetoday);
         submit= findViewById(R.id.submit);
         selfmenu= findViewById(R.id.menuBtn);
 
         Date currentTime = Calendar.getInstance().getTime();
         datetoday.setText(""+currentTime.toString());
+
+        Bundle bundle = getIntent().getExtras();
+        emp_id_extra = bundle.getString("id");
+        emp_name_extra = bundle.getString("name");
+
+        emp_Name.append(emp_name_extra);
+        emp_Id.append(emp_id_extra);
 
         //submit attendance commitment
         submit.setOnClickListener(new View.OnClickListener() {
