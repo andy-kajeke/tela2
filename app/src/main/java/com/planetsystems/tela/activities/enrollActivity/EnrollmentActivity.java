@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
+import com.planetsystems.tela.data.Teacher.SyncTeacher;
+
+import java.util.Objects;
 
 public class EnrollmentActivity extends AppCompatActivity {
     private EnrollmentActivityViewModel activityViewModel;
@@ -60,8 +63,27 @@ public class EnrollmentActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAPTURE_FINGER_PRINT_REQUEST) {
-            Toast.makeText(this, "Result", Toast.LENGTH_LONG).show();
+        if (requestCode == CAPTURE_FINGER_PRINT_REQUEST && resultCode == RESULT_OK) {
+            assert data != null;
+            SyncTeacher syncTeacher = new SyncTeacher(
+                    null,
+                    null,
+                    null,
+                    data.getStringExtra(FingerPrintActivity.EMAIL_ADDRESS),
+                    data.getByteArrayExtra(FingerPrintActivity.FINGER_PRINT_DATA),
+                    Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.FIRST_NAME)),
+                    Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.LAST_NAME)),
+                    Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.GENDER)),
+                    Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.INITIALS)),
+                    2345,
+                    Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.NATIONAL_ID)),
+                    Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.PHONE_NUMBER)),
+                    null
+            );
+            activityViewModel.enrollTeacher(syncTeacher);
+            Toast.makeText(this, data.getStringExtra(FingerPrintActivity.FIRST_NAME), Toast.LENGTH_LONG).show();
+        } else if (requestCode == CAPTURE_FINGER_PRINT_REQUEST && resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "Finger print Capture Canceled", Toast.LENGTH_LONG).show();
         }
     }
 }
