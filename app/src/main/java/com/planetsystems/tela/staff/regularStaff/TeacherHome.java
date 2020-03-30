@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
+import com.planetsystems.tela.staff.regularStaff.serviceRequests.MakeRequests;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -96,6 +99,38 @@ public class TeacherHome extends AppCompatActivity implements PopupMenu.OnMenuIt
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        return false;
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.request) {
+
+            Intent intent = new Intent(TeacherHome.this, MakeRequests.class);
+            intent.putExtra("name", emp_name_extra);
+            //intent.putExtra("school_id", school_extra);
+            intent.putExtra("id", emp_id_extra);
+            startActivity(intent);
+            //return true;
+        }
+        else if (id == R.id.myStatus) {
+
+//            Intent intent = new Intent(Emp_Home.this, MyStatus.class);
+//            intent.putExtra("name", emp_name_extra);
+//            intent.putExtra("id", emp_id_extra);
+//            startActivity(intent);
+            //return true;
+        }
+        else if (id == R.id.Logout) {
+            Intent intent = new Intent(TeacherHome.this, ClockInAndOutActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            TeacherHome.this.finish();
+            //return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+        //return false;
     }
 }
