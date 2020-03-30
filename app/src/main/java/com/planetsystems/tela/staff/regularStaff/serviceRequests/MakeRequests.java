@@ -3,7 +3,9 @@ package com.planetsystems.tela.staff.regularStaff.serviceRequests;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,5 +47,63 @@ public class MakeRequests extends AppCompatActivity {
 
         staffName.append(name_extra);
         staffId.append(id_extra);
+
+        //On select specific request
+        schoolMaterials.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                Intent sch = new Intent(MakeRequests.this, ListSchoolMaterial.class);
+//                sch.putExtra("id", id_extra);
+//                sch.putExtra("name", name_extra);
+//                sch.putExtra("school_id", school_extra);
+//                startActivity(sch);
+
+            }
+        });
+        timeOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent sch = new Intent(MakeRequests.this, RequestTimeOff.class);
+                sch.putExtra("id", id_extra);
+                sch.putExtra("name", name_extra);
+                sch.putExtra("school_id", school_extra);
+                startActivity(sch);
+
+            }
+        });
+        meetings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                Intent sch = new Intent(MakeRequests.this, RequestMeeting.class);
+//                sch.putExtra("id", id_extra);
+//                sch.putExtra("name", name_extra);
+//                sch.putExtra("school_id", school_extra);
+//                startActivity(sch);
+
+            }
+        });
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                Intent sch = new Intent(MakeRequests.this, RequestHelp.class);
+//                sch.putExtra("id", id_extra);
+//                sch.putExtra("school_id", school_extra);
+//                startActivity(sch);
+
+            }
+        });
+
+        replies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+               // showUpdatePopup();
+
+            }
+        });
     }
 }
