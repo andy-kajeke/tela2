@@ -54,4 +54,37 @@
     <string name="menu_finger_print_setting">Setting</string>
     <string name="device_attached">Device Attached</string>
     <string name="device_detached">Device Removed</string>
+
+    <string-array name="leave_type">
+        <item> </item>
+        <item>Annual Leave</item>
+        <item>Study Leave</item>
+        <item>Marriage Leave</item>
+        <item>Sick Leave</item>
+        <item>Compassion Leave</item>
+        <item>Unpaid Leave</item>
+        <item>Off-in-Lieu</item>
+    </string-array>
+
+    <string-array name="help_category">
+        <item> </item>
+        <item>Appointment</item>
+        <item>Confidential</item>
+        <item>Emergency</item>
+        <item>Inquiry</item>
+        <item>System issue</item>
+    </string-array>
+    <string name="title_activity_edit__staff_list">Update Staff List</string>
+    <string name="title_activity_edit__individual__info">Edit Staff Info</string>
+    <string name="title_activity_add__new__staff">Add New Staff</string>
+    <string name="title_activity_select_a_day">Select a day to edit timetable</string>
+    <string name="title_activity_time_table">Edit TimeTable</string>
+    <string name="title_activity_edit_time_table">Edit TimeTable</string>
+    <string name="title_activity_select_class">Select Class</string>
+    <string name="title_activity_manual_sync">Data Management</string>
+    <string name="title_activity_request_made">Service Requests</string>
+    <string name="title_activity_pending_materials">Pending Material Requests</string>
+    <string name="title_activity_approve_material">Material Request</string>
+    <string name="title_activity_pending_time_off">Pending TimeOff Requests</string>
+
 </resources>

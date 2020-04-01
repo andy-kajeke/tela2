@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true" />
 
     <EditText
-        android:id="@+id/imageViewFingerPrint"
+        android:id="@+id/staffID"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/edit_text_style"
@@ -54,7 +54,7 @@
         android:layout_marginEnd="70dp"
         android:layout_marginBottom="27dp"
         card_view:cardBackgroundColor="@color/white"
-        android:layout_below="@+id/imageViewFingerPrint"
+        android:layout_below="@+id/staffID"
         android:layout_centerHorizontal="true">
 
         <TextView
