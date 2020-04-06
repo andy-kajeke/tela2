@@ -1,9 +1,13 @@
 package com.planetsystems.tela.activities.clockInAndOutActivity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -19,6 +23,7 @@ import android.hardware.usb.UsbManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +37,7 @@ import android.widget.Toast;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.ClockIn_with_StaffId;
 import com.planetsystems.tela.activities.FingerPrintCaptureResponder;
+import com.planetsystems.tela.activities.MainActivity;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.suprema.BioMiniFactory;
@@ -45,24 +51,32 @@ import java.util.Locale;
 
 public class ClockInAndOutActivity extends AppCompatActivity {
 
-    TextView dateDisplay;
+    TextView dateDisplay, schoolName;
     TextView close_clockIn, close_clockOut;
     Button btnFingerprint_In, btnStaffId_In, btnFingerprint_Out, btnStaffId_Out;
     CardView checkin, checkout, datacenter;
     Dialog checkInDialog, checkOutDialog;
     public static final int CLOCK_IN_ACTIVITY_REQUEST_CODE = 2345;
     public static final int CLOCK_OUT_ACTIVITY_REQUEST_CODE = 2345;
+    String deviceIMEI_extra, schoolName_extra;
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clockin__clock_out);
 
         dateDisplay = findViewById(R.id.calendarView4);
+        schoolName = findViewById(R.id.schoolName);
         datacenter = findViewById(R.id.cardview2);
         checkin = findViewById(R.id.cardview3);
         checkout = findViewById(R.id.cardview4);
 
+        Bundle bundle = getIntent().getExtras();
+        deviceIMEI_extra = bundle.getString("device_imei");
+        schoolName_extra = bundle.getString("schoolName");
+
+        schoolName.setText(schoolName_extra);
 
         checkInDialog = new Dialog(this);
         checkOutDialog = new Dialog(this);
@@ -89,6 +103,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 ClockOut();
             }
         });
+
     }
 
     @Override
@@ -193,7 +208,6 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         checkOutDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         checkOutDialog.show();
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
