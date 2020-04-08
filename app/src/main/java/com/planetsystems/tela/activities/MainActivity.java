@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent home = new Intent(MainActivity.this, SchoolConfirmation.class);
-                home.putExtra("device_imei", IMEINumber);
+                //home.putExtra("device_imei", IMEINumber);
+                home.putExtra("device_imei", "354633111523205");
                 startActivity(home);
                 finish();
             }
