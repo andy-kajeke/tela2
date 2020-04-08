@@ -23,6 +23,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
+        <uses-library android:name="org.apache.http.legacy" android:required="true" />
         <service
             android:name=".services.syncteachers.SyncTeacherDownloadService"
             android:exported="false"></service>
