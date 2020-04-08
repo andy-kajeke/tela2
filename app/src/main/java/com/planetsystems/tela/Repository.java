@@ -73,7 +73,7 @@ public class Repository {
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
-                syncTeacherDao.insertAllTeachers(syncTeacher);
+               // syncTeacherDao.insertAllTeachers(syncTeacher);
             }
         });
     }

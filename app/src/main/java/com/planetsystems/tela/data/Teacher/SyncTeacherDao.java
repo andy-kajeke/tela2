@@ -20,7 +20,6 @@ public interface SyncTeacherDao {
 
     @Insert()
     void insertAllTeachers(SyncTeacher syncTeacher);
-
     @Update
     void updateStaff(SyncTeacher syncTeacher);
 
