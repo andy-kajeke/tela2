@@ -15,6 +15,10 @@ import java.net.URL;
 import static com.planetsystems.tela.constants.Urls.SYNC_TEACHER_URL;
 
 public class LoadSyncTeacherThread extends Thread {
+
+    public LoadSyncTeacherThread() {
+    }
+
     @Override
     public void run() {
         super.run();
