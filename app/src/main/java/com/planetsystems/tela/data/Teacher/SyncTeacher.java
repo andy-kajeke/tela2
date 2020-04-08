@@ -39,7 +39,7 @@ public class SyncTeacher {
     private String initials;
 
     @ColumnInfo(name = "licensed")
-    private int licensed;
+    private boolean licensed;
 
     @ColumnInfo(name = "nationalId")
     private String nationalId;
@@ -123,11 +123,11 @@ public class SyncTeacher {
         this.initials = initials;
     }
 
-    public int getLicensed() {
+    public boolean getLicensed() {
         return licensed;
     }
 
-    public void setLicensed(int licensed) {
+    public void setLicensed(boolean licensed) {
         this.licensed = licensed;
     }
 
@@ -156,7 +156,7 @@ public class SyncTeacher {
     }
 
     public SyncTeacher(@NonNull String id, String MPSComputerNumber, String dob, String emailAddress, byte[] fingerPrint, String firstName, String lastName,
-                       String gender, String initials, int licensed, String nationalId, String phoneNumber, String schoolId) {
+                       String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
         this.id = id;
         this.MPSComputerNumber = MPSComputerNumber;
         this.dob = dob;

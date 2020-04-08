@@ -75,7 +75,7 @@ public class EnrollmentActivity extends AppCompatActivity {
                     Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.LAST_NAME)),
                     Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.GENDER)),
                     Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.INITIALS)),
-                    2345,
+                    true,
                     Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.NATIONAL_ID)),
                     Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.PHONE_NUMBER)),
                     null
