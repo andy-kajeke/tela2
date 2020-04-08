@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new LoadSyncTeacherThread().start();
+//        new LoadSyncTeacherThread().start();
         Log.d("main", "looded syn teacher");
 
         new Handler().postDelayed(new Runnable() {

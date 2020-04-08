@@ -63,7 +63,7 @@ public class SchoolConfirmation extends AppCompatActivity {
         if (!isConnected()) {
             Toast.makeText(this, "No connection", Toast.LENGTH_SHORT).show();
         } else {
-            new Fetch_API_JSONAsyncTask().execute(Urls.DEVICE_OWNERSHIP + deviceIMEI_extra);
+//            new Fetch_API_JSONAsyncTask().execute(Urls.DEVICE_OWNERSHIP + deviceIMEI_extra);
         }
 
         confirm.setOnClickListener(new View.OnClickListener() {
