@@ -25,7 +25,7 @@ public class LoadSyncTeacherThread extends Thread {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 SyncTeachers teachers = new Gson().fromJson(reader, SyncTeachers.class);
                 reader.close();
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < teachers.teachers.size(); i++) {
                     Log.d("LeadThread", teachers.teachers.get(i).getFirstName());
                 }
             } catch (IOException e) {
