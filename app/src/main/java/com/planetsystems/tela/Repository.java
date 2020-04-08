@@ -68,6 +68,16 @@ public class Repository {
         });
     }
 
+    //Insert all staff members
+    public void insertAllTeachers(final SyncTeacher syncTeacher){
+        TelaRoomDatabase.db_executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                syncTeacherDao.insertAllTeachers(syncTeacher);
+            }
+        });
+    }
+
     //Fetch all enrolled staff members
     public LiveData<List<SyncTeacher>> getAllTeachers(){
         return syncTeacherDao.getAllTeachers();

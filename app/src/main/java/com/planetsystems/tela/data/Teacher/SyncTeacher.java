@@ -18,46 +18,36 @@ public class SyncTeacher {
     private String MPSComputerNumber;
 
     @ColumnInfo(name = "dob")
-    @NonNull
     private String dob;
 
     @ColumnInfo(name = "emailAddress")
     private String emailAddress;
 
     @ColumnInfo(name = "fingerPrint")
-    //@NonNull
     private byte[] fingerPrint;
 
     @ColumnInfo(name = "firstName")
-    @NonNull
     private String firstName;
 
     @ColumnInfo(name = "lastName")
-    @NonNull
     private String lastName;
 
     @ColumnInfo(name = "gender")
-    @NonNull
     private String gender;
 
     @ColumnInfo(name = "initials")
-    @NonNull
     private String initials;
 
     @ColumnInfo(name = "licensed")
-    @NonNull
     private int licensed;
 
     @ColumnInfo(name = "nationalId")
-    @NonNull
     private String nationalId;
 
     @ColumnInfo(name = "phoneNumber")
-    @NonNull
     private String phoneNumber;
 
     @ColumnInfo(name = "schoolId")
-    @NonNull
     private String schoolId;
 
     @NonNull
@@ -77,12 +67,11 @@ public class SyncTeacher {
         this.MPSComputerNumber = MPSComputerNumber;
     }
 
-    @NonNull
     public String getDob() {
         return dob;
     }
 
-    public void setDob(@NonNull String dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 
@@ -94,48 +83,43 @@ public class SyncTeacher {
         this.emailAddress = emailAddress;
     }
 
-    @NonNull
     public byte[] getFingerPrint() {
         return fingerPrint;
     }
 
-    public void setFingerPrint( byte[] fingerPrint) {
+    public void setFingerPrint(byte[] fingerPrint) {
         this.fingerPrint = fingerPrint;
     }
 
-    @NonNull
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(@NonNull String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    @NonNull
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(@NonNull String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    @NonNull
     public String getGender() {
         return gender;
     }
 
-    public void setGender(@NonNull String gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    @NonNull
     public String getInitials() {
         return initials;
     }
 
-    public void setInitials(@NonNull String initials) {
+    public void setInitials(String initials) {
         this.initials = initials;
     }
 
@@ -147,34 +131,32 @@ public class SyncTeacher {
         this.licensed = licensed;
     }
 
-    @NonNull
     public String getNationalId() {
         return nationalId;
     }
 
-    public void setNationalId(@NonNull String nationalId) {
+    public void setNationalId(String nationalId) {
         this.nationalId = nationalId;
     }
 
-    @NonNull
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(@NonNull String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    @NonNull
     public String getSchoolId() {
         return schoolId;
     }
 
-    public void setSchoolId(@NonNull String schoolId) {
+    public void setSchoolId(String schoolId) {
         this.schoolId = schoolId;
     }
 
-    public SyncTeacher(@NonNull String id, String MPSComputerNumber, @NonNull String dob, String emailAddress, byte[] fingerPrint, @NonNull String firstName, @NonNull String lastName, @NonNull String gender, @NonNull String initials, int licensed, @NonNull String nationalId, @NonNull String phoneNumber, @NonNull String schoolId) {
+    public SyncTeacher(@NonNull String id, String MPSComputerNumber, String dob, String emailAddress, byte[] fingerPrint, String firstName, String lastName,
+                       String gender, String initials, int licensed, String nationalId, String phoneNumber, String schoolId) {
         this.id = id;
         this.MPSComputerNumber = MPSComputerNumber;
         this.dob = dob;
