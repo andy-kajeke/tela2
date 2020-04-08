@@ -22,7 +22,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.SchoolConfirmation"></activity>
+        <service
+            android:name=".services.syncteachers.SyncTeacherDownloadService"
+            android:exported="false"></service>
+
+        <activity android:name=".activities.SchoolConfirmation" />
         <activity android:name=".staff.regularStaff.serviceRequests.RequestTimeOff" />
         <activity android:name=".staff.regularStaff.serviceRequests.MakeRequests" />
         <activity android:name=".staff.regularStaff.TeacherHome" />
