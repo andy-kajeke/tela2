@@ -20,6 +20,7 @@ import com.planetsystems.tela.data.helprequest.HelpRequestDao;
 import com.planetsystems.tela.data.smc.SyncSMCDao;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
+import com.planetsystems.tela.services.syncteachers.LoadSyncTeacherThread;
 
 import java.util.List;
 
@@ -94,7 +95,7 @@ public class Repository {
 
     // picking data from the cloud
     public  void populateSyncTeacherFromApi() {
-
+        new LoadSyncTeacherThread().start();
     }
 
 
