@@ -40,6 +40,7 @@ import com.planetsystems.tela.activities.FingerPrintCaptureResponder;
 import com.planetsystems.tela.activities.MainActivity;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
+import com.planetsystems.tela.activities.test.TestActivity;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
 import com.suprema.IUsbEventHandler;
@@ -124,6 +125,9 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             case R.id.settings:
                 //showHelp();
                 return true;
+
+            case R.id.testing:
+                startActivity(new Intent(this, TestActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }

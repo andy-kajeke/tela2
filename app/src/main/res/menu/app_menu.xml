@@ -4,4 +4,7 @@
         android:title="@string/enroll" />
     <item android:id="@+id/settings"
         android:title="@string/settings" />
+
+    <item android:id="@+id/testing"
+        android:title="@string/settings" />
 </menu>

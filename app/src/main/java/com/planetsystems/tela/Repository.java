@@ -111,6 +111,9 @@ public class Repository {
 
     }
 
+    public SyncTeacherDao getSyncTeacherDao() {
+        return syncTeacherDao;
+    }
 
 
 }
