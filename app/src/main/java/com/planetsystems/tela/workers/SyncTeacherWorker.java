@@ -34,6 +34,7 @@ public class SyncTeacherWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        Log.d("Worker", "Beginning work =================================================");
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(SYNC_TEACHER_URL).openConnection();
             try {

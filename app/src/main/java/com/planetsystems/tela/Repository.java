@@ -3,6 +3,8 @@ package com.planetsystems.tela;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -22,7 +24,6 @@ import com.planetsystems.tela.data.helprequest.HelpRequestDao;
 import com.planetsystems.tela.data.smc.SyncSMCDao;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
-import com.planetsystems.tela.services.syncteachers.LoadSyncTeacherThread;
 import com.planetsystems.tela.workers.SyncTeacherWorker;
 
 import java.util.List;
@@ -100,7 +101,12 @@ public class Repository {
 
     // picking data from the cloud
     public  void populateSyncTeacherFromApi() {
-        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncTeacherWorker.class).build();
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncTeacherWorker.class)
+                .setConstraints(constraints)
+                .build();
         WorkManager.getInstance(application).enqueue(workRequest);
 
     }

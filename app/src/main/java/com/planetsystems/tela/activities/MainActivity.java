@@ -18,10 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.planetsystems.tela.Repository;
 import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
 import com.planetsystems.tela.activityViewModel.MainActivityViewModel;
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.services.syncteachers.LoadSyncTeacherThread;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        new LoadSyncTeacherThread().start();
+        Repository repository = new Repository(getApplication());
+        repository.populateSyncTeacherFromApi();
         Log.d("main", "looded syn teacher");
 
         new Handler().postDelayed(new Runnable() {
