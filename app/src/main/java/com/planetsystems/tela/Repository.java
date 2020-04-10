@@ -1,7 +1,6 @@
 package com.planetsystems.tela;
 
 import android.app.Application;
-import android.content.Context;
 
 //import androidx.constraintlayout.widget.Constraints;
 import androidx.lifecycle.LiveData;
@@ -107,11 +106,11 @@ public class Repository {
         return syncTeacherDao.getAllTeachers();
     }
 
-    public void addNew(final SyncClockOut syncClockOut){
+    public void synClockOutTeacher(final SyncClockOut syncClockOut){
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
-                syncClockOutDao.addNew(syncClockOut);
+                syncClockOutDao.clockOutTeacher(syncClockOut);
             }
         });
     }
@@ -143,9 +142,5 @@ public class Repository {
                 syncClockInDao.syncClockInTeacherWithID(clockIn);
             }
         });
-    }
-
-    public void synClockOutTeacher(SyncClockIn syncClockIn) {
-
     }
 }
