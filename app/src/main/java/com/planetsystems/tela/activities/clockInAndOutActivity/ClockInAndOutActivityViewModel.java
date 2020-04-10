@@ -1,6 +1,7 @@
 package com.planetsystems.tela.activities.clockInAndOutActivity;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -28,6 +29,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     public boolean lockInTeacherWithID(List<SyncTeacher> teacherList, String requireNonNull) {
         for (SyncTeacher teacher: teacherList) {
             if (teacher.getId().equals(requireNonNull)) {
+                Log.d("Clock in re", teacher.toString());
                 SyncClockIn syncClockIn = new SyncClockIn(
                        teacher.getId(),
                        null,
@@ -48,7 +50,10 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                         null
 
                 );
+                repository.synClockInTeacherWithID(syncClockIn);
+                return true;
             }
+            return false;
 
         }
         return true;
