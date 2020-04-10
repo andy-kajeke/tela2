@@ -47,14 +47,6 @@ public class EnrollmentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EnrollmentActivity.this, FingerPrintActivity.class);
-                intent.setAction(FingerPrintActivity.ACTION_ENROLL);
-                intent.putExtra(FingerPrintActivity.FIRST_NAME, edit_fName.getText().toString());
-                intent.putExtra(FingerPrintActivity.LAST_NAME, edit_lName.getText().toString());
-                intent.putExtra(FingerPrintActivity.INITIALS, edit_initials.getText().toString());
-                intent.putExtra(FingerPrintActivity.EMAIL_ADDRESS, edit_email.getText().toString());
-                intent.putExtra(FingerPrintActivity.PHONE_NUMBER, edit_phone_No.getText().toString());
-                intent.putExtra(FingerPrintActivity.NATIONAL_ID, edit_nationalID.getText().toString());
-                intent.putExtra(FingerPrintActivity.GENDER, edit_gender.getText().toString());
                 startActivityForResult(intent, CAPTURE_FINGER_PRINT_REQUEST);
             }
         });
@@ -64,25 +56,7 @@ public class EnrollmentActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAPTURE_FINGER_PRINT_REQUEST && resultCode == RESULT_OK) {
-            assert data != null;
-            SyncTeacher syncTeacher = new SyncTeacher(
-                    null,
-                    null,
-                    null,
-                    data.getStringExtra(FingerPrintActivity.ROLE),
-                    data.getStringExtra(FingerPrintActivity.EMAIL_ADDRESS),
-                    data.getByteArrayExtra(FingerPrintActivity.FINGER_PRINT_DATA),
-                    Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.FIRST_NAME)),
-                    Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.LAST_NAME)),
-                    Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.GENDER)),
-                    Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.INITIALS)),
-                    true,
-                    Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.NATIONAL_ID)),
-                    Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.PHONE_NUMBER)),
-                    null
-            );
-            activityViewModel.enrollTeacher(syncTeacher);
-            Toast.makeText(this, data.getStringExtra(FingerPrintActivity.FIRST_NAME), Toast.LENGTH_LONG).show();
+
         } else if (requestCode == CAPTURE_FINGER_PRINT_REQUEST && resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "Finger print Capture Canceled", Toast.LENGTH_LONG).show();
         }
