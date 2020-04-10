@@ -147,12 +147,12 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         }
 
         restartBioMini();
-        if (!Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
+        if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
             // removed enroll button and change the with or cap
             textViewEnroll.setText(R.string.clock_out);
         }
 
-        if (getIntent().getAction().equals(ACTION_CLOCK_IN)) {
+        if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
             textViewEnroll.setText("Clock In");
         }
 
@@ -173,11 +173,15 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         cardViewEnroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  intent =  new Intent();
-                intent.putExtra(FINGER_PRINT_DATA, new String(capturedTemplateData.data));
-                intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
-                setResult(RESULT_OK, intent);
-                finish();
+                if (capturedTemplateData != null && capturedImageData != null ) {
+                    Intent  intent =  new Intent();
+                    intent.putExtra(FINGER_PRINT_DATA, new String(capturedTemplateData.data));
+                    intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

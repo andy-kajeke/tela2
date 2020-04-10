@@ -3,6 +3,7 @@ package com.planetsystems.tela.activities.enrollActivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -15,6 +16,7 @@ import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
+import java.util.List;
 import java.util.Objects;
 
 public class EnrollmentActivity extends AppCompatActivity {
@@ -59,19 +61,44 @@ public class EnrollmentActivity extends AppCompatActivity {
             }
         });
 
-        if (savedInstanceState != null ) {
-            // activity was destroyed let recover the data
-            activityViewModel.saveState(savedInstanceState);
-        }
+        activityViewModel.getSynTeachers().observe(this, new Observer<List<SyncTeacher>>() {
+            @Override
+            public void onChanged(List<SyncTeacher> syncTeachers) {
+                activityViewModel.setEnrolledTeachers(syncTeachers);
+            }
+        });
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAPTURE_FINGER_PRINT_REQUEST && resultCode == RESULT_OK) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (intent != null ) {
+            if (requestCode == CAPTURE_FINGER_PRINT_REQUEST) {
+                if ( resultCode == RESULT_OK ) {
+                    // TODO: Some fields are missing here, they need to be added, i have place null
+                    SyncTeacher syncTeacher = new SyncTeacher(
+                            null,
+                            null,
+                            null,
+                            null,
+                            edit_email.getText().toString(),
+                            intent.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA),
+                            edit_fName.getText().toString(),
+                            edit_lName.getText().toString(),
+                            edit_gender.getText().toString(),
+                            edit_initials.getText().toString(),
+                            false,
+                            edit_nationalID.getText().toString(),
+                            edit_phone_No.getText().toString(),
+                            null
+                    );
+                    activityViewModel.enrollTeacher(syncTeacher);
 
-        } else if (requestCode == CAPTURE_FINGER_PRINT_REQUEST && resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, "Finger print Capture Canceled", Toast.LENGTH_LONG).show();
+                } else if ( resultCode == RESULT_CANCELED) {
+                    Toast.makeText(this, "Fingerprint Capture Was Canceled", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
+
     }
 }

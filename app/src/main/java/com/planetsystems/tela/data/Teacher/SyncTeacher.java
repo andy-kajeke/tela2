@@ -32,7 +32,7 @@ public class SyncTeacher {
     private String emailAddress;
 
     @ColumnInfo(name = "fingerPrint")
-    private byte[] fingerPrint;
+    private String fingerPrint;
 
     @ColumnInfo(name = "firstName")
     private String firstName;
@@ -57,10 +57,6 @@ public class SyncTeacher {
 
     @ColumnInfo(name = "schoolId")
     private String schoolId;
-
-    public SyncTeacher(Object o, Object o1, Object o2, String stringExtra, String stringExtra1, byte[] byteArrayExtra, String requireNonNull,
-                       String requireNonNull1, String requireNonNull2, String requireNonNull3, boolean b, String requireNonNull4, String requireNonNull5, Object o3) {
-    }
 
     @NonNull
     public String getId() {
@@ -111,11 +107,11 @@ public class SyncTeacher {
         this.emailAddress = emailAddress;
     }
 
-    public byte[] getFingerPrint() {
+    public String getFingerPrint() {
         return fingerPrint;
     }
 
-    public void setFingerPrint(byte[] fingerPrint) {
+    public void setFingerPrint(String fingerPrint) {
         this.fingerPrint = fingerPrint;
     }
 
@@ -183,9 +179,28 @@ public class SyncTeacher {
         this.schoolId = schoolId;
     }
 
-    public SyncTeacher(@NonNull String id, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, byte[] fingerPrint, String firstName, String lastName, String gender, String initials,
-                       boolean licensed, String nationalId, String phoneNumber, String schoolId) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "SyncTeacher{" +
+                "id='" + id + '\'' +
+                ", MPSComputerNumber='" + MPSComputerNumber + '\'' +
+                ", employeeNumber='" + employeeNumber + '\'' +
+                ", role='" + role + '\'' +
+                ", dob='" + dob + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", fingerPrint=" + fingerPrint +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", initials='" + initials + '\'' +
+                ", licensed=" + licensed +
+                ", nationalId='" + nationalId + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", schoolId='" + schoolId + '\'' +
+                '}';
+    }
+
+    public SyncTeacher(String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, String fingerPrint, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
         this.MPSComputerNumber = MPSComputerNumber;
         this.employeeNumber = employeeNumber;
         this.role = role;
@@ -200,26 +215,5 @@ public class SyncTeacher {
         this.nationalId = nationalId;
         this.phoneNumber = phoneNumber;
         this.schoolId = schoolId;
-    }
-
-    @Override
-    public String toString() {
-        return "SyncTeacher{" +
-                "id='" + id + '\'' +
-                ", MPSComputerNumber='" + MPSComputerNumber + '\'' +
-                ", employeeNumber='" + employeeNumber + '\'' +
-                ", role='" + role + '\'' +
-                ", dob='" + dob + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", fingerPrint=" + Arrays.toString(fingerPrint) +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", initials='" + initials + '\'' +
-                ", licensed=" + licensed +
-                ", nationalId='" + nationalId + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", schoolId='" + schoolId + '\'' +
-                '}';
     }
 }
