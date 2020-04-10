@@ -136,8 +136,13 @@ public class Repository {
         return syncTeacherDao.getAllTeachers();
     }
 
-    public void synClockInTeacherWithID(SyncClockIn clockIn){
-        syncClockInDao.syncClockInTeacherWithID(clockIn);
+    public void synClockInTeacherWithID(final SyncClockIn clockIn){
+        TelaRoomDatabase.db_executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                syncClockInDao.syncClockInTeacherWithID(clockIn);
+            }
+        });
     }
 
 }

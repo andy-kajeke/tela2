@@ -26,6 +26,7 @@ import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
+import com.planetsystems.tela.staff.regularStaff.TeacherHome;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -212,26 +213,18 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             if (requestCode == START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT ) {
                 // we have the code
                 if (resultCode == RESULT_OK ) {
-                    String STAFF_ID = data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER);
+                    String employeeNumber = data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER);
                     Log.d("code the code", "========================================================");
                     Log.d("code the code", Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
-                    boolean isClockedIn = viewModel.lockInTeacherWithID(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
+                    boolean isClockedIn = viewModel.clockInTeacherEmployeeNumber(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
                     if (isClockedIn) {
-                        if (Objects.equals(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER), "2001")){
+                        if (Objects.equals(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER), "9876")){
 
-//                            Intent teacherHome = new Intent(ClockInWithEmployeeNumberActivity.this, TeacherHome.class);
-//                            teacherHome.putExtra("id", employeeNumber);
-//                            teacherHome.putExtra("name","Andrew Kajeke");
-//                            startActivity(teacherHome);
-                            /*
-                            * Live data does work with activity only with app compat activity, after data the code
-                            * we shall return back to click in clock out activity
-                            * */
-                            Intent intent = new Intent();
-                            intent.putExtra(STAFF_ID, viewModel.findEmployeeNumberWithStaffID(teacherList, STAFF_ID));
-                            setResult(RESULT_OK, intent);
-                            finish();
-                            // returning back to starting activity
+                            Intent teacherHome = new Intent(this, TeacherHome.class);
+                            teacherHome.putExtra("id", employeeNumber);
+                            teacherHome.putExtra("name","Andrew Kajeke");
+                            startActivity(teacherHome);
+
 
                         }
 
