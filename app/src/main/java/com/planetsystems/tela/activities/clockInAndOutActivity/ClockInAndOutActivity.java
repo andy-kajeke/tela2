@@ -3,6 +3,7 @@ package com.planetsystems.tela.activities.clockInAndOutActivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
@@ -24,12 +25,15 @@ import com.planetsystems.tela.activities.clockwithstaffid.ClockInWithStaffIdActi
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
+import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Objects;
 
 public class ClockInAndOutActivity extends AppCompatActivity {
     private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
+    private List<SyncTeacher> teacherList;
 
     TextView dateDisplay, schoolName;
     TextView close_clockIn, close_clockOut;
@@ -47,6 +51,12 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clockin__clock_out);
         viewModel = new ViewModelProvider(this).get(ClockInAndOutActivityViewModel.class);
+        viewModel.getAllSyncTeacher().observe(this, new Observer<List<SyncTeacher>>() {
+            @Override
+            public void onChanged(List<SyncTeacher> syncTeachers) {
+                teacherList = syncTeachers;
+            }
+        });
 
         dateDisplay = findViewById(R.id.calendarView4);
         schoolName = findViewById(R.id.schoolName);
@@ -204,6 +214,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK ) {
                     Log.d("code the code", "========================================================");
                     Log.d("code the code", Objects.requireNonNull(data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID)));
+                    boolean isClockedIn = viewModel.lockInTeacherWithID(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID)));
                 }
             }
         }

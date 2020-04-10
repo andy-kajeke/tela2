@@ -23,4 +23,13 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     public LiveData<List<SyncTeacher>> getAllSyncTeacher() {
         return syncTeachers;
     }
+
+    public boolean lockInTeacherWithID(List<SyncTeacher> teacherList, String requireNonNull) {
+        for (SyncTeacher teacher: teacherList) {
+            if (teacher.getId().equals(requireNonNull)) {
+
+            }
+        }
+
+    }
 }
