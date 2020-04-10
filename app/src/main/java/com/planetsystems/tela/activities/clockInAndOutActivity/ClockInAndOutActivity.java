@@ -212,9 +212,39 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             if (requestCode == START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT ) {
                 // we have the code
                 if (resultCode == RESULT_OK ) {
+                    String STAFF_ID = data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID);
                     Log.d("code the code", "========================================================");
                     Log.d("code the code", Objects.requireNonNull(data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID)));
                     boolean isClockedIn = viewModel.lockInTeacherWithID(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID)));
+                    if (isClockedIn) {
+                        if (data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID).equals("2001")){
+
+//                            Intent teacherHome = new Intent(ClockInWithStaffIdActivity.this, TeacherHome.class);
+//                            teacherHome.putExtra("id", employeeNumber);
+//                            teacherHome.putExtra("name","Andrew Kajeke");
+//                            startActivity(teacherHome);
+                            /*
+                            * Live data does work with activity only with app compat activity, after data the code
+                            * we shall return back to click in clock out activity
+                            * */
+                            Intent intent = new Intent();
+                            intent.putExtra(STAFF_ID, employeeNumber);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                            // returning back to starting activity
+
+                        }else if (employeeNumber.equals("3001")){
+
+                            Intent headTeacherHome = new Intent(ClockInWithStaffIdActivity.this, AdminSide.class);
+                            headTeacherHome.putExtra("id", employeeNumber);
+                            headTeacherHome.putExtra("name","Fredrick Kasoma");
+                            headTeacherHome.putExtra("school", "354633111523205");
+                            startActivity(headTeacherHome);
+
+                        }else if (employeeNumber.equals("5001")){
+
+                        }
+                    }
                 }
             }
         }

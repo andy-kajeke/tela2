@@ -58,4 +58,13 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         }
         return true;
     }
+
+    public String findEmployeeNumberWithStaffID(List<SyncTeacher> teachers, String staffID) {
+        for (SyncTeacher teacher: teachers ) {
+            if (teacher.getId().equals(staffID)) {
+                return teacher.getEmployeeNumber();
+            }
+        }
+        return "";
+    }
 }
