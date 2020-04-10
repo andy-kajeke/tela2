@@ -131,5 +131,8 @@ public class Repository {
         return syncTeacherDao;
     }
 
+    public LiveData<List<SyncTeacher>> getAllSyncTeacher() {
+        return syncTeacherDao.getAllTeachers();
+    }
 
 }
