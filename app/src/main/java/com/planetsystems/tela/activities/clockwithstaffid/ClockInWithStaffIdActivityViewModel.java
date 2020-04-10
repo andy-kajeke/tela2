@@ -12,13 +12,15 @@ import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import java.util.List;
 
 public class ClockInWithStaffIdActivityViewModel extends AndroidViewModel {
-    Repository repository;
+    private LiveData<List<SyncTeacher>> syncTeachers;
+    private Repository repository;
     public ClockInWithStaffIdActivityViewModel(@NonNull Application application) {
         super(application);
         repository = Repository.getInstance(application);
+        syncTeachers = repository.getAllTeachers();
     }
 
     public LiveData<List<SyncTeacher>> getAllSyncTeacher() {
-        return repository.getAllSyncTeacher();
+        return syncTeachers;
     }
 }
