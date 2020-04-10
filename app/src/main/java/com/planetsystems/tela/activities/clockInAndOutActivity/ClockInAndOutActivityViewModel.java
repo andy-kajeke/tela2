@@ -59,54 +59,37 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         /*
         * This method clocks in a teacher and returns the results
         * */
-       SyncTeacher syncTeacher = null;
-        for (SyncTeacher teacher: teachers) {
-            if (teacher.getEmployeeNumber().equals(employeeNumber)) {
-                Log.d("Clock in re", teacher.toString());
-                SyncClockIn syncClockIn = new SyncClockIn(
-                       teacher.getId(),
-                       null,
-                       null,
-                       null,
-                        dateString,
-                       null,
-                        dayOfTheWeek,
-                       teacher.getEmployeeNumber(),
-                        teacher.getEmployeeNumber(),
-                        null,
-                        null,
-                        null,
-                        null,
-                        teacher.getFirstName(),
-                        teacher.getFirstName(),
-                        null,
-                        null
-
-                );
-                repository.synClockInTeacherWithID(syncClockIn);
-                syncTeacher = teacher;
-            }
-
-        }
+       SyncTeacher syncTeacher = findEmployeeNumberWithEmployeeNumber(employeeNumber);
+       if (syncTeacher == null) return null;
+       SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
+       repository.synClockInTeacherWithID(syncClockIn);
         return syncTeacher ;
     }
 
-    public String findEmployeeNumberWithStaffID(String staffID) {
+    private SyncTeacher findEmployeeNumberWithEmployeeNumber(String staffID) {
         for (SyncTeacher teacher: teachers ) {
             if (teacher.getId().equals(staffID)) {
-                return teacher.getEmployeeNumber();
+                return teacher;
             }
         }
-        return "";
+        return null;
     }
 
 
     SyncTeacher clockOutTeacherWithFingerPrint(String stringEncodedFingerPrint, String base64EncodedBitmapImage) {
-        return null;
+        SyncTeacher syncTeacher = findTeacherWithFingerPrint(stringEncodedFingerPrint.getBytes());
+        if (syncTeacher == null) return null;
+        SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
+        repository.synClockInTeacherWithID(syncClockIn);
+        return syncTeacher;
     }
 
     SyncTeacher clockInTeacherWithFingerPrint(String stringEncodedFingerPrint, String base64EncodedBitmapImage) {
-        return null;
+        SyncTeacher syncTeacher = findTeacherWithFingerPrint(stringEncodedFingerPrint.getBytes());
+        if (syncTeacher == null ) return null;
+        SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
+        repository.synClockInTeacherWithID(syncClockIn);
+        return syncTeacher;
     }
 
     List<SyncTeacher> getTeachers() {
@@ -115,5 +98,39 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
 
     void setTeachers(List<SyncTeacher> teachers) {
         this.teachers = teachers;
+    }
+
+    private SyncTeacher findTeacherWithFingerPrint(byte[] fingerPrint) {
+        if (teachers == null) return null;
+        for (SyncTeacher teacher: teachers) {
+            if (teacher.getFingerPrint().getBytes() == fingerPrint) {
+                return teacher;
+            }
+        }
+        return null;
+    }
+
+    private SyncClockIn copySynTeacherToSyncClockIn(SyncTeacher teacher) {
+        // TODO: please fix the time below, this time will be time the app was lunched change it
+        return new SyncClockIn(
+                teacher.getId(),
+                null,
+                null,
+                null,
+                dateString,
+                null,
+                dayOfTheWeek,
+                teacher.getEmployeeNumber(),
+                teacher.getEmployeeNumber(),
+                null,
+                null,
+                null,
+                null,
+                teacher.getFirstName(),
+                teacher.getFirstName(),
+                null,
+                null
+
+        );
     }
 }
