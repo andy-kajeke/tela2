@@ -25,6 +25,7 @@ import com.planetsystems.tela.activities.clockInWithEmployeeNumber.ClockInWithEm
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
+import com.planetsystems.tela.constants.Role;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.staff.regularStaff.TeacherHome;
@@ -217,14 +218,24 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                     String employeeNumber = data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER);
                     Log.d("code the code", "========================================================");
                     Log.d("code the code", Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
-                    SyncClockIn syncClockIn = viewModel.clockInTeacherEmployeeNumber(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
-                    loadTeacherHomePage(syncClockIn);
+                    SyncTeacher syncTeacher = viewModel.clockInTeacherEmployeeNumber(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
+                    loadTeacherHomePage(syncTeacher);
                 }
             }
         }
     }
 
-    private void loadTeacherHomePage(SyncClockIn syncClockIn) {
-
+    private void loadTeacherHomePage(SyncTeacher syncTeacher) {
+        if (syncTeacher != null ) {
+            /*
+            * The teacher have successfully signed in, new we take him to the
+            * teachers home page basing on the role*/
+            if (syncTeacher.getRole().equals(Role.TEACHER_ROLE)) {
+                Intent teacherHome = new Intent(this, TeacherHome.class);
+                teacherHome.putExtra("id", syncTeacher.getEmployeeNumber());
+                teacherHome.putExtra("name", syncTeacher.getFirstName());
+                startActivity(teacherHome);
+            }
+        }
     }
 }
