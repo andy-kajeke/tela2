@@ -21,8 +21,11 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.staff.administration.AdminSide;
 import com.planetsystems.tela.staff.regularStaff.TeacherHome;
+
+import java.util.List;
 
 public class ClockInWithStaffIdActivity extends Activity {
 
@@ -40,6 +43,7 @@ public class ClockInWithStaffIdActivity extends Activity {
     String Role;
 
     ClockInWithStaffIdActivityViewModel viewModel;
+    List<SyncTeacher> allTeachers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
