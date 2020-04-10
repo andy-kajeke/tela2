@@ -17,6 +17,11 @@ import com.planetsystems.tela.R;
 import com.planetsystems.tela.staff.administration.editStaff.EditStaffList;
 
 public class AdminSideActivity extends AppCompatActivity {
+    public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
+    public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_LAST_NAME";
+    public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
+    public static final String SCHOOL_NUMBER = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.SCHOOL_NUMBER";
+
 
     CardView myLessons;
     CardView attendClass;

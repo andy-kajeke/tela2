@@ -243,9 +243,10 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 startActivity(teacherHome);
             } else if (syncTeacher.getRole().equals(Role.HEAD_TEACHER_ROLE)) {
                 Intent headTeacherHome = new Intent(this, AdminSideActivity.class);
-                headTeacherHome.putExtra("id", syncTeacher.getEmployeeNumber());
-                headTeacherHome.putExtra("name","Fredrick Kasoma");
-                headTeacherHome.putExtra("school", "354633111523205");
+                headTeacherHome.putExtra(AdminSideActivity.EMPLOYEE_NUMBER, syncTeacher.getEmployeeNumber());
+                headTeacherHome.putExtra(AdminSideActivity.TEACHER_FIRST_NAME,syncTeacher.getFirstName());
+                headTeacherHome.putExtra(AdminSideActivity.TEACHER_LAST_NAME, syncTeacher.getLastName());
+                headTeacherHome.putExtra(AdminSideActivity.SCHOOL_NUMBER, "354633111523205");
                 startActivity(headTeacherHome);
             }
         }
