@@ -25,6 +25,7 @@ import com.planetsystems.tela.activities.clockInWithEmployeeNumber.ClockInWithEm
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
+import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.staff.regularStaff.TeacherHome;
 
@@ -216,22 +217,14 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                     String employeeNumber = data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER);
                     Log.d("code the code", "========================================================");
                     Log.d("code the code", Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
-                    boolean isClockedIn = viewModel.clockInTeacherEmployeeNumber(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
-                    if (isClockedIn) {
-                        if (Objects.equals(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER), "9876")){
-
-                            Intent teacherHome = new Intent(this, TeacherHome.class);
-                            teacherHome.putExtra("id", employeeNumber);
-                            teacherHome.putExtra("name","Andrew Kajeke");
-                            startActivity(teacherHome);
-
-
-                        }
-
-                        // TODO: the remaining codes with be added here
-                    }
+                    SyncClockIn syncClockIn = viewModel.clockInTeacherEmployeeNumber(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
+                    loadTeacherHomePage(syncClockIn);
                 }
             }
         }
+    }
+
+    private void loadTeacherHomePage(SyncClockIn syncClockIn) {
+
     }
 }

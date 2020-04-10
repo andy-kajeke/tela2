@@ -28,6 +28,9 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
 
     public SyncClockIn clockInTeacherEmployeeNumber(List<SyncTeacher> teacherList, String employeeNumber) {
         // example employee number 9876 for ojok
+        /*
+        * This method clocks in a teacher and returns the results
+        * */
         SyncClockIn syncClockIn = null;
         for (SyncTeacher teacher: teacherList) {
             if (teacher.getEmployeeNumber().equals(employeeNumber)) {
