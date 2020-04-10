@@ -23,6 +23,7 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.utils.BitmapConverter;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
 import com.suprema.IUsbEventHandler;
@@ -159,8 +160,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             @Override
             public void onClick(View v) {
                 Intent  intent =  new Intent();
-                intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
-                intent.putExtra(FINGER_PRINT_IMAGE, capturedImageData);
+                intent.putExtra(FINGER_PRINT_DATA, new String(capturedTemplateData.data));
+                intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
                 setResult(RESULT_OK, intent);
             }
         });

@@ -99,7 +99,12 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return "";
     }
 
-    SyncTeacher clockOutTeacherWithFingerPrint(List<SyncTeacher> teacherList, byte[] fingerPrintData) {
+
+    SyncTeacher clockOutTeacherWithFingerPrint(List<SyncTeacher> teacherList, String stringEncodedFingerPrint, String base64EncodedBitmapImage) {
+        return null;
+    }
+
+    SyncTeacher clockInTeacherWithFingerPrint(List<SyncTeacher> teacherList, String stringEncodedFingerPrint, String base64EncodedBitmapImage) {
         return null;
     }
 }

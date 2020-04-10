@@ -229,15 +229,18 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             } else if (requestCode == CLOCK_OUT_ACTIVITY_REQUEST_CODE) {
                 // teacher clocking out
                 if (resultCode == RESULT_OK ) {
-                    byte[] fingerPrintData = data.getByteArrayExtra(FingerPrintActivity.FINGER_PRINT_DATA);
-                    Bitmap fingerPrintImage = data.getB
-                    SyncTeacher syncTeacher = viewModel.clockOutTeacherWithFingerPrint(teacherList, fingerPrintData);
+                    String stringEncodedFingerPrint = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA);
+                    String base64EncodedBitmapImage = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_IMAGE);
+                    SyncTeacher syncTeacher = viewModel.clockOutTeacherWithFingerPrint(teacherList, stringEncodedFingerPrint, base64EncodedBitmapImage);
                     loadTeacherHomePage(syncTeacher);
                 }
             } else if (requestCode == CLOCK_IN_ACTIVITY_REQUEST_CODE) {
                 // teacher clocking out
-                if (requestCode == RESULT_OK ) {
-                    byte[] fingerPrintData = data.getByteArrayExtra(FingerPrintActivity.FINGER_PRINT_DATA);
+                if (resultCode == RESULT_OK ) {
+                    String stringEncodedFingerPrint = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA);
+                    String base64EncodedBitmapImage = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_IMAGE);
+                    SyncTeacher syncTeacher = viewModel.clockInTeacherWithFingerPrint(teacherList, stringEncodedFingerPrint, base64EncodedBitmapImage);
+                    loadTeacherHomePage(syncTeacher);
                 }
             } else {
                 // I don't know what has happened
