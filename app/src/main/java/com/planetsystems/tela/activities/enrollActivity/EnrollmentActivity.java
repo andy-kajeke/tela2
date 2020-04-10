@@ -92,7 +92,17 @@ public class EnrollmentActivity extends AppCompatActivity {
                             edit_phone_No.getText().toString(),
                             null
                     );
-                    activityViewModel.enrollTeacher(syncTeacher);
+                    if (activityViewModel.enrollTeacher(syncTeacher)) {
+                        edit_fName.setText("");
+                        edit_lName.setText("");
+                        edit_initials.setText("");
+                        edit_email.setText("");
+                        edit_phone_No.setText("");
+                        edit_nationalID.setText("");
+                        edit_gender.setText("");
+                    } else {
+                        Toast.makeText(this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
+                    }
 
                 } else if ( resultCode == RESULT_CANCELED) {
                     Toast.makeText(this, "Fingerprint Capture Was Canceled", Toast.LENGTH_SHORT).show();

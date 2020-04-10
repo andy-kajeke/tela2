@@ -29,12 +29,9 @@ public class EnrollmentActivityViewModel extends AndroidViewModel {
     }
 
     boolean enrollTeacher(SyncTeacher syncTeacher) {
-        if (teachers != null ) {
-            for (SyncTeacher teacher: teachers ) {
-                if (teacher.getNationalId() == syncTeacher.getNationalId()) {
-                    return
-                }
-            }
+        if (!isEnrolled(teachers, syncTeacher)) {
+            repository.enrollTeacher(syncTeacher);
+            return true;
         }
         return false;
     }
@@ -73,6 +70,7 @@ public class EnrollmentActivityViewModel extends AndroidViewModel {
         return repository.getAllSyncTeacher();
     }
 
+    // checks whether teacher is already enrolled
     private boolean isEnrolled(List<SyncTeacher> enrolledTeachers, SyncTeacher teacher) {
         for (SyncTeacher enrolledTeacher: enrolledTeachers) {
             if (enrolledTeacher.getNationalId().equals(teacher.getNationalId())) {
