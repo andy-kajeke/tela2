@@ -3,6 +3,9 @@ package com.planetsystems.tela.activities.clockwithstaffid;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -36,6 +39,8 @@ public class ClockInWithStaffIdActivity extends Activity {
     String Name;
     String Role;
 
+    ClockInWithStaffIdActivityViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +48,8 @@ public class ClockInWithStaffIdActivity extends Activity {
 
         btnFollow = findViewById(R.id.google);
         staffid = findViewById(R.id.staffID);
+        viewModel = new ViewModelProvider((ViewModelStoreOwner) this).get(ClockInWithStaffIdActivityViewModel.class);
+
 
         //Button action
         btnFollow.setOnClickListener(new View.OnClickListener() {
