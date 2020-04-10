@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities.clockwithstaffid;
+package com.planetsystems.tela.activities.clockInWithEmployeeNumber;
 
 import android.app.Application;
 
@@ -11,10 +11,10 @@ import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
 import java.util.List;
 
-public class ClockInWithStaffIdActivityViewModel extends AndroidViewModel {
+public class ClockInWithEmployeeNumberActivityViewModel extends AndroidViewModel {
     private LiveData<List<SyncTeacher>> syncTeachers;
     private Repository repository;
-    public ClockInWithStaffIdActivityViewModel(@NonNull Application application) {
+    public ClockInWithEmployeeNumberActivityViewModel(@NonNull Application application) {
         super(application);
         repository = Repository.getInstance(application);
         syncTeachers = repository.getAllTeachers();

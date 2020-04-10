@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.activities.clockwithstaffid.ClockInWithStaffIdActivity;
+import com.planetsystems.tela.activities.clockInWithEmployeeNumber.ClockInWithEmployeeNumberActivity;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
@@ -146,7 +146,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         btnStaffId_In.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ClockInAndOutActivity.this, ClockInWithStaffIdActivity.class);
+                Intent i = new Intent(ClockInAndOutActivity.this, ClockInWithEmployeeNumberActivity.class);
                 startActivityForResult(i, START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT);
                 checkInDialog.dismiss();
             }
@@ -212,14 +212,14 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             if (requestCode == START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT ) {
                 // we have the code
                 if (resultCode == RESULT_OK ) {
-                    String STAFF_ID = data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID);
+                    String STAFF_ID = data.getStringExtra(ClockInWithEmployeeNumberActivity.STAFF_ID);
                     Log.d("code the code", "========================================================");
-                    Log.d("code the code", Objects.requireNonNull(data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID)));
-                    boolean isClockedIn = viewModel.lockInTeacherWithID(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID)));
+                    Log.d("code the code", Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.STAFF_ID)));
+                    boolean isClockedIn = viewModel.lockInTeacherWithID(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.STAFF_ID)));
                     if (isClockedIn) {
-                        if (data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID).equals("2001")){
+                        if (Objects.equals(data.getStringExtra(ClockInWithEmployeeNumberActivity.STAFF_ID), "2001")){
 
-//                            Intent teacherHome = new Intent(ClockInWithStaffIdActivity.this, TeacherHome.class);
+//                            Intent teacherHome = new Intent(ClockInWithEmployeeNumberActivity.this, TeacherHome.class);
 //                            teacherHome.putExtra("id", employeeNumber);
 //                            teacherHome.putExtra("name","Andrew Kajeke");
 //                            startActivity(teacherHome);
@@ -235,7 +235,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
 
                         }
 
-                        // TODO: the remain codes with be added here
+                        // TODO: the remaining codes with be added here
                     }
                 }
             }

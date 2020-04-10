@@ -43,7 +43,7 @@ public class SyncTeacherWorker extends Worker {
                 reader.close();
                 for(int i = 0; i < syncTeachers.teachers.size(); i++) {
                     syncTeacherDao.enrollTeacher(syncTeachers.teachers.get(i));
-                    Log.d(getClass().getSimpleName(), "Save teacher" + syncTeachers.teachers.get(i).getMPSComputerNumber());
+                    Log.d(getClass().getSimpleName(), "Save teacher" + syncTeachers.teachers.get(i).toString());
                 }
                 return Result.success();
             } catch (IOException e) {
