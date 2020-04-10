@@ -267,7 +267,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
     @Override
     public boolean onFingerPrintCaptureResponseCaptureEx(Object contest, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
-        if (Objects.equals(startActivityIntent.getAction(), ACTION_ENROLL)) {
             log("onCapture : Capture successful!");
             printState(getResources().getText(R.string.capture_single_ok));
             capturedTemplateData = templateData;
@@ -282,7 +281,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     }
                 }
             });
-        }
         return true;
     }
 
