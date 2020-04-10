@@ -31,6 +31,7 @@ import com.planetsystems.tela.staff.regularStaff.TeacherHome;
 import java.util.List;
 
 public class ClockInWithStaffIdActivity extends Activity {
+    public static final String STAFF_ID = "com.planetsystems.tela.activities.clockwithstaffid.STAFF_ID";
 
     ProgressDialog dialog;
     CardView btnFollow;
@@ -77,10 +78,19 @@ public class ClockInWithStaffIdActivity extends Activity {
                         //new GET_EMPLOYEE_INFO().execute(API + employeeNumber + "/" + latitude + "/" + longitude);
                         if (employeeNumber.equals("2001")){
 
-                            Intent teacherHome = new Intent(ClockInWithStaffIdActivity.this, TeacherHome.class);
-                            teacherHome.putExtra("id", employeeNumber);
-                            teacherHome.putExtra("name","Andrew Kajeke");
-                            startActivity(teacherHome);
+//                            Intent teacherHome = new Intent(ClockInWithStaffIdActivity.this, TeacherHome.class);
+//                            teacherHome.putExtra("id", employeeNumber);
+//                            teacherHome.putExtra("name","Andrew Kajeke");
+//                            startActivity(teacherHome);
+                            /*
+                            * Live data does work with activity only with app compat activity, after data the code
+                            * we shall return back to click in clock out activity
+                            * */
+                            Intent intent = new Intent();
+                            intent.putExtra(STAFF_ID, employeeNumber);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                            // returning back to starting activity
 
                         }else if (employeeNumber.equals("3001")){
 
