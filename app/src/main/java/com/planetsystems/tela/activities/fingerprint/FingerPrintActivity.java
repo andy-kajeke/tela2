@@ -1,5 +1,6 @@
 package com.planetsystems.tela.activities.fingerprint;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -31,10 +32,14 @@ import com.suprema.IUsbEventHandler;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Objects;
 
 public class FingerPrintActivity extends Activity implements FingerPrintCaptureResponder.OnFingerPrintCaptureResponseListener{
     public static final String FINGER_PRINT_DATA = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEMPLATE_DATA";
     public static final String FINGER_PRINT_IMAGE = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.FINGER_PRINT_IMAGE";
+    public static final String ACTION_ENROLL = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_ENROLL";
+    public static final String ACTION_CLOCK_OUT = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_CLOCK_OUT";
+    public static final String ACTION_CLOCK_IN = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_CLOCK_IN";
 
 
     //Flag.
@@ -120,6 +125,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +147,14 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         }
 
         restartBioMini();
+        if (!Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
+            // removed enroll button and change the with or cap
+            textViewEnroll.setText(R.string.clock_out);
+        }
+
+        if (getIntent().getAction().equals(ACTION_CLOCK_IN)) {
+            textViewEnroll.setText("Clock In");
+        }
 
         cardViewCapture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +177,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                 intent.putExtra(FINGER_PRINT_DATA, new String(capturedTemplateData.data));
                 intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
                 setResult(RESULT_OK, intent);
+                finish();
             }
         });
 

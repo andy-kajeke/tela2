@@ -86,5 +86,6 @@
     <string name="title_activity_pending_materials">Pending Material Requests</string>
     <string name="title_activity_approve_material">Material Request</string>
     <string name="title_activity_pending_time_off">Pending TimeOff Requests</string>
+    <string name="clock_out">Clock Out</string>
 
 </resources>

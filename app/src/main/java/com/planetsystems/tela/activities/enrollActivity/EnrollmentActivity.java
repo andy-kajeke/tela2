@@ -54,9 +54,15 @@ public class EnrollmentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EnrollmentActivity.this, FingerPrintActivity.class);
+                intent.setAction(FingerPrintActivity.ACTION_ENROLL);
                 startActivityForResult(intent, CAPTURE_FINGER_PRINT_REQUEST);
             }
         });
+
+        if (savedInstanceState != null ) {
+            // activity was destroyed let recover the data
+            activityViewModel.saveState(savedInstanceState);
+        }
     }
 
     @Override
