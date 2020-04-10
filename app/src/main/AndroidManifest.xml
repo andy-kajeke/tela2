@@ -40,7 +40,7 @@
         <activity android:name=".staff.regularStaff.serviceRequests.MakeRequests" />
         <activity android:name=".staff.regularStaff.TeacherHome" />
         <activity
-            android:name=".activities.ClockIn_with_StaffId"
+            android:name=".activities.clockwithstaffid.ClockIn_with_StaffId"
             android:theme="@android:style/Theme.Dialog"
             android:windowSoftInputMode="stateHidden" />
         <activity

@@ -1,54 +1,30 @@
 package com.planetsystems.tela.activities.clockInAndOutActivity;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.hardware.usb.UsbDevice;
-import android.hardware.usb.UsbManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.activities.ClockIn_with_StaffId;
-import com.planetsystems.tela.activities.FingerPrintCaptureResponder;
-import com.planetsystems.tela.activities.MainActivity;
+import com.planetsystems.tela.activities.clockwithstaffid.ClockIn_with_StaffId;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
-import com.suprema.BioMiniFactory;
-import com.suprema.IBioMiniDevice;
-import com.suprema.IUsbEventHandler;
 
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
 
 public class ClockInAndOutActivity extends AppCompatActivity {
 
