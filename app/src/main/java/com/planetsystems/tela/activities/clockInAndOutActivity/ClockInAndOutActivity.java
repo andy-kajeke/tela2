@@ -145,6 +145,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ClockInAndOutActivity.this, FingerPrintActivity.class);
+                intent.setAction(FingerPrintActivity.ACTION_CLOCK_IN);
                 startActivityForResult(intent, CLOCK_IN_ACTIVITY_REQUEST_CODE);
                 checkInDialog.dismiss();
 
@@ -186,6 +187,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("Clock Out", "clocking out");
                 Intent intent = new Intent(ClockInAndOutActivity.this, FingerPrintActivity.class);
+                intent.setAction(FingerPrintActivity.ACTION_CLOCK_OUT);
                 startActivityForResult(intent, CLOCK_OUT_ACTIVITY_REQUEST_CODE);
                 checkOutDialog.dismiss();
 
