@@ -18,6 +18,13 @@ import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import java.util.Objects;
 
 public class EnrollmentActivity extends AppCompatActivity {
+    public static final String FIRST_NAME = "com.planetsystems.tela.activities.enrollActivity.FIRST_NAME";
+    public static final String LAST_NAME = "com.planetsystems.tela.activities.enrollActivity.LAST_NAME";
+    public static final String INITIALS = "com.planetsystems.tela.activities.enrollActivity.INITIALS";
+    public static final String PHONE_NUMBER = "com.planetsystems.tela.activities.enrollActivity.PHONE_NUMBER";
+    public static final String EMAIL_ADDRESS = "com.planetsystems.tela.activities.enrollActivity.EMAIL_ADDRESS";
+    public static final String NATIONAL_ID = "com.planetsystems.tela.activities.enrollActivity.NATIONAL_ID";
+    public static final String GENDER = "com.planetsystems.tela.activities.enrollActivity.GENDER";
     private EnrollmentActivityViewModel activityViewModel;
 
     public static final int CAPTURE_FINGER_PRINT_REQUEST = 343;
