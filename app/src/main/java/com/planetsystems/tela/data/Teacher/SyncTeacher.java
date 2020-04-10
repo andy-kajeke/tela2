@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey;
 
 import com.planetsystems.tela.constants.SyncTableConstants;
 
+import java.util.Arrays;
+
 @Entity(tableName = SyncTableConstants.SyncTeachers)
 public class SyncTeacher {
     @PrimaryKey
@@ -198,5 +200,26 @@ public class SyncTeacher {
         this.nationalId = nationalId;
         this.phoneNumber = phoneNumber;
         this.schoolId = schoolId;
+    }
+
+    @Override
+    public String toString() {
+        return "SyncTeacher{" +
+                "id='" + id + '\'' +
+                ", MPSComputerNumber='" + MPSComputerNumber + '\'' +
+                ", employeeNumber='" + employeeNumber + '\'' +
+                ", role='" + role + '\'' +
+                ", dob='" + dob + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", fingerPrint=" + Arrays.toString(fingerPrint) +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", initials='" + initials + '\'' +
+                ", licensed=" + licensed +
+                ", nationalId='" + nationalId + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", schoolId='" + schoolId + '\'' +
+                '}';
     }
 }

@@ -3,6 +3,8 @@ package com.planetsystems.tela.activities.clockwithstaffid;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.lifecycle.ViewModelStoreOwner;
@@ -53,6 +55,14 @@ public class ClockInWithStaffIdActivity extends Activity {
         btnFollow = findViewById(R.id.google);
         staffid = findViewById(R.id.staffID);
         viewModel = new ViewModelProvider((ViewModelStoreOwner) this).get(ClockInWithStaffIdActivityViewModel.class);
+
+        // get data from view model;
+        viewModel.getAllSyncTeacher().observe((LifecycleOwner) this, new Observer<List<SyncTeacher>>() {
+            @Override
+            public void onChanged(List<SyncTeacher> syncTeachers) {
+                allTeachers = syncTeachers;
+            }
+        });
 
 
         //Button action
