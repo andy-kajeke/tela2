@@ -3,6 +3,7 @@ package com.planetsystems.tela.activities.clockInAndOutActivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -25,6 +26,7 @@ import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
 
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 public class ClockInAndOutActivity extends AppCompatActivity {
     private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
@@ -36,6 +38,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     Dialog checkInDialog, checkOutDialog;
     public static final int CLOCK_IN_ACTIVITY_REQUEST_CODE = 2345;
     public static final int CLOCK_OUT_ACTIVITY_REQUEST_CODE = 2345;
+    ClockInAndOutActivityViewModel viewModel;
     String deviceIMEI_extra, schoolName_extra;
 
     @SuppressLint("MissingPermission")
@@ -43,6 +46,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clockin__clock_out);
+        viewModel = new ViewModelProvider(this).get(ClockInAndOutActivityViewModel.class);
 
         dateDisplay = findViewById(R.id.calendarView4);
         schoolName = findViewById(R.id.schoolName);
@@ -197,8 +201,9 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         if (data != null ) {
             if (requestCode == START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT ) {
                 // we have the code
-                if (requestCode == RESULT_OK ) {
-                    Log.d("code the code", data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID));
+                if (resultCode == RESULT_OK ) {
+                    Log.d("code the code", "========================================================");
+                    Log.d("code the code", Objects.requireNonNull(data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID)));
                 }
             }
         }
