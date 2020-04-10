@@ -26,12 +26,13 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return syncTeachers;
     }
 
-    public boolean clockInTeacherEmployeeNumber(List<SyncTeacher> teacherList, String employeeNumber) {
+    public SyncClockIn clockInTeacherEmployeeNumber(List<SyncTeacher> teacherList, String employeeNumber) {
         // example employee number 9876 for ojok
+        SyncClockIn syncClockIn = null;
         for (SyncTeacher teacher: teacherList) {
             if (teacher.getEmployeeNumber().equals(employeeNumber)) {
                 Log.d("Clock in re", teacher.toString());
-                SyncClockIn syncClockIn = new SyncClockIn(
+                syncClockIn = new SyncClockIn(
                        teacher.getId(),
                        null,
                        null,
@@ -52,12 +53,10 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
 
                 );
                 repository.synClockInTeacherWithID(syncClockIn);
-                return true;
             }
-            return false;
 
         }
-        return true;
+        return syncClockIn ;
     }
 
     public String findEmployeeNumberWithStaffID(List<SyncTeacher> teachers, String staffID) {
