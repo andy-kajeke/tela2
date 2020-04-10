@@ -10,6 +10,7 @@ import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.attendance.SyncAttendanceRecordDao;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
@@ -135,6 +136,8 @@ public class Repository {
         return syncTeacherDao.getAllTeachers();
     }
 
-    public void
+    public void synClockInTeacherWithID(SyncClockIn clockIn){
+        syncClockInDao.syncClockInTeacherWithID(clockIn);
+    }
 
 }

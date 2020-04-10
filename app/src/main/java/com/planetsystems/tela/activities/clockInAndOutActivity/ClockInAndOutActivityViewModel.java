@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.Repository;
+import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
 import java.util.List;
@@ -27,8 +28,28 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     public boolean lockInTeacherWithID(List<SyncTeacher> teacherList, String requireNonNull) {
         for (SyncTeacher teacher: teacherList) {
             if (teacher.getId().equals(requireNonNull)) {
+                SyncClockIn syncClockIn = new SyncClockIn(
+                       teacher.getId(),
+                       null,
+                       null,
+                       null,
+                       null,
+                       null,
+                       null,
+                       teacher.getEmployeeNumber(),
+                        teacher.getEmployeeNumber(),
+                        null,
+                        null,
+                        null,
+                        null,
+                        teacher.getFirstName(),
+                        teacher.getFirstName(),
+                        null,
+                        null
 
+                );
             }
+
         }
         return true;
     }

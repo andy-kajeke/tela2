@@ -17,5 +17,5 @@ public interface SyncClockInDao {
     LiveData<List<SyncClockIn>> getAllClockIn();
 
     @Insert
-    void clockInTeacherWithID(SyncClockIn clockIn);
+    void syncClockInTeacherWithID(SyncClockIn clockIn);
 }
