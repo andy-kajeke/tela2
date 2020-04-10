@@ -23,7 +23,7 @@ import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import java.util.List;
 
 public class ClockInWithEmployeeNumberActivity extends Activity {
-    public static final String STAFF_ID = "com.planetsystems.tela.activities.clockwithstaffid.STAFF_ID";
+    public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.activities.clockwithstaffid.EMPLOYEE_NUMBER";
 
     ProgressDialog dialog;
     CardView btnFollow;
@@ -69,7 +69,7 @@ public class ClockInWithEmployeeNumberActivity extends Activity {
                     } else {
 //                        //new GET_EMPLOYEE_INFO().execute(API + employeeNumber + "/" + latitude + "/" + longitude);
                         Intent intent = new Intent();
-                        intent.putExtra(STAFF_ID, employeeNumber);
+                        intent.putExtra(EMPLOYEE_NUMBER, employeeNumber);
                         setResult(RESULT_OK, intent);
                         finish();
                         // returning back to starting activity

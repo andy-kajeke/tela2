@@ -212,12 +212,12 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             if (requestCode == START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT ) {
                 // we have the code
                 if (resultCode == RESULT_OK ) {
-                    String STAFF_ID = data.getStringExtra(ClockInWithEmployeeNumberActivity.STAFF_ID);
+                    String STAFF_ID = data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER);
                     Log.d("code the code", "========================================================");
-                    Log.d("code the code", Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.STAFF_ID)));
-                    boolean isClockedIn = viewModel.lockInTeacherWithID(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.STAFF_ID)));
+                    Log.d("code the code", Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
+                    boolean isClockedIn = viewModel.lockInTeacherWithID(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
                     if (isClockedIn) {
-                        if (Objects.equals(data.getStringExtra(ClockInWithEmployeeNumberActivity.STAFF_ID), "2001")){
+                        if (Objects.equals(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER), "2001")){
 
 //                            Intent teacherHome = new Intent(ClockInWithEmployeeNumberActivity.this, TeacherHome.class);
 //                            teacherHome.putExtra("id", employeeNumber);
