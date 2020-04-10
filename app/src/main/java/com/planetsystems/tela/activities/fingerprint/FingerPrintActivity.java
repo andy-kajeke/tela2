@@ -70,6 +70,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
     private CardView cardViewCapture, cardViewEnroll;
     private TextView textViewCapture, textViewEnroll;
+    private ImageView fingerprintImageView;
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
 
@@ -144,6 +145,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         cardViewEnroll = findViewById(R.id.cardViewEnroll);
         textViewCapture = findViewById(R.id.textViewCapture);
         textViewEnroll = findViewById(R.id.textViewEnroll);
+        fingerprintImageView = findViewById(R.id.imageViewFingerPrint);
 
 
         if(mBioMiniFactory != null) {
@@ -155,14 +157,14 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         cardViewCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
-                    if(mCurrentDevice != null) {
-                        //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
-                        mCurrentDevice.captureSingle(
-                                mCaptureOptionDefault,
-                                new FingerPrintCaptureResponder(mainContext),
-                                true);
-                    }
+                if(mCurrentDevice != null) {
+                    //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
+                    mCurrentDevice.captureSingle(
+                            mCaptureOptionDefault,
+                            new FingerPrintCaptureResponder(mainContext),
+                            true
+                    );
+                }
             }
         });
 
@@ -285,23 +287,11 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                 @Override
                 public void run() {
                     if (capturedImageData != null) {
-                        ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
-                        if (iv != null) {
-                            iv.setImageBitmap(capturedImageData);
-                        }
+                        fingerprintImageView.setImageBitmap(capturedImageData);
                     }
                 }
             });
         }
-
-        if (Objects.equals(startActivityIntent.getAction(), ACTION_CLOCK_IN )){
-            // clock in here
-        }
-
-        if (Objects.equals(startActivityIntent.getAction(), ACTION_CLOCK_OUT)) {
-            // clock out
-        }
-
         return true;
     }
 
