@@ -44,11 +44,16 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         dateString = dateFormat.format(date);
     }
 
-    public LiveData<List<SyncTeacher>> getAllSyncTeacher() {
+    LiveData<List<SyncTeacher>> getAllSyncTeacher() {
         return syncTeachers;
     }
 
-    public SyncTeacher clockInTeacherEmployeeNumber(List<SyncTeacher> teacherList, String employeeNumber) {
+    LiveData<List<SyncClockIn>> getAlreadyClockedInTeachersToday() {
+        // TODO: Must be implemented
+        return null;
+    }
+
+    SyncTeacher clockInTeacherEmployeeNumber(List<SyncTeacher> teacherList, String employeeNumber) {
         // example employee number 9876 for ojok
         /*
         * This method clocks in a teacher and returns the results
