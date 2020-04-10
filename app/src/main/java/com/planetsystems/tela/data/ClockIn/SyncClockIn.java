@@ -11,7 +11,7 @@ public class SyncClockIn {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = SyncClockInConstants.DATABASE_ID)
-    private String dbID;
+    private int dbID;
 
     @NonNull
     @ColumnInfo(name = SyncClockInConstants.ID)
@@ -200,6 +200,15 @@ public class SyncClockIn {
 
     public void setRowId(String rowId) {
         this.rowId = rowId;
+    }
+
+    @NonNull
+    public int getDbID() {
+        return dbID;
+    }
+
+    public void setDbID(@NonNull int dbID) {
+        this.dbID = dbID;
     }
 
     public SyncClockIn(@NonNull String id, String dateCreated, String dateUpdated, String status, String clockInDate, String clockInTime, String day, String employeeId, String employeeNo, String latitude, String longitude, String synStatus, String schoolId, String empFirstName, String empLastName, String rowVer, String rowId) {
