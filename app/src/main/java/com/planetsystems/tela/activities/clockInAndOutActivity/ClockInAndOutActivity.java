@@ -39,7 +39,6 @@ import java.util.Objects;
 
 public class ClockInAndOutActivity extends AppCompatActivity {
     private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
-    private List<SyncTeacher> teacherList;
 
     TextClock clock_in_time;
     TextView dateDisplay, schoolName;
@@ -62,7 +61,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         viewModel.getAllSyncTeacher().observe(this, new Observer<List<SyncTeacher>>() {
             @Override
             public void onChanged(List<SyncTeacher> syncTeachers) {
-                teacherList = syncTeachers;
+                viewModel.setTeachers(syncTeachers);
             }
         });
 
@@ -225,7 +224,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 // we have the code
                 if (resultCode == RESULT_OK ) {
                     String employeeNumber = data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER);
-                    SyncTeacher syncTeacher = viewModel.clockInTeacherEmployeeNumber(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
+                    SyncTeacher syncTeacher = viewModel.clockInTeacherEmployeeNumber(Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
                     loadTeacherHomePage(syncTeacher);
                 }
             } else if (requestCode == CLOCK_OUT_ACTIVITY_REQUEST_CODE) {
@@ -233,7 +232,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK ) {
                     String stringEncodedFingerPrint = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA);
                     String base64EncodedBitmapImage = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_IMAGE);
-                    SyncTeacher syncTeacher = viewModel.clockOutTeacherWithFingerPrint(teacherList, stringEncodedFingerPrint, base64EncodedBitmapImage);
+                    SyncTeacher syncTeacher = viewModel.clockOutTeacherWithFingerPrint(stringEncodedFingerPrint, base64EncodedBitmapImage);
                     loadTeacherHomePage(syncTeacher);
                 }
             } else if (requestCode == CLOCK_IN_ACTIVITY_REQUEST_CODE) {
@@ -241,7 +240,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK ) {
                     String stringEncodedFingerPrint = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA);
                     String base64EncodedBitmapImage = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_IMAGE);
-                    SyncTeacher syncTeacher = viewModel.clockInTeacherWithFingerPrint(teacherList, stringEncodedFingerPrint, base64EncodedBitmapImage);
+                    SyncTeacher syncTeacher = viewModel.clockInTeacherWithFingerPrint(stringEncodedFingerPrint, base64EncodedBitmapImage);
                     loadTeacherHomePage(syncTeacher);
                 }
             }  // I don't know what has happened

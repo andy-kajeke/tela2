@@ -54,13 +54,13 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return null;
     }
 
-    SyncTeacher clockInTeacherEmployeeNumber(List<SyncTeacher> teacherList, String employeeNumber) {
+    SyncTeacher clockInTeacherEmployeeNumber(String employeeNumber) {
         // example employee number 9876 for ojok
         /*
         * This method clocks in a teacher and returns the results
         * */
        SyncTeacher syncTeacher = null;
-        for (SyncTeacher teacher: teacherList) {
+        for (SyncTeacher teacher: teachers) {
             if (teacher.getEmployeeNumber().equals(employeeNumber)) {
                 Log.d("Clock in re", teacher.toString());
                 SyncClockIn syncClockIn = new SyncClockIn(
@@ -91,7 +91,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return syncTeacher ;
     }
 
-    public String findEmployeeNumberWithStaffID(List<SyncTeacher> teachers, String staffID) {
+    public String findEmployeeNumberWithStaffID(String staffID) {
         for (SyncTeacher teacher: teachers ) {
             if (teacher.getId().equals(staffID)) {
                 return teacher.getEmployeeNumber();
@@ -101,11 +101,11 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     }
 
 
-    SyncTeacher clockOutTeacherWithFingerPrint(List<SyncTeacher> teacherList, String stringEncodedFingerPrint, String base64EncodedBitmapImage) {
+    SyncTeacher clockOutTeacherWithFingerPrint(String stringEncodedFingerPrint, String base64EncodedBitmapImage) {
         return null;
     }
 
-    SyncTeacher clockInTeacherWithFingerPrint(List<SyncTeacher> teacherList, String stringEncodedFingerPrint, String base64EncodedBitmapImage) {
+    SyncTeacher clockInTeacherWithFingerPrint(String stringEncodedFingerPrint, String base64EncodedBitmapImage) {
         return null;
     }
 
