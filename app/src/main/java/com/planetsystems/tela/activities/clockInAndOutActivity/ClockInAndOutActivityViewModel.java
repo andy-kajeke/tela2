@@ -109,11 +109,11 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return null;
     }
 
-    public List<SyncTeacher> getTeachers() {
+    List<SyncTeacher> getTeachers() {
         return teachers;
     }
 
-    public void setTeachers(List<SyncTeacher> teachers) {
+    void setTeachers(List<SyncTeacher> teachers) {
         this.teachers = teachers;
     }
 }
