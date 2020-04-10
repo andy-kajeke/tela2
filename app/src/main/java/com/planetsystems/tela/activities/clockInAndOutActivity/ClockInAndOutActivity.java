@@ -146,7 +146,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 Intent intent = new Intent(ClockInAndOutActivity.this, FingerPrintActivity.class);
                 intent.setAction(FingerPrintActivity.ACTION_CLOCK_IN);
                 startActivityForResult(intent, CLOCK_IN_ACTIVITY_REQUEST_CODE);
-                checkOutDialog.dismiss();
+                checkInDialog.dismiss();
 
             }
         });
@@ -188,6 +188,8 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 Intent intent = new Intent(ClockInAndOutActivity.this, FingerPrintActivity.class);
                 intent.setAction(FingerPrintActivity.ACTION_CLOCK_IN);
                 startActivityForResult(intent, CLOCK_OUT_ACTIVITY_REQUEST_CODE);
+                checkOutDialog.dismiss();
+
 
 
             }
