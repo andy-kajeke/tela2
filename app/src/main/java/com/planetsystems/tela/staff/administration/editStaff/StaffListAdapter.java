@@ -93,7 +93,7 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.Staf
             imageView = itemView.findViewById(R.id.personphoto);
         }
 
-        public void setData(String employeeNumber, String firstName, String lastName, String role, int position) {
+        public void setData(String firstName, String lastName, String employeeNumber, String role, int position) {
             It_name.setText(firstName + " " + lastName);
             It_code.setText(employeeNumber);
             It_role.setText(role);
