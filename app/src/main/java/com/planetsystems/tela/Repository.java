@@ -1,6 +1,7 @@
 package com.planetsystems.tela;
 
 import android.app.Application;
+import android.content.Context;
 
 //import androidx.constraintlayout.widget.Constraints;
 import androidx.lifecycle.LiveData;
@@ -30,6 +31,7 @@ import com.planetsystems.tela.workers.SyncTeacherWorker;
 import java.util.List;
 
 public class Repository {
+    private static Repository INSTANCE;
 
     private EmployeeRoleDao employeeRoleDao;
     private SyncTeacherDao syncTeacherDao;
@@ -64,6 +66,19 @@ public class Repository {
         syncSMCDao = telaRoomDatabase.getSyncSMCDao();
         syncTimeTableDao = telaRoomDatabase.getSyncTimeTableDao();
 
+    }
+
+
+    // made it singleton
+    public static Repository getInstance(final Application  application) {
+        if (INSTANCE == null) {
+            synchronized (Repository.class) {
+                if ( INSTANCE == null ) {
+                    INSTANCE = new Repository(application);
+                }
+            }
+        }
+        return INSTANCE;
     }
 
     //Enroll new staff member
