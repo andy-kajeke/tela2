@@ -243,7 +243,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 startActivity(teacherHome);
             } else if (syncTeacher.getRole().equals(Role.HEAD_TEACHER_ROLE)) {
                 Intent headTeacherHome = new Intent(this, AdminSide.class);
-                headTeacherHome.putExtra("id", employeeNumber);
+                headTeacherHome.putExtra("id", syncTeacher.getEmployeeNumber());
                 headTeacherHome.putExtra("name","Fredrick Kasoma");
                 headTeacherHome.putExtra("school", "354633111523205");
                 startActivity(headTeacherHome);
