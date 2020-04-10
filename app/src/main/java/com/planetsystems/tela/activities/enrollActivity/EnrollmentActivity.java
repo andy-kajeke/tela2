@@ -69,6 +69,7 @@ public class EnrollmentActivity extends AppCompatActivity {
                     null,
                     null,
                     null,
+                    data.getStringExtra(FingerPrintActivity.ROLE),
                     data.getStringExtra(FingerPrintActivity.EMAIL_ADDRESS),
                     data.getByteArrayExtra(FingerPrintActivity.FINGER_PRINT_DATA),
                     Objects.requireNonNull(data.getStringExtra(FingerPrintActivity.FIRST_NAME)),

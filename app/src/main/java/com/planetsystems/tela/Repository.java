@@ -44,7 +44,7 @@ public class Repository {
     private HelpRequestDao helpRequestDao;
     private SyncSMCDao syncSMCDao;
     private SyncTimeTableDao syncTimeTableDao;
-    private  Application application;
+    private Application application;
 
     public Repository(Application application) {
         this.application = application;
