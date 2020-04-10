@@ -244,9 +244,8 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                     SyncTeacher syncTeacher = viewModel.clockInTeacherWithFingerPrint(teacherList, stringEncodedFingerPrint, base64EncodedBitmapImage);
                     loadTeacherHomePage(syncTeacher);
                 }
-            } else {
-                // I don't know what has happened
-            }
+            }  // I don't know what has happened
+
         }
     }
 

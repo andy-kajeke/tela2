@@ -26,6 +26,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     String dayOfTheWeek;
 
     private LiveData<List<SyncTeacher>> syncTeachers;
+    private List<SyncTeacher> teachers;
     private Repository repository;
 
     public ClockInAndOutActivityViewModel(@NonNull Application application) {
@@ -106,5 +107,13 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
 
     SyncTeacher clockInTeacherWithFingerPrint(List<SyncTeacher> teacherList, String stringEncodedFingerPrint, String base64EncodedBitmapImage) {
         return null;
+    }
+
+    public List<SyncTeacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(List<SyncTeacher> teachers) {
+        this.teachers = teachers;
     }
 }
