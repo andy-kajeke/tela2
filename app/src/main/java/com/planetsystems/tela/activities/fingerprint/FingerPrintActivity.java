@@ -33,20 +33,9 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class FingerPrintActivity extends Activity implements FingerPrintCaptureResponder.OnFingerPrintCaptureResponseListener{
-    public static final String FIRST_NAME = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.FIRST_NAME";
-    public static final String LAST_NAME = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.LAST_NAME";
-    public static final String INITIALS = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.INITIALS";
-    public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.EMPLOYEE_NUMBER";
-    public static final String ROLE = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ROLE";
-    public static final String PHONE_NUMBER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.PHONE_NUMBER";
-    public static final String EMAIL_ADDRESS = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.EMAIL_ADDRESS";
-    public static final String NATIONAL_ID = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.NATIONAL_ID";
-    public static final String GENDER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.GENDER";
-    public static final String ACTION_ENROLL = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_ENROLL";
-    public static final String ACTION_CLOCK_IN = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_CLOCK_IN";
-    public static final String ACTION_CLOCK_OUT = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_CLOCK_OUT";
-    public static final String FINGER_PRINT_DATA = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.FINGER_PRINT_DATA";
+    public static final String TEMPLATE_DATA = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEMPLATE_DATA";
     public static final String FINGER_PRINT_IMAGE = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.FINGER_PRINT_IMAGE";
+
 
     //Flag.
     public static final boolean mbUsbExternalUSBManager = false;
@@ -54,7 +43,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     private UsbManager mUsbManager = null;
     private PendingIntent mPermissionIntent= null;
     //
-    private static BioMiniFactory mBioMiniFactory = null;
+    private BioMiniFactory mBioMiniFactory = null;
     public static final int REQUEST_WRITE_PERMISSION = 786;
     public IBioMiniDevice mCurrentDevice = null;
     private FingerPrintActivity mainContext;
@@ -167,10 +156,13 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             }
         });
 
-        cardViewCapture.setOnClickListener(new View.OnClickListener() {
+        cardViewEnroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent  intent =  new Intent();
+                intent.putExtra(TEMPLATE_DATA, capturedTemplateData.data);
+                intent.putExtra(FINGER_PRINT_IMAGE, capturedImageData);
+                setResult(RESULT_OK, intent);
             }
         });
 
