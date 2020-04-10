@@ -75,34 +75,40 @@ public class ClockInWithStaffIdActivity extends Activity {
                         Toast.makeText(ClockInWithStaffIdActivity.this, "No internet connection",Toast.LENGTH_LONG).show();
 
                     } else {
-                        //new GET_EMPLOYEE_INFO().execute(API + employeeNumber + "/" + latitude + "/" + longitude);
-                        if (employeeNumber.equals("2001")){
+//                        //new GET_EMPLOYEE_INFO().execute(API + employeeNumber + "/" + latitude + "/" + longitude);
+                        Intent intent = new Intent();
+                        intent.putExtra(STAFF_ID, employeeNumber);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                        // returning back to starting activity
 
-//                            Intent teacherHome = new Intent(ClockInWithStaffIdActivity.this, TeacherHome.class);
-//                            teacherHome.putExtra("id", employeeNumber);
-//                            teacherHome.putExtra("name","Andrew Kajeke");
-//                            startActivity(teacherHome);
-                            /*
-                            * Live data does work with activity only with app compat activity, after data the code
-                            * we shall return back to click in clock out activity
-                            * */
-                            Intent intent = new Intent();
-                            intent.putExtra(STAFF_ID, employeeNumber);
-                            setResult(RESULT_OK, intent);
-                            finish();
-                            // returning back to starting activity
-
-                        }else if (employeeNumber.equals("3001")){
-
-                            Intent headTeacherHome = new Intent(ClockInWithStaffIdActivity.this, AdminSide.class);
-                            headTeacherHome.putExtra("id", employeeNumber);
-                            headTeacherHome.putExtra("name","Fredrick Kasoma");
-                            headTeacherHome.putExtra("school", "354633111523205");
-                            startActivity(headTeacherHome);
-
-                        }else if (employeeNumber.equals("5001")){
-
-                        }
+//                        if (employeeNumber.equals("2001")){
+//
+////                            Intent teacherHome = new Intent(ClockInWithStaffIdActivity.this, TeacherHome.class);
+////                            teacherHome.putExtra("id", employeeNumber);
+////                            teacherHome.putExtra("name","Andrew Kajeke");
+////                            startActivity(teacherHome);
+//                            /*
+//                            * Live data does work with activity only with app compat activity, after data the code
+//                            * we shall return back to click in clock out activity
+//                            * */
+//                            Intent intent = new Intent();
+//                            intent.putExtra(STAFF_ID, employeeNumber);
+//                            setResult(RESULT_OK, intent);
+//                            finish();
+//                            // returning back to starting activity
+//
+//                        }else if (employeeNumber.equals("3001")){
+//
+//                            Intent headTeacherHome = new Intent(ClockInWithStaffIdActivity.this, AdminSide.class);
+//                            headTeacherHome.putExtra("id", employeeNumber);
+//                            headTeacherHome.putExtra("name","Fredrick Kasoma");
+//                            headTeacherHome.putExtra("school", "354633111523205");
+//                            startActivity(headTeacherHome);
+//
+//                        }else if (employeeNumber.equals("5001")){
+//
+//                        }
                     }
 
                 }

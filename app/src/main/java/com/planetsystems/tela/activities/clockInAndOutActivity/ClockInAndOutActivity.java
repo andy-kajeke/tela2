@@ -194,5 +194,13 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data != null ) {
+            if (requestCode == START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT ) {
+                // we have the code
+                if (requestCode == RESULT_OK ) {
+                    Log.d("code the code", data.getStringExtra(ClockInWithStaffIdActivity.STAFF_ID));
+                }
+            }
+        }
     }
 }
