@@ -151,69 +151,69 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         restartBioMini();
 
         printRev(""+mBioMiniFactory.getSDKInfo());
-        if (startActivityIntent.getAction() == ACTION_ENROLL) {
-            findViewById(R.id.cardViewCapture).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
-                    if(mCurrentDevice != null) {
-                        //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
-                        mCurrentDevice.captureSingle(
-                                mCaptureOptionDefault,
-                                new FingerPrintCaptureResponder(mainContext),
-                                true);
-                    }
-
-
-                }
-            });
-
-            findViewById(R.id.cardViewAction).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (capturedTemplateData == null ) {
-                        Toast.makeText(FingerPrintActivity.this, "Please take fingerprint to proceed", Toast.LENGTH_LONG).show();
-                        setResult(RESULT_CANCELED);
-                    } else {
-                        Intent intent = new Intent();
-                        intent.putExtra(FIRST_NAME, startActivityIntent.getStringExtra(FIRST_NAME));
-                        intent.putExtra(LAST_NAME, startActivityIntent.getStringExtra(LAST_NAME));
-                        intent.putExtra(EMPLOYEE_NUMBER, startActivityIntent.getStringExtra(EMPLOYEE_NUMBER));
-                        intent.putExtra(ROLE, startActivityIntent.getStringExtra(ROLE));
-                        intent.putExtra(INITIALS, startActivityIntent.getStringExtra(INITIALS));
-                        intent.putExtra(EMAIL_ADDRESS, startActivityIntent.getStringExtra(EMAIL_ADDRESS));
-                        intent.putExtra(PHONE_NUMBER, startActivityIntent.getStringExtra(PHONE_NUMBER));
-                        intent.putExtra(NATIONAL_ID, startActivityIntent.getStringExtra(NATIONAL_ID));
-                        intent.putExtra(GENDER, startActivityIntent.getStringExtra(GENDER));
-                        intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
-                        intent.putExtra(FINGER_PRINT_IMAGE, capturedImageData);
-                        setResult(RESULT_OK, intent);
-                    }
-                    finish();
-                }
-            });
-        }
-
-        if (Objects.equals(startActivityIntent.getAction(), ACTION_CLOCK_IN)) {
-//            clock in
-            if (mCurrentDevice != null ) {
-                mCurrentDevice.captureSingle(
-                        mCaptureOptionDefault,
-                        new FingerPrintCaptureResponder(mainContext),
-                        true);
-            }
-            Toast.makeText(FingerPrintActivity.this, "Device not connected", Toast.LENGTH_LONG).show();
-            finish();
-        }
-
-        if (Objects.equals(startActivityIntent.getAction(), ACTION_CLOCK_OUT)) {
-//            clock in
-            Toast.makeText(FingerPrintActivity.this, "Action Clock out", Toast.LENGTH_LONG).show();
-            mCurrentDevice.captureSingle(
-                    mCaptureOptionDefault,
-                    new FingerPrintCaptureResponder(mainContext),
-                    true);
-        }
+//        if (Objects.equals(startActivityIntent.getAction(), ACTION_ENROLL)) {
+//            findViewById(R.id.cardViewCapture).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
+//                    if(mCurrentDevice != null) {
+//                        //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
+//                        mCurrentDevice.captureSingle(
+//                                mCaptureOptionDefault,
+//                                new FingerPrintCaptureResponder(mainContext),
+//                                true);
+//                    }
+//
+//
+//                }
+//            });
+//
+//            findViewById(R.id.cardViewAction).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (capturedTemplateData == null ) {
+//                        Toast.makeText(FingerPrintActivity.this, "Please take fingerprint to proceed", Toast.LENGTH_LONG).show();
+//                        setResult(RESULT_CANCELED);
+//                    } else {
+//                        Intent intent = new Intent();
+//                        intent.putExtra(FIRST_NAME, startActivityIntent.getStringExtra(FIRST_NAME));
+//                        intent.putExtra(LAST_NAME, startActivityIntent.getStringExtra(LAST_NAME));
+//                        intent.putExtra(EMPLOYEE_NUMBER, startActivityIntent.getStringExtra(EMPLOYEE_NUMBER));
+//                        intent.putExtra(ROLE, startActivityIntent.getStringExtra(ROLE));
+//                        intent.putExtra(INITIALS, startActivityIntent.getStringExtra(INITIALS));
+//                        intent.putExtra(EMAIL_ADDRESS, startActivityIntent.getStringExtra(EMAIL_ADDRESS));
+//                        intent.putExtra(PHONE_NUMBER, startActivityIntent.getStringExtra(PHONE_NUMBER));
+//                        intent.putExtra(NATIONAL_ID, startActivityIntent.getStringExtra(NATIONAL_ID));
+//                        intent.putExtra(GENDER, startActivityIntent.getStringExtra(GENDER));
+//                        intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
+//                        intent.putExtra(FINGER_PRINT_IMAGE, capturedImageData);
+//                        setResult(RESULT_OK, intent);
+//                    }
+//                    finish();
+//                }
+//            });
+//        }
+//
+//        if (Objects.equals(startActivityIntent.getAction(), ACTION_CLOCK_IN)) {
+////            clock in
+//            if (mCurrentDevice != null ) {
+//                mCurrentDevice.captureSingle(
+//                        mCaptureOptionDefault,
+//                        new FingerPrintCaptureResponder(mainContext),
+//                        true);
+//            }
+//            Toast.makeText(FingerPrintActivity.this, "Device not connected", Toast.LENGTH_LONG).show();
+//            finish();
+//        }
+//
+//        if (Objects.equals(startActivityIntent.getAction(), ACTION_CLOCK_OUT)) {
+////            clock in
+//            Toast.makeText(FingerPrintActivity.this, "Action Clock out", Toast.LENGTH_LONG).show();
+//            mCurrentDevice.captureSingle(
+//                    mCaptureOptionDefault,
+//                    new FingerPrintCaptureResponder(mainContext),
+//                    true);
+//        }
     }
 
     void handleDevChange(IUsbEventHandler.DeviceChangeEvent event, Object dev) {
