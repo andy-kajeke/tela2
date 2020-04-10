@@ -264,6 +264,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 headTeacherHome.putExtra(AdminSideActivity.EMPLOYEE_NUMBER, syncTeacher.getEmployeeNumber());
                 headTeacherHome.putExtra(AdminSideActivity.TEACHER_FIRST_NAME,syncTeacher.getFirstName());
                 headTeacherHome.putExtra(AdminSideActivity.TEACHER_LAST_NAME, syncTeacher.getLastName());
+                // TODO: SCHOOL NUMBER MUST BE CHANGED below
                 headTeacherHome.putExtra(AdminSideActivity.SCHOOL_NUMBER, "354633111523205");
                 startActivity(headTeacherHome);
             }
