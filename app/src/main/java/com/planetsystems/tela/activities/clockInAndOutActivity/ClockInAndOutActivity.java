@@ -27,6 +27,7 @@ import com.planetsystems.tela.activities.test.TestActivity;
 import java.text.SimpleDateFormat;
 
 public class ClockInAndOutActivity extends AppCompatActivity {
+    private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
 
     TextView dateDisplay, schoolName;
     TextView close_clockIn, close_clockOut;
@@ -122,6 +123,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 Intent intent = new Intent(ClockInAndOutActivity.this, FingerPrintActivity.class);
                 intent.setAction(FingerPrintActivity.ACTION_CLOCK_IN);
                 startActivityForResult(intent, CLOCK_IN_ACTIVITY_REQUEST_CODE);
+                checkOutDialog.dismiss();
 
             }
         });
@@ -131,9 +133,8 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ClockInAndOutActivity.this, ClockInWithStaffIdActivity.class);
-//                i.putExtra("time",clock_in_time.getText());
-//                i.putExtra("date",dayString);
-                startActivity(i);
+                startActivityForResult(i, START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT);
+                checkInDialog.dismiss();
             }
         });
 
@@ -164,6 +165,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 Intent intent = new Intent(ClockInAndOutActivity.this, FingerPrintActivity.class);
                 intent.setAction(FingerPrintActivity.ACTION_CLOCK_IN);
                 startActivityForResult(intent, CLOCK_OUT_ACTIVITY_REQUEST_CODE);
+
 
             }
         });
