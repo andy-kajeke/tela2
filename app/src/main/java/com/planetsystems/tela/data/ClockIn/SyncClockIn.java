@@ -7,7 +7,12 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = SyncClockInConstants.TABLE_NAME)
 public class SyncClockIn {
-    @PrimaryKey
+
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = SyncClockInConstants.DATABASE_ID)
+    private String dbID;
+
     @NonNull
     @ColumnInfo(name = SyncClockInConstants.ID)
     private String id;
@@ -59,26 +64,6 @@ public class SyncClockIn {
 
     @ColumnInfo(name = SyncClockInConstants.ROW_ID)
     private String rowId;
-
-    public SyncClockIn(@NonNull String id, String dateCreated, String dateUpdated, String status, String clockInDate, String clockInTime, String day, String employeeId, String employeeNo, String latitude, String longitude, String synStatus, String schoolId, String empFirstName, String empLastName, String rowVer, String rowId) {
-        this.id = id;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.status = status;
-        this.clockInDate = clockInDate;
-        this.clockInTime = clockInTime;
-        this.day = day;
-        this.employeeId = employeeId;
-        this.employeeNo = employeeNo;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.synStatus = synStatus;
-        this.schoolId = schoolId;
-        this.empFirstName = empFirstName;
-        this.empLastName = empLastName;
-        this.rowVer = rowVer;
-        this.rowId = rowId;
-    }
 
     @NonNull
     public String getId() {
@@ -215,5 +200,49 @@ public class SyncClockIn {
 
     public void setRowId(String rowId) {
         this.rowId = rowId;
+    }
+
+    public SyncClockIn(@NonNull String id, String dateCreated, String dateUpdated, String status, String clockInDate, String clockInTime, String day, String employeeId, String employeeNo, String latitude, String longitude, String synStatus, String schoolId, String empFirstName, String empLastName, String rowVer, String rowId) {
+        this.id = id;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.status = status;
+        this.clockInDate = clockInDate;
+        this.clockInTime = clockInTime;
+        this.day = day;
+        this.employeeId = employeeId;
+        this.employeeNo = employeeNo;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.synStatus = synStatus;
+        this.schoolId = schoolId;
+        this.empFirstName = empFirstName;
+        this.empLastName = empLastName;
+        this.rowVer = rowVer;
+        this.rowId = rowId;
+    }
+
+    @Override
+    public String toString() {
+        return "SyncClockIn{" +
+                "dbID='" + dbID + '\'' +
+                ", id='" + id + '\'' +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", dateUpdated='" + dateUpdated + '\'' +
+                ", status='" + status + '\'' +
+                ", clockInDate='" + clockInDate + '\'' +
+                ", clockInTime='" + clockInTime + '\'' +
+                ", day='" + day + '\'' +
+                ", employeeId='" + employeeId + '\'' +
+                ", employeeNo='" + employeeNo + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", synStatus='" + synStatus + '\'' +
+                ", schoolId='" + schoolId + '\'' +
+                ", empFirstName='" + empFirstName + '\'' +
+                ", empLastName='" + empLastName + '\'' +
+                ", rowVer='" + rowVer + '\'' +
+                ", rowId='" + rowId + '\'' +
+                '}';
     }
 }

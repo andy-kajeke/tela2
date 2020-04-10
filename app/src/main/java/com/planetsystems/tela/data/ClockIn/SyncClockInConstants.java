@@ -20,4 +20,5 @@ public class SyncClockInConstants {
     public static final String ROW_VER = "rowVer";
     public static final String ROW_ID = "rowID";
     public static final String DAY = "day";
+    public static final String DATABASE_ID = "dbID";
 }
