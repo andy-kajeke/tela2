@@ -228,22 +228,14 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                             * we shall return back to click in clock out activity
                             * */
                             Intent intent = new Intent();
-                            intent.putExtra(STAFF_ID, employeeNumber);
+                            intent.putExtra(STAFF_ID, viewModel.findEmployeeNumberWithStaffID(teacherList, STAFF_ID));
                             setResult(RESULT_OK, intent);
                             finish();
                             // returning back to starting activity
 
-                        }else if (employeeNumber.equals("3001")){
-
-                            Intent headTeacherHome = new Intent(ClockInWithStaffIdActivity.this, AdminSide.class);
-                            headTeacherHome.putExtra("id", employeeNumber);
-                            headTeacherHome.putExtra("name","Fredrick Kasoma");
-                            headTeacherHome.putExtra("school", "354633111523205");
-                            startActivity(headTeacherHome);
-
-                        }else if (employeeNumber.equals("5001")){
-
                         }
+
+                        // TODO: the remain codes with be added here
                     }
                 }
             }
