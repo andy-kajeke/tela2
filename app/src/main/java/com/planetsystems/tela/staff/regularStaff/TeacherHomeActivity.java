@@ -24,7 +24,7 @@ import java.util.Date;
 public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
     public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_LAST_NAME";
-    public static final String EMPLOYEE_ID = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
+    public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
 
     ProgressDialog dialog;
     int count =0;

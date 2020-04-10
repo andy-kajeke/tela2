@@ -28,6 +28,7 @@ import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
 import com.planetsystems.tela.constants.Role;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
+import com.planetsystems.tela.staff.administration.AdminSide;
 import com.planetsystems.tela.staff.regularStaff.TeacherHomeActivity;
 
 import java.text.SimpleDateFormat;
@@ -236,9 +237,16 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             * teachers home page basing on the role*/
             if (syncTeacher.getRole().equals(Role.TEACHER_ROLE)) {
                 Intent teacherHome = new Intent(this, TeacherHomeActivity.class);
-                teacherHome.putExtra("id", syncTeacher.getEmployeeNumber());
-                teacherHome.putExtra("name", syncTeacher.getFirstName());
+                teacherHome.putExtra(TeacherHomeActivity.EMPLOYEE_NUMBER, syncTeacher.getEmployeeNumber());
+                teacherHome.putExtra(TeacherHomeActivity.TEACHER_FIRST_NAME, syncTeacher.getFirstName());
+                teacherHome.putExtra(TeacherHomeActivity.TEACHER_LAST_NAME, syncTeacher.getLastName());
                 startActivity(teacherHome);
+            } else if (syncTeacher.getRole().equals(Role.HEAD_TEACHER_ROLE)) {
+                Intent headTeacherHome = new Intent(this, AdminSide.class);
+                headTeacherHome.putExtra("id", employeeNumber);
+                headTeacherHome.putExtra("name","Fredrick Kasoma");
+                headTeacherHome.putExtra("school", "354633111523205");
+                startActivity(headTeacherHome);
             }
         }
     }
