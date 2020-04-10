@@ -63,8 +63,8 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
         datetoday.setText(""+currentTime.toString());
 
         Bundle bundle = getIntent().getExtras();
-        emp_id_extra = bundle.getString("id");
-        emp_name_extra = bundle.getString("name");
+        emp_id_extra = bundle.getString(EMPLOYEE_NUMBER);
+        emp_name_extra = bundle.getString(TEACHER_FIRST_NAME);
 
         emp_Name.append(emp_name_extra);
         emp_Id.append(emp_id_extra);

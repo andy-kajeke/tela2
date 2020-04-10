@@ -65,7 +65,7 @@ public class AdminSideActivity extends AppCompatActivity {
 //        role_extra = bundle.getString("role");
 //        name_extra = bundle.getString("admin_name");
 //        checkIn_date = bundle.getString("date");
-        checkIn_schoolId = bundle.getString("school");
+        checkIn_schoolId = bundle.getString(SCHOOL_NUMBER);
 //
         headRole.setText("[ " + "Head Teacher" + " ]");
         headName.setText(name_extra);
