@@ -17,10 +17,10 @@ public class SyncTeacher {
     @ColumnInfo(name = "MPSComputerNumber")
     private String MPSComputerNumber;
 
-    @ColumnInfo(name = "EmployeeNumber")
+    @ColumnInfo(name = "employeeNumber")
     private String employeeNumber;
 
-    @ColumnInfo(name = "Role")
+    @ColumnInfo(name = "role")
     private String role;
 
     @ColumnInfo(name = "dob")
