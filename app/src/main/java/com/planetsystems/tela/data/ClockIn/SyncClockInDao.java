@@ -15,4 +15,7 @@ public interface SyncClockInDao {
 
     @Query("SELECT * FROM " + SyncClockInConstants.TABLE_NAME)
     LiveData<List<SyncClockIn>> getAllClockIn();
+
+    @Insert
+    void clockInTeacherWithID(SyncClockIn clockIn);
 }

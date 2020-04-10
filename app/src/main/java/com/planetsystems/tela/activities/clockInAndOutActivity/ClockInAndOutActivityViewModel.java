@@ -30,6 +30,6 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
 
             }
         }
-
+        return true;
     }
 }
