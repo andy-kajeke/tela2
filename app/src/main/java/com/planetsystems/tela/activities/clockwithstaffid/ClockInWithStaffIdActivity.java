@@ -17,6 +17,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -54,15 +55,7 @@ public class ClockInWithStaffIdActivity extends Activity {
 
         btnFollow = findViewById(R.id.google);
         staffid = findViewById(R.id.staffID);
-        viewModel = new ViewModelProvider((ViewModelStoreOwner) this).get(ClockInWithStaffIdActivityViewModel.class);
 
-        // get data from view model;
-        viewModel.getAllSyncTeacher().observe((LifecycleOwner) this, new Observer<List<SyncTeacher>>() {
-            @Override
-            public void onChanged(List<SyncTeacher> syncTeachers) {
-                allTeachers = syncTeachers;
-            }
-        });
 
 
         //Button action
