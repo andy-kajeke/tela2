@@ -1,6 +1,7 @@
 package com.planetsystems.tela.activities.clockInAndOutActivity;
 
 import android.app.Application;
+import android.location.LocationManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,15 +12,36 @@ import com.planetsystems.tela.Repository;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ClockInAndOutActivityViewModel extends AndroidViewModel {
+    LocationManager locationManager;
+    double lng;
+    double lat;
+
+    String checkIn_time;
+    String dateString;
+    String dayOfTheWeek;
+
     private LiveData<List<SyncTeacher>> syncTeachers;
     private Repository repository;
+
     public ClockInAndOutActivityViewModel(@NonNull Application application) {
         super(application);
         repository = Repository.getInstance(application);
         syncTeachers = repository.getAllTeachers();
+
+        //Day of the week
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        Date d = new Date();
+        dayOfTheWeek = sdf.format(d);
+
+        //Date of the day
+        long date = System.currentTimeMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
+        dateString = dateFormat.format(date);
     }
 
     public LiveData<List<SyncTeacher>> getAllSyncTeacher() {
@@ -40,9 +62,9 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                        null,
                        null,
                        null,
+                        dateString,
                        null,
-                       null,
-                       null,
+                        dayOfTheWeek,
                        teacher.getEmployeeNumber(),
                         teacher.getEmployeeNumber(),
                         null,

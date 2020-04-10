@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.planetsystems.tela.R;
@@ -38,6 +39,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
     private List<SyncTeacher> teacherList;
 
+    TextClock clock_in_time;
     TextView dateDisplay, schoolName;
     TextView close_clockIn, close_clockOut;
     Button btnFingerprint_In, btnStaffId_In, btnFingerprint_Out, btnStaffId_Out;
@@ -45,6 +47,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     Dialog checkInDialog, checkOutDialog;
     public static final int CLOCK_IN_ACTIVITY_REQUEST_CODE = 2345;
     public static final int CLOCK_OUT_ACTIVITY_REQUEST_CODE = 2345;
+    public static  String clockInTime = "";
     ClockInAndOutActivityViewModel viewModel;
     String deviceIMEI_extra, schoolName_extra;
 
@@ -61,6 +64,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             }
         });
 
+        clock_in_time = findViewById(R.id.textClock3);
         dateDisplay = findViewById(R.id.calendarView4);
         schoolName = findViewById(R.id.schoolName);
         datacenter = findViewById(R.id.cardview2);
@@ -72,6 +76,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         schoolName_extra = bundle.getString("schoolName");
 
         schoolName.setText(schoolName_extra);
+
 
         checkInDialog = new Dialog(this);
         checkOutDialog = new Dialog(this);
