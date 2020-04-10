@@ -20,14 +20,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.cardview.widget.CardView;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.FingerPrintCaptureResponder;
-import com.planetsystems.tela.activityViewModel.MainActivityViewModel;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
 import com.suprema.IUsbEventHandler;
@@ -71,6 +67,9 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     private IBioMiniDevice.TemplateData capturedTemplateData;
     private Bitmap capturedImageData;
     private FingerPrintActivityViewModel printActivityViewModel;
+
+    private CardView cardViewCapture, cardViewEnroll;
+    private TextView textViewCapture, textViewEnroll;
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
 
@@ -141,7 +140,10 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         mainContext = this;
         statusTextView = findViewById(R.id.textViewStatus);
         mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
-        startActivityIntent = getIntent();
+        cardViewCapture = findViewById(R.id.cardViewCapture);
+        cardViewEnroll = findViewById(R.id.cardViewEnroll);
+        textViewCapture = findViewById(R.id.textViewCapture);
+        textViewEnroll = findViewById(R.id.textViewEnroll);
 
 
         if(mBioMiniFactory != null) {
@@ -150,70 +152,28 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
         restartBioMini();
 
+        cardViewCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
+                    if(mCurrentDevice != null) {
+                        //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
+                        mCurrentDevice.captureSingle(
+                                mCaptureOptionDefault,
+                                new FingerPrintCaptureResponder(mainContext),
+                                true);
+                    }
+            }
+        });
+
+        cardViewCapture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         printRev(""+mBioMiniFactory.getSDKInfo());
-//        if (Objects.equals(startActivityIntent.getAction(), ACTION_ENROLL)) {
-//            findViewById(R.id.cardViewCapture).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
-//                    if(mCurrentDevice != null) {
-//                        //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
-//                        mCurrentDevice.captureSingle(
-//                                mCaptureOptionDefault,
-//                                new FingerPrintCaptureResponder(mainContext),
-//                                true);
-//                    }
-//
-//
-//                }
-//            });
-//
-//            findViewById(R.id.cardViewAction).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (capturedTemplateData == null ) {
-//                        Toast.makeText(FingerPrintActivity.this, "Please take fingerprint to proceed", Toast.LENGTH_LONG).show();
-//                        setResult(RESULT_CANCELED);
-//                    } else {
-//                        Intent intent = new Intent();
-//                        intent.putExtra(FIRST_NAME, startActivityIntent.getStringExtra(FIRST_NAME));
-//                        intent.putExtra(LAST_NAME, startActivityIntent.getStringExtra(LAST_NAME));
-//                        intent.putExtra(EMPLOYEE_NUMBER, startActivityIntent.getStringExtra(EMPLOYEE_NUMBER));
-//                        intent.putExtra(ROLE, startActivityIntent.getStringExtra(ROLE));
-//                        intent.putExtra(INITIALS, startActivityIntent.getStringExtra(INITIALS));
-//                        intent.putExtra(EMAIL_ADDRESS, startActivityIntent.getStringExtra(EMAIL_ADDRESS));
-//                        intent.putExtra(PHONE_NUMBER, startActivityIntent.getStringExtra(PHONE_NUMBER));
-//                        intent.putExtra(NATIONAL_ID, startActivityIntent.getStringExtra(NATIONAL_ID));
-//                        intent.putExtra(GENDER, startActivityIntent.getStringExtra(GENDER));
-//                        intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
-//                        intent.putExtra(FINGER_PRINT_IMAGE, capturedImageData);
-//                        setResult(RESULT_OK, intent);
-//                    }
-//                    finish();
-//                }
-//            });
-//        }
-//
-//        if (Objects.equals(startActivityIntent.getAction(), ACTION_CLOCK_IN)) {
-////            clock in
-//            if (mCurrentDevice != null ) {
-//                mCurrentDevice.captureSingle(
-//                        mCaptureOptionDefault,
-//                        new FingerPrintCaptureResponder(mainContext),
-//                        true);
-//            }
-//            Toast.makeText(FingerPrintActivity.this, "Device not connected", Toast.LENGTH_LONG).show();
-//            finish();
-//        }
-//
-//        if (Objects.equals(startActivityIntent.getAction(), ACTION_CLOCK_OUT)) {
-////            clock in
-//            Toast.makeText(FingerPrintActivity.this, "Action Clock out", Toast.LENGTH_LONG).show();
-//            mCurrentDevice.captureSingle(
-//                    mCaptureOptionDefault,
-//                    new FingerPrintCaptureResponder(mainContext),
-//                    true);
-//        }
     }
 
     void handleDevChange(IUsbEventHandler.DeviceChangeEvent event, Object dev) {

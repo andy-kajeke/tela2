@@ -24,7 +24,7 @@
 
     <ImageView
         android:id="@+id/imageViewFingerPrint"
-        android:layout_width="150dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/edit_text_style"
         android:layout_centerVertical="true"
@@ -69,6 +69,7 @@
             android:layout_centerHorizontal="true">
 
             <TextView
+                android:id="@+id/textViewCapture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -81,7 +82,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewAction"
+            android:id="@+id/cardViewEnroll"
             android:layout_width="120dp"
             android:layout_height="40dp"
             android:layout_centerHorizontal="true"
@@ -94,7 +95,7 @@
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="20dp">
             <TextView
-                android:id="@+id/textViewAction"
+                android:id="@+id/textViewEnroll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
