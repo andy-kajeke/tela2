@@ -23,7 +23,6 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.activities.FingerPrintCaptureResponder;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
 import com.suprema.IUsbEventHandler;

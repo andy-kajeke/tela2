@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities;
+package com.planetsystems.tela.activities.fingerprint;
 
 import android.content.Context;
 import android.graphics.Bitmap;
