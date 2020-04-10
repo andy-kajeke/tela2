@@ -17,6 +17,12 @@ public class SyncTeacher {
     @ColumnInfo(name = "MPSComputerNumber")
     private String MPSComputerNumber;
 
+    @ColumnInfo(name = "employeeNumber")
+    private String employeeNumber;
+
+    @ColumnInfo(name = "role")
+    private String role;
+
     @ColumnInfo(name = "dob")
     private String dob;
 
@@ -50,6 +56,10 @@ public class SyncTeacher {
     @ColumnInfo(name = "schoolId")
     private String schoolId;
 
+    public SyncTeacher(Object o, Object o1, Object o2, String stringExtra, String stringExtra1, byte[] byteArrayExtra, String requireNonNull,
+                       String requireNonNull1, String requireNonNull2, String requireNonNull3, boolean b, String requireNonNull4, String requireNonNull5, Object o3) {
+    }
+
     @NonNull
     public String getId() {
         return id;
@@ -65,6 +75,22 @@ public class SyncTeacher {
 
     public void setMPSComputerNumber(String MPSComputerNumber) {
         this.MPSComputerNumber = MPSComputerNumber;
+    }
+
+    public String getEmployeeNumber() {
+        return employeeNumber;
+    }
+
+    public void setEmployeeNumber(String employeeNumber) {
+        this.employeeNumber = employeeNumber;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getDob() {
@@ -123,7 +149,7 @@ public class SyncTeacher {
         this.initials = initials;
     }
 
-    public boolean getLicensed() {
+    public boolean isLicensed() {
         return licensed;
     }
 
@@ -155,10 +181,12 @@ public class SyncTeacher {
         this.schoolId = schoolId;
     }
 
-    public SyncTeacher(@NonNull String id, String MPSComputerNumber, String dob, String emailAddress, byte[] fingerPrint, String firstName, String lastName,
-                       String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
+    public SyncTeacher(@NonNull String id, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, byte[] fingerPrint, String firstName, String lastName, String gender, String initials,
+                       boolean licensed, String nationalId, String phoneNumber, String schoolId) {
         this.id = id;
         this.MPSComputerNumber = MPSComputerNumber;
+        this.employeeNumber = employeeNumber;
+        this.role = role;
         this.dob = dob;
         this.emailAddress = emailAddress;
         this.fingerPrint = fingerPrint;

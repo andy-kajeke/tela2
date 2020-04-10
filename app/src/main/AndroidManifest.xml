@@ -23,7 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.test.TestActivity"></activity>
+        <activity android:name=".staff.administration.editStaff.EditStaffList"></activity>
+        <activity android:name=".staff.administration.AdminSide" />
+        <activity android:name=".activities.test.TestActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"

@@ -41,6 +41,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     public static final String FIRST_NAME = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.FIRST_NAME";
     public static final String LAST_NAME = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.LAST_NAME";
     public static final String INITIALS = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.INITIALS";
+    public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.EMPLOYEE_NUMBER";
+    public static final String ROLE = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ROLE";
     public static final String PHONE_NUMBER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.PHONE_NUMBER";
     public static final String EMAIL_ADDRESS = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.EMAIL_ADDRESS";
     public static final String NATIONAL_ID = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.NATIONAL_ID";
@@ -176,6 +178,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                         Intent intent = new Intent();
                         intent.putExtra(FIRST_NAME, startActivityIntent.getStringExtra(FIRST_NAME));
                         intent.putExtra(LAST_NAME, startActivityIntent.getStringExtra(LAST_NAME));
+                        intent.putExtra(EMPLOYEE_NUMBER, startActivityIntent.getStringExtra(EMPLOYEE_NUMBER));
+                        intent.putExtra(ROLE, startActivityIntent.getStringExtra(ROLE));
                         intent.putExtra(INITIALS, startActivityIntent.getStringExtra(INITIALS));
                         intent.putExtra(EMAIL_ADDRESS, startActivityIntent.getStringExtra(EMAIL_ADDRESS));
                         intent.putExtra(PHONE_NUMBER, startActivityIntent.getStringExtra(PHONE_NUMBER));

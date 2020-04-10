@@ -18,9 +18,6 @@ public interface SyncTeacherDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void enrollTeacher(SyncTeacher syncTeacher);
 
-    @Insert()
-    void insertAllTeachers(SyncTeacher syncTeacher);
-
     @Update
     void updateStaff(SyncTeacher syncTeacher);
 
@@ -29,4 +26,7 @@ public interface SyncTeacherDao {
 
     @Query("SELECT * FROM " + SyncTableConstants.SyncTeachers)
     LiveData<List<SyncTeacher>> getAllTeachers();
+
+    @Query("SELECT * FROM " + SyncTableConstants.SyncTeachers)
+    LiveData<List<SyncTeacherModel>> getAllSchoolTeachers();
 }

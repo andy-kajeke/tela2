@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".staff.administration.AdminSide">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_centerHorizontal="true"
+                card_view:cardBackgroundColor="@color/colorPrimary"
+                card_view:cardCornerRadius="1dp"
+                card_view:cardElevation="5dp"
+                card_view:cardMaxElevation="0dp"
+                card_view:contentPadding="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:background="@drawable/layout">
+
+                    <TextView
+                        android:id="@+id/headTeacher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:paddingTop="2dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="Administrator"
+                        android:textColor="#FFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/adminPosition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_centerHorizontal="true"
+                        android:text="position"
+                        android:textColor="#FFF"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardview1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_below="@+id/cardview"
+                android:layout_centerHorizontal="true"
+                card_view:cardBackgroundColor="@color/colorPrimary"
+                card_view:cardCornerRadius="1dp"
+                card_view:cardElevation="5dp"
+                card_view:cardMaxElevation="0dp"
+                card_view:contentPadding="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/my_tasks"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:paddingTop="@dimen/nav_header_vertical_spacing"
+                        android:background="@drawable/ic_action_my_lessons"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="19dp"
+                        android:layout_marginStart="19dp"
+                        android:layout_marginTop="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Lessons"
+                        android:textSize="17sp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
+                        android:textColor="#FFF"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/my_tasks"
+                        android:layout_toEndOf="@+id/my_tasks" />
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/tab"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_below="@+id/cardview1">
+
+                <androidx.cardview.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="0dp"
+                    android:layout_height="165dp"
+                    android:layout_weight="1"
+                    android:id="@+id/attendWork"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    card_view:cardCornerRadius="5dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginRight="0dp"
+                    card_view:cardBackgroundColor="@color/colorPrimary"
+                    android:layout_below="@+id/editText1"
+                    android:layout_centerHorizontal="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:orientation="vertical"
+                        android:layout_margin="16dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="100dp"
+                            android:src="@drawable/attended"
+                            android:layout_gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Time Attendance"
+                            android:textColor="@color/white"
+                            android:textSize="14dp"
+                            android:layout_marginTop="15dp"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="0dp"
+                    android:layout_height="165dp"
+                    android:layout_weight="1"
+                    android:id="@+id/attendClass"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    card_view:cardCornerRadius="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="10dp"
+                    card_view:cardBackgroundColor="@color/colorPrimary"
+                    android:layout_below="@+id/editText1"
+                    android:layout_centerHorizontal="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:orientation="vertical"
+                        android:layout_margin="16dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="100dp"
+                            android:src="@drawable/timeschedule"
+                            android:layout_gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Task Attendance"
+                            android:textColor="@color/white"
+                            android:textSize="14dp"
+                            android:layout_marginTop="15dp"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/tab2"
+                android:layout_marginTop="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_below="@+id/tab">
+
+                <androidx.cardview.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="0dp"
+                    android:layout_height="165dp"
+                    android:layout_weight="1"
+                    android:id="@+id/cardview4"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    card_view:cardCornerRadius="5dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginRight="0dp"
+                    card_view:cardBackgroundColor="@color/colorPrimary"
+                    android:layout_below="@+id/editText1"
+                    android:layout_centerHorizontal="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:orientation="vertical"
+                        android:layout_margin="16dp">
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/classroom"
+                            android:layout_gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Learner Attendance"
+                            android:textColor="@color/white"
+                            android:textSize="14dp"
+                            android:layout_marginTop="15dp"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="0dp"
+                    android:layout_height="165dp"
+                    android:layout_weight="1"
+                    android:id="@+id/cardview5"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    card_view:cardCornerRadius="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="10dp"
+                    card_view:cardBackgroundColor="@color/colorPrimary"
+                    android:layout_below="@+id/editText1"
+                    android:layout_centerHorizontal="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:orientation="vertical"
+                        android:layout_margin="16dp">
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/request"
+                            android:layout_gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Service Requests"
+                            android:textColor="@color/white"
+                            android:textSize="14dp"
+                            android:layout_marginTop="15dp"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/tab2">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview6"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="1dp"
+                    app:cardElevation="5dp"
+                    app:cardMaxElevation="0dp"
+                    app:contentPadding="5dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imageSchool"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginStart="19dp"
+                            android:layout_marginLeft="19dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/reload"
+                            android:paddingTop="@dimen/nav_header_vertical_spacing" />
+
+                        <TextView
+                            android:id="@+id/textSchool"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_toEndOf="@+id/imageSchool"
+                            android:layout_toRightOf="@+id/imageSchool"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="Updates"
+                            android:textColor="#FFF"
+                            android:textSize="17sp" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/cardview7"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    card_view:cardElevation="5dp"
+                    card_view:contentPadding="5dp"
+                    card_view:cardCornerRadius="1dp"
+                    card_view:cardMaxElevation="0dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerHorizontal="true"
+                    card_view:cardBackgroundColor="@color/colorPrimary">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imageSync"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:paddingTop="@dimen/nav_header_vertical_spacing"
+                            android:background="@drawable/ic_action_sync"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginLeft="19dp"
+                            android:layout_marginStart="19dp"
+                            android:layout_marginTop="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sync Data"
+                            android:textSize="17sp"
+                            android:fontFamily="sans-serif-condensed"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
+                            android:textColor="#FFF"
+                            android:id="@+id/textSync"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/imageSync"
+                            android:layout_toEndOf="@+id/imageSync" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

@@ -18,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.staff.administration.AdminSide;
 import com.planetsystems.tela.staff.regularStaff.TeacherHome;
 
 public class ClockIn_with_StaffId extends Activity {
@@ -68,6 +69,12 @@ public class ClockIn_with_StaffId extends Activity {
                             startActivity(teacherHome);
 
                         }else if (employeeNumber.equals("3001")){
+
+                            Intent headTeacherHome = new Intent(ClockIn_with_StaffId.this, AdminSide.class);
+                            headTeacherHome.putExtra("id", employeeNumber);
+                            headTeacherHome.putExtra("name","Fredrick Kasoma");
+                            headTeacherHome.putExtra("school", "354633111523205");
+                            startActivity(headTeacherHome);
 
                         }else if (employeeNumber.equals("5001")){
 

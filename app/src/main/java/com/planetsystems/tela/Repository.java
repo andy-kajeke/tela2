@@ -2,6 +2,7 @@ package com.planetsystems.tela;
 
 import android.app.Application;
 
+//import androidx.constraintlayout.widget.Constraints;
 import androidx.lifecycle.LiveData;
 import androidx.work.Constraints;
 import androidx.work.NetworkType;
@@ -43,7 +44,7 @@ public class Repository {
     private HelpRequestDao helpRequestDao;
     private SyncSMCDao syncSMCDao;
     private SyncTimeTableDao syncTimeTableDao;
-    private  Application application;
+    private Application application;
 
     public Repository(Application application) {
         this.application = application;
