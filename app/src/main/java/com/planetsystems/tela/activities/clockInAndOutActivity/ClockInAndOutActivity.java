@@ -59,6 +59,11 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clockin__clock_out);
         viewModel = new ViewModelProvider(this).get(ClockInAndOutActivityViewModel.class);
+
+        /*
+        * We listen observe the livedata in view model and update the list contained there with
+        * the most updated data, see below
+        * */
         viewModel.getAllSyncTeacher().observe(this, new Observer<List<SyncTeacher>>() {
             @Override
             public void onChanged(List<SyncTeacher> syncTeachers) {
@@ -66,6 +71,10 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         * We listen observe the livedata in view model and update the list contained there with
+         * the most updated data, see below
+         * */
         viewModel.getSynClockOutLiveData().observe(this, new Observer<List<SyncClockOut>>() {
             @Override
             public void onChanged(List<SyncClockOut> syncClockOuts) {
