@@ -2,7 +2,6 @@ package com.planetsystems.tela.activities.clockInAndOutActivity;
 
 import android.app.Application;
 import android.location.LocationManager;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -62,7 +61,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
        SyncTeacher syncTeacher = findEmployeeNumberWithEmployeeNumber(employeeNumber);
        if (syncTeacher == null) return null;
        SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
-       repository.synClockInTeacherWithID(syncClockIn);
+       repository.synClockInTeacher(syncClockIn);
         return syncTeacher ;
     }
 
@@ -80,7 +79,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         SyncTeacher syncTeacher = findTeacherWithFingerPrint(stringEncodedFingerPrint.getBytes());
         if (syncTeacher == null) return null;
         SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
-        repository.synClockInTeacherWithID(syncClockIn);
+        repository.synClockOutTeacher(syncClockIn);
         return syncTeacher;
     }
 
@@ -88,7 +87,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         SyncTeacher syncTeacher = findTeacherWithFingerPrint(stringEncodedFingerPrint.getBytes());
         if (syncTeacher == null ) return null;
         SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
-        repository.synClockInTeacherWithID(syncClockIn);
+        repository.synClockInTeacher(syncClockIn);
         return syncTeacher;
     }
 

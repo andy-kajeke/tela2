@@ -136,7 +136,7 @@ public class Repository {
         return syncTeacherDao.getAllTeachers();
     }
 
-    public void synClockInTeacherWithID(final SyncClockIn clockIn){
+    public void synClockInTeacher(final SyncClockIn clockIn){
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -145,4 +145,7 @@ public class Repository {
         });
     }
 
+    public void synClockOutTeacher(SyncClockIn syncClockIn) {
+
+    }
 }
