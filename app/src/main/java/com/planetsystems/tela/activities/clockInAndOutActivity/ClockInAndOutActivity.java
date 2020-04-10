@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextClock;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.clockInWithEmployeeNumber.ClockInWithEmployeeNumberActivity;
@@ -249,6 +250,8 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 headTeacherHome.putExtra(AdminSideActivity.SCHOOL_NUMBER, "354633111523205");
                 startActivity(headTeacherHome);
             }
+        } else {
+            Toast.makeText(this, "Invalid Employee Number", Toast.LENGTH_LONG).show();
         }
     }
 }
