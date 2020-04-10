@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.staff.administration.editStaff.EditStaffList;
 
-public class AdminSide extends AppCompatActivity {
+public class AdminSideActivity extends AppCompatActivity {
 
     CardView myLessons;
     CardView attendClass;

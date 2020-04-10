@@ -28,7 +28,7 @@ import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
 import com.planetsystems.tela.constants.Role;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
-import com.planetsystems.tela.staff.administration.AdminSide;
+import com.planetsystems.tela.staff.administration.AdminSideActivity;
 import com.planetsystems.tela.staff.regularStaff.TeacherHomeActivity;
 
 import java.text.SimpleDateFormat;
@@ -242,7 +242,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 teacherHome.putExtra(TeacherHomeActivity.TEACHER_LAST_NAME, syncTeacher.getLastName());
                 startActivity(teacherHome);
             } else if (syncTeacher.getRole().equals(Role.HEAD_TEACHER_ROLE)) {
-                Intent headTeacherHome = new Intent(this, AdminSide.class);
+                Intent headTeacherHome = new Intent(this, AdminSideActivity.class);
                 headTeacherHome.putExtra("id", syncTeacher.getEmployeeNumber());
                 headTeacherHome.putExtra("name","Fredrick Kasoma");
                 headTeacherHome.putExtra("school", "354633111523205");

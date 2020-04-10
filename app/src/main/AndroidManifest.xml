@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".staff.administration.editStaff.EditStaffList"></activity>
-        <activity android:name=".staff.administration.AdminSide" />
+        <activity android:name=".staff.administration.AdminSideActivity" />
         <activity android:name=".activities.test.TestActivity" />
 
         <uses-library

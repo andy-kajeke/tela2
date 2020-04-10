@@ -92,7 +92,7 @@ public class ClockInWithEmployeeNumberActivity extends Activity {
 //
 //                        }else if (employeeNumber.equals("3001")){
 //
-//                            Intent headTeacherHome = new Intent(ClockInWithEmployeeNumberActivity.this, AdminSide.class);
+//                            Intent headTeacherHome = new Intent(ClockInWithEmployeeNumberActivity.this, AdminSideActivity.class);
 //                            headTeacherHome.putExtra("id", employeeNumber);
 //                            headTeacherHome.putExtra("name","Fredrick Kasoma");
 //                            headTeacherHome.putExtra("school", "354633111523205");
