@@ -76,7 +76,7 @@ public class ClockInWithEmployeeNumberActivity extends Activity {
 
 //                        if (employeeNumber.equals("2001")){
 //
-////                            Intent teacherHome = new Intent(ClockInWithEmployeeNumberActivity.this, TeacherHome.class);
+////                            Intent teacherHome = new Intent(ClockInWithEmployeeNumberActivity.this, TeacherHomeActivity.class);
 ////                            teacherHome.putExtra("id", employeeNumber);
 ////                            teacherHome.putExtra("name","Andrew Kajeke");
 ////                            startActivity(teacherHome);

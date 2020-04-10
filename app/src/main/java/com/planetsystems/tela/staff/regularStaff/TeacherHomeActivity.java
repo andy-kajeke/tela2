@@ -18,11 +18,13 @@ import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
 import com.planetsystems.tela.staff.regularStaff.serviceRequests.MakeRequests;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class TeacherHome extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+    public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
+    public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_LAST_NAME";
+    public static final String EMPLOYEE_ID = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
 
     ProgressDialog dialog;
     int count =0;
@@ -72,7 +74,7 @@ public class TeacherHome extends AppCompatActivity implements PopupMenu.OnMenuIt
             @Override
             public void onClick(View view) {
 
-                new AlertDialog.Builder(TeacherHome.this)
+                new AlertDialog.Builder(TeacherHomeActivity.this)
                         .setTitle("Confirmation")
                         .setMessage("Do you really want to submit your attendance?")
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -89,8 +91,8 @@ public class TeacherHome extends AppCompatActivity implements PopupMenu.OnMenuIt
         selfmenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(TeacherHome.this, v);
-                popup.setOnMenuItemClickListener(TeacherHome.this);
+                PopupMenu popup = new PopupMenu(TeacherHomeActivity.this, v);
+                popup.setOnMenuItemClickListener(TeacherHomeActivity.this);
                 popup.inflate(R.menu.popup_menu);
                 popup.show();
             }
@@ -107,7 +109,7 @@ public class TeacherHome extends AppCompatActivity implements PopupMenu.OnMenuIt
         //noinspection SimplifiableIfStatement
         if (id == R.id.request) {
 
-            Intent intent = new Intent(TeacherHome.this, MakeRequests.class);
+            Intent intent = new Intent(TeacherHomeActivity.this, MakeRequests.class);
             intent.putExtra("name", emp_name_extra);
             //intent.putExtra("school_id", school_extra);
             intent.putExtra("id", emp_id_extra);
@@ -123,10 +125,10 @@ public class TeacherHome extends AppCompatActivity implements PopupMenu.OnMenuIt
             //return true;
         }
         else if (id == R.id.Logout) {
-            Intent intent = new Intent(TeacherHome.this, ClockInAndOutActivity.class);
+            Intent intent = new Intent(TeacherHomeActivity.this, ClockInAndOutActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            TeacherHome.this.finish();
+            TeacherHomeActivity.this.finish();
             //return true;
         }
 

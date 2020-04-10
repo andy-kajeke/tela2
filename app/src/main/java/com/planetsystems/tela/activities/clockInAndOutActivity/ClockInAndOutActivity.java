@@ -27,9 +27,8 @@ import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
 import com.planetsystems.tela.constants.Role;
-import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
-import com.planetsystems.tela.staff.regularStaff.TeacherHome;
+import com.planetsystems.tela.staff.regularStaff.TeacherHomeActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -236,7 +235,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             * The teacher have successfully signed in, new we take him to the
             * teachers home page basing on the role*/
             if (syncTeacher.getRole().equals(Role.TEACHER_ROLE)) {
-                Intent teacherHome = new Intent(this, TeacherHome.class);
+                Intent teacherHome = new Intent(this, TeacherHomeActivity.class);
                 teacherHome.putExtra("id", syncTeacher.getEmployeeNumber());
                 teacherHome.putExtra("name", syncTeacher.getFirstName());
                 startActivity(teacherHome);
