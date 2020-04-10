@@ -143,4 +143,8 @@ public class Repository {
             }
         });
     }
+
+    public LiveData<List<SyncClockOut>> getAlreadyClockOutTeachers(){
+        return syncClockOutDao.getClockOutTeachers();
+    }
 }

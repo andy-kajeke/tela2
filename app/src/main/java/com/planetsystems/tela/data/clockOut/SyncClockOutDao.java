@@ -24,5 +24,5 @@ public interface SyncClockOutDao {
     void delete(SyncClockOut syncTeachers);
 
     @Query("SELECT * FROM " + SyncTableConstants.SyncClockOuts)
-    LiveData<List<SyncClockOut>> getAllRecords();
+    LiveData<List<SyncClockOut>> getClockOutTeachers();
 }
