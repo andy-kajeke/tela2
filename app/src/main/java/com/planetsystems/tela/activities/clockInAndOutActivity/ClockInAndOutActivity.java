@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -46,8 +47,8 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     Button btnFingerprint_In, btnStaffId_In, btnFingerprint_Out, btnStaffId_Out;
     CardView checkin, checkout, datacenter;
     Dialog checkInDialog, checkOutDialog;
-    public static final int CLOCK_IN_ACTIVITY_REQUEST_CODE = 2345;
-    public static final int CLOCK_OUT_ACTIVITY_REQUEST_CODE = 2345;
+    public static final int CLOCK_IN_ACTIVITY_REQUEST_CODE = 645;
+    public static final int CLOCK_OUT_ACTIVITY_REQUEST_CODE = 445;
     public static  String clockInTime = "";
     ClockInAndOutActivityViewModel viewModel;
     String deviceIMEI_extra, schoolName_extra;
@@ -144,7 +145,6 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ClockInAndOutActivity.this, FingerPrintActivity.class);
-                intent.setAction(FingerPrintActivity.ACTION_CLOCK_IN);
                 startActivityForResult(intent, CLOCK_IN_ACTIVITY_REQUEST_CODE);
                 checkInDialog.dismiss();
 
@@ -186,7 +186,6 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("Clock Out", "clocking out");
                 Intent intent = new Intent(ClockInAndOutActivity.this, FingerPrintActivity.class);
-                intent.setAction(FingerPrintActivity.ACTION_CLOCK_IN);
                 startActivityForResult(intent, CLOCK_OUT_ACTIVITY_REQUEST_CODE);
                 checkOutDialog.dismiss();
 
@@ -224,11 +223,24 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 // we have the code
                 if (resultCode == RESULT_OK ) {
                     String employeeNumber = data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER);
-                    Log.d("code the code", "========================================================");
-                    Log.d("code the code", Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
                     SyncTeacher syncTeacher = viewModel.clockInTeacherEmployeeNumber(teacherList, Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
                     loadTeacherHomePage(syncTeacher);
                 }
+            } else if (requestCode == CLOCK_OUT_ACTIVITY_REQUEST_CODE) {
+                // teacher clocking out
+                if (resultCode == RESULT_OK ) {
+                    byte[] fingerPrintData = data.getByteArrayExtra(FingerPrintActivity.FINGER_PRINT_DATA);
+                    Bitmap fingerPrintImage = data.getB
+                    SyncTeacher syncTeacher = viewModel.clockOutTeacherWithFingerPrint(teacherList, fingerPrintData);
+                    loadTeacherHomePage(syncTeacher);
+                }
+            } else if (requestCode == CLOCK_IN_ACTIVITY_REQUEST_CODE) {
+                // teacher clocking out
+                if (requestCode == RESULT_OK ) {
+                    byte[] fingerPrintData = data.getByteArrayExtra(FingerPrintActivity.FINGER_PRINT_DATA);
+                }
+            } else {
+                // I don't know what has happened
             }
         }
     }

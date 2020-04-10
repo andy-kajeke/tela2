@@ -30,10 +30,9 @@ import com.suprema.IUsbEventHandler;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
-import java.util.Objects;
 
 public class FingerPrintActivity extends Activity implements FingerPrintCaptureResponder.OnFingerPrintCaptureResponseListener{
-    public static final String TEMPLATE_DATA = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEMPLATE_DATA";
+    public static final String FINGER_PRINT_DATA = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEMPLATE_DATA";
     public static final String FINGER_PRINT_IMAGE = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.FINGER_PRINT_IMAGE";
 
 
@@ -160,7 +159,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             @Override
             public void onClick(View v) {
                 Intent  intent =  new Intent();
-                intent.putExtra(TEMPLATE_DATA, capturedTemplateData.data);
+                intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
                 intent.putExtra(FINGER_PRINT_IMAGE, capturedImageData);
                 setResult(RESULT_OK, intent);
             }
