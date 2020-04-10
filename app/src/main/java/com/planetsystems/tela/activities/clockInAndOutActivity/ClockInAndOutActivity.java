@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.activities.clockwithstaffid.ClockIn_with_StaffId;
+import com.planetsystems.tela.activities.clockwithstaffid.ClockInWithStaffIdActivity;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
@@ -130,7 +130,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         btnStaffId_In.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ClockInAndOutActivity.this, ClockIn_with_StaffId.class);
+                Intent i = new Intent(ClockInAndOutActivity.this, ClockInWithStaffIdActivity.class);
 //                i.putExtra("time",clock_in_time.getText());
 //                i.putExtra("date",dayString);
                 startActivity(i);

@@ -21,7 +21,7 @@ import com.planetsystems.tela.R;
 import com.planetsystems.tela.staff.administration.AdminSide;
 import com.planetsystems.tela.staff.regularStaff.TeacherHome;
 
-public class ClockIn_with_StaffId extends Activity {
+public class ClockInWithStaffIdActivity extends Activity {
 
     ProgressDialog dialog;
     CardView btnFollow;
@@ -57,20 +57,20 @@ public class ClockIn_with_StaffId extends Activity {
                     //String API = Constants.ServiceType.STAFF_CLOCK_IN;
 
                     if (!isConnected()) {
-                        Toast.makeText(ClockIn_with_StaffId.this, "No internet connection",Toast.LENGTH_LONG).show();
+                        Toast.makeText(ClockInWithStaffIdActivity.this, "No internet connection",Toast.LENGTH_LONG).show();
 
                     } else {
                         //new GET_EMPLOYEE_INFO().execute(API + employeeNumber + "/" + latitude + "/" + longitude);
                         if (employeeNumber.equals("2001")){
 
-                            Intent teacherHome = new Intent(ClockIn_with_StaffId.this, TeacherHome.class);
+                            Intent teacherHome = new Intent(ClockInWithStaffIdActivity.this, TeacherHome.class);
                             teacherHome.putExtra("id", employeeNumber);
                             teacherHome.putExtra("name","Andrew Kajeke");
                             startActivity(teacherHome);
 
                         }else if (employeeNumber.equals("3001")){
 
-                            Intent headTeacherHome = new Intent(ClockIn_with_StaffId.this, AdminSide.class);
+                            Intent headTeacherHome = new Intent(ClockInWithStaffIdActivity.this, AdminSide.class);
                             headTeacherHome.putExtra("id", employeeNumber);
                             headTeacherHome.putExtra("name","Fredrick Kasoma");
                             headTeacherHome.putExtra("school", "354633111523205");
