@@ -73,7 +73,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         * Searches the database and returns matching sync teacher
         * */
         for (SyncTeacher teacher: teachers ) {
-            if (teacher.getId().equals(staffID)) {
+            if (teacher.getEmployeeNumber().equals(staffID)) {
                 return teacher;
             }
         }
