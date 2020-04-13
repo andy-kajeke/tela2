@@ -18,4 +18,7 @@ public interface SyncClockInDao {
 
     @Insert
     void syncClockInTeacherWithID(SyncClockIn clockIn);
+
+    @Query("SELECT * FROM " + SyncClockInConstants.TABLE_NAME)
+    List<SyncClockIn> getSyncClockInsForBackUp();
 }
