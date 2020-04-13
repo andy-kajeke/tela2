@@ -106,6 +106,11 @@ public class Repository {
         return syncTeacherDao.getAllTeachers();
     }
 
+    //Fetch all clocked in staff members
+    public LiveData<List<SyncClockIn>> getAllClockedInStaff(){
+        return syncClockInDao.getAllClockIn();
+    }
+
     public void synClockOutTeacher(final SyncClockOut syncClockOut){
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override

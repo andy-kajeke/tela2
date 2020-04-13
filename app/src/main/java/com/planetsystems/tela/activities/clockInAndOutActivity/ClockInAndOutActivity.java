@@ -39,9 +39,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class ClockInAndOutActivity extends AppCompatActivity {
-    private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
 
-    TextClock clock_in_time;
+    private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
+    public String SCHOOL_ID = "";
+
     TextView dateDisplay, schoolName;
     TextView close_clockIn, close_clockOut;
     Button btnFingerprint_In, btnStaffId_In, btnFingerprint_Out, btnStaffId_Out;
@@ -82,7 +83,6 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             }
         });
 
-        clock_in_time = findViewById(R.id.textClock3);
         dateDisplay = findViewById(R.id.calendarView4);
         schoolName = findViewById(R.id.schoolName);
         datacenter = findViewById(R.id.cardview2);
@@ -94,6 +94,8 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         schoolName_extra = bundle.getString("schoolName");
 
         schoolName.setText(schoolName_extra);
+
+        SCHOOL_ID = deviceIMEI_extra;
 
 
         checkInDialog = new Dialog(this);
