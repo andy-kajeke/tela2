@@ -4,7 +4,10 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -57,6 +60,14 @@ public class SyncClockInTeacherUploadWorker extends Worker {
         // this is the next time we shall upload data to the backend
         long timeDifference = nextTimeAndDate.getTimeInMillis() -
                 nextTimeAndDate.getTimeInMillis();
-        return null;
+
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncClockInTeacherUploadWorker.class)
+                .setConstraints(constraints)
+                .build();
+        WorkManager.getInstance(getApplicationContext()).enqueue(workRequest);
+        return Result.success();
     }
 }
