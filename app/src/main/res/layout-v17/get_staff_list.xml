@@ -97,7 +97,7 @@
                             android:id="@+id/empRole"
                             android:layout_width="wrap_content"
                             android:gravity="right"
-                            android:layout_marginLeft="85dp"
+                            android:layout_marginLeft="120dp"
                             android:layout_height="wrap_content"
                             android:text="teacher"
                             android:lines="1"
