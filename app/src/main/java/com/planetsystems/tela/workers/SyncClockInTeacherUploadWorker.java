@@ -42,6 +42,7 @@ public class SyncClockInTeacherUploadWorker extends Worker {
         List<SyncClockIn> syncClockIns = syncClockInDao.getSyncClockInsForBackUp();
         for(SyncClockIn syncClockIn: syncClockIns) {
             Log.d(getClass().getSimpleName(), "Uploading: " + syncClockIn.toString());
+            // TODO: andrew will add codes here to upload each individual syncclock in to the backend
         }
 
         /*
