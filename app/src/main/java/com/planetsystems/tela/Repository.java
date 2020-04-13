@@ -26,6 +26,7 @@ import com.planetsystems.tela.data.helprequest.HelpRequestDao;
 import com.planetsystems.tela.data.smc.SyncSMCDao;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
+import com.planetsystems.tela.workers.SyncClockInTeacherUploadWorker;
 import com.planetsystems.tela.workers.SyncTeacherWorker;
 
 import java.util.List;
@@ -125,6 +126,16 @@ public class Repository {
                 .build();
         WorkManager.getInstance(application).enqueue(workRequest);
 
+    }
+
+    public void startSyncClockInTeacherUploadWorker() {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncClockInTeacherUploadWorker.class)
+                .setConstraints(constraints)
+                .build();
+        WorkManager.getInstance(application).enqueue(workRequest);
     }
 
     public SyncTeacherDao getSyncTeacherDao() {
