@@ -26,9 +26,12 @@ import com.planetsystems.tela.data.helprequest.HelpRequestDao;
 import com.planetsystems.tela.data.smc.SyncSMCDao;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
+import com.planetsystems.tela.workers.SyncClockInTeacherUploadWorker;
 import com.planetsystems.tela.workers.SyncTeacherWorker;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Repository {
     private static Repository INSTANCE;
@@ -130,6 +133,33 @@ public class Repository {
                 .build();
         WorkManager.getInstance(application).enqueue(workRequest);
 
+    }
+
+    public void startSyncClockInTeacherUploadWorker() {
+        Calendar currentDateAndTime = Calendar.getInstance();
+        Calendar nextRunDateAndTime = Calendar.getInstance();
+
+        nextRunDateAndTime.set(Calendar.HOUR_OF_DAY, 5);
+        nextRunDateAndTime.set(Calendar.MINUTE, 0);
+        nextRunDateAndTime.set(Calendar.SECOND, 0);
+
+        if (nextRunDateAndTime.before(currentDateAndTime)) {
+            nextRunDateAndTime.add(Calendar.HOUR_OF_DAY, 24);
+        }
+
+        long timeDifference = nextRunDateAndTime.getTimeInMillis() -
+                currentDateAndTime.getTimeInMillis();
+
+
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncClockInTeacherUploadWorker.class)
+                .setConstraints(constraints)
+                // TODO: The line bellow must be uncommented during project, this was commented out for testing
+//                .setInitialDelay(timeDifference, TimeUnit.MILLISECONDS)
+                .build();
+        WorkManager.getInstance(application).enqueue(workRequest);
     }
 
     public SyncTeacherDao getSyncTeacherDao() {
