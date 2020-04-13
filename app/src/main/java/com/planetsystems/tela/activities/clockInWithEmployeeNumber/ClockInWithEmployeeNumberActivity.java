@@ -55,27 +55,13 @@ public class ClockInWithEmployeeNumberActivity extends Activity {
         btnFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(staffid.getText().toString().equalsIgnoreCase("")){
-                    staffid.setError("Id Missing!");
-                }else{
 
-                    String employeeNumber = staffid.getText().toString();
+                String employeeNumber = staffid.getText().toString();
 
-                    //String API = Constants.ServiceType.STAFF_CLOCK_IN;
-
-                    if (!isConnected()) {
-                        Toast.makeText(ClockInWithEmployeeNumberActivity.this, "No internet connection",Toast.LENGTH_LONG).show();
-
-                    } else {
-//                        //new GET_EMPLOYEE_INFO().execute(API + employeeNumber + "/" + latitude + "/" + longitude);
-                        Intent intent = new Intent();
-                        intent.putExtra(EMPLOYEE_NUMBER, employeeNumber);
-                        setResult(RESULT_OK, intent);
-                        finish();
-                        // returning back to starting activity
-                    }
-
-                }
+                Intent intent = new Intent();
+                intent.putExtra(EMPLOYEE_NUMBER, employeeNumber);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
 
