@@ -67,7 +67,8 @@ public class SyncClockInTeacherUploadWorker extends Worker {
                 .build();
         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncClockInTeacherUploadWorker.class)
                 .setConstraints(constraints)
-                .setInitialDelay(timeDifference, TimeUnit.MILLISECONDS)
+                // TODO: The line bellow must be uncommented during project, this was commented out for testing
+//                .setInitialDelay(timeDifference, TimeUnit.MILLISECONDS)
                 .build();
         WorkManager.getInstance(getApplicationContext()).enqueue(workRequest);
         return Result.success();
