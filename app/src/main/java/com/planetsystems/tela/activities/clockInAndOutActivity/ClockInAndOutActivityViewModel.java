@@ -41,6 +41,8 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     private List<SyncTeacher> teachers;
     private LiveData<List<SyncClockOut>> synClockOutLiveData;
     private List<SyncClockOut> synClockOutTeachers;
+    private List<SyncClockIn> syncClockIns;
+    private LiveData<List<SyncClockIn>> syncClockInsLiveData;
     private Repository repository;
 
     public ClockInAndOutActivityViewModel(@NonNull Application application) {
@@ -48,6 +50,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         repository = Repository.getInstance(application);
         syncTeachersLiveData = repository.getAllTeachers();
         synClockOutLiveData = repository.getAlreadyClockOutTeachers();
+        syncClockInsLiveData = repository.getAllClockedInStaff();
 
         //Day of the week
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
@@ -192,5 +195,21 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         * thus coursing errors.
         * */
         return true;
+    }
+
+    private SyncTeacher hasAlreadyClockedInWithEmployeeNumber(SyncTeacher teacher) {
+        /*
+        * This method check whether employee has already clocked in with employee number
+        * It returns synteacher if so and otherwise null
+        * */
+        return null;
+    }
+
+    LiveData<List<SyncClockIn>> getClockInLiveData() {
+        return syncClockInsLiveData;
+    }
+
+    void setSyncClockInList(List<SyncClockIn> syncClockInList) {
+        syncClockIns = syncClockInList;
     }
 }

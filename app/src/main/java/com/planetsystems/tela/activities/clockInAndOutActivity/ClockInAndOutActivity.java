@@ -29,6 +29,7 @@ import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
 import com.planetsystems.tela.constants.Role;
+import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 import com.planetsystems.tela.staff.administration.AdminSideActivity;
@@ -69,6 +70,16 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<SyncTeacher> syncTeachers) {
                 viewModel.setTeachers(syncTeachers);
+            }
+        });
+
+        /*
+        This observes and set syncclockin list in the view model
+        * */
+        viewModel.getClockInLiveData().observe(this, new Observer<List<SyncClockIn>>() {
+            @Override
+            public void onChanged(List<SyncClockIn> syncClockIns) {
+                viewModel.setSyncClockInList(syncClockIns);
             }
         });
 
