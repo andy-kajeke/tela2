@@ -37,6 +37,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("ALL")
 public class SyncClockInTeacherUploadWorker extends Worker {
     SyncClockInDao syncClockInDao;
     /*

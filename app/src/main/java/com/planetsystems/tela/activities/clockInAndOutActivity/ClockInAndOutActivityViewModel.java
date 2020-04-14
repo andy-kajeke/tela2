@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.planetsystems.tela.GenerateRandomString;
 import com.planetsystems.tela.Repository;
 import com.planetsystems.tela.activities.MainActivity;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
@@ -155,7 +156,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         * */
         // TODO: please fix the time below, this time will be time the app was lunched change it
         return new SyncClockIn(
-                teacher.getId(),
+                GenerateRandomString.randomString(17),
                 null,
                 null,
                 null,
