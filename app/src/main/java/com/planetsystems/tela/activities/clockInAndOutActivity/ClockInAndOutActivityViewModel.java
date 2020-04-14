@@ -13,6 +13,7 @@ import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -74,10 +75,14 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         * */
        SyncTeacher syncTeacher = findEmployeeNumberWithEmployeeNumber(employeeNumber);
        if (syncTeacher == null) return null;
-       if (hasAlreadyClockedIn(syncTeacher)) {
-           return syncTeacher;
+       try {
+           if (hasAlreadyClockedIn(syncTeacher)) {
+               return syncTeacher;
+           }
+       } catch (ParseException e) {
+           e.printStackTrace();
        }
-       SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
+        SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
        repository.synClockInTeacher(syncClockIn);
         return syncTeacher ;
     }
@@ -193,15 +198,31 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return true;
     }
 
-    private boolean hasAlreadyClockedIn(SyncTeacher teacher) {
+    private boolean hasAlreadyClockedIn(SyncTeacher teacher) throws ParseException {
         /*
         * This method check whether employee has already clocked in with employee number
         * It returns synteacher if so and otherwise null
         * */
         // TODO: we should check within today only please address help her
+        //Day of the week
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        Date d = new Date();
+        dayOfTheWeek = sdf.format(d);
+
+        //Date of the day
+        long date = System.currentTimeMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
+        String dateString = dateFormat.format(date);
+        String checkIn_time = time.format(date);
+        Date now = dateFormat.parse(dateString);
+
         for (SyncClockIn syncClockIn: syncClockIns) {
-            if (syncClockIn.getEmployeeId().equals(teacher.getEmployeeNumber())) {
+            Date then = dateFormat.parse(syncClockIn.getClockInDate());
+            assert then != null;
+            if (syncClockIn.getEmployeeId().equals(teacher.getEmployeeNumber()) && (then.compareTo(now) == 0)) {
                 Log.d(getClass().getSimpleName(), "Teacher already clocked in");
+                Log.d(getClass().getSimpleName(), syncClockIn.getClockInDate() + " : " + syncClockIn.getClockInTime());
                 return true;
             }
         }
