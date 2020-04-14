@@ -31,10 +31,6 @@
             android:name="org.apache.http.legacy"
             android:required="true" />
 
-        <service
-            android:name=".services.syncteachers.SyncTeacherDownloadService"
-            android:exported="false" />
-
         <activity android:name=".activities.SchoolConfirmation" />
         <activity android:name=".staff.regularStaff.serviceRequests.RequestTimeOff" />
         <activity android:name=".staff.regularStaff.serviceRequests.MakeRequests" />
