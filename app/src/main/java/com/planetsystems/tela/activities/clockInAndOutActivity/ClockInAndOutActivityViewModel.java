@@ -206,6 +206,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         * This method check whether employee has already clocked in with employee number
         * It returns synteacher if so and otherwise null
         * */
+        // TODO: we should check within today only
         for (SyncClockIn syncClockIn: syncClockIns) {
             if (syncClockIn.getEmployeeId().equals(teacher.getEmployeeNumber())) {
                 Log.d(getClass().getSimpleName(), "Teacher already clocked in");
