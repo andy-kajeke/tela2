@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -81,6 +82,9 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         * */
        SyncTeacher syncTeacher = findEmployeeNumberWithEmployeeNumber(employeeNumber);
        if (syncTeacher == null) return null;
+       if (hasAlreadyClockedInWithEmployeeNumber(syncTeacher)) {
+           return syncTeacher;
+       }
        SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
        repository.synClockInTeacher(syncClockIn);
         return syncTeacher ;
@@ -197,12 +201,18 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return true;
     }
 
-    private SyncTeacher hasAlreadyClockedInWithEmployeeNumber(SyncTeacher teacher) {
+    private boolean hasAlreadyClockedInWithEmployeeNumber(SyncTeacher teacher) {
         /*
         * This method check whether employee has already clocked in with employee number
         * It returns synteacher if so and otherwise null
         * */
-        return null;
+        for (SyncClockIn syncClockIn: syncClockIns) {
+            if (syncClockIn.getEmployeeId().equals(teacher.getEmployeeNumber())) {
+                Log.d(getClass().getSimpleName(), "Teacher already clocked in");
+                return true;
+            }
+        }
+        return false;
     }
 
     LiveData<List<SyncClockIn>> getClockInLiveData() {
