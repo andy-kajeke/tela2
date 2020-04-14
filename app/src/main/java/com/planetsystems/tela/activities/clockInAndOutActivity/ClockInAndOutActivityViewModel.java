@@ -1,26 +1,18 @@
 package com.planetsystems.tela.activities.clockInAndOutActivity;
 
-import android.Manifest;
 import android.app.Application;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.LocationManager;
-import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.Repository;
-import com.planetsystems.tela.activities.MainActivity;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -82,7 +74,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         * */
        SyncTeacher syncTeacher = findEmployeeNumberWithEmployeeNumber(employeeNumber);
        if (syncTeacher == null) return null;
-       if (hasAlreadyClockedInWithEmployeeNumber(syncTeacher)) {
+       if (hasAlreadyClockedIn(syncTeacher)) {
            return syncTeacher;
        }
        SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
@@ -201,7 +193,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return true;
     }
 
-    private boolean hasAlreadyClockedInWithEmployeeNumber(SyncTeacher teacher) {
+    private boolean hasAlreadyClockedIn(SyncTeacher teacher) {
         /*
         * This method check whether employee has already clocked in with employee number
         * It returns synteacher if so and otherwise null
