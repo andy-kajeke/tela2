@@ -1,10 +1,9 @@
-package com.planetsystems.tela.staff.administration.editStaff;
+package com.planetsystems.tela.staff.administration.timeAttendance;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,20 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
-import com.planetsystems.tela.data.Teacher.SyncTeacherModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.StaffViewHolder> {
+public class ClockInListAdapter extends RecyclerView.Adapter<ClockInListAdapter.StaffViewHolder> {
 
     private LayoutInflater layoutInflater;
     private  Context mContext;
-    private List<SyncTeacher> mSyncTeacherModels;
+    private List<SyncClockIn> mSyncClockIn;
 
-    public StaffListAdapter(Context context){
+    public ClockInListAdapter(Context context){
         layoutInflater = LayoutInflater.from(context);
         mContext = context;
     }
@@ -42,12 +40,12 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.Staf
 
     @Override
     public void onBindViewHolder(@NonNull StaffViewHolder holder, int position) {
-        if (mSyncTeacherModels != null){
-            SyncTeacher syncTeacher = mSyncTeacherModels.get(position);
-            holder.setData(syncTeacher.getFirstName(), syncTeacher.getLastName(), syncTeacher.getEmployeeNumber(), syncTeacher.getRole(), position);
+        if (mSyncClockIn != null){
+            SyncClockIn syncClockIn = mSyncClockIn.get(position);
+            holder.setData(syncClockIn.getEmpFirstName(), syncClockIn.getEmpLastName(), syncClockIn.getEmployeeNo(), syncClockIn.getClockInTime(), position);
 
-            String L= ""+mSyncTeacherModels.get(position).getFirstName();
-            char k = mSyncTeacherModels.get(position).getFirstName().charAt(0);
+            String L= ""+mSyncClockIn.get(position).getEmpFirstName();
+            char k = mSyncClockIn.get(position).getEmpFirstName().charAt(0);
             String Cap= ""+k+"".toString().toUpperCase();
             String s = Character.toString(k);
 
@@ -66,15 +64,15 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.Staf
 
     @Override
     public int getItemCount() {
-        if (mSyncTeacherModels != null){
-            return  mSyncTeacherModels.size();
+        if (mSyncClockIn != null){
+            return  mSyncClockIn.size();
         }else {
             return 0;
         }
     }
 
-    public void setTeacherDetails(List<SyncTeacher> teacher){
-        mSyncTeacherModels = teacher;
+    public void setTeacherDetails(List<SyncClockIn> teacher){
+        mSyncClockIn = teacher;
         notifyDataSetChanged();
     }
 
@@ -93,12 +91,13 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.Staf
             imageView = itemView.findViewById(R.id.personphoto);
         }
 
-        public void setData(String firstName, String lastName, String employeeNumber, String role, int position) {
-            It_name.setText(firstName + " " + lastName);
-            It_code.setText(employeeNumber);
-            It_role.setText(role);
+        public void setData(String empFirstName, String empLastName, String employeeNo, String clockInTime, int position) {
+            It_name.setText(empFirstName + " " + empLastName);
+            It_code.setText(employeeNo);
+            It_role.setText(clockInTime);
             mPosition = position;
         }
+
     }
 }
 

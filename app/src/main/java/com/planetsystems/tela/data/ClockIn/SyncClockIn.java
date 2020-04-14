@@ -3,6 +3,7 @@ package com.planetsystems.tela.data.ClockIn;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = SyncClockInConstants.TABLE_NAME)
@@ -64,6 +65,10 @@ public class SyncClockIn {
 
     @ColumnInfo(name = SyncClockInConstants.ROW_ID)
     private String rowId;
+
+    @Ignore
+    public SyncClockIn(String employeeId, String employeeNo, String latitude, String longitude, String clockInDate, String day, String clockInTime, String schoolId) {
+    }
 
     @NonNull
     public String getId() {

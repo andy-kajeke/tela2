@@ -1,7 +1,14 @@
 package com.planetsystems.tela.workers;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.work.Constraints;
@@ -11,11 +18,21 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.google.gson.Gson;
+import com.planetsystems.tela.R;
 import com.planetsystems.tela.Repository;
+import com.planetsystems.tela.constants.Urls;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +50,7 @@ public class SyncClockInTeacherUploadWorker extends Worker {
         syncClockInDao = telaRoomDatabase.getSyncClockInDao();
     }
 
+    @SuppressLint("WrongThread")
     @NonNull
     @Override
     public Result doWork() {
@@ -43,6 +61,25 @@ public class SyncClockInTeacherUploadWorker extends Worker {
         for(SyncClockIn syncClockIn: syncClockIns) {
             Log.d(getClass().getSimpleName(), "Uploading: " + syncClockIn.toString());
             // TODO: andrew will add codes here to upload each individual syncclock in to the backend
+            try {
+                syncClockIn.getEmployeeNo();
+                syncClockIn.getEmployeeId();
+                syncClockIn.getLatitude();
+                syncClockIn.getLongitude();
+                syncClockIn.getClockInDate();
+                syncClockIn.getDay();
+                syncClockIn.getClockInTime();
+                syncClockIn.getSchoolId();
+
+                Gson gson = new Gson();
+                String json = gson.toJson(syncClockIn);
+
+                String url = Urls.CLOCK_IN;
+                String resp = POST( url,  json);
+
+                Toast.makeText(getApplicationContext(),":"+resp,Toast.LENGTH_LONG).show();
+
+            } catch(Exception e) {}
         }
 
         /*
@@ -74,4 +111,48 @@ public class SyncClockInTeacherUploadWorker extends Worker {
         WorkManager.getInstance(getApplicationContext()).enqueue(workRequest);
         return Result.success();
     }
+
+    public static String POST(String url, String jsontasks){
+        InputStream inputStream = null;
+        String result = "";
+        try {
+
+            // 1. create HttpClient
+            HttpClient httpclient = new DefaultHttpClient();
+
+            // 2. make POST request to the given URL
+            HttpPost httpPost = new HttpPost(url);
+
+
+            // 5. set json to StringEntity
+            StringEntity se = new StringEntity(jsontasks);
+
+            // 6. set httpPost Entity
+            httpPost.setEntity(se);
+
+            // 7. Set some headers to inform server about the type of the content
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+
+            // 8. Execute POST request to the given URL
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+
+            // 9. receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+
+            // 10. convert inputstream to string
+            if(inputStream != null)
+                //result = convertInputStreamToString(inputStream);
+                result = "Did work!";
+            else
+                result = "Did not work!";
+
+        } catch (Exception e) {
+            Log.d("InputStream", e.getLocalizedMessage());
+        }
+
+        // 11. return result
+        return result;
+    }
+
 }

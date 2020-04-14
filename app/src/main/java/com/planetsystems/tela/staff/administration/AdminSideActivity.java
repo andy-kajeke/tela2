@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.staff.administration.editStaff.EditStaffList;
+import com.planetsystems.tela.staff.administration.timeAttendance.TimeAttendanceList;
 
 public class AdminSideActivity extends AppCompatActivity {
     public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
@@ -69,6 +70,18 @@ public class AdminSideActivity extends AppCompatActivity {
 //
         headRole.setText("[ " + "Head Teacher" + " ]");
         headName.setText(name_extra);
+
+        //List all clocked in staff members by date of week
+        staff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), TimeAttendanceList.class);
+//                i.putExtra("id", HT_Id);
+//                i.putExtra("date", checkIn_date);
+//                i.putExtra("school", checkIn_schoolId);
+                startActivity(i);
+            }
+        });
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -24,11 +24,8 @@ import java.util.List;
 public class EditStaffList extends AppCompatActivity {
 
     RecyclerView staffs;
-    ArrayList<SyncTeacherModel> markList;
     StaffListAdapter adapter;
-    private SyncTeacherDao syncTeacherDao;
     private EditStaffListViewModel editStaffListViewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

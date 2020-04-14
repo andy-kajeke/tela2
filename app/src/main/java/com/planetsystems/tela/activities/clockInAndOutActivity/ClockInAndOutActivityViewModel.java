@@ -1,17 +1,25 @@
 package com.planetsystems.tela.activities.clockInAndOutActivity;
 
+import android.Manifest;
 import android.app.Application;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.telephony.TelephonyManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.Repository;
+import com.planetsystems.tela.activities.MainActivity;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,10 +29,14 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     double lng;
     double lat;
 
-    String checkIn_time;
     String dateString;
     String dayOfTheWeek;
+    String checkIn_time;
 
+    private static final int REQUEST_CODE = 101;
+    String IMEINumber;
+
+    private ClockInAndOutActivity clockInAndOutActivity;
     private LiveData<List<SyncTeacher>> syncTeachersLiveData;
     private List<SyncTeacher> teachers;
     private LiveData<List<SyncClockOut>> synClockOutLiveData;
@@ -45,7 +57,10 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         //Date of the day
         long date = System.currentTimeMillis();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
         dateString = dateFormat.format(date);
+        checkIn_time = time.format(date);
+
     }
 
     LiveData<List<SyncTeacher>> getAllSyncTeacher() {
@@ -138,7 +153,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                 null,
                 null,
                 dateString,
-                null,
+                checkIn_time,
                 dayOfTheWeek,
                 teacher.getEmployeeNumber(),
                 teacher.getEmployeeNumber(),
@@ -147,7 +162,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                 null,
                 null,
                 teacher.getFirstName(),
-                teacher.getFirstName(),
+                teacher.getLastName(),
                 null,
                 null
 
