@@ -1,12 +1,14 @@
 package com.planetsystems.tela.staff.administration.editStaff;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,9 +29,10 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.Staf
     private  Context mContext;
     private List<SyncTeacher> mSyncTeacherModels;
 
-    public StaffListAdapter(Context context){
+    public StaffListAdapter(Context context, List<SyncTeacher> mSyncTeacherModels){
         layoutInflater = LayoutInflater.from(context);
-        mContext = context;
+        this.mContext = context;
+        this.mSyncTeacherModels = mSyncTeacherModels;
     }
 
     @NonNull
@@ -41,9 +44,10 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.Staf
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StaffViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StaffViewHolder holder, final int position) {
+        SyncTeacher syncTeacher = mSyncTeacherModels.get(position);
         if (mSyncTeacherModels != null){
-            SyncTeacher syncTeacher = mSyncTeacherModels.get(position);
+
             holder.setData(syncTeacher.getFirstName(), syncTeacher.getLastName(), syncTeacher.getEmployeeNumber(), syncTeacher.getRole(), position);
 
             String L= ""+mSyncTeacherModels.get(position).getFirstName();
@@ -59,9 +63,18 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.Staf
 
             holder.imageView.setImageDrawable(drawable);
 
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SyncTeacher syncTeacher = mSyncTeacherModels.get(position);
+                    Toast.makeText(mContext, syncTeacher.getFirstName(),Toast.LENGTH_LONG).show();
+                }
+            });
+
         }else {
             holder.It_role.setText("No record");
         }
+
     }
 
     @Override
@@ -78,14 +91,14 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.Staf
         notifyDataSetChanged();
     }
 
-    public class StaffViewHolder extends RecyclerView.ViewHolder {
+    class StaffViewHolder extends RecyclerView.ViewHolder {
         public TextView It_name;
         public TextView It_code;
         public TextView It_role;
         public ImageView imageView;
         public int mPosition;
 
-        public StaffViewHolder(@NonNull View itemView) {
+        public StaffViewHolder(View itemView) {
             super(itemView);
             It_name = itemView.findViewById(R.id.empName);
             It_code = itemView.findViewById(R.id.empID);
@@ -99,6 +112,15 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.Staf
             It_role.setText(role);
             mPosition = position;
         }
+
+//        @Override
+//        public void onClick(View v) {
+//            SyncTeacher syncTeacher = mSyncTeacherModels.get(getAdapterPosition());
+//            Toast.makeText(mContext, syncTeacher.getFirstName(),Toast.LENGTH_LONG).show();
+//
+////            Intent intent = new Intent(mContext, UpdateStaffRecord.class);
+////            mContext.startActivity(intent);
+//        }
     }
 }
 

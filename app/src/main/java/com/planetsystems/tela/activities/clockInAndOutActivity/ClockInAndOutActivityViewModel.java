@@ -1,8 +1,10 @@
 package com.planetsystems.tela.activities.clockInAndOutActivity;
 
 import android.app.Application;
+import android.content.Context;
 import android.location.LocationManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -30,6 +32,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
 
     private static final int REQUEST_CODE = 101;
     String IMEINumber;
+    private Context context;
 
     private ClockInAndOutActivity clockInAndOutActivity;
     private LiveData<List<SyncTeacher>> syncTeachersLiveData;
@@ -223,6 +226,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
             assert then != null;
             if (syncClockIn.getEmployeeId().equals(teacher.getEmployeeNumber()) && (then.compareTo(now) == 0)) {
                 Log.d(getClass().getSimpleName(), "Teacher already clocked in");
+                //Toast.makeText(context, "Already clocked in", Toast.LENGTH_LONG).show();
                 Log.d(getClass().getSimpleName(), syncClockIn.getClockInDate() + " : " + syncClockIn.getClockInTime());
                 return true;
             }

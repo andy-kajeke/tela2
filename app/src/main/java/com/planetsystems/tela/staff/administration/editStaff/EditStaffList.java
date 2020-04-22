@@ -25,6 +25,7 @@ public class EditStaffList extends AppCompatActivity {
 
     RecyclerView staffs;
     StaffListAdapter adapter;
+    private List<SyncTeacher> mSyncTeacher;
     private EditStaffListViewModel editStaffListViewModel;
 
     @Override
@@ -37,7 +38,9 @@ public class EditStaffList extends AppCompatActivity {
 //        Bundle bundle = getIntent().getExtras();
 //        school_extra = bundle.getString("school");
 
-        adapter = new StaffListAdapter(this);
+        mSyncTeacher = new ArrayList<>();
+
+        adapter = new StaffListAdapter(this, mSyncTeacher);
         staffs.setAdapter(adapter);
         staffs.setLayoutManager(new LinearLayoutManager(this));
 
@@ -49,6 +52,8 @@ public class EditStaffList extends AppCompatActivity {
                 adapter.setTeacherDetails(syncTeachers);
             }
         });
+
+
 
 }
 }
