@@ -24,6 +24,6 @@ public interface SyncAttendanceRecordDao {
     @Delete
     void delete(SyncAttendanceRecord syncAttendanceRecord);
 
-    @Query("SELECT * FROM " + SyncTableConstants.SyncClockOuts)
-    LiveData<List<SyncAttendanceRecord>> getAllRecords();
+//    @Query("SELECT * FROM " + SyncTableConstants.SyncClockOuts)
+//    LiveData<List<SyncAttendanceRecord>> getAllRecords();
 }

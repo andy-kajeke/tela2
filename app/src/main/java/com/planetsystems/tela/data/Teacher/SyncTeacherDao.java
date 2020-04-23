@@ -26,7 +26,4 @@ public interface SyncTeacherDao {
 
     @Query("SELECT * FROM " + SyncTableConstants.SyncTeachers)
     LiveData<List<SyncTeacher>> getAllTeachers();
-
-    @Query("SELECT * FROM " + SyncTableConstants.SyncTeachers)
-    LiveData<List<SyncTeacherModel>> getAllSchoolTeachers();
 }
