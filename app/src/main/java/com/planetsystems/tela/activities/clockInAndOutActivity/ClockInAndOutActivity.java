@@ -344,6 +344,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         String staffID = staff_Id.getText().toString();
         String staffComment = staff_comment.getText().toString();
         SyncTeacher teacher = viewModel.clockOutTeacherWithEmployeeID(staffID, staffComment);
+        loadTeacherHomePage(teacher);
     }
 
     @Override
