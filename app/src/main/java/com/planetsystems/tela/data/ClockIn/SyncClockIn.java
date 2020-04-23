@@ -6,64 +6,64 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = SyncClockInConstants.TABLE_NAME)
+@Entity(tableName = SyncClockInTableConstants.TABLE_NAME)
 public class SyncClockIn {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    @ColumnInfo(name = SyncClockInConstants.DATABASE_ID)
+    @ColumnInfo(name = SyncClockInTableConstants.DATABASE_ID)
     private int dbID;
 
     @NonNull
-    @ColumnInfo(name = SyncClockInConstants.ID)
+    @ColumnInfo(name = SyncClockInTableConstants.ID)
     private String id;
 
-    @ColumnInfo(name = SyncClockInConstants.DATE_CREATED)
+    @ColumnInfo(name = SyncClockInTableConstants.DATE_CREATED)
     private String dateCreated;
 
-    @ColumnInfo(name = SyncClockInConstants.DATE_UPDATED)
+    @ColumnInfo(name = SyncClockInTableConstants.DATE_UPDATED)
     private String dateUpdated;
 
-    @ColumnInfo(name = SyncClockInConstants.STATUS)
+    @ColumnInfo(name = SyncClockInTableConstants.STATUS)
     private String status;
 
-    @ColumnInfo(name = SyncClockInConstants.CLOCK_IN_DATE)
+    @ColumnInfo(name = SyncClockInTableConstants.CLOCK_IN_DATE)
     private String clockInDate;
 
-    @ColumnInfo(name = SyncClockInConstants.CLOCK_IN_TIME)
+    @ColumnInfo(name = SyncClockInTableConstants.CLOCK_IN_TIME)
     private String clockInTime;
 
-    @ColumnInfo(name = SyncClockInConstants.DAY)
+    @ColumnInfo(name = SyncClockInTableConstants.DAY)
     private String day;
 
-    @ColumnInfo(name = SyncClockInConstants.EMPLOYEE_ID)
+    @ColumnInfo(name = SyncClockInTableConstants.EMPLOYEE_ID)
     private String employeeId;
 
-    @ColumnInfo(name = SyncClockInConstants.EMPLOYEE_NUMBER)
+    @ColumnInfo(name = SyncClockInTableConstants.EMPLOYEE_NUMBER)
     private String employeeNo;
 
-    @ColumnInfo(name = SyncClockInConstants.LATITUDE)
+    @ColumnInfo(name = SyncClockInTableConstants.LATITUDE)
     private String latitude;
 
-    @ColumnInfo(name = SyncClockInConstants.LONGITUDE)
+    @ColumnInfo(name = SyncClockInTableConstants.LONGITUDE)
     private String longitude;
 
-    @ColumnInfo(name = SyncClockInConstants.SYNC_STATUS)
+    @ColumnInfo(name = SyncClockInTableConstants.SYNC_STATUS)
     private String synStatus;
 
-    @ColumnInfo(name = SyncClockInConstants.SCHOOL_ID)
+    @ColumnInfo(name = SyncClockInTableConstants.SCHOOL_ID)
     private String schoolId;
 
-    @ColumnInfo(name = SyncClockInConstants.EMPLOYEE_FIRST_NAME)
+    @ColumnInfo(name = SyncClockInTableConstants.EMPLOYEE_FIRST_NAME)
     private String empFirstName;
 
-    @ColumnInfo(name = SyncClockInConstants.EMPLOYEE_LAST_NAME)
+    @ColumnInfo(name = SyncClockInTableConstants.EMPLOYEE_LAST_NAME)
     private String empLastName;
 
-    @ColumnInfo(name = SyncClockInConstants.ROW_VER)
+    @ColumnInfo(name = SyncClockInTableConstants.ROW_VER)
     private String rowVer;
 
-    @ColumnInfo(name = SyncClockInConstants.ROW_ID)
+    @ColumnInfo(name = SyncClockInTableConstants.ROW_ID)
     private String rowId;
 
     @Ignore
