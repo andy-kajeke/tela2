@@ -241,4 +241,17 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     void setSyncClockInList(List<SyncClockIn> syncClockInList) {
         syncClockIns = syncClockInList;
     }
+
+    public String getCurrentDate() {
+        long date = System.currentTimeMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
+        return  dateFormat.format(date);
+    }
+
+    public String getCurrentTime() {
+        long date = System.currentTimeMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
+        return  time.format(date);
+    }
 }
