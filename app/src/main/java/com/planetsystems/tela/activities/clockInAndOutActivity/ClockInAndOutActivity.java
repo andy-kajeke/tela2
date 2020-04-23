@@ -11,7 +11,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -314,7 +312,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                                 public void onClick(DialogInterface dialog, int whichButton) {
-                                    StaffCheckOut();
+                                    clockOutWithStaffID();
                                 }})
                             .setNegativeButton(android.R.string.no, null).show();
                 }
@@ -335,7 +333,10 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     }
 
     //clock out functionality
-    private void StaffCheckOut() {
+    private void clockOutWithStaffID() {
+        String staffID = staff_Id.getText().toString();
+        String staffComment = staff_comment.getText().toString();
+        Toast.makeText(this, staffID + " " + staffComment, Toast.LENGTH_SHORT).show();
     }
 
     @Override
