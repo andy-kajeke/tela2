@@ -27,11 +27,11 @@ public interface SyncClockOutDao {
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME)
     LiveData<List<SyncClockOut>> getClockOutTeachers();
 
-    @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME+ " WHERE " + SyncClockOutTableConstant.DAY_COLUMN_NAME + " = :date")
+    @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME+ " WHERE " + SyncClockOutTableConstant.DATE_COLUMN_NAME + " = :date")
     LiveData<List<SyncClockOut>> getSyncClockOutsByDate(String date);
 
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME + " WHERE "
-            + SyncClockOutTableConstant.EMPLOYEE_ID_COLUMN_NAME + " =:employeeId AND " + SyncClockOutTableConstant.DAY_COLUMN_NAME + " =:date")
+            + SyncClockOutTableConstant.EMPLOYEE_NUMBER_COLUMN_NAME + " =:employeeId AND " + SyncClockOutTableConstant.DATE_COLUMN_NAME + " =:date")
     List<SyncClockOut> getSyncClockOutByEmployeeId(String employeeId, String date);
 
 }

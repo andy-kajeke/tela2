@@ -275,7 +275,6 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                         "3/4/2019",
                         "3/4/2019",
                         "3/4/2019",
-                        "3/4/2019",
                         "3/4/2019"
                 ));
             }
