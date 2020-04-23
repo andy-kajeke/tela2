@@ -50,6 +50,7 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.Staf
 
             holder.setData(syncTeacher.getFirstName(), syncTeacher.getLastName(), syncTeacher.getEmployeeNumber(), syncTeacher.getRole(), position);
 
+            //Getting first character of fistName to imageView
             String L= ""+mSyncTeacherModels.get(position).getFirstName();
             char k = mSyncTeacherModels.get(position).getFirstName().charAt(0);
             String Cap= ""+k+"".toString().toUpperCase();
@@ -63,11 +64,27 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.Staf
 
             holder.imageView.setImageDrawable(drawable);
 
+            //RecyclerView on item click
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SyncTeacher syncTeacher = mSyncTeacherModels.get(position);
                     Toast.makeText(mContext, syncTeacher.getFirstName(),Toast.LENGTH_LONG).show();
+                    Intent edit = new Intent(mContext, UpdateStaffRecord.class);
+                    edit.putExtra("id", mSyncTeacherModels.get(position).getId());
+                    edit.putExtra("emp_No", mSyncTeacherModels.get(position).getEmployeeNumber());
+                    edit.putExtra("emp_firstName", mSyncTeacherModels.get(position).getFirstName());
+                    edit.putExtra("emp_lastName", mSyncTeacherModels.get(position).getLastName());
+                    edit.putExtra("emp_emailAddress", mSyncTeacherModels.get(position).getEmailAddress());
+                    edit.putExtra("emp_initials", mSyncTeacherModels.get(position).getInitials());
+                    edit.putExtra("emp_licensed", mSyncTeacherModels.get(position).isLicensed());
+                    edit.putExtra("emp_nationalId", mSyncTeacherModels.get(position).getNationalId());
+                    edit.putExtra("emp_phoneNumber", mSyncTeacherModels.get(position).getPhoneNumber());
+                    edit.putExtra("emp_deploymentSiteId", mSyncTeacherModels.get(position).getSchoolId());
+                    edit.putExtra("emp_employmentRoleId", mSyncTeacherModels.get(position).getRole());
+                    edit.putExtra("emp_dob", mSyncTeacherModels.get(position).getDob());
+                    edit.putExtra("emp_gender", mSyncTeacherModels.get(position).getGender());
+                    mContext.startActivity(edit);
                 }
             });
 

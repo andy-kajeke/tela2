@@ -7,7 +7,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -19,6 +21,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,12 +53,18 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     TextView close_clockIn, close_clockOut;
     Button btnFingerprint_In, btnStaffId_In, btnFingerprint_Out, btnStaffId_Out;
     CardView checkin, checkout, datacenter;
-    Dialog checkInDialog, checkOutDialog;
+    Dialog checkInDialog, checkOutDialog, checkOutPopup;
     public static final int CLOCK_IN_ACTIVITY_REQUEST_CODE = 645;
     public static final int CLOCK_OUT_ACTIVITY_REQUEST_CODE = 445;
     public static  String clockInTime = "";
     ClockInAndOutActivityViewModel viewModel;
     String deviceIMEI_extra, schoolName_extra;
+
+    ////checkout//
+    TextView close;
+    Button btnClockOut;
+    EditText staff_Id, staff_comment;
+    CheckBox norm,oth;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -111,6 +122,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
 
         checkInDialog = new Dialog(this);
         checkOutDialog = new Dialog(this);
+        checkOutPopup = new Dialog(this);
 
         //Display the date to ui
         long date = System.currentTimeMillis();
@@ -229,7 +241,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         btnStaffId_Out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ShowCheckOutPopup();
             }
         });
 
@@ -244,6 +256,86 @@ public class ClockInAndOutActivity extends AppCompatActivity {
 
         checkOutDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         checkOutDialog.show();
+    }
+
+    public void ShowCheckOutPopup() {
+
+        checkOutPopup.setContentView(R.layout.checkoutpopup);
+
+        close = checkOutPopup.findViewById(R.id.txclose);
+        btnClockOut = checkOutPopup.findViewById(R.id.out);
+        staff_Id = checkOutPopup.findViewById(R.id.staff_id);
+        staff_comment = checkOutPopup.findViewById(R.id.comment);
+        norm = checkOutPopup.findViewById(R.id.normal) ;
+        oth = checkOutPopup.findViewById(R.id.other);
+
+        norm.setChecked(true);
+        staff_comment.setText("Normal end of day");
+        staff_comment.setFocusableInTouchMode(false);
+
+        oth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if (isChecked)
+                {
+                    staff_comment.setText("Specify reason");
+                    staff_comment.setFocusableInTouchMode(true);
+                    norm.setChecked(false);
+                }
+
+            }
+        });
+        norm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if (isChecked)
+                {
+                    staff_comment.setText("Normal end of day");
+                    staff_comment.setFocusableInTouchMode(false);
+                    oth.setChecked(false);
+                }
+
+            }
+        });
+        btnClockOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(staff_Id.getText().toString().equalsIgnoreCase("")){
+                    staff_Id.setError("Id Missing!");
+                }else{
+                    new AlertDialog.Builder(ClockInAndOutActivity.this)
+                            .setTitle("Confirmation")
+                            .setMessage("Do you really want to clock out?")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    StaffCheckOut();
+                                }})
+                            .setNegativeButton(android.R.string.no, null).show();
+                }
+            }
+        });
+
+        close.setText("X");
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkOutPopup.dismiss();
+            }
+        });
+
+        checkOutPopup.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        checkOutPopup.show();
+
+    }
+
+    //clock out functionality
+    private void StaffCheckOut() {
     }
 
     @Override

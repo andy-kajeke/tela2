@@ -32,6 +32,7 @@ public class EditStaffList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_staff_list);
+        setTitle("Staff List");
 
         staffs = findViewById(R.id.staff_list);
 

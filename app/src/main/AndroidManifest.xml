@@ -23,7 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".staff.administration.editStaff.UpdateStaffRecord"></activity>
+        <activity android:name=".staff.administration.editStaff.UpdateStaffRecord"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".staff.administration.timeAttendance.TimeAttendanceList" />
         <activity android:name=".staff.administration.editStaff.EditStaffList" />
         <activity android:name=".staff.administration.AdminSideActivity" />
