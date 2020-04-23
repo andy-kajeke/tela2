@@ -31,7 +31,10 @@ import com.planetsystems.tela.workers.SyncTeacherWorker;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 public class Repository {
     private static Repository INSTANCE;
@@ -50,6 +53,7 @@ public class Repository {
     private SyncSMCDao syncSMCDao;
     private SyncTimeTableDao syncTimeTableDao;
     private Application application;
+    private ExecutorService executorService;
 
     public Repository(Application application) {
         this.application = application;
@@ -68,6 +72,7 @@ public class Repository {
         helpRequestDao = telaRoomDatabase.getHelpRequestDao();
         syncSMCDao = telaRoomDatabase.getSyncSMCDao();
         syncTimeTableDao = telaRoomDatabase.getSyncTimeTableDao();
+        executorService = TelaRoomDatabase.db_executor;
 
     }
 
@@ -181,5 +186,17 @@ public class Repository {
 
     public LiveData<List<SyncClockOut>> getAlreadyClockOutTeachers(){
         return syncClockOutDao.getClockOutTeachers();
+    }
+
+    public List<SyncClockOut> getSyncClockOutByEmployeeID(final String employeeID) throws ExecutionException, InterruptedException {
+        Callable<List<SyncClockOut>> callable = new Callable<List<SyncClockOut>>() {
+            @Override
+            public List<SyncClockOut> call() throws Exception {
+                return syncClockOutDao.getSyncClockOutByEmployeeId(employeeID);
+            }
+        };
+        Future<List<SyncClockOut>> future = executorService.submit(callable);
+        executorService.shutdown();
+        return  future.get();
     }
 }

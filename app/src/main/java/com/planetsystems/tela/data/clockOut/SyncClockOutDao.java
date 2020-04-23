@@ -31,7 +31,8 @@ public interface SyncClockOutDao {
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME+ " WHERE " + SyncClockOutTableConstant.DAY_COLUMN_NAME + " = :date")
     LiveData<List<SyncClockOut>> getSyncClockOutsByDate(String date);
 
-    @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME + " WHERE " + SyncClockOutTableConstant.EMPLOYEE_ID_COLUMN_NAME + " = :employeeId")
-    SyncClockOut getSyncClockByEmployeeId(String employeeId);
+    @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME + " WHERE "
+            + SyncClockOutTableConstant.EMPLOYEE_ID_COLUMN_NAME + " = :employeeId")
+    List<SyncClockOut> getSyncClockOutByEmployeeId(String employeeId);
 
 }

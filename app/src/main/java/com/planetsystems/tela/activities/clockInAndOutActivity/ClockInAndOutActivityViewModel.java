@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     LocationManager locationManager;
@@ -253,5 +254,20 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
         SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
         return  time.format(date);
+    }
+
+    public void clockOutTeacherWithEmployeeID(String id, String comment){
+        try {
+            SyncClockOut syncClockOut = repository.getSyncClockOutByEmployeeID(id);
+            Log.d(getClass().getSimpleName(), "==================================================");
+            if (syncClockOut != null) {
+                Log.d(getClass().getSimpleName(), "clocked In");
+            } else {
+                Log.d(getClass().getSimpleName(), "not clocked In");
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
     }
 }

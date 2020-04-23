@@ -336,7 +336,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     private void clockOutWithStaffID() {
         String staffID = staff_Id.getText().toString();
         String staffComment = staff_comment.getText().toString();
-        Toast.makeText(this, staffID + " " + staffComment + " Date: " + viewModel.getCurrentTime(), Toast.LENGTH_SHORT).show();
+        viewModel.clockOutTeacherWithEmployeeID(staffID, staffComment);
     }
 
     @Override
