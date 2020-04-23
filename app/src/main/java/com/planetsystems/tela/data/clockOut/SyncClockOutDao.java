@@ -19,6 +19,9 @@ public interface SyncClockOutDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void clockOutTeacher(SyncClockOut syncTeacher);
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertClockOutTeacher(SyncClockOut syncTeacher);
+
     @Update
     void update(SyncClockOut syncTeachers);
 
@@ -32,7 +35,7 @@ public interface SyncClockOutDao {
     LiveData<List<SyncClockOut>> getSyncClockOutsByDate(String date);
 
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME + " WHERE "
-            + SyncClockOutTableConstant.EMPLOYEE_ID_COLUMN_NAME + " = :employeeId")
-    List<SyncClockOut> getSyncClockOutByEmployeeId(String employeeId);
+            + SyncClockOutTableConstant.EMPLOYEE_ID_COLUMN_NAME + " =:employeeId AND " + SyncClockOutTableConstant.DAY_COLUMN_NAME + " =:date")
+    List<SyncClockOut> getSyncClockOutByEmployeeId(String employeeId, String date);
 
 }

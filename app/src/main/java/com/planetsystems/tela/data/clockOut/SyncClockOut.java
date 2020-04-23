@@ -5,15 +5,13 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.planetsystems.tela.data.ClockIn.SyncClockInTableConstants;
-
 @Entity(tableName = SyncClockOutTableConstant.TABLE_NAME)
 public class SyncClockOut {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     @NonNull
-    private String id;
+    private String dbID;
 
     @ColumnInfo(name = "dateCreated")
     private String dateCreated;
@@ -76,12 +74,12 @@ public class SyncClockOut {
     private String empLastName;
 
     @NonNull
-    public String getId() {
-        return id;
+    public String getDbID() {
+        return dbID;
     }
 
-    public void setId(@NonNull String id) {
-        this.id = id;
+    public void setDbID(@NonNull String dbID) {
+        this.dbID = dbID;
     }
 
     public String getDateCreated() {
@@ -224,12 +222,11 @@ public class SyncClockOut {
         this.empLastName = empLastName;
     }
 
-    public SyncClockOut(@NonNull String id, String dateCreated, String dateUpdated, int status, @NonNull String clockOutDate, @NonNull String clockOutTime,
+    public SyncClockOut(String dateCreated, String dateUpdated, int status, @NonNull String clockOutDate, @NonNull String clockOutTime,
                         String comment, @NonNull String day, @NonNull String employeeId, @NonNull String employeeNo,
                         @NonNull String latitude, @NonNull String longitude, @NonNull String synStatus,
                         @NonNull String schoolId, @NonNull String schoolName, @NonNull String empFirstName,
                         @NonNull String empLastName) {
-        this.id = id;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
         this.status = status;

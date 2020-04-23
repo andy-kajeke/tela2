@@ -258,12 +258,30 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
 
     public void clockOutTeacherWithEmployeeID(String id, String comment){
         try {
-            SyncClockOut syncClockOut = repository.getSyncClockOutByEmployeeID(id);
+            List<SyncClockOut> syncClockOut = repository.getSyncClockOutByEmployeeID(id, getCurrentDate());
             Log.d(getClass().getSimpleName(), "==================================================");
-            if (syncClockOut != null) {
+            if (syncClockOut.get(0) != null) {
                 Log.d(getClass().getSimpleName(), "clocked In");
             } else {
-                Log.d(getClass().getSimpleName(), "not clocked In");
+                SyncTeacher teacher = findEmployeeNumberWithEmployeeNumber(id);
+                repository.clockOutSyncClockOut(new SyncClockOut(
+                      null,
+                      null,
+                      1,
+                      getCurrentDate(),
+                      getCurrentTime(),
+                      comment,
+                      teacher.getEmployeeNumber(),
+                      teacher.getEmployeeNumber(),
+                      null,
+                      null,
+                      null,
+                      null,
+                      teacher.getSchoolId(),
+                      null,
+                      teacher.getFirstName(),
+                      teacher.getLastName()
+                ));
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();

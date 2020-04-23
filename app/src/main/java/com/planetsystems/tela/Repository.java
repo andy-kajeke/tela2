@@ -188,15 +188,24 @@ public class Repository {
         return syncClockOutDao.getClockOutTeachers();
     }
 
-    public List<SyncClockOut> getSyncClockOutByEmployeeID(final String employeeID) throws ExecutionException, InterruptedException {
+    public List<SyncClockOut> getSyncClockOutByEmployeeID(final String employeeID, final String date) throws ExecutionException, InterruptedException {
         Callable<List<SyncClockOut>> callable = new Callable<List<SyncClockOut>>() {
             @Override
             public List<SyncClockOut> call() throws Exception {
-                return syncClockOutDao.getSyncClockOutByEmployeeId(employeeID);
+                return syncClockOutDao.getSyncClockOutByEmployeeId(employeeID, date);
             }
         };
         Future<List<SyncClockOut>> future = executorService.submit(callable);
         executorService.shutdown();
         return  future.get();
+    }
+
+    public void clockOutSyncClockOut(final SyncClockOut syncClockOut) {
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                syncClockOutDao.insertClockOutTeacher(syncClockOut);
+            }
+        });
     }
 }
