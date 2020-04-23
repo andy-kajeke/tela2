@@ -9,239 +9,47 @@ import androidx.room.PrimaryKey;
 public class SyncClockOut {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = SyncClockOutTableConstant.PRIMARY_KEY)
     @NonNull
-    private int dbID;
+    private int primaryKey;
 
-    @ColumnInfo(name = "dateCreated")
-    private String dateCreated;
 
-    @ColumnInfo(name = "dateUpdated")
-    private String dateUpdated;
+    @ColumnInfo(name = SyncClockOutTableConstant.DATE_COLUMN_NAME)
+    private String date;
 
-    @ColumnInfo(name = "status")
-    private int status;
+    @ColumnInfo(name = SyncClockOutTableConstant.TIME_COLUMN_NAME)
+    private String time;
 
-    @ColumnInfo(name = "clockOutDate")
-    @NonNull
-    private String clockOutDate;
-
-    @ColumnInfo(name = "clockOutTime")
-    @NonNull
-    private String clockOutTime;
-
-    @ColumnInfo(name = "comment")
+    @ColumnInfo(name = SyncClockOutTableConstant.COMMENT_COLUMN_NAME)
     private String comment;
 
     @ColumnInfo(name = SyncClockOutTableConstant.DAY_COLUMN_NAME)
-    @NonNull
     private String day;
 
-    @ColumnInfo(name = SyncClockOutTableConstant.EMPLOYEE_ID_COLUMN_NAME)
     @NonNull
-    private String employeeId;
+    @ColumnInfo(name = SyncClockOutTableConstant.EMPLOYEE_NUMBER_COLUMN_NAME)
+    private String employeeNumber;
 
-    @ColumnInfo(name = "employeeNo")
-    @NonNull
-    private String employeeNo;
-
-    @ColumnInfo(name = "latitude")
-    @NonNull
+    @ColumnInfo(name = SyncClockOutTableConstant.LATITUDE_COLUMN_NAME)
     private String latitude;
 
-    @ColumnInfo(name = "longitude")
-    @NonNull
+    @ColumnInfo(name = SyncClockOutTableConstant.LONGITUDE_COLUMN_NAME)
     private String longitude;
 
-    @ColumnInfo(name = "synStatus")
-    @NonNull
-    private String synStatus;
+    @ColumnInfo(name = SyncClockOutTableConstant.STATUS_COLUMN_NAME)
+    private String status;
 
-    @ColumnInfo(name = "schoolId")
-    @NonNull
+    @ColumnInfo(name = SyncClockOutTableConstant.SCHOOL_ID_COLUMN_NAME)
     private String schoolId;
 
-    @ColumnInfo(name = "schoolName")
-    @NonNull
+    @ColumnInfo(name = SyncClockOutTableConstant.SCHOOL_NAME_COLUMN_NAME)
     private String schoolName;
 
-    @ColumnInfo(name = "empFirstName")
-    @NonNull
-    private String empFirstName;
+    @ColumnInfo(name = SyncClockOutTableConstant.FIRST_NAME_COLUMN_NAME)
+    private String firstName;
 
-    @ColumnInfo(name = "empLastName")
-    @NonNull
-    private String empLastName;
+    @ColumnInfo(name = SyncClockOutTableConstant.LAST_NAME_TABLE_NAME)
+    private String lastName;
 
-    @NonNull
-    public int getDbID() {
-        return dbID;
-    }
 
-    public void setDbID(@NonNull int dbID) {
-        this.dbID = dbID;
-    }
-
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public String getDateUpdated() {
-        return dateUpdated;
-    }
-
-    public void setDateUpdated(String dateUpdated) {
-        this.dateUpdated = dateUpdated;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    @NonNull
-    public String getClockOutDate() {
-        return clockOutDate;
-    }
-
-    public void setClockOutDate(@NonNull String clockOutDate) {
-        this.clockOutDate = clockOutDate;
-    }
-
-    @NonNull
-    public String getClockOutTime() {
-        return clockOutTime;
-    }
-
-    public void setClockOutTime(@NonNull String clockOutTime) {
-        this.clockOutTime = clockOutTime;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    @NonNull
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(@NonNull String day) {
-        this.day = day;
-    }
-
-    @NonNull
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(@NonNull String employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    @NonNull
-    public String getEmployeeNo() {
-        return employeeNo;
-    }
-
-    public void setEmployeeNo(@NonNull String employeeNo) {
-        this.employeeNo = employeeNo;
-    }
-
-    @NonNull
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(@NonNull String latitude) {
-        this.latitude = latitude;
-    }
-
-    @NonNull
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(@NonNull String longitude) {
-        this.longitude = longitude;
-    }
-
-    @NonNull
-    public String getSynStatus() {
-        return synStatus;
-    }
-
-    public void setSynStatus(@NonNull String synStatus) {
-        this.synStatus = synStatus;
-    }
-
-    @NonNull
-    public String getSchoolId() {
-        return schoolId;
-    }
-
-    public void setSchoolId(@NonNull String schoolId) {
-        this.schoolId = schoolId;
-    }
-
-    @NonNull
-    public String getSchoolName() {
-        return schoolName;
-    }
-
-    public void setSchoolName(@NonNull String schoolName) {
-        this.schoolName = schoolName;
-    }
-
-    @NonNull
-    public String getEmpFirstName() {
-        return empFirstName;
-    }
-
-    public void setEmpFirstName(@NonNull String empFirstName) {
-        this.empFirstName = empFirstName;
-    }
-
-    @NonNull
-    public String getEmpLastName() {
-        return empLastName;
-    }
-
-    public void setEmpLastName(@NonNull String empLastName) {
-        this.empLastName = empLastName;
-    }
-
-    public SyncClockOut(String dateCreated, String dateUpdated, int status, @NonNull String clockOutDate, @NonNull String clockOutTime,
-                        String comment, @NonNull String day, @NonNull String employeeId, @NonNull String employeeNo,
-                        @NonNull String latitude, @NonNull String longitude, @NonNull String synStatus,
-                        @NonNull String schoolId, @NonNull String schoolName, @NonNull String empFirstName,
-                        @NonNull String empLastName) {
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.status = status;
-        this.clockOutDate = clockOutDate;
-        this.clockOutTime = clockOutTime;
-        this.comment = comment;
-        this.day = day;
-        this.employeeId = employeeId;
-        this.employeeNo = employeeNo;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.synStatus = synStatus;
-        this.schoolId = schoolId;
-        this.schoolName = schoolName;
-        this.empFirstName = empFirstName;
-        this.empLastName = empLastName;
-    }
 }
