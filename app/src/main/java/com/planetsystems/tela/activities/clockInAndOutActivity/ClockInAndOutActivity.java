@@ -82,6 +82,13 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             }
         });
 
+        viewModel.getSynClockOutLiveData().observe(this, new Observer<List<SyncClockOut>>() {
+            @Override
+            public void onChanged(List<SyncClockOut> syncClockOuts) {
+                Toast.makeText(ClockInAndOutActivity.this, "The size is: " + syncClockOuts.size(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         /*
         This observes and set syncclockin list in the view model
         * */

@@ -15,10 +15,6 @@ import java.util.List;
 
 @Dao
 public interface SyncClockOutDao {
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void clockOutTeacher(SyncClockOut syncTeacher);
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertClockOutTeacher(SyncClockOut syncTeacher);
 

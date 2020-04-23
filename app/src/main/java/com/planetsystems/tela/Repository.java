@@ -29,6 +29,7 @@ import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
 import com.planetsystems.tela.workers.SyncClockInTeacherUploadWorker;
 import com.planetsystems.tela.workers.SyncTeacherWorker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -119,15 +120,6 @@ public class Repository {
         return syncClockInDao.getAllClockIn();
     }
 
-    public void synClockOutTeacher(final SyncClockOut syncClockOut){
-        TelaRoomDatabase.db_executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                syncClockOutDao.clockOutTeacher(syncClockOut);
-            }
-        });
-    }
-
     // picking data from the cloud
     public  void populateSyncTeacherFromApi() {
         Constraints constraints = new Constraints.Builder()
@@ -192,7 +184,7 @@ public class Repository {
         Callable<List<SyncClockOut>> callable = new Callable<List<SyncClockOut>>() {
             @Override
             public List<SyncClockOut> call() throws Exception {
-                return syncClockOutDao.getSyncClockOutByEmployeeId(employeeID, date);
+               return syncClockOutDao.getSyncClockOutByEmployeeId(employeeID, date);
             }
         };
         Future<List<SyncClockOut>> future = TelaRoomDatabase.db_executor.submit(callable);
@@ -201,7 +193,7 @@ public class Repository {
         return  future.get();
     }
 
-    public void clockOutSyncClockOut(final SyncClockOut syncClockOut) {
+    public void insertSynClockOut(final SyncClockOut syncClockOut) {
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {

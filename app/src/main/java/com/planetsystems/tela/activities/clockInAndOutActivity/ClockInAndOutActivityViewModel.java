@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.location.LocationManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -261,11 +260,11 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         try {
             List<SyncClockOut> syncClockOut = repository.getSyncClockOutByEmployeeID(id, getCurrentDate());
             Log.d(getClass().getSimpleName(), "==================================================");
-            if (syncClockOut.size() >= 0 ) {
-
+            if (syncClockOut.size() > 0 ) {
+                Log.d(getClass().getSimpleName(), "we have data");
             } else {
                 SyncTeacher teacher = findEmployeeNumberWithEmployeeNumber(id);
-                repository.clockOutSyncClockOut(new SyncClockOut(
+                repository.insertSynClockOut(new SyncClockOut(
                         null,
                         null,
                         1,
