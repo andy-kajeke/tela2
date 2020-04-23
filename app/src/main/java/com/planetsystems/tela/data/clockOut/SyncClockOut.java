@@ -5,9 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.planetsystems.tela.constants.SyncTableConstants;
-
-@Entity(tableName = SyncTableConstants.SyncClockOuts)
+@Entity(tableName = SyncClockOutTableConstant.TABLE_NAME)
 public class SyncClockOut {
 
     @PrimaryKey
@@ -35,7 +33,7 @@ public class SyncClockOut {
     @ColumnInfo(name = "comment")
     private String comment;
 
-    @ColumnInfo(name = "day")
+    @ColumnInfo(name = SyncClockOutTableConstant.DAY_COLUMN_NAME)
     @NonNull
     private String day;
 
