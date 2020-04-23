@@ -255,32 +255,35 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return  time.format(date);
     }
 
-    public void clockOutTeacherWithEmployeeID(String id, String comment){
+    public SyncTeacher clockOutTeacherWithEmployeeID(String id, String comment){
         // example employee number 9876 for ojok
         try {
             List<SyncClockOut> syncClockOut = repository.getSyncClockOutByEmployeeID(id, getCurrentDate());
             Log.d(getClass().getSimpleName(), "==================================================");
             if (syncClockOut.size() > 0 ) {
-                Log.d(getClass().getSimpleName(), "we have data");
+                return findEmployeeNumberWithEmployeeNumber(id);
             } else {
                 SyncTeacher teacher = findEmployeeNumberWithEmployeeNumber(id);
-                repository.insertSynClockOut(new SyncClockOut(
-                        "3/4/2019",
-                        "3/4/2019",
-                        "3/4/2019",
-                        "3/4/2019",
-                        "3/4/2019",
-                        "3/4/2019",
-                        "3/4/2019",
-                        "3/4/2019",
-                        "3/4/2019",
-                        "3/4/2019",
-                        "3/4/2019"
-                ));
+                if (teacher != null ) {
+                    repository.insertSynClockOut(new SyncClockOut(
+                            getCurrentDate(),
+                            getCurrentTime(),
+                            comment,
+                            teacher.getEmployeeNumber(),
+                            "7827365653345342",
+                            "63636636225535",
+                            "3/4/2019",
+                            "3/4/2019",
+                            "3/4/2019",
+                            teacher.getFirstName(),
+                            teacher.getLastName()
+                    ));
+                    return teacher;
+                }
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
+        return null;
     }
 }
