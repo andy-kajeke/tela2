@@ -257,30 +257,31 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     }
 
     public void clockOutTeacherWithEmployeeID(String id, String comment){
+        // example employee number 9876 for ojok
         try {
             List<SyncClockOut> syncClockOut = repository.getSyncClockOutByEmployeeID(id, getCurrentDate());
             Log.d(getClass().getSimpleName(), "==================================================");
-            if (syncClockOut.get(0) != null) {
-                Log.d(getClass().getSimpleName(), "clocked In");
+            if (syncClockOut.size() >= 0 ) {
+
             } else {
                 SyncTeacher teacher = findEmployeeNumberWithEmployeeNumber(id);
                 repository.clockOutSyncClockOut(new SyncClockOut(
-                      null,
-                      null,
-                      1,
-                      getCurrentDate(),
-                      getCurrentTime(),
-                      comment,
-                      teacher.getEmployeeNumber(),
-                      teacher.getEmployeeNumber(),
-                      null,
-                      null,
-                      null,
-                      null,
-                      teacher.getSchoolId(),
-                      null,
-                      teacher.getFirstName(),
-                      teacher.getLastName()
+                        null,
+                        null,
+                        1,
+                        getCurrentDate(),
+                        getCurrentTime(),
+                        comment,
+                        teacher.getEmployeeNumber(),
+                        teacher.getEmployeeNumber(),
+                        null,
+                        null,
+                        null,
+                        null,
+                        teacher.getSchoolId(),
+                        null,
+                        teacher.getFirstName(),
+                        teacher.getLastName()
                 ));
             }
         } catch (InterruptedException | ExecutionException e) {

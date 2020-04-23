@@ -195,13 +195,14 @@ public class Repository {
                 return syncClockOutDao.getSyncClockOutByEmployeeId(employeeID, date);
             }
         };
-        Future<List<SyncClockOut>> future = executorService.submit(callable);
-        executorService.shutdown();
+        Future<List<SyncClockOut>> future = TelaRoomDatabase.db_executor.submit(callable);
+
+//        TelaRoomDatabase.db_executor.shutdown();
         return  future.get();
     }
 
     public void clockOutSyncClockOut(final SyncClockOut syncClockOut) {
-        executorService.execute(new Runnable() {
+        TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
                 syncClockOutDao.insertClockOutTeacher(syncClockOut);

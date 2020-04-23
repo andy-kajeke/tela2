@@ -11,7 +11,7 @@ public class SyncClockOut {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     @NonNull
-    private String dbID;
+    private int dbID;
 
     @ColumnInfo(name = "dateCreated")
     private String dateCreated;
@@ -74,11 +74,11 @@ public class SyncClockOut {
     private String empLastName;
 
     @NonNull
-    public String getDbID() {
+    public int getDbID() {
         return dbID;
     }
 
-    public void setDbID(@NonNull String dbID) {
+    public void setDbID(@NonNull int dbID) {
         this.dbID = dbID;
     }
 
