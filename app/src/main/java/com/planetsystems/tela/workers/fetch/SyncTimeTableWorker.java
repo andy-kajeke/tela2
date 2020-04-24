@@ -45,6 +45,9 @@ public class SyncTimeTableWorker extends Worker {
                 for(int i = 0; i < syncTimeTables.timeTable.size(); i++) {
                     syncTimeTableDao.insertSyncTimeTable(syncTimeTables.timeTable.get(i));
                     Log.d(getClass().getSimpleName(), "Save timetable" + syncTimeTables.timeTable.get(i).toString());
+                    System.out.println("====================================");
+                    System.out.println(syncTimeTables.timeTable.get(i).toString());
+                    System.out.println("====================================");
                 }
                 return Result.success();
             } catch (IOException e) {
