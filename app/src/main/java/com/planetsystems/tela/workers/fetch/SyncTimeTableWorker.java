@@ -37,6 +37,7 @@ public class SyncTimeTableWorker extends Worker {
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(TIMETABLE).openConnection();
             try {
+
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 SyncTimeTables syncTimeTables = new Gson().fromJson(reader, SyncTimeTables.class);
