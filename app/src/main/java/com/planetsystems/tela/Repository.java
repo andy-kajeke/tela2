@@ -25,11 +25,12 @@ import com.planetsystems.tela.data.employeeRole.EmployeeRoleDao;
 import com.planetsystems.tela.data.helprequest.HelpRequestDao;
 import com.planetsystems.tela.data.smc.SyncSMCDao;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
+import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
-import com.planetsystems.tela.workers.SyncClockInTeacherUploadWorker;
-import com.planetsystems.tela.workers.SyncTeacherWorker;
+import com.planetsystems.tela.workers.fetch.SyncTimeTableWorker;
+import com.planetsystems.tela.workers.upload.SyncClockInTeacherUploadWorker;
+import com.planetsystems.tela.workers.fetch.SyncTeacherWorker;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -100,16 +101,6 @@ public class Repository {
         });
     }
 
-    //Insert all staff members
-    public void insertAllTeachers(final SyncTeacher syncTeacher){
-        TelaRoomDatabase.db_executor.execute(new Runnable() {
-            @Override
-            public void run() {
-               // syncTeacherDao.insertAllTeachers(syncTeacher);
-            }
-        });
-    }
-
     //Fetch all enrolled staff members
     public LiveData<List<SyncTeacher>> getAllTeachers(){
         return syncTeacherDao.getAllTeachers();
@@ -120,12 +111,33 @@ public class Repository {
         return syncClockInDao.getAllClockIn();
     }
 
-    // picking data from the cloud
-    public  void populateSyncTeacherFromApi() {
+    //Get all timetables
+    public LiveData<List<SyncTimeTable>> getAllSyncTimeTable(){
+        return syncTimeTableDao.getSyncTimeTables();
+    }
+
+    public SyncTimeTableDao getSyncTimeTableDao() {
+        return syncTimeTableDao;
+    }
+
+    // picking data from the cloud to SyncTeacher table
+    public void populateSyncTeacherFromApi() {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncTeacherWorker.class)
+                .setConstraints(constraints)
+                .build();
+        WorkManager.getInstance(application).enqueue(workRequest);
+
+    }
+
+    // picking data from the cloud to SyncTimeTable table
+    public void populateSyncTimeTableFromApi() {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncTimeTableWorker.class)
                 .setConstraints(constraints)
                 .build();
         WorkManager.getInstance(application).enqueue(workRequest);

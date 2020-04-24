@@ -1,4 +1,4 @@
-package com.planetsystems.tela.workers;
+package com.planetsystems.tela.workers.fetch;
 
 import android.content.Context;
 import android.util.Log;

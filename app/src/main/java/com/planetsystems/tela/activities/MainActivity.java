@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Repository repository = new Repository(getApplication());
         repository.populateSyncTeacherFromApi();
+        repository.populateSyncTimeTableFromApi();
         repository.startSyncClockInTeacherUploadWorker();
         Log.d("main", "looded syn teacher");
 

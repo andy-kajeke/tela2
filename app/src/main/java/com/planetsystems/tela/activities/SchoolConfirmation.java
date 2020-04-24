@@ -3,7 +3,9 @@ package com.planetsystems.tela.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -40,12 +42,14 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("ALL")
 public class SchoolConfirmation extends AppCompatActivity {
 
     TextView schoolName, schoolLocation;
     Button confirm;
     ProgressDialog dialog;
     String data, deploymentSiteName, deploymentSiteLocation;
+    Boolean mResponse;
     String deviceIMEI_extra;
 
     @Override
@@ -69,10 +73,26 @@ public class SchoolConfirmation extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home = new Intent(SchoolConfirmation.this, ClockInAndOutActivity.class);
-                home.putExtra("device_imei", deviceIMEI_extra);
-                home.putExtra("schoolName", deploymentSiteName);
-                startActivity(home);
+                if(mResponse == true){
+
+                    Intent home = new Intent(SchoolConfirmation.this, ClockInAndOutActivity.class);
+                    home.putExtra("device_imei", deviceIMEI_extra);
+                    home.putExtra("schoolName", deploymentSiteName);
+                    startActivity(home);
+                }
+                else {
+                    new AlertDialog.Builder(SchoolConfirmation.this)
+                            .setTitle("Confirmation")
+                            .setMessage("You can't contiune. This phone is not registered on the TELA System.")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    SchoolConfirmation.this.finish();
+                                }})
+                            .setNegativeButton("", null).show();
+                }
+
             }
         });
     }
@@ -114,13 +134,14 @@ public class SchoolConfirmation extends AppCompatActivity {
 
 
                     JSONObject jsono = new JSONObject(data);
+                    mResponse = jsono.getBoolean("response");
 
                     JSONObject objectEmp = jsono.getJSONObject("school");
 
                     deploymentSiteName =   objectEmp.getString("deploymentSiteName");
                     deploymentSiteLocation = objectEmp.getString("location");
 
-                    JSONArray jarray = jsono.getJSONArray("tasks");
+//                    JSONArray jarray = jsono.getJSONArray("tasks");
 
 
 //                    for(int i = 0; i < jarray.length(); i++) {
@@ -161,11 +182,21 @@ public class SchoolConfirmation extends AppCompatActivity {
             dialog.cancel();
             //adapter.notifyDataSetChanged();
             if(result == false){
+                new AlertDialog.Builder(SchoolConfirmation.this)
+                        .setTitle("Confirmation")
+                        .setMessage("This phone is not registered on the TELA System")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                SchoolConfirmation.this.finish();
+                            }})
+                        .setNegativeButton("", null).show();
+
+            }else{
+                //Toast.makeText(getApplicationContext(), "Unable to fetch", Toast.LENGTH_LONG).show();
                 schoolName.setText(deploymentSiteName);
                 schoolLocation.setText(deploymentSiteLocation);
-            }else{
-                Toast.makeText(getApplicationContext(), "Unable to fetch ", Toast.LENGTH_LONG).show();
-                //uiName.setText(""+namez);
             }
         }
     }
