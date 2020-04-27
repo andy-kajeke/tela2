@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;
 import com.planetsystems.tela.data.attendance.SyncAttendanceRecordDao;
+import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 import com.planetsystems.tela.data.clockOut.SyncClockOutDao;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendanceDao;
@@ -33,7 +34,6 @@ public class MainRepository {
 
     private EmployeeRoleDao employeeRoleDao;
     private SyncTeacherDao syncTeacherDao;
-    private SyncClockOutDao syncClockOutDao;
     private SyncConfirmTimeOnSiteAttendanceDao timeOnSiteAttendanceDao;
     private SyncConfirmTimeOnTaskAttendanceDao timeOnTaskAttendanceDao;
     private SyncEmployeeMaterialRequestDao syncEmployeeMaterialRequestDao;
@@ -47,13 +47,13 @@ public class MainRepository {
     private ExecutorService executorService;
 
     private ClockInRepository clockInRepository;
+    private ClockOutRepository clockOutRepository;
 
     public MainRepository(Application application) {
         this.application = application;
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
         employeeRoleDao = telaRoomDatabase.getEmployeeRoleDao();
         syncTeacherDao = telaRoomDatabase.getSyncTeachersDao();
-        syncClockOutDao = telaRoomDatabase.getSyncClockOutDao();
         syncAttendanceRecordDao = telaRoomDatabase.getSyncAttendanceRecordsDao();
         timeOnSiteAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnSiteAttendanceDao();
         timeOnTaskAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnTaskAttendancesDao();
@@ -67,6 +67,7 @@ public class MainRepository {
         executorService = TelaRoomDatabase.db_executor;
 
         clockInRepository = ClockInRepository.getInstance(telaRoomDatabase);
+        clockOutRepository = ClockOutRepository.getInstance(telaRoomDatabase);
 
     }
 
@@ -116,11 +117,10 @@ public class MainRepository {
     }
 
 
-    public LiveData<List<SyncClockOut>> getAlreadyClockOutTeachers(){
-        return syncClockOutDao.getClockOutTeachers();
-    }
-
     public ClockInRepository getClockInRepository() {
         return clockInRepository;
+    }
+    public ClockOutRepository getClockOutRepository() {
+        return clockOutRepository;
     }
 }
