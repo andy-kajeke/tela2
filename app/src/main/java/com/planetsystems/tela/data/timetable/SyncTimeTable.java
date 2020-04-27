@@ -226,4 +226,28 @@ public class SyncTimeTable {
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
+
+    @Override
+    public String toString() {
+        return "SyncTimeTable{" +
+                "primaryKey=" + primaryKey +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", dateUpdated='" + dateUpdated + '\'' +
+                ", status='" + status + '\'' +
+                ", classId='" + classId + '\'' +
+                ", classUnit='" + classUnit + '\'' +
+                ", day='" + day + '\'' +
+                ", employName='" + employName + '\'' +
+                ", employeeId='" + employeeId + '\'' +
+                ", employeeNo='" + employeeNo + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", schoolId='" + schoolId + '\'' +
+                ", schoolName='" + schoolName + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", subject='" + subject + '\'' +
+                ", subjectId='" + subjectId + '\'' +
+                ", taskId='" + taskId + '\'' +
+                ", taskName='" + taskName + '\'' +
+                '}';
+    }
 }
