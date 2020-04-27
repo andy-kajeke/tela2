@@ -22,6 +22,7 @@ import com.planetsystems.tela.Repository;
 import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
 import com.planetsystems.tela.activityViewModel.MainActivityViewModel;
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.workers.WorkManagerTrigger;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,11 +37,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Repository repository = new Repository(getApplication());
-        repository.populateSyncTeacherFromApi();
-        repository.populateSyncTimeTableFromApi();
-        repository.startSyncClockInTeacherUploadWorker();
-        Log.d("main", "looded syn teacher");
+//        Repository repository = new Repository(getApplication());
+//        repository.populateSyncTeacherFromApi();
+//        repository.populateSyncTimeTableFromApi();
+//        repository.startSyncClockInTeacherUploadWorker();
+//        Log.d("main", "looded syn teacher");
+        WorkManagerTrigger.startFetchSyncTimeTableWorker(getApplicationContext());
 
         new Handler().postDelayed(new Runnable() {
 
