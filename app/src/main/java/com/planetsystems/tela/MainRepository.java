@@ -5,9 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;
-import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.attendance.SyncAttendanceRecordDao;
-import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 import com.planetsystems.tela.data.clockOut.SyncClockOutDao;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendanceDao;
@@ -23,18 +21,15 @@ import com.planetsystems.tela.data.smc.SyncSMCDao;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
-import com.planetsystems.tela.workers.upload.SyncClockInTeacherUploadWorker;
-import com.planetsystems.tela.workers.fetch.SyncTeacherWorker;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-public class Repository {
-    private static Repository INSTANCE;
+public class MainRepository {
+    private static MainRepository INSTANCE;
 
     private EmployeeRoleDao employeeRoleDao;
     private SyncTeacherDao syncTeacherDao;
@@ -53,7 +48,7 @@ public class Repository {
 
     private ClockInRepository clockInRepository;
 
-    public Repository(Application application) {
+    public MainRepository(Application application) {
         this.application = application;
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
         employeeRoleDao = telaRoomDatabase.getEmployeeRoleDao();
@@ -77,11 +72,11 @@ public class Repository {
 
 
     // made it singleton
-    public static Repository getInstance(final Application  application) {
+    public static MainRepository getInstance(final Application  application) {
         if (INSTANCE == null) {
-            synchronized (Repository.class) {
+            synchronized (MainRepository.class) {
                 if ( INSTANCE == null ) {
-                    INSTANCE = new Repository(application);
+                    INSTANCE = new MainRepository(application);
                 }
             }
         }

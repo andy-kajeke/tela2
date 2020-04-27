@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.planetsystems.tela.Repository;
+import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
@@ -40,13 +40,13 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     private List<SyncClockOut> synClockOutTeachers;
     private List<SyncClockIn> syncClockIns;
     private LiveData<List<SyncClockIn>> syncClockInsLiveData;
-    private Repository repository;
+    private MainRepository mainRepository;
 
     public ClockInAndOutActivityViewModel(@NonNull Application application) {
         super(application);
-        repository = Repository.getInstance(application);
-        syncTeachersLiveData = repository.getAllTeachers();
-        synClockOutLiveData = repository.getAlreadyClockOutTeachers();
+        mainRepository = MainRepository.getInstance(application);
+        syncTeachersLiveData = mainRepository.getAllTeachers();
+        synClockOutLiveData = mainRepository.getAlreadyClockOutTeachers();
 
         //Day of the week
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
@@ -86,7 +86,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
 //        SyncTeacher syncTeacher = findTeacherWithFingerPrint(stringEncodedFingerPrint.getBytes());
 //        if (syncTeacher == null) return null;
 //        SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
-//        repository.synClockOutTeacher(syncClockIn);
+//        mainRepository.synClockOutTeacher(syncClockIn);
         return null;
     }
 
@@ -198,14 +198,14 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     public SyncTeacher clockOutTeacherWithEmployeeID(String id, String comment){
         // example employee number 9876 for ojok
         try {
-            List<SyncClockOut> syncClockOut = repository.getSyncClockOutByEmployeeID(id, getCurrentDate());
+            List<SyncClockOut> syncClockOut = mainRepository.getSyncClockOutByEmployeeID(id, getCurrentDate());
             Log.d(getClass().getSimpleName(), "==================================================");
             if (syncClockOut.size() > 0 ) {
                 return findEmployeeNumberWithEmployeeNumber(id);
             } else {
                 SyncTeacher teacher = findEmployeeNumberWithEmployeeNumber(id);
                 if (teacher != null ) {
-                    repository.insertSynClockOut(new SyncClockOut(
+                    mainRepository.insertSynClockOut(new SyncClockOut(
                             getCurrentDate(),
                             getCurrentTime(),
                             comment,
@@ -233,7 +233,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
          * This method clocks in a teacher and returns the results
          * */
         try {
-            List<SyncClockIn> list = repository
+            List<SyncClockIn> list = mainRepository
                     .getClockInRepository()
                     .getSyncClockInByEmployeeIDAndDate(employeeNumber, getCurrentDate());
             if (list.size() > 0) {
@@ -241,7 +241,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
             } else {
                 SyncTeacher teacher = findEmployeeNumberWithEmployeeNumber(employeeNumber);
                 if (teacher != null ) {
-                    repository.getClockInRepository().synClockInTeacher(new SyncClockIn(
+                    mainRepository.getClockInRepository().synClockInTeacher(new SyncClockIn(
                             employeeNumber,
                             teacher.getEmployeeID(),
                             DynamicData.getLatitude(),

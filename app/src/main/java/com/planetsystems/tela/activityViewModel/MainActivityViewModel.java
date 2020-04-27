@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.planetsystems.tela.Repository;
+import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
@@ -14,17 +14,17 @@ import java.util.List;
 
 public class MainActivityViewModel extends AndroidViewModel {
     private SyncTeacherDao syncTeacherDao;
-    private Repository repository;
+    private MainRepository mainRepository;
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
-        repository = new Repository(application);
+        mainRepository = new MainRepository(application);
     }
 
     public LiveData<List<SyncTeacher>> teachers(){
-        return repository.getAllTeachers();
+        return mainRepository.getAllTeachers();
     }
 
     public  void insertTeacher(SyncTeacher syncTeacher){
-        repository.enrollTeacher(syncTeacher);
+        mainRepository.enrollTeacher(syncTeacher);
     }
 }

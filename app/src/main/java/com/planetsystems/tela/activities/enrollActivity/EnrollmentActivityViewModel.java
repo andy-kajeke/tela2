@@ -7,13 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.planetsystems.tela.Repository;
+import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 
 import java.util.List;
 
 public class EnrollmentActivityViewModel extends AndroidViewModel {
-    private Repository repository;
+    private MainRepository mainRepository;
     private String firstName;
     private String lastName;
     private String initials;
@@ -24,13 +24,13 @@ public class EnrollmentActivityViewModel extends AndroidViewModel {
     private List<SyncTeacher> teachers;
     public EnrollmentActivityViewModel(@NonNull Application application) {
         super(application);
-        repository = new Repository(application);
+        mainRepository = new MainRepository(application);
 
     }
 
     boolean enrollTeacher(SyncTeacher syncTeacher) {
         if (!isEnrolled(teachers, syncTeacher)) {
-            repository.enrollTeacher(syncTeacher);
+            mainRepository.enrollTeacher(syncTeacher);
             return true;
         }
         return false;
@@ -67,7 +67,7 @@ public class EnrollmentActivityViewModel extends AndroidViewModel {
     }
 
     LiveData<List<SyncTeacher>> getSynTeachers() {
-        return repository.getAllSyncTeacher();
+        return mainRepository.getAllSyncTeacher();
     }
 
     // checks whether teacher is already enrolled
