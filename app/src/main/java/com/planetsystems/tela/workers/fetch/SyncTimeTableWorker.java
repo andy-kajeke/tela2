@@ -38,9 +38,9 @@ public class SyncTimeTableWorker extends Worker {
             try {
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                SyncTeacherWorker.SyncTeachers timeTables = new Gson().fromJson(reader, SyncTeacherWorker.SyncTeachers.class);
+                SyncTimeTables timeTables = new Gson().fromJson(reader, SyncTimeTables.class);
                 Log.d(TAG, "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                Log.d(TAG, String.valueOf(timeTables.teachers.size()));
+                Log.d(TAG, String.valueOf(timeTables.timetables.size()));
                 Log.d(TAG, "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 reader.close();
 
@@ -57,6 +57,6 @@ public class SyncTimeTableWorker extends Worker {
     }
 
     public class SyncTimeTables {
-        List<SyncTimeTable> timeTables;
+        List<SyncTimeTable> timetables;
     }
 }
