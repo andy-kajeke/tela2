@@ -26,4 +26,6 @@ public interface SyncTeacherDao {
 
     @Query("SELECT * FROM " + SyncTableConstants.SyncTeachers)
     LiveData<List<SyncTeacher>> getAllTeachers();
+
+    SyncTeacher getSyncTeacherWithEmployeeNumber(String employeeNumber);
 }

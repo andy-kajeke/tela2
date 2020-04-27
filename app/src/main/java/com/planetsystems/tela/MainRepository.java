@@ -75,4 +75,8 @@ public class MainRepository {
     public ClockOutRepository getClockOutRepository() {
         return clockOutRepository;
     }
+
+    public TeacherRepository getTeachersRepository() {
+        return teacherRepository;
+    }
 }
