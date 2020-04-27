@@ -78,7 +78,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
             if (list.size() > 0) {
                 return  teacherRepository.getTeacherWithEmployeeNumber(employeeNumber);
             } else {
-                SyncTeacher teacher =  null; // findEmployeeNumberWithEmployeeNumber(employeeNumber);
+                SyncTeacher teacher =  teacherRepository.getTeacherWithEmployeeNumber(employeeNumber); // findEmployeeNumberWithEmployeeNumber(employeeNumber);
                 if (teacher != null ) {
                     clockInRepository.synClockInTeacher(new SyncClockIn(
                             employeeNumber,

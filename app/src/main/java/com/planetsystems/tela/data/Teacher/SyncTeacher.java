@@ -1,70 +1,75 @@
 package com.planetsystems.tela.data.Teacher;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.planetsystems.tela.constants.SyncTableConstants;
 
-import java.util.Arrays;
-
-@Entity(tableName = SyncTableConstants.SyncTeachers)
+@Entity(tableName = SyncTeacherTableConstants.TABLE_NAME)
 public class SyncTeacher {
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    @NonNull
-    private String id;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = SyncTeacherTableConstants.PRIMARY_KEY)
+    private int id;
 
-    @ColumnInfo(name = "MPSComputerNumber")
+    @ColumnInfo(name = SyncTeacherTableConstants.EMPLOYEE_ID_COLUMN_NAME)
+    private int employeeId;
+
+    @ColumnInfo(name = SyncTeacherTableConstants.MPS_COMPUTER_NUMBER_COLUMN_NAME)
     private String MPSComputerNumber;
 
-    @ColumnInfo(name = "employeeNumber")
+    @ColumnInfo(name = SyncTeacherTableConstants.EMPLOYEE_NUMBER_COLUMN_NAME)
     private String employeeNumber;
 
-    @ColumnInfo(name = "role")
+    @ColumnInfo(name = SyncTeacherTableConstants.ROLE_COLUMN_NAME)
     private String role;
 
-    @ColumnInfo(name = "dob")
+    @ColumnInfo(name = SyncTeacherTableConstants.DOD_COLUMN_NAME)
     private String dob;
 
-    @ColumnInfo(name = "emailAddress")
+    @ColumnInfo(name = SyncTeacherTableConstants.EMAIL_ADDRESS_COLUMN_NAME)
     private String emailAddress;
 
-    @ColumnInfo(name = "fingerPrint")
+    @ColumnInfo(name = SyncTeacherTableConstants.FINGER_PRINT_COLUMN_NAME)
     private String fingerPrint;
 
-    @ColumnInfo(name = "firstName")
+    @ColumnInfo(name = SyncTeacherTableConstants.FIRST_NAME_COLUMN_NAME)
     private String firstName;
 
-    @ColumnInfo(name = "lastName")
+    @ColumnInfo(name = SyncTeacherTableConstants.LAST_NAME_COLUMN_NAME)
     private String lastName;
 
-    @ColumnInfo(name = "gender")
+    @ColumnInfo(name = SyncTeacherTableConstants.GENDER_COLUMN_NAME)
     private String gender;
 
-    @ColumnInfo(name = "initials")
+    @ColumnInfo(name = SyncTeacherTableConstants.INITIALS_COLUMN_NAME)
     private String initials;
 
-    @ColumnInfo(name = "licensed")
+    @ColumnInfo(name = SyncTeacherTableConstants.LICENSED_COLUMN_NAME)
     private boolean licensed;
 
-    @ColumnInfo(name = "nationalId")
+    @ColumnInfo(name = SyncTeacherTableConstants.NATIONAL_ID_COLUMN_NAME)
     private String nationalId;
 
-    @ColumnInfo(name = "phoneNumber")
+    @ColumnInfo(name = SyncTeacherTableConstants.PHONE_NUMBER_COLUMN_NAME)
     private String phoneNumber;
 
-    @ColumnInfo(name = "schoolId")
+    @ColumnInfo(name = SyncTeacherTableConstants.SCHOOL_ID_COLUMN_NAME)
     private String schoolId;
 
-    @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getMPSComputerNumber() {
@@ -179,28 +184,8 @@ public class SyncTeacher {
         this.schoolId = schoolId;
     }
 
-    @Override
-    public String toString() {
-        return "SyncTeacher{" +
-                "id='" + id + '\'' +
-                ", MPSComputerNumber='" + MPSComputerNumber + '\'' +
-                ", employeeNumber='" + employeeNumber + '\'' +
-                ", role='" + role + '\'' +
-                ", dob='" + dob + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", fingerPrint=" + fingerPrint +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", initials='" + initials + '\'' +
-                ", licensed=" + licensed +
-                ", nationalId='" + nationalId + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", schoolId='" + schoolId + '\'' +
-                '}';
-    }
-
-    public SyncTeacher(String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, String fingerPrint, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
+    public SyncTeacher(int employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, String fingerPrint, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
+        this.employeeId = employeeId;
         this.MPSComputerNumber = MPSComputerNumber;
         this.employeeNumber = employeeNumber;
         this.role = role;
@@ -215,9 +200,5 @@ public class SyncTeacher {
         this.nationalId = nationalId;
         this.phoneNumber = phoneNumber;
         this.schoolId = schoolId;
-    }
-
-    public String getEmployeeID() {
-        return "ewessdfdwwweessddss";
     }
 }
