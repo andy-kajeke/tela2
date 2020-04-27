@@ -33,7 +33,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     }
 
 
-    public SyncTeacher clockOutTeacherWithEmployeeID(String id, String comment){
+    SyncTeacher clockOutTeacherWithEmployeeID(String id, String comment){
         // example employee number 9876 for ojok
         try {
             List<SyncClockOut> syncClockOut = clockOutRepository.getSyncClockOutByEmployeeNumberAndDate(id, DynamicData.getCurrentDate());

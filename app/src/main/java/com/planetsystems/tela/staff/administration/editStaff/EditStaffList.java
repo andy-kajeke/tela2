@@ -6,17 +6,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ListView;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
-import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
-import com.planetsystems.tela.data.Teacher.SyncTeacherModel;
 
 import java.util.ArrayList;
 import java.util.List;
