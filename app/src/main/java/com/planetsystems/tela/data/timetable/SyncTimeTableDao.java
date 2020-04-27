@@ -18,7 +18,7 @@ public interface SyncTimeTableDao {
     @Query("SELECT * FROM "
             + SyncTimeTableConstant.TABLE_NAME
             + " WHERE " +
-            SyncTimeTableConstant.EMPLOYEE_ID
+            SyncTimeTableConstant.EMPLOYEE_NO
             + " =:employeeID AND "
             + SyncTimeTableConstant.DAY
             + " =:day")

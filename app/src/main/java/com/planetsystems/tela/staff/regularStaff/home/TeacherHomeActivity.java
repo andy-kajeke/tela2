@@ -91,7 +91,9 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
         teacherHomeActivityViewModel.timetables().observe(this, new Observer<List<SyncTimeTable>>() {
             @Override
             public void onChanged(List<SyncTimeTable> syncTimeTables) {
-                adapter.setTaskList(syncTimeTables);
+                for (int i = 0; i < syncTimeTables.size(); i++){
+                    adapter.setTaskList(syncTimeTables);
+                }
             }
         });
 
