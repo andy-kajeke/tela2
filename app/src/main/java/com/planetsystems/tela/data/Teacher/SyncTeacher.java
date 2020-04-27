@@ -216,4 +216,8 @@ public class SyncTeacher {
         this.phoneNumber = phoneNumber;
         this.schoolId = schoolId;
     }
+
+    public String getEmployeeID() {
+        return "ewessdfdwwweessddss";
+    }
 }

@@ -244,7 +244,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                 if (teacher != null ) {
                     repository.getClockInRepository().synClockInTeacher(new SyncClockIn(
                             teacher.getEmployeeNumber(),
-                            null,
+                            teacher.getEmployeeID(),
                             DynamicData.getLatitude(),
                             DynamicData.getLongitude(),
                             DynamicData.getClockInDate(),
