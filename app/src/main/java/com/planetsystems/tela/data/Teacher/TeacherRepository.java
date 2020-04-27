@@ -1,6 +1,10 @@
 package com.planetsystems.tela.data.Teacher;
 
+import androidx.lifecycle.LiveData;
+
 import com.planetsystems.tela.data.TelaRoomDatabase;
+
+import java.util.List;
 
 public class TeacherRepository {
     private SyncTeacherDao syncTeacherDao;
@@ -21,4 +25,16 @@ public class TeacherRepository {
         return INSTANCE;
     }
 
+    public void insertSyncTeacher(final SyncTeacher syncTeacher) {
+        TelaRoomDatabase.db_executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                syncTeacherDao.enrollTeacher(syncTeacher);
+            }
+        });
+    }
+
+    public LiveData<List<SyncTeacher>> getAllTeachers() {
+        return syncTeacherDao.getAllTeachers();
+    }
 }
