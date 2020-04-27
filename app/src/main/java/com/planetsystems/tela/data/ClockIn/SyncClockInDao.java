@@ -22,6 +22,22 @@ public interface SyncClockInDao {
     @Query("SELECT * FROM " + SyncClockInTableConstants.TABLE_NAME)
     List<SyncClockIn> getSyncClockInsForBackUp();
 
-    @Query("SELECT * FROM " + SyncClockInTableConstants.TABLE_NAME + " WHERE " + SyncClockInTableConstants.DAY + " = :date")
+    @Query(
+            "SELECT * FROM "
+             + SyncClockInTableConstants.TABLE_NAME
+             + " WHERE "
+             + SyncClockInTableConstants.DAY
+             + " = :date")
     LiveData<List<SyncClockIn>> getSyncClockInByDate(String date);
+
+    @Query("SELECT * FROM "
+            + SyncClockInTableConstants.TABLE_NAME
+            + " WHERE "
+            + SyncClockInTableConstants.DAY
+            + " =:day"
+            + " AND "
+            + SyncClockInTableConstants.EMPLOYEE_ID
+            + " =:employeeID"
+    )
+    List<SyncClockIn> getSyncClockInByEmployeeIDAndDay(String employeeID, String day);
 }
