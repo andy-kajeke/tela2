@@ -39,21 +39,24 @@ public class SyncTimeTableWorker extends Worker {
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 SyncTimeTables timeTables = new Gson().fromJson(reader, SyncTimeTables.class);
-                Log.d(TAG, "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                Log.d(TAG, String.valueOf(timeTables.timetables.size()));
-                Log.d(TAG, "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                for (SyncTimeTable timeTable : timeTables.timetables) {
+                    syncTimeTableDao.insertSyncTimeTable(timeTable);
+                    Log.d(TAG, "INSERTING: " + timeTable.toString());
+                }
                 reader.close();
+                return Result.success();
 
             } catch (Exception e) {
                 Log.e(TAG, "Exception parsing JSON", e);
+                return Result.failure();
             } finally {
                 connection.disconnect();
             }
 
         } catch (Exception e) {
             Log.e(TAG, "Exception creating connection", e);
+            return Result.failure();
         }
-        return null;
     }
 
     public class SyncTimeTables {

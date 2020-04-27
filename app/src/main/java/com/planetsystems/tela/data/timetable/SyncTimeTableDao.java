@@ -14,4 +14,7 @@ public interface SyncTimeTableDao {
 
     @Query("SELECT * FROM " + SyncTimeTableConstant.TABLE_NAME)
     LiveData<List<SyncTimeTable>> getSyncTimeTables();
+
+    @Insert
+    void insertSyncTimeTables(SyncTimeTable... timeTables);
 }
