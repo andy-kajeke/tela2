@@ -38,13 +38,13 @@ public class ClockInRepository {
     }
 
     public List<SyncClockIn> getSyncClockInByEmployeeIDAndDay(final String employeeID, final String day) throws ExecutionException, InterruptedException {
-        Callable<List<SyncClockIn>> collable = new Callable<List<SyncClockIn>>() {
+        Callable<List<SyncClockIn>> callable = new Callable<List<SyncClockIn>>() {
             @Override
             public List<SyncClockIn> call() throws Exception {
                 return syncClockInDao.getSyncClockInByEmployeeIDAndDay(employeeID, day);
             }
         };
-        Future<List<SyncClockIn>> future = TelaRoomDatabase.db_executor.submit(collable);
+        Future<List<SyncClockIn>> future = TelaRoomDatabase.db_executor.submit(callable);
         return future.get();
     }
 }
