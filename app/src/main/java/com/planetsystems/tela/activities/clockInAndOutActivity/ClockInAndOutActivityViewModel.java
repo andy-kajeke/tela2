@@ -16,9 +16,7 @@ import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -30,21 +28,9 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         super(application);
         MainRepository mainRepository = MainRepository.getInstance(application);
         clockOutRepository = mainRepository.getClockOutRepository();
+        clockInRepository = mainRepository.getClockInRepository();
 
     }
-
-    SyncTeacher clockOutTeacherWithFingerPrint(String stringEncodedFingerPrint, String base64EncodedBitmapImage) {
-//        SyncTeacher syncTeacher = findTeacherWithFingerPrint(stringEncodedFingerPrint.getBytes());
-//        if (syncTeacher == null) return null;
-//        SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
-//        mainRepository.synClockOutTeacher(syncClockIn);
-        return null;
-    }
-
-    SyncTeacher clockInTeacherWithFingerPrint(String stringEncodedFingerPrint, String base64EncodedBitmapImage) {
-        return null;
-    }
-
 
 
     public SyncTeacher clockOutTeacherWithEmployeeID(String id, String comment){
