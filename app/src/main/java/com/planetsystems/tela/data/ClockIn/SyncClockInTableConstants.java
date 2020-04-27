@@ -1,6 +1,7 @@
 package com.planetsystems.tela.data.ClockIn;
 
 public class SyncClockInTableConstants {
+    public static final String COLUMN_PRIMARY_KEY = "primary_key";
     public static final String TABLE_NAME = "clock_in_table";
     public static final String COLUMN_EMPLOYEE_NUMBER = "employeeNo";
     public static final String COLUMN_EMPLOYEE_ID = "employeeId";
