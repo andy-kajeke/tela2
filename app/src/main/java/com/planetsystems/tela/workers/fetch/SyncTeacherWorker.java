@@ -33,7 +33,6 @@ public class SyncTeacherWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.d("Worker", "Beginning work =================================================");
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(SYNC_TEACHER_URL).openConnection();
             try {
@@ -42,8 +41,16 @@ public class SyncTeacherWorker extends Worker {
                 SyncTeachers syncTeachers = new Gson().fromJson(reader, SyncTeachers.class);
                 reader.close();
                 for(int i = 0; i < syncTeachers.teachers.size(); i++) {
-                    syncTeacherDao.enrollTeacher(syncTeachers.teachers.get(i));
-                    Log.d(getClass().getSimpleName(), "Save teacher" + syncTeachers.teachers.get(i).toString());
+                    SyncTeacher teacher = syncTeachers.teachers.get(i);
+                    SyncTeacher syncedTeacher = syncTeacherDao.getSyncTeacher(
+                            teacher.getEmployeeNumber(),
+                            teacher.getId(),
+                            teacher.getNationalId()
+                    );
+
+                    if ( syncedTeacher == null ) {
+                        syncTeacherDao.enrollTeacher(teacher);
+                    }
                 }
                 return Result.success();
             } catch (IOException e) {
