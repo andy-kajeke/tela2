@@ -53,7 +53,7 @@ public class MainRepository {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
         employeeRoleDao = telaRoomDatabase.getEmployeeRoleDao();
         syncTeacherDao = telaRoomDatabase.getSyncTeachersDao();
-        syncClockOutDao = telaRoomDatabase.getSyncClockOuts();
+        syncClockOutDao = telaRoomDatabase.getSyncClockOutDao();
         syncAttendanceRecordDao = telaRoomDatabase.getSyncAttendanceRecordsDao();
         timeOnSiteAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnSiteAttendanceDao();
         timeOnTaskAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnTaskAttendancesDao();
@@ -118,28 +118,6 @@ public class MainRepository {
 
     public LiveData<List<SyncClockOut>> getAlreadyClockOutTeachers(){
         return syncClockOutDao.getClockOutTeachers();
-    }
-
-    public List<SyncClockOut> getSyncClockOutByEmployeeID(final String employeeID, final String date) throws ExecutionException, InterruptedException {
-        Callable<List<SyncClockOut>> callable = new Callable<List<SyncClockOut>>() {
-            @Override
-            public List<SyncClockOut> call() throws Exception {
-               return syncClockOutDao.getSyncClockOutByEmployeeIdAndDate(employeeID, date);
-            }
-        };
-        Future<List<SyncClockOut>> future = TelaRoomDatabase.db_executor.submit(callable);
-
-//        TelaRoomDatabase.db_executor.shutdown();
-        return  future.get();
-    }
-
-    public void insertSynClockOut(final SyncClockOut syncClockOut) {
-        TelaRoomDatabase.db_executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                syncClockOutDao.insertClockOutTeacher(syncClockOut);
-            }
-        });
     }
 
     public ClockInRepository getClockInRepository() {

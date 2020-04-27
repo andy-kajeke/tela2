@@ -57,7 +57,7 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
 
     public abstract EmployeeRoleDao getEmployeeRoleDao();
     public abstract SyncTeacherDao getSyncTeachersDao();
-    public abstract SyncClockOutDao getSyncClockOuts();
+    public abstract SyncClockOutDao getSyncClockOutDao();
     public abstract SyncClockInDao getSyncClockInDao();
     public abstract SyncConfirmTimeOnTaskAttendanceDao getSyncConfirmTimeOnTaskAttendancesDao();
     public abstract SyncConfirmTimeOnSiteAttendanceDao getSyncConfirmTimeOnSiteAttendanceDao();
