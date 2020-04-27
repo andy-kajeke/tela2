@@ -36,7 +36,7 @@ import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 import com.planetsystems.tela.staff.administration.AdminSideActivity;
-import com.planetsystems.tela.staff.regularStaff.TeacherHomeActivity;
+import com.planetsystems.tela.staff.regularStaff.home.TeacherHomeActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

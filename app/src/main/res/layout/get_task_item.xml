@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="0dp"
+    android:descendantFocusability="beforeDescendants">
+
+
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/Card_View"
+        android:layout_gravity="center"
+        android:layout_width="fill_parent"
+        card_view:cardBackgroundColor="#fff"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="1dp">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:background="#fff"
+            android:id="@+id/first_lay"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/personphoto"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="5dp"
+                android:radius="10dp"
+                android:src="@drawable/ic_menu_camera"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="0dp"
+                android:id="@+id/taskDescription21"
+                android:layout_marginTop="3dp">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="3dp"
+                    android:id="@+id/bc">
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="PI Math"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="3dp"
+                        android:textColor="#000"
+                        android:textStyle="normal"
+                        android:layout_marginBottom="1dp"
+                        android:textSize="14sp"
+                        android:id="@+id/taskDescription" />
+
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="3dp"
+                        android:id="@+id/bcdd">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:text="10:00AM"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginTop="0dp"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:textStyle="normal"
+                            android:textColor="#737373"
+                            android:layout_marginBottom="0dp"
+                            android:textSize="14sp"
+                            android:layout_marginRight="5dp"
+                            android:id="@+id/startTime" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:text="-"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginTop="0dp"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:textStyle="normal"
+                            android:textColor="#737373"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="0dp"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:text="11:00AM"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginTop="0dp"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:textStyle="normal"
+                            android:textColor="#737373"
+                            android:layout_marginBottom="0dp"
+                            android:textSize="14sp"
+                            android:id="@+id/endTime" />
+
+                        <Switch
+                            android:id="@+id/switch1"
+                            android:layout_width="wrap_content"
+                            android:gravity="right"
+                            android:layout_marginLeft="73dp"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</FrameLayout>
