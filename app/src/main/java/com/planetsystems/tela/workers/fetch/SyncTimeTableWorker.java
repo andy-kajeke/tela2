@@ -59,7 +59,7 @@ public class SyncTimeTableWorker extends Worker {
         }
     }
 
-    public class SyncTimeTables {
+    public static class SyncTimeTables {
         List<SyncTimeTable> timetables;
     }
 }
