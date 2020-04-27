@@ -10,6 +10,10 @@ import androidx.work.WorkManager;
 import com.planetsystems.tela.workers.fetch.SyncTimeTableWorker;
 
 public class WorkManagerTrigger {
+    public static  void startFetchWorkers(Context context) {
+        startFetchSyncTimeTableWorker(context);
+    }
+
     public static void startFetchSyncTimeTableWorker(Context context) {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
