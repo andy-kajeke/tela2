@@ -27,7 +27,6 @@ import com.planetsystems.tela.data.smc.SyncSMCDao;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
-import com.planetsystems.tela.workers.fetch.SyncTimeTableWorker;
 import com.planetsystems.tela.workers.upload.SyncClockInTeacherUploadWorker;
 import com.planetsystems.tela.workers.fetch.SyncTeacherWorker;
 
@@ -134,13 +133,13 @@ public class Repository {
 
     // picking data from the cloud to SyncTimeTable table
     public void populateSyncTimeTableFromApi() {
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build();
-        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncTimeTableWorker.class)
-                .setConstraints(constraints)
-                .build();
-        WorkManager.getInstance(application).enqueue(workRequest);
+//        Constraints constraints = new Constraints.Builder()
+//                .setRequiredNetworkType(NetworkType.CONNECTED)
+//                .build();
+//        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncTimeTableWorker.class)
+//                .setConstraints(constraints)
+//                .build();
+//        WorkManager.getInstance(application).enqueue(workRequest);
 
     }
 
