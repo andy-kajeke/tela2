@@ -98,6 +98,14 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return null;
     }
 
+    SyncTeacher clockOutTeacherWithFingerPrint(String stringEncodedFingerPrint) {
+        return null;
+    }
+
+    SyncTeacher clockInTeacherWithFingerPrint(String stringEncodedFingerPrint) {
+        return null;
+    }
+
     /*
     * This class Dynamic data that are generated during run time
     * I create this class to simplify the data management*/

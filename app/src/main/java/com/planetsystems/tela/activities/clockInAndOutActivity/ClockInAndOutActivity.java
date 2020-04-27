@@ -67,16 +67,6 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_clockin__clock_out);
         viewModel = new ViewModelProvider(this).get(ClockInAndOutActivityViewModel.class);
 
-        /*
-        This observes and set syncclockin list in the view model
-        * */
-//        viewModel.getClockInLiveData().observe(this, new Observer<List<SyncClockIn>>() {
-//            @Override
-//            public void onChanged(List<SyncClockIn> syncClockIns) {
-//                viewModel.setSyncClockInList(syncClockIns);
-//            }
-//        });
-
 
         dateDisplay = findViewById(R.id.calendarView4);
         schoolName = findViewById(R.id.schoolName);
@@ -331,7 +321,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK ) {
                     String stringEncodedFingerPrint = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA);
                     String base64EncodedBitmapImage = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_IMAGE);
-                    SyncTeacher syncTeacher = viewModel.clockOutTeacherWithFingerPrint(stringEncodedFingerPrint, base64EncodedBitmapImage);
+                    SyncTeacher syncTeacher = viewModel.clockOutTeacherWithFingerPrint(stringEncodedFingerPrint);
                     loadTeacherHomePage(syncTeacher);
                 }
             } else if (requestCode == CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE) {
@@ -339,7 +329,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK ) {
                     String stringEncodedFingerPrint = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA);
                     String base64EncodedBitmapImage = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_IMAGE);
-                    SyncTeacher syncTeacher = viewModel.clockInTeacherWithFingerPrint(stringEncodedFingerPrint, base64EncodedBitmapImage);
+                    SyncTeacher syncTeacher = viewModel.clockInTeacherWithFingerPrint(stringEncodedFingerPrint);
                     loadTeacherHomePage(syncTeacher);
                 }
             }  // I don't know what has happened
