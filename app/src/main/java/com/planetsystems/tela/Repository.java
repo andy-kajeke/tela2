@@ -195,7 +195,7 @@ public class Repository {
         Callable<List<SyncClockOut>> callable = new Callable<List<SyncClockOut>>() {
             @Override
             public List<SyncClockOut> call() throws Exception {
-               return syncClockOutDao.getSyncClockOutByEmployeeId(employeeID, date);
+               return syncClockOutDao.getSyncClockOutByEmployeeIdAndDate(employeeID, date);
             }
         };
         Future<List<SyncClockOut>> future = TelaRoomDatabase.db_executor.submit(callable);

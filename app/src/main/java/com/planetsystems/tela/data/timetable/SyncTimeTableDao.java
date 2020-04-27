@@ -15,4 +15,13 @@ public interface SyncTimeTableDao {
     @Query("SELECT * FROM " + SyncTimeTableConstant.TABLE_NAME)
     LiveData<List<SyncTimeTable>> getSyncTimeTables();
 
+    @Query("SELECT * FROM "
+            + SyncTimeTableConstant.TABLE_NAME
+            + " WHERE " +
+            SyncTimeTableConstant.EMPLOYEE_ID
+            + " =:employeeID AND "
+            + SyncTimeTableConstant.DAY
+            + " =:day")
+    LiveData<List<SyncTimeTable>> getSyncTimeTableByEmployeeIDForDay(String employeeID, String day);
+
 }
