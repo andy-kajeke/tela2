@@ -218,88 +218,92 @@ public class SyncTeacher {
     }
 
     public static class Builder {
-        private SyncTeacher INSTANCE;
+        private final SyncTeacher INSTANCE;
         public Builder() {
             INSTANCE = new SyncTeacher();
         }
 
-        public SyncTeacher setEmployeeId(String employeeID) {
+        public SyncTeacher.Builder setEmployeeId(String employeeID) {
             INSTANCE.setEmployeeId(employeeID);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setMPSComputerNumber(String computerNumber) {
+        public SyncTeacher.Builder setMPSComputerNumber(String computerNumber) {
             INSTANCE.setMPSComputerNumber(computerNumber);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setEmployeeNumber(String employeeNumber) {
+        public SyncTeacher.Builder setEmployeeNumber(String employeeNumber) {
             INSTANCE.setEmployeeNumber(employeeNumber);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setRole(String role) {
+        public Builder setRole(String role) {
             INSTANCE.setRole(role);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setDOB(String dob) {
+        public SyncTeacher.Builder setDOB(String dob) {
             INSTANCE.setDob(dob);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setEmailAddress(String emailAddress) {
+        public SyncTeacher.Builder setEmailAddress(String emailAddress) {
             INSTANCE.setEmailAddress(emailAddress);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setFingerPrint(String fingerPrint) {
+        public SyncTeacher.Builder setFingerPrint(String fingerPrint) {
             INSTANCE.setFingerPrint(fingerPrint);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setFingerImage(String fingerImage) {
+        public SyncTeacher.Builder setFingerImage(String fingerImage) {
             INSTANCE.setFingerImage(fingerImage);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setFirstName(String firstName) {
+        public SyncTeacher.Builder setFirstName(String firstName) {
             INSTANCE.setFirstName(firstName);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setLastName(String lastName) {
+        public SyncTeacher.Builder setLastName(String lastName) {
             INSTANCE.setLastName(lastName);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setGender(String gender) {
+        public SyncTeacher.Builder setGender(String gender) {
             INSTANCE.setGender(gender);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setInitials(String initials) {
+        public SyncTeacher.Builder setInitials(String initials) {
             INSTANCE.setInitials(initials);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setLicensed(Boolean licensed) {
+        public SyncTeacher.Builder setLicensed(Boolean licensed) {
             INSTANCE.setLicensed(licensed);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setNationalID(String nationalID) {
+        public SyncTeacher.Builder setNationalID(String nationalID) {
             INSTANCE.setNationalId(nationalID);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setPhoneNumber(String phoneNumber) {
+        public SyncTeacher.Builder setPhoneNumber(String phoneNumber) {
             INSTANCE.setPhoneNumber(phoneNumber);
-            return INSTANCE;
+            return this;
         }
 
-        public SyncTeacher setSchoolID(String schoolID) {
+        public SyncTeacher.Builder setSchoolID(String schoolID) {
             INSTANCE.setSchoolId(schoolID);
+            return this;
+        }
+
+        public SyncTeacher build() {
             return INSTANCE;
         }
     }
