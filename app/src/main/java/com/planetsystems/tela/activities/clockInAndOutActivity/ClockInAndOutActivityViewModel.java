@@ -48,7 +48,6 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         repository = Repository.getInstance(application);
         syncTeachersLiveData = repository.getAllTeachers();
         synClockOutLiveData = repository.getAlreadyClockOutTeachers();
-        syncClockInsLiveData = repository.getAllClockedInStaff();
 
         //Day of the week
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
@@ -71,26 +70,6 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         * */
         return syncTeachersLiveData;
     }
-
-    SyncTeacher clockInTeacherEmployeeNumber(String employeeNumber) {
-        // example employee number 9876 for ojok
-        /*
-        * This method clocks in a teacher and returns the results
-        * */
-       SyncTeacher syncTeacher = findEmployeeNumberWithEmployeeNumber(employeeNumber);
-       if (syncTeacher == null) return null;
-       try {
-           if (hasAlreadyClockedIn(syncTeacher)) {
-               return syncTeacher;
-           }
-       } catch (ParseException e) {
-           e.printStackTrace();
-       }
-        SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
-       repository.synClockInTeacher(syncClockIn);
-        return syncTeacher ;
-    }
-
     private SyncTeacher findEmployeeNumberWithEmployeeNumber(String staffID) {
         /*
         * Searches the database and returns matching sync teacher
@@ -113,16 +92,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     }
 
     SyncTeacher clockInTeacherWithFingerPrint(String stringEncodedFingerPrint, String base64EncodedBitmapImage) {
-        /*
-        * A method that clocks in a teacher using finger print and returns that clocked in user,
-        * see clockOutTeacherWithFingerPrint(String stringEncodedFingerPrint, String base64EncodedBitmapImage)
-        * and other similar methods
-        * */
-        SyncTeacher syncTeacher = findTeacherWithFingerPrint(stringEncodedFingerPrint.getBytes());
-        if (syncTeacher == null ) return null;
-        SyncClockIn syncClockIn = copySynTeacherToSyncClockIn(syncTeacher);
-        repository.synClockInTeacher(syncClockIn);
-        return syncTeacher;
+        return null;
     }
 
     void setTeachers(List<SyncTeacher> teachers) {
@@ -147,35 +117,6 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return null;
     }
 
-    private SyncClockIn copySynTeacherToSyncClockIn(SyncTeacher teacher) {
-        /*
-        * Given sync teacher will holds all the vital in about teacher,
-        * this method was created for code reusability, it maps out sysnc teacher into
-        * sync clock in => check copySynTeacherToSyncClockOut(SyncTeacher teacher)
-        * also
-        * */
-        // TODO: please fix the time below, this time will be time the app was lunched change it
-        return new SyncClockIn(
-                GenerateRandomString.randomString(17),
-                null,
-                null,
-                null,
-                dateString,
-                checkIn_time,
-                dayOfTheWeek,
-                teacher.getEmployeeNumber(),
-                teacher.getEmployeeNumber(),
-                null,
-                null,
-                null,
-                null,
-                teacher.getFirstName(),
-                teacher.getLastName(),
-                null,
-                null
-
-        );
-    }
 
     LiveData<List<SyncClockOut>> getSynClockOutLiveData() {
         /*
@@ -286,4 +227,72 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         }
         return null;
     }
+
+    SyncTeacher clockInTeacherEmployeeNumber(String employeeNumber) {
+        // example employee number 9876 for ojok
+        /*
+         * This method clocks in a teacher and returns the results
+         * */
+        try {
+            List<SyncClockIn> list = repository
+                    .getClockInRepository()
+                    .getSyncClockInByEmployeeIDAndDay(employeeNumber, getCurrentDate());
+            if (list.size() > 0) {
+                return findEmployeeNumberWithEmployeeNumber(employeeNumber);
+            } else {
+                SyncTeacher teacher = findEmployeeNumberWithEmployeeNumber(employeeNumber);
+                if (teacher != null ) {
+                    repository.getClockInRepository().synClockInTeacher(new SyncClockIn(
+                            teacher.getEmployeeNumber(),
+                            null,
+                            DynamicData.getLatitude(),
+                            DynamicData.getLongitude(),
+                            DynamicData.getClockInDate(),
+                            DynamicData.getClockInDay(),
+                            DynamicData.getClockInTime(),
+                            DynamicData.getSchoolID()
+                    ));
+                    return teacher;
+                }
+
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    public static class DynamicData {
+        static String getSchoolID() {
+            //TODO: put codes here for finding school id
+            return "909987776676677";
+        }
+
+        static String getClockInDate() {
+            long date = System.currentTimeMillis();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
+            return  dateFormat.format(date);
+        }
+
+        static String getLatitude() {
+            return "90998877887";
+        }
+
+        static String getLongitude() {
+            return "77887766";
+        }
+
+        static String getClockInDay() {
+            return "Monday";
+        }
+
+        static String getClockInTime() {
+            long date = System.currentTimeMillis();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
+            SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
+            return  time.format(date);
+        }
+    }
+
 }
