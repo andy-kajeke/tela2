@@ -9,7 +9,10 @@ import androidx.room.PrimaryKey;
 public class SyncTeacher {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = SyncTeacherTableConstants.PRIMARY_KEY)
-    private int id;
+    private int primaryKey;
+
+    @ColumnInfo(name = SyncTeacherTableConstants.ID_COLUMN_NAME)
+    private String id;
 
     @ColumnInfo(name = SyncTeacherTableConstants.EMPLOYEE_ID_COLUMN_NAME)
     private String employeeId;
@@ -59,12 +62,12 @@ public class SyncTeacher {
     @ColumnInfo(name = SyncTeacherTableConstants.SCHOOL_ID_COLUMN_NAME)
     private String schoolId;
 
-    public int getId() {
-        return id;
+    public int getPrimaryKey() {
+        return primaryKey;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPrimaryKey(int primaryKey) {
+        this.primaryKey = primaryKey;
     }
 
     public String getEmployeeId() {
@@ -195,25 +198,6 @@ public class SyncTeacher {
         this.fingerImage = fingerImage;
     }
 
-    public SyncTeacher(String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, String fingerPrint, String fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
-        this.employeeId = employeeId;
-        this.MPSComputerNumber = MPSComputerNumber;
-        this.employeeNumber = employeeNumber;
-        this.role = role;
-        this.dob = dob;
-        this.emailAddress = emailAddress;
-        this.fingerPrint = fingerPrint;
-        this.fingerImage = fingerImage;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.initials = initials;
-        this.licensed = licensed;
-        this.nationalId = nationalId;
-        this.phoneNumber = phoneNumber;
-        this.schoolId = schoolId;
-    }
-
     private SyncTeacher() {
     }
 
@@ -303,31 +287,41 @@ public class SyncTeacher {
             return this;
         }
 
+        public Builder setID(String id) {
+            INSTANCE.setId(id);
+            return this;
+        }
+
         public SyncTeacher build() {
             return INSTANCE;
         }
     }
 
-    @Override
-    public String toString() {
-        return "SyncTeacher{" +
-                "id=" + id +
-                ", employeeId='" + employeeId + '\'' +
-                ", MPSComputerNumber='" + MPSComputerNumber + '\'' +
-                ", employeeNumber='" + employeeNumber + '\'' +
-                ", role='" + role + '\'' +
-                ", dob='" + dob + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", fingerPrint='" + fingerPrint + '\'' +
-                ", fingerImage='" + fingerImage + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", initials='" + initials + '\'' +
-                ", licensed=" + licensed +
-                ", nationalId='" + nationalId + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", schoolId='" + schoolId + '\'' +
-                '}';
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public SyncTeacher(String id, String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, String fingerPrint, String fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
+        this.id = id;
+        this.employeeId = employeeId;
+        this.MPSComputerNumber = MPSComputerNumber;
+        this.employeeNumber = employeeNumber;
+        this.role = role;
+        this.dob = dob;
+        this.emailAddress = emailAddress;
+        this.fingerPrint = fingerPrint;
+        this.fingerImage = fingerImage;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.initials = initials;
+        this.licensed = licensed;
+        this.nationalId = nationalId;
+        this.phoneNumber = phoneNumber;
+        this.schoolId = schoolId;
     }
 }
