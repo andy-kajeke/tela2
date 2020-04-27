@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.planetsystems.tela.GenerateRandomString;
 import com.planetsystems.tela.Repository;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
@@ -236,14 +235,14 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         try {
             List<SyncClockIn> list = repository
                     .getClockInRepository()
-                    .getSyncClockInByEmployeeIDAndDay(employeeNumber, getCurrentDate());
+                    .getSyncClockInByEmployeeIDAndDate(employeeNumber, getCurrentDate());
             if (list.size() > 0) {
                 return findEmployeeNumberWithEmployeeNumber(employeeNumber);
             } else {
                 SyncTeacher teacher = findEmployeeNumberWithEmployeeNumber(employeeNumber);
                 if (teacher != null ) {
                     repository.getClockInRepository().synClockInTeacher(new SyncClockIn(
-                            teacher.getEmployeeNumber(),
+                            employeeNumber,
                             teacher.getEmployeeID(),
                             DynamicData.getLatitude(),
                             DynamicData.getLongitude(),

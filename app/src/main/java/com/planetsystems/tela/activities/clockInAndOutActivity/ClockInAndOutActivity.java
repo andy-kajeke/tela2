@@ -92,12 +92,12 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         /*
         This observes and set syncclockin list in the view model
         * */
-        viewModel.getClockInLiveData().observe(this, new Observer<List<SyncClockIn>>() {
-            @Override
-            public void onChanged(List<SyncClockIn> syncClockIns) {
-                viewModel.setSyncClockInList(syncClockIns);
-            }
-        });
+//        viewModel.getClockInLiveData().observe(this, new Observer<List<SyncClockIn>>() {
+//            @Override
+//            public void onChanged(List<SyncClockIn> syncClockIns) {
+//                viewModel.setSyncClockInList(syncClockIns);
+//            }
+//        });
 
         /*
          * We listen observe the livedata in view model and update the list contained there with

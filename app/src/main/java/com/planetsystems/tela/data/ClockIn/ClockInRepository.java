@@ -1,7 +1,5 @@
 package com.planetsystems.tela.data.ClockIn;
 
-import android.app.Application;
-
 import com.planetsystems.tela.data.TelaRoomDatabase;
 
 import java.util.List;
@@ -37,11 +35,11 @@ public class ClockInRepository {
         });
     }
 
-    public List<SyncClockIn> getSyncClockInByEmployeeIDAndDay(final String employeeID, final String day) throws ExecutionException, InterruptedException {
+    public List<SyncClockIn> getSyncClockInByEmployeeIDAndDate(final String employeeNumber, final String date) throws ExecutionException, InterruptedException {
         Callable<List<SyncClockIn>> callable = new Callable<List<SyncClockIn>>() {
             @Override
             public List<SyncClockIn> call() throws Exception {
-                return syncClockInDao.getSyncClockInByEmployeeIDAndDay(employeeID, day);
+                return syncClockInDao.getSyncClockInByEmployeeIDAndDate(employeeNumber, date);
             }
         };
         Future<List<SyncClockIn>> future = TelaRoomDatabase.db_executor.submit(callable);
