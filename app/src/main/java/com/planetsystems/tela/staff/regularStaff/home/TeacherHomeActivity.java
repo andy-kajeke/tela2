@@ -1,8 +1,16 @@
-package com.planetsystems.tela.staff.regularStaff;
+package com.planetsystems.tela.staff.regularStaff.home;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,34 +23,37 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.Repository;
 import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
+import com.planetsystems.tela.data.timetable.SyncTimeTable;
+import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
+import com.planetsystems.tela.staff.administration.timeAttendance.ClockInListAdapter;
 import com.planetsystems.tela.staff.regularStaff.serviceRequests.MakeRequests;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
     public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_LAST_NAME";
     public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
 
+    SyncTimeTableDao syncTimeTableDao;
+
     ProgressDialog dialog;
     int count =0;
     int count2 =0;
-    Bundle bundle;
-    String  data;
-    ListView lstView1;
-    String test="";
+    RecyclerView tasks;
     TextView datetoday;
-    String namez="";
-    String empNo="";
     TextView emp_Name;
     TextView emp_Id;
     TextView tvname;
     //TextView datetoday;
     Button submit, selfmenu;
-//    ArrayList<Tasks> markList;
-//    TaskAdapter adapter;
+    ArrayList<SyncTimeTable> mSyncTimeTables;
+    TasksAdapter adapter;
     public String id_extra;
     String lat_extra, long_extra;
     String emp_id_extra, emp_name_extra;
@@ -52,12 +63,12 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_home);
 
-        lstView1 = findViewById(R.id.card_listView);
+        tasks = findViewById(R.id.task_list);
         emp_Name = findViewById(R.id.namexx);
         emp_Id = findViewById(R.id.staffId);
         datetoday = findViewById(R.id.datetoday);
-        submit= findViewById(R.id.submit);
-        selfmenu= findViewById(R.id.menuBtn);
+        submit = findViewById(R.id.submit);
+        selfmenu = findViewById(R.id.menuBtn);
 
         Date currentTime = Calendar.getInstance().getTime();
         datetoday.setText(""+currentTime.toString());
@@ -68,6 +79,21 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
 
         emp_Name.append(emp_name_extra);
         emp_Id.append(emp_id_extra);
+
+        //Listing individual task in recyclerview
+        mSyncTimeTables = new ArrayList<>();
+        adapter = new TasksAdapter(this, mSyncTimeTables);
+        tasks.setAdapter(adapter);
+        tasks.setLayoutManager(new LinearLayoutManager(this));
+
+        TeacherHomeActivityViewModel teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
+
+        teacherHomeActivityViewModel.timetables().observe(this, new Observer<List<SyncTimeTable>>() {
+            @Override
+            public void onChanged(List<SyncTimeTable> syncTimeTables) {
+                adapter.setTaskList(syncTimeTables);
+            }
+        });
 
         //submit attendance commitment
         submit.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +124,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
             }
         });
     }
+
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {

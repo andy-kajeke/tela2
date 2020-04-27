@@ -1,0 +1,25 @@
+package com.planetsystems.tela.staff.regularStaff.home;
+
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
+import com.planetsystems.tela.Repository;
+import com.planetsystems.tela.data.timetable.SyncTimeTable;
+import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
+
+import java.util.List;
+
+public class TeacherHomeActivityViewModel extends AndroidViewModel {
+    SyncTimeTableDao syncTimeTableDao;
+    public TeacherHomeActivityViewModel(@NonNull Application application) {
+        super(application);
+        syncTimeTableDao = new Repository(application).getSyncTimeTableDao();
+    }
+
+    LiveData<List<SyncTimeTable>> timetables() {
+        return syncTimeTableDao.getSyncTimeTableByEmployeeIDForDay("3991", "Thursday");
+    }
+}

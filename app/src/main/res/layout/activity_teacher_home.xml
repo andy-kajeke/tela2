@@ -118,17 +118,11 @@
         android:layout_above="@+id/footer"
         android:id="@+id/list">
 
-        <ListView
-            android:layout_marginTop="15dp"
-            android:id="@+id/card_listView"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:listSelector="@android:color/transparent"
-            android:cacheColorHint="@android:color/transparent"
-            android:choiceMode="multipleChoice"
-            android:divider="#fff"
-            android:layout_marginBottom="5dp"
-            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/task_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/get_task_item"/>
 
     </LinearLayout>
 
