@@ -24,4 +24,9 @@ public interface SyncTimeTableDao {
             + " =:day")
     LiveData<List<SyncTimeTable>> getSyncTimeTableByEmployeeIDForDay(String employeeID, String day);
 
+    @Query("SELECT * FROM " + SyncTimeTableConstant.TABLE_NAME)
+    List<SyncTimeTable> getSyncTimeTableDebug();
+
+
+
 }
