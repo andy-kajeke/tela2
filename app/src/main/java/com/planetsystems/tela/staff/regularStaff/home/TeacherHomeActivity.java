@@ -1,16 +1,12 @@
 package com.planetsystems.tela.staff.regularStaff.home;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,16 +14,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.Repository;
 import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
-import com.planetsystems.tela.staff.administration.timeAttendance.ClockInListAdapter;
 import com.planetsystems.tela.staff.regularStaff.serviceRequests.MakeRequests;
 
 import java.util.ArrayList;

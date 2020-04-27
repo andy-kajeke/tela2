@@ -6,8 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.planetsystems.tela.Repository;
-import com.planetsystems.tela.data.Teacher.SyncTeacher;
+import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
@@ -19,8 +18,8 @@ public class TestActivityViewModel extends AndroidViewModel {
     SyncTimeTableDao syncTimeTableDao;
     public TestActivityViewModel(@NonNull Application application) {
         super(application);
-        syncTeacherDao = new Repository(application).getSyncTeacherDao();
-        syncTimeTableDao = new Repository(application).getSyncTimeTableDao();
+        syncTeacherDao = new MainRepository(application).getSyncTeacherDao();
+        syncTimeTableDao = new MainRepository(application).getSyncTimeTableDao();
     }
 
     LiveData<List<SyncTimeTable>> timetable() {
