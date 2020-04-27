@@ -3,7 +3,6 @@ package com.planetsystems.tela.activities.clockInAndOutActivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
@@ -32,14 +31,11 @@ import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
 import com.planetsystems.tela.constants.Role;
-import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
-import com.planetsystems.tela.data.clockOut.SyncClockOut;
 import com.planetsystems.tela.staff.administration.AdminSideActivity;
 import com.planetsystems.tela.staff.regularStaff.home.TeacherHomeActivity;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Objects;
 
 public class ClockInAndOutActivity extends AppCompatActivity {
@@ -52,8 +48,8 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     Button btnFingerprint_In, btnStaffId_In, btnFingerprint_Out, btnStaffId_Out;
     CardView checkin, checkout, datacenter;
     Dialog checkInDialog, checkOutDialog, checkOutPopup;
-    public static final int CLOCK_IN_ACTIVITY_REQUEST_CODE = 645;
-    public static final int CLOCK_OUT_ACTIVITY_REQUEST_CODE = 445;
+    public static final int CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 645;
+    public static final int CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 445;
     public static  String clockInTime = "";
     ClockInAndOutActivityViewModel viewModel;
     String deviceIMEI_extra, schoolName_extra;
@@ -72,24 +68,6 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(ClockInAndOutActivityViewModel.class);
 
         /*
-        * We listen observe the livedata in view model and update the list contained there with
-        * the most updated data, see below
-        * */
-        viewModel.getAllSyncTeacher().observe(this, new Observer<List<SyncTeacher>>() {
-            @Override
-            public void onChanged(List<SyncTeacher> syncTeachers) {
-                viewModel.setTeachers(syncTeachers);
-            }
-        });
-
-        viewModel.getSynClockOutLiveData().observe(this, new Observer<List<SyncClockOut>>() {
-            @Override
-            public void onChanged(List<SyncClockOut> syncClockOuts) {
-                Toast.makeText(ClockInAndOutActivity.this, "The size is: " + syncClockOuts.size(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        /*
         This observes and set syncclockin list in the view model
         * */
 //        viewModel.getClockInLiveData().observe(this, new Observer<List<SyncClockIn>>() {
@@ -99,16 +77,6 @@ public class ClockInAndOutActivity extends AppCompatActivity {
 //            }
 //        });
 
-        /*
-         * We listen observe the livedata in view model and update the list contained there with
-         * the most updated data, see below
-         * */
-        viewModel.getSynClockOutLiveData().observe(this, new Observer<List<SyncClockOut>>() {
-            @Override
-            public void onChanged(List<SyncClockOut> syncClockOuts) {
-                viewModel.setSynClockOutTeachers(syncClockOuts);
-            }
-        });
 
         dateDisplay = findViewById(R.id.calendarView4);
         schoolName = findViewById(R.id.schoolName);
@@ -192,7 +160,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ClockInAndOutActivity.this, FingerPrintActivity.class);
                 intent.setAction(FingerPrintActivity.ACTION_CLOCK_IN);
-                startActivityForResult(intent, CLOCK_IN_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent, CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE);
                 checkInDialog.dismiss();
 
             }
@@ -234,7 +202,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 Log.d("Clock Out", "clocking out");
                 Intent intent = new Intent(ClockInAndOutActivity.this, FingerPrintActivity.class);
                 intent.setAction(FingerPrintActivity.ACTION_CLOCK_OUT);
-                startActivityForResult(intent, CLOCK_OUT_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent, CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE);
                 checkOutDialog.dismiss();
 
 
@@ -358,7 +326,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                     SyncTeacher syncTeacher = viewModel.clockInTeacherEmployeeNumber(Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
                     loadTeacherHomePage(syncTeacher);
                 }
-            } else if (requestCode == CLOCK_OUT_ACTIVITY_REQUEST_CODE) {
+            } else if (requestCode == CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE) {
                 // teacher clocking out
                 if (resultCode == RESULT_OK ) {
                     String stringEncodedFingerPrint = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA);
@@ -366,7 +334,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                     SyncTeacher syncTeacher = viewModel.clockOutTeacherWithFingerPrint(stringEncodedFingerPrint, base64EncodedBitmapImage);
                     loadTeacherHomePage(syncTeacher);
                 }
-            } else if (requestCode == CLOCK_IN_ACTIVITY_REQUEST_CODE) {
+            } else if (requestCode == CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE) {
                 // teacher clocking out
                 if (resultCode == RESULT_OK ) {
                     String stringEncodedFingerPrint = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA);
