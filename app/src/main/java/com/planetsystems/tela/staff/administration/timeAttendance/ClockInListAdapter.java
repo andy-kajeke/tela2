@@ -40,26 +40,26 @@ public class ClockInListAdapter extends RecyclerView.Adapter<ClockInListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull StaffViewHolder holder, int position) {
-        if (mSyncClockIn != null){
-            SyncClockIn syncClockIn = mSyncClockIn.get(position);
-            holder.setData(syncClockIn.getEmpFirstName(), syncClockIn.getEmpLastName(), syncClockIn.getEmployeeNo(), syncClockIn.getClockInTime(), position);
-
-            String L= ""+mSyncClockIn.get(position).getEmpFirstName();
-            char k = mSyncClockIn.get(position).getEmpFirstName().charAt(0);
-            String Cap= ""+k+"".toString().toUpperCase();
-            String s = Character.toString(k);
-
-            ColorGenerator generator = ColorGenerator.MATERIAL; // or use
-
-            int color1 = generator.getRandomColor();
-
-            TextDrawable drawable = TextDrawable.builder().buildRoundRect(""+s.toUpperCase(),color1,60); //radius in px
-
-            holder.imageView.setImageDrawable(drawable);
-
-        }else {
-            holder.It_role.setText("No record");
-        }
+//        if (mSyncClockIn != null){
+//            SyncClockIn syncClockIn = mSyncClockIn.get(position);
+//            holder.setData(syncClockIn.getEmpFirstName(), syncClockIn.getEmpLastName(), syncClockIn.getEmployeeNo(), syncClockIn.getClockInTime(), position);
+//
+//            String L= ""+mSyncClockIn.get(position).getEmpFirstName();
+//            char k = mSyncClockIn.get(position).getEmpFirstName().charAt(0);
+//            String Cap= ""+k+"".toString().toUpperCase();
+//            String s = Character.toString(k);
+//
+//            ColorGenerator generator = ColorGenerator.MATERIAL; // or use
+//
+//            int color1 = generator.getRandomColor();
+//
+//            TextDrawable drawable = TextDrawable.builder().buildRoundRect(""+s.toUpperCase(),color1,60); //radius in px
+//
+//            holder.imageView.setImageDrawable(drawable);
+//
+//        }else {
+//            holder.It_role.setText("No record");
+//        }
     }
 
     @Override

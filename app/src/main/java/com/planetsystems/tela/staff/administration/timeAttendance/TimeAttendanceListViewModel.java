@@ -26,6 +26,7 @@ public class TimeAttendanceListViewModel extends AndroidViewModel {
         repository = new Repository(application);
     }
     public LiveData<List<SyncClockIn>> teachers(){
-        return repository.getAllClockedInStaff();
+//        return repository.getAllClockedInStaff();
+        return null;
     }
 }

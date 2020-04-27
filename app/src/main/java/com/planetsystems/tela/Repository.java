@@ -2,13 +2,9 @@ package com.planetsystems.tela;
 
 import android.app.Application;
 
-//import androidx.constraintlayout.widget.Constraints;
 import androidx.lifecycle.LiveData;
-import androidx.work.Constraints;
-import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
+import com.planetsystems.tela.data.ClockIn.ClockInRepository;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.attendance.SyncAttendanceRecordDao;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
@@ -43,7 +39,6 @@ public class Repository {
     private EmployeeRoleDao employeeRoleDao;
     private SyncTeacherDao syncTeacherDao;
     private SyncClockOutDao syncClockOutDao;
-    private SyncClockInDao syncClockInDao;
     private SyncConfirmTimeOnSiteAttendanceDao timeOnSiteAttendanceDao;
     private SyncConfirmTimeOnTaskAttendanceDao timeOnTaskAttendanceDao;
     private SyncEmployeeMaterialRequestDao syncEmployeeMaterialRequestDao;
@@ -56,13 +51,14 @@ public class Repository {
     private Application application;
     private ExecutorService executorService;
 
+    private ClockInRepository clockInRepository;
+
     public Repository(Application application) {
         this.application = application;
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
         employeeRoleDao = telaRoomDatabase.getEmployeeRoleDao();
         syncTeacherDao = telaRoomDatabase.getSyncTeachersDao();
         syncClockOutDao = telaRoomDatabase.getSyncClockOuts();
-        syncClockInDao = telaRoomDatabase.getSyncClockInDao();
         syncAttendanceRecordDao = telaRoomDatabase.getSyncAttendanceRecordsDao();
         timeOnSiteAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnSiteAttendanceDao();
         timeOnTaskAttendanceDao = telaRoomDatabase.getSyncConfirmTimeOnTaskAttendancesDao();
@@ -74,6 +70,8 @@ public class Repository {
         syncSMCDao = telaRoomDatabase.getSyncSMCDao();
         syncTimeTableDao = telaRoomDatabase.getSyncTimeTableDao();
         executorService = TelaRoomDatabase.db_executor;
+
+        clockInRepository = ClockInRepository.getInstance(telaRoomDatabase);
 
     }
 
@@ -105,11 +103,6 @@ public class Repository {
         return syncTeacherDao.getAllTeachers();
     }
 
-    //Fetch all clocked in staff members
-    public LiveData<List<SyncClockIn>> getAllClockedInStaff(){
-        return syncClockInDao.getAllClockIn();
-    }
-
     //Get all timetables
     public LiveData<List<SyncTimeTable>> getAllSyncTimeTable(){
         return syncTimeTableDao.getSyncTimeTables();
@@ -127,14 +120,6 @@ public class Repository {
         return syncTeacherDao.getAllTeachers();
     }
 
-    public void synClockInTeacher(final SyncClockIn clockIn){
-        TelaRoomDatabase.db_executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                syncClockInDao.syncClockInTeacherWithID(clockIn);
-            }
-        });
-    }
 
     public LiveData<List<SyncClockOut>> getAlreadyClockOutTeachers(){
         return syncClockOutDao.getClockOutTeachers();
@@ -160,5 +145,9 @@ public class Repository {
                 syncClockOutDao.insertClockOutTeacher(syncClockOut);
             }
         });
+    }
+
+    public ClockInRepository getClockInRepository() {
+        return clockInRepository;
     }
 }
