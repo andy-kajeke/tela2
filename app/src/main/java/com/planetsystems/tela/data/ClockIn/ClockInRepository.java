@@ -47,4 +47,5 @@ public class ClockInRepository {
         Future<List<SyncClockIn>> future = TelaRoomDatabase.db_executor.submit(callable);
         return future.get();
     }
+
 }
