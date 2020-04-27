@@ -18,4 +18,5 @@ public class SyncTeacherTableConstants {
     public static final String MPS_COMPUTER_NUMBER_COLUMN_NAME = "MPSComputerNumber";
     public static final String PRIMARY_KEY = "primary_key";
     public static final String EMPLOYEE_ID_COLUMN_NAME = "employee_id";
+    public static final String FINGER_IMAGE_COLUMN_NAME = "fingerImage";
 }

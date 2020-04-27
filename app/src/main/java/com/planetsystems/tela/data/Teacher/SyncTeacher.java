@@ -12,7 +12,7 @@ public class SyncTeacher {
     private int id;
 
     @ColumnInfo(name = SyncTeacherTableConstants.EMPLOYEE_ID_COLUMN_NAME)
-    private int employeeId;
+    private String employeeId;
 
     @ColumnInfo(name = SyncTeacherTableConstants.MPS_COMPUTER_NUMBER_COLUMN_NAME)
     private String MPSComputerNumber;
@@ -31,6 +31,9 @@ public class SyncTeacher {
 
     @ColumnInfo(name = SyncTeacherTableConstants.FINGER_PRINT_COLUMN_NAME)
     private String fingerPrint;
+
+    @ColumnInfo(name = SyncTeacherTableConstants.FINGER_IMAGE_COLUMN_NAME)
+    private String fingerImage;
 
     @ColumnInfo(name = SyncTeacherTableConstants.FIRST_NAME_COLUMN_NAME)
     private String firstName;
@@ -64,11 +67,11 @@ public class SyncTeacher {
         this.id = id;
     }
 
-    public int getEmployeeId() {
+    public String getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -184,7 +187,15 @@ public class SyncTeacher {
         this.schoolId = schoolId;
     }
 
-    public SyncTeacher(int employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, String fingerPrint, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
+    public String getFingerImage() {
+        return fingerImage;
+    }
+
+    public void setFingerImage(String fingerImage) {
+        this.fingerImage = fingerImage;
+    }
+
+    public SyncTeacher(String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, String fingerPrint, String fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
         this.employeeId = employeeId;
         this.MPSComputerNumber = MPSComputerNumber;
         this.employeeNumber = employeeNumber;
@@ -192,6 +203,7 @@ public class SyncTeacher {
         this.dob = dob;
         this.emailAddress = emailAddress;
         this.fingerPrint = fingerPrint;
+        this.fingerImage = fingerImage;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -200,5 +212,118 @@ public class SyncTeacher {
         this.nationalId = nationalId;
         this.phoneNumber = phoneNumber;
         this.schoolId = schoolId;
+    }
+
+    private SyncTeacher() {
+    }
+
+    public static class Builder {
+        private SyncTeacher INSTANCE;
+        public Builder() {
+            INSTANCE = new SyncTeacher();
+        }
+
+        public SyncTeacher setEmployeeId(String employeeID) {
+            INSTANCE.setEmployeeId(employeeID);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setMPSComputerNumber(String computerNumber) {
+            INSTANCE.setMPSComputerNumber(computerNumber);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setEmployeeNumber(String employeeNumber) {
+            INSTANCE.setEmployeeNumber(employeeNumber);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setRole(String role) {
+            INSTANCE.setRole(role);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setDOB(String dob) {
+            INSTANCE.setDob(dob);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setEmailAddress(String emailAddress) {
+            INSTANCE.setEmailAddress(emailAddress);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setFingerPrint(String fingerPrint) {
+            INSTANCE.setFingerPrint(fingerPrint);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setFingerImage(String fingerImage) {
+            INSTANCE.setFingerImage(fingerImage);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setFirstName(String firstName) {
+            INSTANCE.setFirstName(firstName);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setLastName(String lastName) {
+            INSTANCE.setLastName(lastName);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setGender(String gender) {
+            INSTANCE.setGender(gender);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setInitials(String initials) {
+            INSTANCE.setInitials(initials);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setLicensed(Boolean licensed) {
+            INSTANCE.setLicensed(licensed);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setNationalID(String nationalID) {
+            INSTANCE.setNationalId(nationalID);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setPhoneNumber(String phoneNumber) {
+            INSTANCE.setPhoneNumber(phoneNumber);
+            return INSTANCE;
+        }
+
+        public SyncTeacher setSchoolID(String schoolID) {
+            INSTANCE.setSchoolId(schoolID);
+            return INSTANCE;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "SyncTeacher{" +
+                "id=" + id +
+                ", employeeId='" + employeeId + '\'' +
+                ", MPSComputerNumber='" + MPSComputerNumber + '\'' +
+                ", employeeNumber='" + employeeNumber + '\'' +
+                ", role='" + role + '\'' +
+                ", dob='" + dob + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", fingerPrint='" + fingerPrint + '\'' +
+                ", fingerImage='" + fingerImage + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", initials='" + initials + '\'' +
+                ", licensed=" + licensed +
+                ", nationalId='" + nationalId + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", schoolId='" + schoolId + '\'' +
+                '}';
     }
 }
