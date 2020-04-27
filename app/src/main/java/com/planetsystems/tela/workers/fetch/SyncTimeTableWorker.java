@@ -21,11 +21,11 @@ import java.util.List;
 
 import static com.planetsystems.tela.constants.Urls.SYNC_TIME_TABLE_URL;
 
-public class SynTimeTableWorker extends Worker {
+public class SyncTimeTableWorker extends Worker {
     private SyncTimeTableDao syncTimeTableDao;
     private String TAG = getClass().getSimpleName();
 
-    public SynTimeTableWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public SyncTimeTableWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(context);
         syncTimeTableDao = telaRoomDatabase.getSyncTimeTableDao();
