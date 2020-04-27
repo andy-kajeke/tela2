@@ -25,10 +25,19 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static com.planetsystems.tela.constants.Urls.CLOCK_IN_UPLOAD_URL;
 
 @SuppressWarnings("ALL")
 public class SyncClockInTeacherUploadWorker extends Worker {
@@ -48,27 +57,33 @@ public class SyncClockInTeacherUploadWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(CLOCK_IN_UPLOAD_URL).openConnection();
+            connection.setReadTimeout(20000);
+            connection.setConnectTimeout(20000);
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            OutputStream outputStream = connection.getOutputStream();
+            BufferedWriter bufferedWriter = new B
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         /*
         * Bellow we are picking data from database and looping through it*/
         List<SyncClockIn> syncClockIns = syncClockInDao.getSyncClockInsForBackUp();
         for(SyncClockIn syncClockIn: syncClockIns) {
             Log.d(getClass().getSimpleName(), "Uploading: " + syncClockIn.toString());
-            // TODO: andrew will add codes here to upload each individual syncclock in to the backend
             try {
-                syncClockIn.getEmployeeNo();
-                syncClockIn.getEmployeeId();
-                syncClockIn.getLatitude();
-                syncClockIn.getLongitude();
-                syncClockIn.getClockInDate();
-                syncClockIn.getDay();
-                syncClockIn.getClockInTime();
-                syncClockIn.getSchoolId();
-
                 Gson gson = new Gson();
                 String json = gson.toJson(syncClockIn);
 
-                String url = Urls.CLOCK_IN;
+                String url = CLOCK_IN_UPLOAD_URL;
                 String resp = POST( url,  json);
 
                 Toast.makeText(getApplicationContext(),":"+resp,Toast.LENGTH_LONG).show();
@@ -104,49 +119,6 @@ public class SyncClockInTeacherUploadWorker extends Worker {
                 .build();
         WorkManager.getInstance(getApplicationContext()).enqueue(workRequest);
         return Result.success();
-    }
-
-    public static String POST(String url, String jsontasks){
-        InputStream inputStream = null;
-        String result = "";
-        try {
-
-            // 1. create HttpClient
-            HttpClient httpclient = new DefaultHttpClient();
-
-            // 2. make POST request to the given URL
-            HttpPost httpPost = new HttpPost(url);
-
-
-            // 5. set json to StringEntity
-            StringEntity se = new StringEntity(jsontasks);
-
-            // 6. set httpPost Entity
-            httpPost.setEntity(se);
-
-            // 7. Set some headers to inform server about the type of the content
-            httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
-
-            // 8. Execute POST request to the given URL
-            HttpResponse httpResponse = httpclient.execute(httpPost);
-
-            // 9. receive response as inputStream
-            inputStream = httpResponse.getEntity().getContent();
-
-            // 10. convert inputstream to string
-            if(inputStream != null)
-                //result = convertInputStreamToString(inputStream);
-                result = "Did work!";
-            else
-                result = "Did not work!";
-
-        } catch (Exception e) {
-            Log.d("InputStream", e.getLocalizedMessage());
-        }
-
-        // 11. return result
-        return result;
     }
 
 }
