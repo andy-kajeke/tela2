@@ -20,10 +20,10 @@ public class TimeAttendanceListViewModel extends AndroidViewModel {
     public TimeAttendanceListViewModel(@NonNull Application application) {
         super(application);
 
-        mainRepository = new MainRepository(application);
+       mainRepository = new MainRepository(application);
+       // syncClockInDao = new MainRepository(application).getSyncClockInDao();
     }
-    public LiveData<List<SyncClockIn>> teachers(){
-//        return mainRepository.getAllClockedInStaff();
-        return null;
+    public LiveData<List<SyncClockIn>> teachers(String dateOfDay){
+        return mainRepository.getClockedInByDateOfDay(dateOfDay);
     }
 }

@@ -1,5 +1,7 @@
 package com.planetsystems.tela.data.ClockIn;
 
+import androidx.lifecycle.LiveData;
+
 import com.planetsystems.tela.data.TelaRoomDatabase;
 
 import java.util.List;
@@ -44,6 +46,10 @@ public class ClockInRepository {
         };
         Future<List<SyncClockIn>> future = TelaRoomDatabase.db_executor.submit(callable);
         return future.get();
+    }
+
+    public LiveData<List<SyncClockIn>> getClockedInTeachersByDate (String dateOfTheDay) {
+        return syncClockInDao.getSyncClockInByDate(dateOfTheDay);
     }
 
 }

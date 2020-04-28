@@ -26,7 +26,7 @@ public interface SyncClockInDao {
             "SELECT * FROM "
              + SyncClockInTableConstants.TABLE_NAME
              + " WHERE "
-             + SyncClockInTableConstants.COLUMN_CLOCK_IN_DATE
+             + SyncClockInTableConstants.COLUMN_DAY
              + " = :date")
     LiveData<List<SyncClockIn>> getSyncClockInByDate(String date);
 

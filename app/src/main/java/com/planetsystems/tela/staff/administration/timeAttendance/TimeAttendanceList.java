@@ -13,12 +13,15 @@ import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.staff.administration.editStaff.EditStaffListViewModel;
 import com.planetsystems.tela.staff.administration.editStaff.StaffListAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class TimeAttendanceList extends AppCompatActivity {
 
     RecyclerView staffs;
     ClockInListAdapter adapter;
+    //String dateOfDay;
+
     private TimeAttendanceListViewModel timeAttendanceListViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +34,17 @@ public class TimeAttendanceList extends AppCompatActivity {
 //        Bundle bundle = getIntent().getExtras();
 //        school_extra = bundle.getString("school");
 
+        long date = System.currentTimeMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd /MM/ yyy");
+        String dateOfDay = dateFormat.format(date);
+
         adapter = new ClockInListAdapter(this);
         staffs.setAdapter(adapter);
         staffs.setLayoutManager(new LinearLayoutManager(this));
 
         timeAttendanceListViewModel = new ViewModelProvider(this).get(TimeAttendanceListViewModel.class);
 
-        timeAttendanceListViewModel.teachers().observe(this, new Observer<List<SyncClockIn>>() {
+        timeAttendanceListViewModel.teachers(dateOfDay).observe(this, new Observer<List<SyncClockIn>>() {
             @Override
             public void onChanged(List<SyncClockIn> syncClockIns) {
                 adapter.setTeacherDetails(syncClockIns);

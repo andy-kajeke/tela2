@@ -5,6 +5,8 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;;
+import com.planetsystems.tela.data.ClockIn.SyncClockIn;
+import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
 import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 import com.planetsystems.tela.data.TelaRoomDatabase;
@@ -17,6 +19,7 @@ import java.util.List;
 public class MainRepository {
     private static MainRepository INSTANCE;
     private SyncTimeTableDao syncTimeTableDao;
+    private SyncClockInDao syncClockInDao;
 
     private ClockInRepository clockInRepository;
     private ClockOutRepository clockOutRepository;
@@ -59,6 +62,14 @@ public class MainRepository {
         return syncTimeTableDao.getSyncTimeTables();
     }
 
+    public LiveData<List<SyncClockIn>> getClockedInByDateOfDay (String dateOfDay){
+        return clockInRepository.getClockedInTeachersByDate(dateOfDay);
+    }
+
+    public SyncClockInDao getSyncClockInDao() {
+        return syncClockInDao;
+    }
+
     public SyncTimeTableDao getSyncTimeTableDao() {
         return syncTimeTableDao;
     }
@@ -72,6 +83,7 @@ public class MainRepository {
     public ClockInRepository getClockInRepository() {
         return clockInRepository;
     }
+
     public ClockOutRepository getClockOutRepository() {
         return clockOutRepository;
     }

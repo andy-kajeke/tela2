@@ -19,7 +19,7 @@ public class TeacherHomeActivityViewModel extends AndroidViewModel {
         syncTimeTableDao = new MainRepository(application).getSyncTimeTableDao();
     }
 
-    LiveData<List<SyncTimeTable>> timetables() {
-        return syncTimeTableDao.getSyncTimeTableByEmployeeIDForDay("3991", "Thursday");
+    LiveData<List<SyncTimeTable>> timetables(String employeeNumber, String dayOfTheWeek) {
+        return syncTimeTableDao.getSyncTimeTableByEmployeeIDForDay(employeeNumber, dayOfTheWeek);
     }
 }
