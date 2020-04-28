@@ -13,6 +13,7 @@ import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
+import com.planetsystems.tela.data.Teacher.TeacherRepository;
 import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 
@@ -23,12 +24,14 @@ import java.util.concurrent.ExecutionException;
 public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     private ClockOutRepository clockOutRepository;
     private ClockInRepository clockInRepository;
+    private TeacherRepository teacherRepository;
 
     public ClockInAndOutActivityViewModel(@NonNull Application application) {
         super(application);
         MainRepository mainRepository = MainRepository.getInstance(application);
         clockOutRepository = mainRepository.getClockOutRepository();
         clockInRepository = mainRepository.getClockInRepository();
+        teacherRepository = mainRepository.getTeachersRepository();
 
     }
 
@@ -73,13 +76,13 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         try {
             List<SyncClockIn> list = clockInRepository.getSyncClockInByEmployeeIDAndDate(employeeNumber, DynamicData.getCurrentDate());
             if (list.size() > 0) {
-                return  null; // findEmployeeNumberWithEmployeeNumber(employeeNumber);
+                return  teacherRepository.getTeacherWithEmployeeNumber(employeeNumber);
             } else {
-                SyncTeacher teacher =  null; // findEmployeeNumberWithEmployeeNumber(employeeNumber);
+                SyncTeacher teacher =  teacherRepository.getTeacherWithEmployeeNumber(employeeNumber); // findEmployeeNumberWithEmployeeNumber(employeeNumber);
                 if (teacher != null ) {
                     clockInRepository.synClockInTeacher(new SyncClockIn(
-                            employeeNumber,
-                            teacher.getEmployeeID(),
+                            teacher.getEmployeeNumber(),
+                            teacher.getEmployeeId(),
                             DynamicData.getLatitude(),
                             DynamicData.getLongitude(),
                             DynamicData.getClockInDate(),

@@ -4,7 +4,11 @@ import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.data.TelaRoomDatabase;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class TeacherRepository {
     private SyncTeacherDao syncTeacherDao;
@@ -36,5 +40,17 @@ public class TeacherRepository {
 
     public LiveData<List<SyncTeacher>> getAllTeachers() {
         return syncTeacherDao.getAllTeachers();
+    }
+
+    public SyncTeacher getTeacherWithEmployeeNumber(final String employeeNumber) throws ExecutionException, InterruptedException {
+        Callable<SyncTeacher> callable = new Callable<SyncTeacher>() {
+            @Override
+            public SyncTeacher call() throws Exception {
+                return syncTeacherDao.getSyncTeacherWithEmployeeNumber(employeeNumber);
+            }
+        };
+
+        Future<SyncTeacher> future = TelaRoomDatabase.db_executor.submit(callable);
+        return  future.get();
     }
 }

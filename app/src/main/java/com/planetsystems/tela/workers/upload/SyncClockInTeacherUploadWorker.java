@@ -34,10 +34,10 @@ import java.util.concurrent.TimeUnit;
 public class SyncClockInTeacherUploadWorker extends Worker {
     SyncClockInDao syncClockInDao;
     /*
-    * This worker will run periodically usually 3 times a day to upload
-    * Clock ins for a give school,
-    * It queries all clock in data and pushes them to the backend
-    * */
+     * This worker will run periodically usually 3 times a day to upload
+     * Clock ins for a give school,
+     * It queries all clock in data and pushes them to the backend
+     * */
     public SyncClockInTeacherUploadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(context);
@@ -50,7 +50,7 @@ public class SyncClockInTeacherUploadWorker extends Worker {
     public Result doWork() {
 
         /*
-        * Bellow we are picking data from database and looping through it*/
+         * Bellow we are picking data from database and looping through it*/
         List<SyncClockIn> syncClockIns = syncClockInDao.getSyncClockInsForBackUp();
         for(SyncClockIn syncClockIn: syncClockIns) {
             Log.d(getClass().getSimpleName(), "Uploading: " + syncClockIn.toString());
@@ -68,7 +68,7 @@ public class SyncClockInTeacherUploadWorker extends Worker {
                 Gson gson = new Gson();
                 String json = gson.toJson(syncClockIn);
 
-                String url = Urls.CLOCK_IN;
+                String url = Urls.CLOCK_IN_UPLOAD_URL;
                 String resp = POST( url,  json);
 
                 Toast.makeText(getApplicationContext(),":"+resp,Toast.LENGTH_LONG).show();

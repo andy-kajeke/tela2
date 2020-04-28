@@ -76,22 +76,18 @@ public class EnrollmentActivity extends AppCompatActivity {
             if (requestCode == CAPTURE_FINGER_PRINT_REQUEST) {
                 if ( resultCode == RESULT_OK ) {
                     // TODO: Some fields are missing here, they need to be added, i have place null
-                    SyncTeacher syncTeacher = new SyncTeacher(
-                            null,
-                            null,
-                            null,
-                            null,
-                            edit_email.getText().toString(),
-                            intent.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA),
-                            edit_fName.getText().toString(),
-                            edit_lName.getText().toString(),
-                            edit_gender.getText().toString(),
-                            edit_initials.getText().toString(),
-                            false,
-                            edit_nationalID.getText().toString(),
-                            edit_phone_No.getText().toString(),
-                            null
-                    );
+                    SyncTeacher syncTeacher = new SyncTeacher.Builder()
+                            .setDOB(null)
+                            .setEmailAddress(edit_email.getText().toString())
+                            .setLastName(edit_lName.getText().toString())
+                            .setFirstName(edit_fName.getText().toString())
+                            .setFingerImage(intent.getStringExtra(FingerPrintActivity.FINGER_PRINT_IMAGE))
+                            .setFingerPrint(intent.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA))
+                            .setGender(edit_gender.getText().toString())
+                            .setPhoneNumber(edit_phone_No.getText().toString())
+                            .setNationalID(edit_nationalID.getText().toString())
+                            .setLicensed(false)
+                            .build();
                     if (activityViewModel.enrollTeacher(syncTeacher)) {
                         edit_fName.setText("");
                         edit_lName.setText("");

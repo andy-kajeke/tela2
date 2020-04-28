@@ -24,6 +24,26 @@ public interface SyncTeacherDao {
     @Delete
     void deleteStaff(SyncTeacher syncTeacher);
 
-    @Query("SELECT * FROM " + SyncTableConstants.SyncTeachers)
+    @Query("SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME)
     LiveData<List<SyncTeacher>> getAllTeachers();
+
+    @Query("SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME + " WHERE " + SyncTeacherTableConstants.EMPLOYEE_NUMBER_COLUMN_NAME + " =:employeeNumber")
+    SyncTeacher getSyncTeacherWithEmployeeNumber(String employeeNumber);
+
+    @Query(
+            "SELECT * FROM " +
+            SyncTeacherTableConstants.TABLE_NAME +
+            " WHERE " +
+            SyncTeacherTableConstants.EMPLOYEE_NUMBER_COLUMN_NAME +
+            " =:employeeNumber AND " +
+            SyncTeacherTableConstants.ID_COLUMN_NAME +
+            " =:id AND " +
+            SyncTeacherTableConstants.NATIONAL_ID_COLUMN_NAME +
+            " =:nationalID "
+    )
+    SyncTeacher getSyncTeacher(
+            String employeeNumber,
+            String id,
+            String nationalID
+    );
 }

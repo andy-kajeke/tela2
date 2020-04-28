@@ -18,8 +18,8 @@ public class TestActivityViewModel extends AndroidViewModel {
     SyncTimeTableDao syncTimeTableDao;
     public TestActivityViewModel(@NonNull Application application) {
         super(application);
-        syncTeacherDao = new MainRepository(application).getSyncTeacherDao();
-        syncTimeTableDao = new MainRepository(application).getSyncTimeTableDao();
+//        syncTeacherDao = new MainRepository(application).getSyncTeacherDao();
+//        syncTimeTableDao = new MainRepository(application).getSyncTimeTableDao();
     }
 
     LiveData<List<SyncTimeTable>> timetable() {

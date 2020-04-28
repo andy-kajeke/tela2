@@ -68,7 +68,7 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.Staf
                     SyncTeacher syncTeacher = mSyncTeacherModels.get(position);
                     Toast.makeText(mContext, syncTeacher.getFirstName(),Toast.LENGTH_LONG).show();
                     Intent edit = new Intent(mContext, UpdateStaffRecord.class);
-                    edit.putExtra("id", mSyncTeacherModels.get(position).getId());
+                    edit.putExtra("id", mSyncTeacherModels.get(position).getPrimaryKey());
                     edit.putExtra("emp_No", mSyncTeacherModels.get(position).getEmployeeNumber());
                     edit.putExtra("emp_firstName", mSyncTeacherModels.get(position).getFirstName());
                     edit.putExtra("emp_lastName", mSyncTeacherModels.get(position).getLastName());
