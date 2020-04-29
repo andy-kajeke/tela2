@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivityViewModel;
 import com.planetsystems.tela.activityViewModel.MainActivityViewModel;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.workers.WorkManagerTrigger;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Button submit;
     private static int SPLASH_TIME_OUT = 5000;
     private static final int REQUEST_CODE = 101;
+    ClockInAndOutActivityViewModel.DynamicData dynamicData;
     String IMEINumber;
 
     @Override
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         }
         IMEINumber = telephonyManager.getDeviceId();
         Toast.makeText(MainActivity.this, "IMEI_NO is: "+ IMEINumber, Toast.LENGTH_LONG).show();
+        dynamicData.getSchoolID(IMEINumber);
     }
 
     @Override

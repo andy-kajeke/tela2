@@ -44,7 +44,7 @@ public class TimeAttendanceList extends AppCompatActivity {
 
         timeAttendanceListViewModel = new ViewModelProvider(this).get(TimeAttendanceListViewModel.class);
 
-        timeAttendanceListViewModel.teachers(dateOfDay).observe(this, new Observer<List<SyncClockIn>>() {
+        timeAttendanceListViewModel.onlyClockedIn().observe(this, new Observer<List<SyncClockIn>>() {
             @Override
             public void onChanged(List<SyncClockIn> syncClockIns) {
                 adapter.setTeacherDetails(syncClockIns);

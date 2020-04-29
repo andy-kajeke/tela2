@@ -26,4 +26,7 @@ public class TimeAttendanceListViewModel extends AndroidViewModel {
     public LiveData<List<SyncClockIn>> teachers(String dateOfDay){
         return mainRepository.getClockedInByDateOfDay(dateOfDay);
     }
+    public LiveData<List<SyncClockIn>> onlyClockedIn(){
+        return mainRepository.OnlyClockedIn();
+    }
 }

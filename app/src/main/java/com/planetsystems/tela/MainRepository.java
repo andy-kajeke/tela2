@@ -62,6 +62,10 @@ public class MainRepository {
         return syncTimeTableDao.getSyncTimeTables();
     }
 
+    public LiveData<List<SyncClockIn>> OnlyClockedIn (){
+        return clockInRepository.getAllClockedIn();
+    }
+
     public LiveData<List<SyncClockIn>> getClockedInByDateOfDay (String dateOfDay){
         return clockInRepository.getClockedInTeachersByDate(dateOfDay);
     }

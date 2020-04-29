@@ -18,6 +18,7 @@ import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -113,9 +114,9 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     * This class Dynamic data that are generated during run time
     * I create this class to simplify the data management*/
     public static class DynamicData {
-        static String getSchoolID() {
+        public String getSchoolID(String schoolID) {
             //TODO: put codes here for finding school id
-            return "909987776676677";
+            return schoolID;
         }
 
         static String getClockInDate() {
@@ -133,7 +134,9 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         }
 
         static String getClockInDay() {
-            return "Monday";
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+            Date d = new Date();
+            return sdf.format(d);
         }
 
         static String getClockInTime() {

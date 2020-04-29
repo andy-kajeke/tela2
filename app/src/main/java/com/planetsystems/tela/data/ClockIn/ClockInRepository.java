@@ -52,4 +52,8 @@ public class ClockInRepository {
         return syncClockInDao.getSyncClockInByDate(dateOfTheDay);
     }
 
+    public LiveData<List<SyncClockIn>> getAllClockedIn () {
+        return syncClockInDao.getAllClockIn();
+    }
+
 }
