@@ -321,7 +321,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK ) {
                     String stringEncodedFingerPrint = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA);
                     String base64EncodedBitmapImage = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_IMAGE);
-                    SyncTeacher syncTeacher = viewModel.clockOutTeacherWithFingerPrint(stringEncodedFingerPrint);
+                    SyncTeacher syncTeacher = viewModel.clockOutTeacherWithFingerPrint(stringEncodedFingerPrint, "No Comment");
                     loadTeacherHomePage(syncTeacher);
                 }
             } else if (requestCode == CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE) {
@@ -358,7 +358,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 startActivity(headTeacherHome);
             }
         } else {
-            Toast.makeText(this, "Invalid Employee Number", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Invalid Employee Number or Finger Print", Toast.LENGTH_LONG).show();
         }
     }
 }
