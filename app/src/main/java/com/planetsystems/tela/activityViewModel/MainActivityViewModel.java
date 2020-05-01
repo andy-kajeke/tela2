@@ -17,7 +17,7 @@ public class MainActivityViewModel extends AndroidViewModel {
     private MainRepository mainRepository;
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
-        mainRepository = new MainRepository(application);
+        mainRepository = MainRepository.getInstance(application);
     }
 
     public LiveData<List<SyncTeacher>> teachers(){

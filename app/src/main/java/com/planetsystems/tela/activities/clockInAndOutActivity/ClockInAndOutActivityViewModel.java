@@ -1,13 +1,10 @@
 package com.planetsystems.tela.activities.clockInAndOutActivity;
 
 import android.app.Application;
-import android.content.Context;
-import android.location.LocationManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;
@@ -52,11 +49,11 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                             DynamicData.getCurrentTime(),
                             comment,
                             teacher.getEmployeeNumber(),
-                            "7827365653345342",
-                            "63636636225535",
-                            "3/4/2019",
-                            "3/4/2019",
-                            "3/4/2019",
+                            DynamicData.getLatitude(),
+                            DynamicData.getLongitude(),
+                            "Status",
+                            DynamicData.getSchoolID(),
+                            DynamicData.getSchoolName(),
                             teacher.getFirstName(),
                             teacher.getLastName()
                     ));
@@ -114,9 +111,8 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     * This class Dynamic data that are generated during run time
     * I create this class to simplify the data management*/
     public static class DynamicData {
-        public String getSchoolID(String schoolID) {
-            //TODO: put codes here for finding school id
-            return schoolID;
+        static String getSchoolID() {
+            return null;
         }
 
         static String getClockInDate() {
@@ -157,6 +153,10 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
             SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
             return  time.format(date);
+        }
+
+        static String getSchoolName() {
+            return "Buganda Road";
         }
     }
 
