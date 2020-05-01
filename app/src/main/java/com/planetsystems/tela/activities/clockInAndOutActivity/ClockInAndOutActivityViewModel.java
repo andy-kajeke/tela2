@@ -34,15 +34,15 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     }
 
 
-    SyncTeacher clockOutTeacherWithEmployeeID(String id, String comment){
+    SyncTeacher clockOutTeacherWithEmployeeID(String employeeNumber, String comment){
         // example employee number 9876 for ojok
         try {
-            List<SyncClockOut> syncClockOut = clockOutRepository.getSyncClockOutByEmployeeNumberAndDate(id, DynamicData.getCurrentDate());
+            List<SyncClockOut> syncClockOut = clockOutRepository.getSyncClockOutByEmployeeNumberAndDate(employeeNumber, DynamicData.getCurrentDate());
             Log.d(getClass().getSimpleName(), "==================================================");
             if (syncClockOut.size() > 0 ) {
-//                return findEmployeeNumberWithEmployeeNumber(id);
+               return teacherRepository.getTeacherWithEmployeeNumber(employeeNumber);
             } else {
-                SyncTeacher teacher =  null; //findEmployeeNumberWithEmployeeNumber(id);
+                SyncTeacher teacher = teacherRepository.getTeacherWithEmployeeNumber(employeeNumber);
                 if (teacher != null ) {
                     clockOutRepository.insertSynClockOut(new SyncClockOut(
                             DynamicData.getCurrentDate(),
