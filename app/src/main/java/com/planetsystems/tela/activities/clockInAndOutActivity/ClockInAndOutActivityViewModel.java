@@ -99,11 +99,28 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return null;
     }
 
-    SyncTeacher clockOutTeacherWithFingerPrint(String stringEncodedFingerPrint) {
-        return null;
+    SyncTeacher clockOutTeacherWithFingerPrint(String stringEncodedFingerPrint, String comment) {
+        // example employee number 9876 for ojok
+        try {
+            SyncTeacher teacher = teacherRepository.getTeacherFingerPrint(stringEncodedFingerPrint);
+            if ( teacher != null ) {
+                return clockOutTeacherWithEmployeeID(teacher.getEmployeeNumber(), comment);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return  null;
     }
 
     SyncTeacher clockInTeacherWithFingerPrint(String stringEncodedFingerPrint) {
+        try {
+             SyncTeacher teacher = teacherRepository.getTeacherFingerPrint(stringEncodedFingerPrint);
+             if (teacher != null ) {
+                 return clockInTeacherEmployeeNumber(teacher.getEmployeeNumber());
+             }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

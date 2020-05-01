@@ -32,6 +32,10 @@ public interface SyncTeacherDao {
     SyncTeacher getSyncTeacherWithEmployeeNumber(String employeeNumber);
 
     @Query(
+            "SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME + " WHERE " + SyncTeacherTableConstants.FINGER_PRINT_COLUMN_NAME + " =:fingerPrint")
+    SyncTeacher getSyncTeacherWithFingerPrint(String fingerPrint);
+
+    @Query(
             "SELECT * FROM " +
             SyncTeacherTableConstants.TABLE_NAME +
             " WHERE " +
