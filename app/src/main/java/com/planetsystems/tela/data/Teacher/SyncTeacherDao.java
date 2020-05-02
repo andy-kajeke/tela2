@@ -27,8 +27,13 @@ public interface SyncTeacherDao {
     @Query("SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME)
     LiveData<List<SyncTeacher>> getAllTeachers();
 
-    @Query("SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME + " WHERE " + SyncTeacherTableConstants.EMPLOYEE_NUMBER_COLUMN_NAME + " =:employeeNumber")
+    @Query(
+            "SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME + " WHERE " + SyncTeacherTableConstants.EMPLOYEE_NUMBER_COLUMN_NAME + " =:employeeNumber")
     SyncTeacher getSyncTeacherWithEmployeeNumber(String employeeNumber);
+
+    @Query(
+            "SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME + " WHERE " + SyncTeacherTableConstants.FINGER_PRINT_COLUMN_NAME + " =:fingerPrint")
+    SyncTeacher getSyncTeacherWithFingerPrint(String fingerPrint);
 
     @Query(
             "SELECT * FROM " +

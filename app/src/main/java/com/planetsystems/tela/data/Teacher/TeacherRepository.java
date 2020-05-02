@@ -53,4 +53,16 @@ public class TeacherRepository {
         Future<SyncTeacher> future = TelaRoomDatabase.db_executor.submit(callable);
         return  future.get();
     }
+
+    public SyncTeacher getTeacherFingerPrint(final String fingerPrint) throws ExecutionException, InterruptedException {
+        Callable<SyncTeacher> callable = new Callable<SyncTeacher>() {
+            @Override
+            public SyncTeacher call() throws Exception {
+                return syncTeacherDao.getSyncTeacherWithEmployeeNumber(fingerPrint);
+            }
+        };
+
+        Future<SyncTeacher> future = TelaRoomDatabase.db_executor.submit(callable);
+        return  future.get();
+    }
 }
