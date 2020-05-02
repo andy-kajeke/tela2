@@ -83,14 +83,14 @@ public class SchoolConfirmation extends AppCompatActivity {
                 else {
                     new AlertDialog.Builder(SchoolConfirmation.this)
                             .setTitle("Confirmation")
-                            .setMessage("You can't contiune. This phone is not registered on the TELA System.")
+                            .setMessage("You can't contiune. This phone is not registered on the TELA System. \n ")
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
 
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     SchoolConfirmation.this.finish();
-                                }})
-                            .setNegativeButton("", null).show();
+                                }}).show();
+                            //.setNegativeButton("", null).show();
                 }
 
             }
@@ -190,8 +190,8 @@ public class SchoolConfirmation extends AppCompatActivity {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 SchoolConfirmation.this.finish();
-                            }})
-                        .setNegativeButton("", null).show();
+                            }}).show();
+                        //.setNegativeButton("", null).show();
 
             }else{
                 //Toast.makeText(getApplicationContext(), "Unable to fetch", Toast.LENGTH_LONG).show();

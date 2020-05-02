@@ -53,6 +53,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     public static  String clockInTime = "";
     ClockInAndOutActivityViewModel viewModel;
     String deviceIMEI_extra, schoolName_extra;
+    String dateString, timeString;
 
     ////checkout//
     TextView close;
@@ -91,7 +92,9 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         long date = System.currentTimeMillis();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd /MM/ yyy");
-        String dateString = dateFormat.format(date);
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
+        dateString = dateFormat.format(date);
+        timeString = time.format(date);
         dateDisplay.setText(dateString);
 
         //Clock-in action
@@ -302,7 +305,31 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         String staffID = staff_Id.getText().toString();
         String staffComment = staff_comment.getText().toString();
         SyncTeacher teacher = viewModel.clockOutTeacherWithEmployeeID(staffID, staffComment);
-        loadTeacherHomePage(teacher);
+        //loadTeacherHomePage(teacher);
+        if(teacher == null){
+            new AlertDialog.Builder(ClockInAndOutActivity.this)
+                    .setTitle("Confirmation")
+                    .setMessage("The employee number is incorrect \n Try again... ")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            checkOutPopup.dismiss();
+                        }})
+                    .setNegativeButton("", null).show();
+        }else {
+            new AlertDialog.Builder(ClockInAndOutActivity.this)
+                    .setTitle("Successfully clocked out")
+                    .setMessage("=============================\n"+ "Name : " + teacher.getFirstName() + " " + teacher.getLastName()
+                            + "\n\n" + "Date Out : " + dateString + "\n\n" + "Time Out : " + timeString)
+                    .setIcon(R.drawable.success)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            checkOutPopup.dismiss();
+                        }}).show();
+                    //.setNegativeButton(android.R.string.no, null).show();
+        }
     }
 
     @Override
