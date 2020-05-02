@@ -13,9 +13,11 @@ public class SyncClockOut {
     @NonNull
     private int primaryKey;
 
-
     @ColumnInfo(name = SyncClockOutTableConstant.DATE_COLUMN_NAME)
     private String date;
+
+    @ColumnInfo(name = SyncClockOutTableConstant.DAY_COLUMN_NAME)
+    private String day;
 
     @ColumnInfo(name = SyncClockOutTableConstant.TIME_COLUMN_NAME)
     private String time;
@@ -25,7 +27,10 @@ public class SyncClockOut {
 
     @NonNull
     @ColumnInfo(name = SyncClockOutTableConstant.EMPLOYEE_NUMBER_COLUMN_NAME)
-    private String employeeNumber;
+    private String employeeNo;
+
+    @ColumnInfo(name = SyncClockOutTableConstant.EMPLOYEE_ID_COLUMN_NAME)
+    private String employeeId;
 
     @ColumnInfo(name = SyncClockOutTableConstant.LATITUDE_COLUMN_NAME)
     private String latitude;
@@ -64,6 +69,14 @@ public class SyncClockOut {
         this.date = date;
     }
 
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
     public String getTime() {
         return time;
     }
@@ -81,12 +94,21 @@ public class SyncClockOut {
     }
 
     @NonNull
-    public String getEmployeeNumber() {
-        return employeeNumber;
+    public String getEmployeeNo() {
+        return employeeNo;
     }
 
-    public void setEmployeeNumber(@NonNull String employeeNumber) {
-        this.employeeNumber = employeeNumber;
+    public void setEmployeeNo(@NonNull String employeeNo) {
+        this.employeeNo = employeeNo;
+    }
+
+    @NonNull
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(@NonNull String employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getLatitude() {
@@ -145,11 +167,13 @@ public class SyncClockOut {
         this.lastName = lastName;
     }
 
-    public SyncClockOut(String date, String time, String comment, @NonNull String employeeNumber, String latitude, String longitude, String status, String schoolId, String schoolName, String firstName, String lastName) {
+    public SyncClockOut(String date, String day, String time, String comment, @NonNull String employeeNo, String employeeId, String latitude, String longitude, String status, String schoolId, String schoolName, String firstName, String lastName) {
         this.date = date;
+        this.day = day;
         this.time = time;
         this.comment = comment;
-        this.employeeNumber = employeeNumber;
+        this.employeeNo = employeeNo;
+        this.employeeId = employeeId;
         this.latitude = latitude;
         this.longitude = longitude;
         this.status = status;
@@ -166,7 +190,8 @@ public class SyncClockOut {
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
                 ", comment='" + comment + '\'' +
-                ", employeeNumber='" + employeeNumber + '\'' +
+                ", employeeNo='" + employeeNo + '\'' +
+                ", employeeId='" + employeeId + '\'' +
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
                 ", status='" + status + '\'' +

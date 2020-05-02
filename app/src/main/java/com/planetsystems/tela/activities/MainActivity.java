@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     Button submit;
     private static int SPLASH_TIME_OUT = 5000;
     private static final int REQUEST_CODE = 101;
-    ClockInAndOutActivityViewModel.DynamicData dynamicData;
-    String IMEINumber;
+    public ClockInAndOutActivityViewModel.DynamicData dynamicData;
+    public static String SchoolDeviceIMEINumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent home = new Intent(MainActivity.this, SchoolConfirmation.class);
-                //home.putExtra("device_imei", IMEINumber);
+                //home.putExtra("device_imei", SchoolDeviceIMEINumber);
                 home.putExtra("device_imei", "354633111523205");
                 startActivity(home);
                 finish();
@@ -75,9 +75,10 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
             return;
         }
-        IMEINumber = telephonyManager.getDeviceId();
-        Toast.makeText(MainActivity.this, "IMEI_NO is: "+ IMEINumber, Toast.LENGTH_LONG).show();
-        dynamicData.getSchoolID(IMEINumber);
+        SchoolDeviceIMEINumber = telephonyManager.getDeviceId();
+        //SchoolDeviceIMEINumber = "354633111523205";
+        Toast.makeText(MainActivity.this, "IMEI_NO is: "+ SchoolDeviceIMEINumber, Toast.LENGTH_LONG).show();
+        dynamicData.getSchoolID(SchoolDeviceIMEINumber);
     }
 
     @Override

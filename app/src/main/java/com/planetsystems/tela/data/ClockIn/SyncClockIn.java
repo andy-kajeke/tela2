@@ -20,6 +20,12 @@ public class SyncClockIn {
     @ColumnInfo(name = SyncClockInTableConstants.COLUMN_EMPLOYEE_ID)
     private String employeeId;
 
+    @ColumnInfo(name = SyncClockInTableConstants.COLUMN_FIRST_NAME)
+    private String firstName;
+
+    @ColumnInfo(name = SyncClockInTableConstants.COLUMN_LAST_NAME)
+    private String lastName;
+
     @ColumnInfo(name = SyncClockInTableConstants.COLUMN_LATITUDE)
     private String latitude;
 
@@ -38,9 +44,11 @@ public class SyncClockIn {
     @ColumnInfo(name = SyncClockInTableConstants.COLUMN_SCHOOL_ID)
     private String schoolId;
 
-    public SyncClockIn(String employeeNo, String employeeId, String latitude, String longitude, String clockInDate, String day, String clockInTime, String schoolId) {
+    public SyncClockIn(String employeeNo, String employeeId, String firstName, String lastName, String latitude, String longitude, String clockInDate, String day, String clockInTime, String schoolId) {
         this.employeeNo = employeeNo;
         this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.latitude = latitude;
         this.longitude = longitude;
         this.clockInDate = clockInDate;
@@ -121,12 +129,30 @@ public class SyncClockIn {
         this.schoolId = schoolId;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     @Override
     public String toString() {
         return "SyncClockIn{" +
                 "primaryKey=" + primaryKey +
                 ", employeeNo='" + employeeNo + '\'' +
                 ", employeeId='" + employeeId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
                 ", clockInDate='" + clockInDate + '\'' +

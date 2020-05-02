@@ -25,7 +25,7 @@ public interface SyncClockOutDao {
     void delete(SyncClockOut syncTeachers);
 
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME)
-    LiveData<List<SyncClockOut>> getClockOutTeachers();
+    List<SyncClockOut> getSyncClockInsForBackUp();
 
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME+ " WHERE " + SyncClockOutTableConstant.DATE_COLUMN_NAME + " = :date")
     LiveData<List<SyncClockOut>> getSyncClockOutsByDate(String date);

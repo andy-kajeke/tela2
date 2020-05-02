@@ -1,5 +1,7 @@
 package com.planetsystems.tela.constants;
 
+import static com.planetsystems.tela.activities.MainActivity.SchoolDeviceIMEINumber;
+
 public class Urls {
     public static final String DEVICE_IMEI = "354633111523205";
     public static final String BASE_URL = "http://tela.planetsystems.co:8080/weca/webapi/attendance/";

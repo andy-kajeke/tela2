@@ -40,26 +40,26 @@ public class ClockInListAdapter extends RecyclerView.Adapter<ClockInListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull StaffViewHolder holder, int position) {
-//        if (mSyncClockIn != null){
-//            SyncClockIn syncClockIn = mSyncClockIn.get(position);
-//            holder.setData(syncClockIn.getEmpFirstName(), syncClockIn.getEmpLastName(), syncClockIn.getEmployeeNo(), syncClockIn.getClockInTime(), position);
-//
-//            String L= ""+mSyncClockIn.get(position).getEmpFirstName();
-//            char k = mSyncClockIn.get(position).getEmpFirstName().charAt(0);
-//            String Cap= ""+k+"".toString().toUpperCase();
-//            String s = Character.toString(k);
-//
-//            ColorGenerator generator = ColorGenerator.MATERIAL; // or use
-//
-//            int color1 = generator.getRandomColor();
-//
-//            TextDrawable drawable = TextDrawable.builder().buildRoundRect(""+s.toUpperCase(),color1,60); //radius in px
-//
-//            holder.imageView.setImageDrawable(drawable);
-//
-//        }else {
-//            holder.It_role.setText("No record");
-//        }
+        if (mSyncClockIn != null){
+            SyncClockIn syncClockIn = mSyncClockIn.get(position);
+            holder.setData(syncClockIn.getFirstName(), syncClockIn.getLastName(), syncClockIn.getEmployeeNo(), syncClockIn.getClockInTime(), position);
+
+            String L= ""+mSyncClockIn.get(position).getFirstName();
+            char k = mSyncClockIn.get(position).getFirstName().charAt(0);
+            String Cap= ""+k+"".toString().toUpperCase();
+            String s = Character.toString(k);
+
+            ColorGenerator generator = ColorGenerator.MATERIAL; // or use
+
+            int color1 = generator.getRandomColor();
+
+            TextDrawable drawable = TextDrawable.builder().buildRoundRect(""+s.toUpperCase(),color1,60); //radius in px
+
+            holder.imageView.setImageDrawable(drawable);
+
+        }else {
+            holder.It_role.setText("No record");
+        }
     }
 
     @Override
@@ -91,8 +91,8 @@ public class ClockInListAdapter extends RecyclerView.Adapter<ClockInListAdapter.
             imageView = itemView.findViewById(R.id.personphoto);
         }
 
-        public void setData(String empFirstName, String empLastName, String employeeNo, String clockInTime, int position) {
-            It_name.setText(empFirstName + " " + empLastName);
+        public void setData(String firstName, String lastName, String employeeNo, String clockInTime, int position) {
+            It_name.setText(firstName + " " + lastName);
             It_code.setText(employeeNo);
             It_role.setText(clockInTime);
             mPosition = position;

@@ -22,10 +22,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static com.planetsystems.tela.activities.MainActivity.SchoolDeviceIMEINumber;
+
 public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     private ClockOutRepository clockOutRepository;
     private ClockInRepository clockInRepository;
     private TeacherRepository teacherRepository;
+    //private String schoolID;
 
     public ClockInAndOutActivityViewModel(@NonNull Application application) {
         super(application);
@@ -40,7 +43,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     SyncTeacher clockOutTeacherWithEmployeeID(String id, String comment){
         // example employee number 9876 for ojok
         try {
-            List<SyncClockOut> syncClockOut = clockOutRepository.getSyncClockOutByEmployeeNumberAndDate(id, DynamicData.getCurrentDate());
+            List<SyncClockOut> syncClockOut = clockOutRepository.getSyncClockOutByEmployeeNumberAndDate(id, DynamicData.getDate());
             Log.d(getClass().getSimpleName(), "==================================================");
             if (syncClockOut.size() > 0 ) {
 //                return findEmployeeNumberWithEmployeeNumber(id);
@@ -48,14 +51,16 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                 SyncTeacher teacher =  null; //findEmployeeNumberWithEmployeeNumber(id);
                 if (teacher != null ) {
                     clockOutRepository.insertSynClockOut(new SyncClockOut(
-                            DynamicData.getCurrentDate(),
-                            DynamicData.getCurrentTime(),
+                            DynamicData.getDate(),
+                            DynamicData.getDay(),
+                            DynamicData.getTime(),
                             comment,
                             teacher.getEmployeeNumber(),
-                            "7827365653345342",
-                            "63636636225535",
+                            teacher.getEmployeeNumber(),
+                            DynamicData.getLatitude(),
+                            DynamicData.getLongitude(),
                             "3/4/2019",
-                            "3/4/2019",
+                            DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                             "3/4/2019",
                             teacher.getFirstName(),
                             teacher.getLastName()
@@ -75,7 +80,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
          * This method clocks in a teacher and returns the results
          * */
         try {
-            List<SyncClockIn> list = clockInRepository.getSyncClockInByEmployeeIDAndDate(employeeNumber, DynamicData.getCurrentDate());
+            List<SyncClockIn> list = clockInRepository.getSyncClockInByEmployeeIDAndDate(employeeNumber, DynamicData.getDate());
             if (list.size() > 0) {
                 return  teacherRepository.getTeacherWithEmployeeNumber(employeeNumber);
             } else {
@@ -83,13 +88,15 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                 if (teacher != null ) {
                     clockInRepository.synClockInTeacher(new SyncClockIn(
                             teacher.getEmployeeNumber(),
-                            teacher.getEmployeeId(),
+                            teacher.getEmployeeNumber(),
+                            teacher.getFirstName(),
+                            teacher.getLastName(),
                             DynamicData.getLatitude(),
                             DynamicData.getLongitude(),
-                            DynamicData.getClockInDate(),
-                            DynamicData.getClockInDay(),
-                            DynamicData.getClockInTime(),
-                            DynamicData.getSchoolID()
+                            DynamicData.getDate(),
+                            DynamicData.getDay(),
+                            DynamicData.getTime(),
+                            DynamicData.getSchoolID(SchoolDeviceIMEINumber)
                     ));
                     return teacher;
                 }
@@ -113,51 +120,41 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     /*
     * This class Dynamic data that are generated during run time
     * I create this class to simplify the data management*/
+
     public static class DynamicData {
-        public String getSchoolID(String schoolID) {
+
+        public static String getSchoolID(String schoolID) {
             //TODO: put codes here for finding school id
             return schoolID;
         }
 
-        static String getClockInDate() {
-            long date = System.currentTimeMillis();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
-            return  dateFormat.format(date);
-        }
-
         static String getLatitude() {
-            return "90998877887";
+            return SchoolDeviceIMEINumber;
         }
 
         static String getLongitude() {
             return "77887766";
         }
 
-        static String getClockInDay() {
+        static String getDay() {
             SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
             Date d = new Date();
             return sdf.format(d);
         }
 
-        static String getClockInTime() {
+        static String getTime() {
             long date = System.currentTimeMillis();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
             SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
             return  time.format(date);
         }
 
-        static String getCurrentDate() {
+        static String getDate() {
             long date = System.currentTimeMillis();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
             return  dateFormat.format(date);
         }
 
-        static String getCurrentTime() {
-            long date = System.currentTimeMillis();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
-            SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
-            return  time.format(date);
-        }
     }
 
 }
