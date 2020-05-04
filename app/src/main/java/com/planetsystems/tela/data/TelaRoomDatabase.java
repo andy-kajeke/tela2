@@ -26,6 +26,7 @@ import com.planetsystems.tela.data.employeeMaterialRequest.SyncEmployeeMaterialR
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.helprequest.HelpRequest;
 import com.planetsystems.tela.data.helprequest.HelpRequestDao;
+import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClassesDao;
 import com.planetsystems.tela.data.smc.SyncSMC;
 import com.planetsystems.tela.data.smc.SyncSMCDao;
@@ -44,6 +45,7 @@ import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
         SyncTeacher.class,
         SyncClockIn.class,
         SyncClockOut.class,
+        SyncSchoolClasses.class,
         SyncEmployeeTimeOffRequestDM.class,
         SyncAttendanceRecord.class,
         SyncConfirmTimeOnSiteAttendance.class,

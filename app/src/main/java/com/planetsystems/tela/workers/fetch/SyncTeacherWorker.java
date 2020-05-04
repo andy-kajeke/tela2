@@ -24,6 +24,7 @@ import static com.planetsystems.tela.constants.Urls.SYNC_TEACHER_URL;
 
 public class SyncTeacherWorker extends Worker {
     private SyncTeacherDao syncTeacherDao;
+
     public SyncTeacherWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(context);

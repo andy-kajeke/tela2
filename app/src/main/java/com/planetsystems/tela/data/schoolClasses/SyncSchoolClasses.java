@@ -59,4 +59,14 @@ public class SyncSchoolClasses {
         this.className = className;
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return "SyncTimeTable{" +
+                "primaryKey=" + primaryKey +
+                ", className='" + className + '\'' +
+                ", code='" + code + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }

@@ -1,7 +1,11 @@
 package com.planetsystems.tela.data.schoolClasses;
 
+import androidx.lifecycle.LiveData;
+
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
 import com.planetsystems.tela.data.TelaRoomDatabase;
+
+import java.util.List;
 
 public class SchoolClassesRepository {
 
@@ -30,5 +34,9 @@ public class SchoolClassesRepository {
                 syncSchoolClassesDao.insertSchoolClasses(syncSchoolClasses);
             }
         });
+    }
+
+    public LiveData<List<SyncSchoolClasses>> getAllClassesInSchool(){
+        return syncSchoolClassesDao.getAllSchoolClasses();
     }
 }

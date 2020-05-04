@@ -78,7 +78,6 @@ public class WorkManagerTrigger {
         long timeDifference = nextRunDateAndTime.getTimeInMillis() -
                 currentDateAndTime.getTimeInMillis();
 
-
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
@@ -105,7 +104,6 @@ public class WorkManagerTrigger {
 
         long timeDifference = nextRunDateAndTime.getTimeInMillis() -
                 currentDateAndTime.getTimeInMillis();
-
 
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -47,7 +46,11 @@ public class SyncSchoolClassesWorker extends Worker {
                 reader.close();
                 for(int i = 0; i < syncClasses.schoolClasses.size(); i++) {
                     SyncSchoolClasses syncSchoolClasses = syncClasses.schoolClasses.get(i);
-                    LiveData<List<SyncSchoolClasses>> syncedClasses = syncSchoolClassesDao.getAllSchoolClasses();
+                    SyncSchoolClasses syncedClasses = syncSchoolClassesDao.getSyncSchool(
+                            syncSchoolClasses.getClassName(),
+                            syncSchoolClasses.getCode(),
+                            syncSchoolClasses.getId()
+                    );
 
                     if ( syncedClasses == null ) {
                         syncSchoolClassesDao.insertSchoolClasses(syncSchoolClasses);

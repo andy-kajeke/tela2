@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
+import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 
 import java.util.List;
@@ -24,12 +25,12 @@ public class TestActivity extends AppCompatActivity {
         textView = findViewById(R.id.textView);
 
         TestActivityViewModel testActivityViewModel = new ViewModelProvider(this).get(TestActivityViewModel.class);
-        testActivityViewModel.timetable().observe(this, new Observer<List<SyncTimeTable>>() {
+        testActivityViewModel.schoolClasses().observe(this, new Observer<List<SyncSchoolClasses>>() {
             @Override
-            public void onChanged(List<SyncTimeTable> syncTimeTables) {
+            public void onChanged(List<SyncSchoolClasses> schoolClasses) {
                 String teacherName = "";
-                for (int i = 0; i < syncTimeTables.size(); i++) {
-                    teacherName = teacherName + " \n " + syncTimeTables.get(i).getSubject() + " " + syncTimeTables.get(i).getStartTime() + " - " + syncTimeTables.get(i).getEndTime();
+                for (int i = 0; i < schoolClasses.size(); i++) {
+                    teacherName = teacherName + " \n " + schoolClasses.get(i).getClassName();
                 }
                 textView.setText(teacherName);
 
