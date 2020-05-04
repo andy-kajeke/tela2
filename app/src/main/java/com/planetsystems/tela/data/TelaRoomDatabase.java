@@ -26,6 +26,7 @@ import com.planetsystems.tela.data.employeeMaterialRequest.SyncEmployeeMaterialR
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.helprequest.HelpRequest;
 import com.planetsystems.tela.data.helprequest.HelpRequestDao;
+import com.planetsystems.tela.data.schoolClasses.SyncSchoolClassesDao;
 import com.planetsystems.tela.data.smc.SyncSMC;
 import com.planetsystems.tela.data.smc.SyncSMCDao;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
@@ -59,6 +60,7 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
     public abstract SyncTeacherDao getSyncTeachersDao();
     public abstract SyncClockOutDao getSyncClockOutDao();
     public abstract SyncClockInDao getSyncClockInDao();
+    public abstract SyncSchoolClassesDao getSyncSchoolClassesDao();
     public abstract SyncConfirmTimeOnTaskAttendanceDao getSyncConfirmTimeOnTaskAttendancesDao();
     public abstract SyncConfirmTimeOnSiteAttendanceDao getSyncConfirmTimeOnSiteAttendanceDao();
     public abstract SyncAttendanceRecordDao getSyncAttendanceRecordsDao();
