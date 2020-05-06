@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -40,4 +41,16 @@ public interface SyncClockInDao {
             + " =:employeeNumber"
     )
     List<SyncClockIn> getSyncClockInByEmployeeIDAndDate(String employeeNumber, String date);
+
+    @Query(
+            "SELECT * FROM "
+            + SyncClockInTableConstants.TABLE_NAME
+            + " WHERE "
+            + SyncClockInTableConstants.COLUMN_IS_UPLOADED
+            + " =: false"
+    )
+    List<SyncClockIn> getSyncClockInForBackUp();
+
+    @Update
+    void updateSyncClockIn(SyncClockIn syncClockIn);
 }
