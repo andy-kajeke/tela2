@@ -44,6 +44,9 @@ public class SyncClockIn {
     @ColumnInfo(name = SyncClockInTableConstants.COLUMN_SCHOOL_ID)
     private String schoolId;
 
+    @ColumnInfo(name = SyncClockInTableConstants.COLUMN_IS_UPLOADED)
+    private  boolean isUploaded;
+
     public SyncClockIn(String employeeNo, String employeeId, String firstName, String lastName, String latitude, String longitude, String clockInDate, String day, String clockInTime, String schoolId) {
         this.employeeNo = employeeNo;
         this.employeeId = employeeId;
@@ -55,6 +58,7 @@ public class SyncClockIn {
         this.day = day;
         this.clockInTime = clockInTime;
         this.schoolId = schoolId;
+        this.isUploaded = false;
     }
 
     public int getPrimaryKey() {
@@ -145,6 +149,14 @@ public class SyncClockIn {
         this.lastName = lastName;
     }
 
+    public boolean isUploaded() {
+        return isUploaded;
+    }
+
+    public void setUploaded(boolean uploaded) {
+        isUploaded = uploaded;
+    }
+
     @Override
     public String toString() {
         return "SyncClockIn{" +
@@ -159,6 +171,7 @@ public class SyncClockIn {
                 ", day='" + day + '\'' +
                 ", clockInTime='" + clockInTime + '\'' +
                 ", schoolId='" + schoolId + '\'' +
+                ", isUploaded=" + isUploaded +
                 '}';
     }
 }

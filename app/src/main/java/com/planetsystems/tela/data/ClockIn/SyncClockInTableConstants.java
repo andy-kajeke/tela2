@@ -14,4 +14,5 @@ public class SyncClockInTableConstants {
     public static final String COLUMN_DAY = "day";
     public static final String COLUMN_CLOCK_IN_TIME = "clockInTime";
     public static final String COLUMN_SCHOOL_ID = "schoolID";
+    public static final String COLUMN_IS_UPLOADED = "is_uploaded";
 }
