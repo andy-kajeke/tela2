@@ -20,9 +20,6 @@ public interface SyncClockInDao {
     @Insert
     void syncClockInTeacherWithID(SyncClockIn clockIn);
 
-    @Query("SELECT * FROM " + SyncClockInTableConstants.TABLE_NAME)
-    List<SyncClockIn> getSyncClockInsForBackUp();
-
     @Query(
             "SELECT * FROM "
              + SyncClockInTableConstants.TABLE_NAME
@@ -47,9 +44,9 @@ public interface SyncClockInDao {
             + SyncClockInTableConstants.TABLE_NAME
             + " WHERE "
             + SyncClockInTableConstants.COLUMN_IS_UPLOADED
-            + " =: false"
+            + " =:isUploaded"
     )
-    List<SyncClockIn> getSyncClockInForBackUp();
+    List<SyncClockIn> getSyncClockInForBackUp(boolean isUploaded);
 
     @Update
     void updateSyncClockIn(SyncClockIn syncClockIn);
