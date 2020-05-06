@@ -24,8 +24,8 @@ public interface SyncClockOutDao {
     @Delete
     void delete(SyncClockOut syncTeachers);
 
-    @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME)
-    List<SyncClockOut> getSyncClockInsForBackUp();
+    @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME + " WHERE " + SyncClockOutTableConstant.IS_UPLOADED_COLUMN_NAME + " =:isUploaded")
+    List<SyncClockOut> getSyncClockOutForBackUp(boolean isUploaded);
 
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME+ " WHERE " + SyncClockOutTableConstant.DATE_COLUMN_NAME + " = :date")
     LiveData<List<SyncClockOut>> getSyncClockOutsByDate(String date);
@@ -33,5 +33,6 @@ public interface SyncClockOutDao {
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME + " WHERE "
             + SyncClockOutTableConstant.EMPLOYEE_NUMBER_COLUMN_NAME + " =:employeeId AND " + SyncClockOutTableConstant.DATE_COLUMN_NAME + " =:date")
     List<SyncClockOut> getSyncClockOutByEmployeeIdAndDate(String employeeId, String date);
+
 
 }

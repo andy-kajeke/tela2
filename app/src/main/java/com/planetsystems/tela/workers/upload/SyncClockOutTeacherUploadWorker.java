@@ -15,7 +15,6 @@ import androidx.work.WorkerParameters;
 
 import com.google.gson.Gson;
 import com.planetsystems.tela.constants.Urls;
-import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 import com.planetsystems.tela.data.clockOut.SyncClockOutDao;
@@ -33,13 +32,8 @@ import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("ALL")
 public class SyncClockOutTeacherUploadWorker extends Worker {
+    public static final String DID_WORK = "Did work!";
     SyncClockOutDao syncClockOutDao;
-
-    /*
-     * This worker will run periodically usually 3 times a day to upload
-     * Clock ins for a give school,
-     * It queries all clock in data and pushes them to the backend
-     * */
     public SyncClockOutTeacherUploadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(context);
@@ -50,105 +44,23 @@ public class SyncClockOutTeacherUploadWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-
-        /*
-         * Bellow we are picking data from database and looping through it*/
-        List<SyncClockOut> syncClockIns = syncClockOutDao.getSyncClockInsForBackUp();
-        for(SyncClockOut syncClockIn: syncClockIns) {
-            Log.d(getClass().getSimpleName(), "Uploading: " + syncClockIn.toString());
+        List<SyncClockOut> syncClockOutForBackUp = syncClockOutDao.getSyncClockOutForBackUp(false);
+        for(SyncClockOut syncClockOut: syncClockOutForBackUp) {
+            Log.d(getClass().getSimpleName(), "Uploading: " + syncClockOut.toString());
             // TODO: andrew will add codes here to upload each individual syncclock in to the backend
             try {
-                syncClockIn.getEmployeeNo();
-                syncClockIn.getEmployeeId();
-                syncClockIn.getLatitude();
-                syncClockIn.getLongitude();
-                syncClockIn.getDate();
-                syncClockIn.getDay();
-                syncClockIn.getTime();
-                syncClockIn.getSchoolId();
 
-                Gson gson = new Gson();
-                String json = gson.toJson(syncClockIn);
+                String resp = Urls.POST( Urls.CLOCK_OUT_UPLOAD_URL,  new Gson().toJson(syncClockOut));
 
-                String url = Urls.CLOCK_OUT_UPLOAD_URL;
-                String resp = POST( url,  json);
+                if (resp == DID_WORK) {
+                    syncClockOut.setUploaded(true);
+                    syncClockOutDao.update(syncClockOut);
+                }
 
                 Toast.makeText(getApplicationContext(),":"+resp,Toast.LENGTH_LONG).show();
 
             } catch(Exception e) {}
         }
-
-        /*
-         * Since this worker should be syncing data everyday, we need to set it
-         * for that purpose, here it get the current date and i set to to
-         * upload data at midnight when there is internet connection*/
-        Calendar currentTimeAndDate = Calendar.getInstance();
-        Calendar nextTimeAndDate = Calendar.getInstance();
-        // Set the next execution around 05:00:00 but andrew can change it to any preferred time
-        nextTimeAndDate.set(Calendar.HOUR_OF_DAY, 5);
-        nextTimeAndDate.set(Calendar.MINUTE, 0);
-        nextTimeAndDate.set(Calendar.SECOND, 0);
-        if (nextTimeAndDate.before(currentTimeAndDate)) {
-            nextTimeAndDate.add(Calendar.HOUR_OF_DAY, 24);
-        }
-
-        // this is the next time we shall upload data to the backend
-        long timeDifference = nextTimeAndDate.getTimeInMillis() -
-                nextTimeAndDate.getTimeInMillis();
-
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build();
-        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncClockOutTeacherUploadWorker.class)
-                .setConstraints(constraints)
-                // TODO: The line bellow must be uncommented during project, this was commented out for testing
-                .setInitialDelay(timeDifference, TimeUnit.MILLISECONDS)
-                .build();
-        WorkManager.getInstance(getApplicationContext()).enqueue(workRequest);
         return Result.success();
     }
-
-    public static String POST(String url, String jsontasks){
-        InputStream inputStream = null;
-        String result = "";
-        try {
-
-            // 1. create HttpClient
-            HttpClient httpclient = new DefaultHttpClient();
-
-            // 2. make POST request to the given URL
-            HttpPost httpPost = new HttpPost(url);
-
-
-            // 5. set json to StringEntity
-            StringEntity se = new StringEntity(jsontasks);
-
-            // 6. set httpPost Entity
-            httpPost.setEntity(se);
-
-            // 7. Set some headers to inform server about the type of the content
-            httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
-
-            // 8. Execute POST request to the given URL
-            HttpResponse httpResponse = httpclient.execute(httpPost);
-
-            // 9. receive response as inputStream
-            inputStream = httpResponse.getEntity().getContent();
-
-            // 10. convert inputstream to string
-            if(inputStream != null)
-                //result = convertInputStreamToString(inputStream);
-                result = "Did work!";
-            else
-                result = "Did not work!";
-
-        } catch (Exception e) {
-            Log.d("InputStream", e.getLocalizedMessage());
-        }
-
-        // 11. return result
-        return result;
-    }
-
 }

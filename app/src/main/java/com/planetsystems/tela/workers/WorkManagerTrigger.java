@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.work.Constraints;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.planetsystems.tela.workers.fetch.SyncSchoolClassesWorker;
@@ -14,6 +15,7 @@ import com.planetsystems.tela.workers.upload.SyncClockInTeacherUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncClockOutTeacherUploadWorker;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class WorkManagerTrigger {
     public static  void startFetchWorkers(Context context) {
@@ -32,7 +34,7 @@ public class WorkManagerTrigger {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncTimeTableWorker.class)
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncTimeTableWorker.class, 1, TimeUnit.HOURS)
                 .setConstraints(constraints)
                 .build();
         WorkManager.getInstance(context).enqueue(workRequest);
@@ -43,7 +45,7 @@ public class WorkManagerTrigger {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncTeacherWorker.class)
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncTeacherWorker.class, 1, TimeUnit.HOURS)
                 .setConstraints(constraints)
                 .build();
         WorkManager.getInstance(context).enqueue(workRequest);
@@ -55,7 +57,7 @@ public class WorkManagerTrigger {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncSchoolClassesWorker.class)
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncSchoolClassesWorker.class, 1, TimeUnit.HOURS)
                 .setConstraints(constraints)
                 .build();
         WorkManager.getInstance(context).enqueue(workRequest);
@@ -64,56 +66,26 @@ public class WorkManagerTrigger {
 
     //Upload clock in content to server
     public static  void startUploadSyncClockInUploadWorker(Context context) {
-        Calendar currentDateAndTime = Calendar.getInstance();
-        Calendar nextRunDateAndTime = Calendar.getInstance();
-
-        nextRunDateAndTime.set(Calendar.HOUR_OF_DAY, 5);
-        nextRunDateAndTime.set(Calendar.MINUTE, 0);
-        nextRunDateAndTime.set(Calendar.SECOND, 0);
-
-        if (nextRunDateAndTime.before(currentDateAndTime)) {
-            nextRunDateAndTime.add(Calendar.HOUR_OF_DAY, 24);
-        }
-
-        long timeDifference = nextRunDateAndTime.getTimeInMillis() -
-                currentDateAndTime.getTimeInMillis();
-
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncClockInTeacherUploadWorker.class)
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncClockInTeacherUploadWorker.class , 1, TimeUnit.HOURS)
                 .setConstraints(constraints)
-                // TODO: The line bellow must be uncommented during project, this was commented out for testing
-//                .setInitialDelay(timeDifference, TimeUnit.MILLISECONDS)
                 .build();
         WorkManager.getInstance(context).enqueue(workRequest);
     }
 
     //Upload clock out content to server
     public static  void startUploadSyncClockOutUploadWorker(Context context) {
-        Calendar currentDateAndTime = Calendar.getInstance();
-        Calendar nextRunDateAndTime = Calendar.getInstance();
-
-        nextRunDateAndTime.set(Calendar.HOUR_OF_DAY, 5);
-        nextRunDateAndTime.set(Calendar.MINUTE, 0);
-        nextRunDateAndTime.set(Calendar.SECOND, 0);
-
-        if (nextRunDateAndTime.before(currentDateAndTime)) {
-            nextRunDateAndTime.add(Calendar.HOUR_OF_DAY, 24);
-        }
-
-        long timeDifference = nextRunDateAndTime.getTimeInMillis() -
-                currentDateAndTime.getTimeInMillis();
-
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncClockOutTeacherUploadWorker.class)
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncClockOutTeacherUploadWorker.class, 1, TimeUnit.HOURS)
                 .setConstraints(constraints)
-                // TODO: The line bellow must be uncommented during project, this was commented out for testing
-//                .setInitialDelay(timeDifference, TimeUnit.MILLISECONDS)
                 .build();
+
         WorkManager.getInstance(context).enqueue(workRequest);
+
     }
 
 }
