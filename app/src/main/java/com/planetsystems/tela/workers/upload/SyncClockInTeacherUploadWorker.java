@@ -1,119 +1,147 @@
 package com.planetsystems.tela.workers.upload;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.planetsystems.tela.constants.Urls;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import static com.planetsystems.tela.constants.Urls.CLOCK_IN_UPLOAD_URL;
-
+@SuppressWarnings("ALL")
 public class SyncClockInTeacherUploadWorker extends Worker {
     SyncClockInDao syncClockInDao;
-    public final String TAG = getClass().getSimpleName();
-
-
+    /*
+     * This worker will run periodically usually 3 times a day to upload
+     * Clock ins for a give school,
+     * It queries all clock in data and pushes them to the backend
+     * */
     public SyncClockInTeacherUploadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
-        syncClockInDao = TelaRoomDatabase.getInstance(getApplicationContext()).getSyncClockInDao();
+        TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(context);
+        syncClockInDao = telaRoomDatabase.getSyncClockInDao();
     }
 
+    @SuppressLint("WrongThread")
     @NonNull
     @Override
     public Result doWork() {
-        List<SyncClockIn> clockIns = syncClockInDao.getSyncClockInForBackUp(false);
-        Log.d(TAG, "Getting Ready to Upload Clock Ins One By One");
-        for (SyncClockIn clockIn: clockIns) {
-            HttpURLConnection urlConnection = null;
+
+        /*
+         * Bellow we are picking data from database and looping through it*/
+        List<SyncClockIn> syncClockIns = syncClockInDao.getSyncClockInForBackUp(false);
+        for(SyncClockIn syncClockIn: syncClockIns) {
+            Log.d(getClass().getSimpleName(), "Uploading: " + syncClockIn.toString());
+            // TODO: andrew will add codes here to upload each individual syncclock in to the backend
             try {
-                JsonObject postData = new JsonObject();
-                postData.addProperty("employeeNo", clockIn.getEmployeeNo());
-                postData.addProperty("employeeId", clockIn.getEmployeeId());
-                postData.addProperty("latitude", clockIn.getLatitude());
-                postData.addProperty("longitude", clockIn.getLongitude());
-                postData.addProperty("clockInDate", clockIn.getClockInDate());
-                postData.addProperty("day", clockIn.getClockInDate());
-                postData.addProperty("clockInTime", clockIn.getClockInTime());
-                postData.addProperty("schoolId", clockIn.getSchoolId());
+                String json = new Gson().toJson(syncClockIn);
 
-                URL url = new URL(CLOCK_IN_UPLOAD_URL);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestProperty("Content-Type", "application/json");
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setDoOutput(true);
-                urlConnection.setDoInput(true);
-                urlConnection.setChunkedStreamingMode(0);
-
-                OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
-                writer.write(postData.toString());
-                writer.flush();
-
-//                if (urlConnection.getResponseCode() != 201) {
-//                    throw new IOException("Invalid Response From Server: " + urlConnection.getResponseCode());
-//                }
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-
-                String line;
-                while ((line = reader.readLine()) != null ) {
-                    Log.i(TAG, line);
+                String url = Urls.CLOCK_IN_UPLOAD_URL;
+                String resp = POST( url,  json);
+                if (resp == "Did work!") {
+                    syncClockIn.setUploaded(true);
+                    syncClockInDao.updateSyncClockIn(syncClockIn);
                 }
 
+                Toast.makeText(getApplicationContext(),":"+resp,Toast.LENGTH_LONG).show();
 
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d(TAG, "There was error in opening connection");
-            } finally {
-                assert urlConnection != null;
-                urlConnection.disconnect();
-            }
+            } catch(Exception e) {}
         }
+
+        /*
+         * Since this worker should be syncing data everyday, we need to set it
+         * for that purpose, here it get the current date and i set to to
+         * upload data at midnight when there is internet connection*/
+        Calendar currentTimeAndDate = Calendar.getInstance();
+        Calendar nextTimeAndDate = Calendar.getInstance();
+        // Set the next execution around 05:00:00 but andrew can change it to any preferred time
+        nextTimeAndDate.set(Calendar.HOUR_OF_DAY, 5);
+        nextTimeAndDate.set(Calendar.MINUTE, 0);
+        nextTimeAndDate.set(Calendar.SECOND, 0);
+        if (nextTimeAndDate.before(currentTimeAndDate)) {
+            nextTimeAndDate.add(Calendar.HOUR_OF_DAY, 24);
+        }
+
+        // this is the next time we shall upload data to the backend
+        long timeDifference = nextTimeAndDate.getTimeInMillis() -
+                nextTimeAndDate.getTimeInMillis();
+
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncClockInTeacherUploadWorker.class)
+                .setConstraints(constraints)
+                // TODO: The line bellow must be uncommented during project, this was commented out for testing
+                .setInitialDelay(timeDifference, TimeUnit.MILLISECONDS)
+                .build();
+        WorkManager.getInstance(getApplicationContext()).enqueue(workRequest);
         return Result.success();
     }
 
-    private void writeStream(OutputStream outputStream, SyncClockIn clockIn) {
-        String clockInString = new Gson().toJson(clockIn);
-
-        byte[] input = new byte[0];
+    public static String POST(String url, String jsontasks){
+        InputStream inputStream = null;
+        String result = "";
         try {
-            input = clockInString.getBytes("utf-8");
-            outputStream.write(input, 0, input.length);
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            // 1. create HttpClient
+            HttpClient httpclient = new DefaultHttpClient();
+
+            // 2. make POST request to the given URL
+            HttpPost httpPost = new HttpPost(url);
+
+
+            // 5. set json to StringEntity
+            StringEntity se = new StringEntity(jsontasks);
+
+            // 6. set httpPost Entity
+            httpPost.setEntity(se);
+
+            // 7. Set some headers to inform server about the type of the content
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+
+            // 8. Execute POST request to the given URL
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+
+            // 9. receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+
+            // 10. convert inputstream to string
+            if(inputStream != null)
+                //result = convertInputStreamToString(inputStream);
+                result = "Did work!";
+
+            else
+                result = "Did not work!";
+
+        } catch (Exception e) {
+            Log.d("InputStream", e.getLocalizedMessage());
         }
+
+        // 11. return result
+        return result;
     }
 
-    private void readStream(InputStream inputStream) {
-
-    }
 }
