@@ -99,7 +99,7 @@ public class SyncClockOutTeacherUploadWorker extends Worker {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncClockInTeacherUploadWorker.class)
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(SyncClockOutTeacherUploadWorker.class)
                 .setConstraints(constraints)
                 // TODO: The line bellow must be uncommented during project, this was commented out for testing
                 .setInitialDelay(timeDifference, TimeUnit.MILLISECONDS)
