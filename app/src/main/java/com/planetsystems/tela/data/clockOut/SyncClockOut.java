@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.planetsystems.tela.data.ClockIn.SyncClockInTableConstants;
+
 @Entity(tableName = SyncClockOutTableConstant.TABLE_NAME)
 public class SyncClockOut {
 
@@ -52,6 +54,9 @@ public class SyncClockOut {
 
     @ColumnInfo(name = SyncClockOutTableConstant.LAST_NAME_TABLE_NAME)
     private String lastName;
+
+    @ColumnInfo(name = SyncClockOutTableConstant.IS_UPLOADED_COLUMN_NAME)
+    private boolean isUploaded;
 
     public int getPrimaryKey() {
         return primaryKey;
@@ -181,6 +186,15 @@ public class SyncClockOut {
         this.schoolName = schoolName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.isUploaded = false;
+    }
+
+    public boolean isUploaded() {
+        return isUploaded;
+    }
+
+    public void setUploaded(boolean uploaded) {
+        isUploaded = uploaded;
     }
 
     @Override
@@ -188,6 +202,7 @@ public class SyncClockOut {
         return "SyncClockOut{" +
                 "primaryKey=" + primaryKey +
                 ", date='" + date + '\'' +
+                ", day='" + day + '\'' +
                 ", time='" + time + '\'' +
                 ", comment='" + comment + '\'' +
                 ", employeeNo='" + employeeNo + '\'' +
@@ -199,6 +214,7 @@ public class SyncClockOut {
                 ", schoolName='" + schoolName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", isUploaded=" + isUploaded +
                 '}';
     }
 }
