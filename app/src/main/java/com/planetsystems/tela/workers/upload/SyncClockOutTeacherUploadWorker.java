@@ -32,7 +32,6 @@ import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("ALL")
 public class SyncClockOutTeacherUploadWorker extends Worker {
-    public static final String DID_WORK = "Did work!";
     SyncClockOutDao syncClockOutDao;
     public SyncClockOutTeacherUploadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -52,7 +51,7 @@ public class SyncClockOutTeacherUploadWorker extends Worker {
 
                 String resp = Urls.POST( Urls.CLOCK_OUT_UPLOAD_URL,  new Gson().toJson(syncClockOut));
 
-                if (resp == DID_WORK) {
+                if (resp == Urls.DID_WORK) {
                     syncClockOut.setUploaded(true);
                     syncClockOutDao.update(syncClockOut);
                 }
