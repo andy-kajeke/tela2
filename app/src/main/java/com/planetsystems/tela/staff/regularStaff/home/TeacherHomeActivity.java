@@ -1,5 +1,6 @@
 package com.planetsystems.tela.staff.regularStaff.home;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,9 +17,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.planetsystems.tela.GenerateRandomString;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
+import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
+import com.planetsystems.tela.data.Teacher.SyncTeacher;
+import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
 import com.planetsystems.tela.staff.regularStaff.serviceRequests.MakeRequests;
@@ -33,7 +39,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
     public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_LAST_NAME";
     public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
 
-    SyncTimeTableDao syncTimeTableDao;
+    TeacherHomeActivityViewModel teacherHomeActivityViewModel;
 
     ProgressDialog dialog;
     int count =0;
@@ -46,7 +52,9 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
     //TextView datetoday;
     Button submit, selfmenu;
     ArrayList<SyncTimeTable> mSyncTimeTables;
+    ArrayList<SyncTimeTable> taskList;
     TasksAdapter adapter;
+    //SynTimeOnTask synTimeOnTask;
     public String id_extra;
     String lat_extra, long_extra;
     String emp_id_extra, emp_name_extra;
@@ -79,7 +87,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
         tasks.setAdapter(adapter);
         tasks.setLayoutManager(new LinearLayoutManager(this));
 
-        TeacherHomeActivityViewModel teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
+        teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
 
         teacherHomeActivityViewModel.timetables(emp_id_extra, "Monday").observe(this, new Observer<List<SyncTimeTable>>() {
             @Override
@@ -102,7 +110,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                //new API_JSONAsyncTask().execute();
+                                PostToSyncTimeOnTask();
                             }})
                         .setNegativeButton(android.R.string.no, null).show();
             }
@@ -120,6 +128,42 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
         });
     }
 
+    // save teacher confirmation on tasks to syncTimeOneTasks table
+    private void PostToSyncTimeOnTask(){
+
+        for(SyncTimeTable Task:mSyncTimeTables){
+            SynTimeOnTask synTimeOnTask = new SynTimeOnTask(
+                    "",
+                    "",
+                    "",
+                    "Present",
+                    "",
+                    emp_id_extra,
+                    emp_id_extra,
+                    Task.getTaskId(),
+                    "",
+                    "",
+                    "",
+                    "",
+                    emp_name_extra,
+                    emp_name_extra,
+                    Task.getEndTime(),
+                    Task.getStartTime(),
+                    Task.getTaskName()
+            );
+
+            //Toast.makeText(getApplicationContext(), "Submitted successfully..", Toast.LENGTH_LONG).show();
+
+            //TeacherHomeActivityViewModel teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
+            teacherHomeActivityViewModel.timeOnTask(synTimeOnTask);
+
+            if (teacherHomeActivityViewModel.timeOnTask(synTimeOnTask)) {
+                Toast.makeText(this, "Submitted successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Already submitted", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {

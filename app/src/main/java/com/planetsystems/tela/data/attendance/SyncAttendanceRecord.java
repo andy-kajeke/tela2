@@ -10,10 +10,10 @@ import com.planetsystems.tela.constants.SyncTableConstants;
 @Entity(tableName = SyncTableConstants.SyncAttendanceRecords)
 public class SyncAttendanceRecord {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     @NonNull
-    private String id;
+    private int id;
 
     @ColumnInfo(name = "dateCreated")
     private String dateCreated;
@@ -54,11 +54,11 @@ public class SyncAttendanceRecord {
     @ColumnInfo(name = "taskDay")
     private String taskDay;
 
-    public SyncAttendanceRecord(@NonNull String id, String dateCreated, String dateUpdated, int status,
+    public SyncAttendanceRecord(String dateCreated, String dateUpdated, int status,
                                 String comment, String deploymentUnit, String deploymentUnitId, String femaleAbsent,
                                 String femalePresent, String maleAbsent, String malePresent, String submissionDate,
                                 String supervisorId, String taskDay) {
-        this.id = id;
+       // this.id = id;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
         this.status = status;
@@ -75,11 +75,11 @@ public class SyncAttendanceRecord {
     }
 
     @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(@NonNull int id) {
         this.id = id;
     }
 

@@ -9,9 +9,9 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = SynTimeOnTaskConstant.TABLE_NAME)
 public class SynTimeOnTask {
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = SynTimeOnTaskConstant.ID)
-    private String id;
+    private int id;
 
     @ColumnInfo(name = SynTimeOnTaskConstant.DATE_CREATED)
     private String dateCreated;
@@ -64,8 +64,8 @@ public class SynTimeOnTask {
     @ColumnInfo(name = SynTimeOnTaskConstant.TASK_NAME)
     private String taskName;
 
-    public SynTimeOnTask(@NonNull String id, String dateCreated, String dateUpdated, String status, String actionStatus, String comment, String employeeId, String employeeNumber, String taskId, String transactionTime, String transactionDate, String rowId, String rowVer, String employeeFirstName, String employeeLastName, String endTime, String startTime, String taskName) {
-        this.id = id;
+    public SynTimeOnTask(String dateCreated, String dateUpdated, String status, String actionStatus, String comment, String employeeId, String employeeNumber, String taskId, String transactionTime, String transactionDate, String rowId, String rowVer, String employeeFirstName, String employeeLastName, String endTime, String startTime, String taskName) {
+        //this.id = id;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
         this.status = status;
@@ -86,11 +86,11 @@ public class SynTimeOnTask {
     }
 
     @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(@NonNull int id) {
         this.id = id;
     }
 

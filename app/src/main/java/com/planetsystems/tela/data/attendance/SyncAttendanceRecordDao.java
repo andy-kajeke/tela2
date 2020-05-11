@@ -16,7 +16,7 @@ import java.util.List;
 public interface SyncAttendanceRecordDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void addNew(SyncAttendanceRecord syncAttendanceRecord);
+    void addNewLearnerAttendanceRecord(SyncAttendanceRecord syncAttendanceRecord);
 
     @Update
     void update(SyncAttendanceRecord syncAttendanceRecord);
@@ -24,6 +24,6 @@ public interface SyncAttendanceRecordDao {
     @Delete
     void delete(SyncAttendanceRecord syncAttendanceRecord);
 
-//    @Query("SELECT * FROM " + SyncTableConstants.SyncClockOuts)
-//    LiveData<List<SyncAttendanceRecord>> getAllRecords();
+    @Query("SELECT * FROM " + SyncTableConstants.SyncAttendanceRecords)
+    LiveData<List<SyncAttendanceRecord>> getAllRecords();
 }

@@ -8,12 +8,15 @@ import com.planetsystems.tela.data.ClockIn.ClockInRepository;;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
+import com.planetsystems.tela.data.attendance.LearnerRepository;
 import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.schoolClasses.SchoolClassesRepository;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClassesDao;
+import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
+import com.planetsystems.tela.data.timeOnTask.TimeOnTaskRepository;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
 
@@ -28,7 +31,9 @@ public class MainRepository {
     private ClockInRepository clockInRepository;
     private ClockOutRepository clockOutRepository;
     private TeacherRepository teacherRepository;
+    private TimeOnTaskRepository timeOnTaskRepository;
     private SchoolClassesRepository schoolClassesRepository;
+    private LearnerRepository learnerRepository;
 
     public MainRepository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
@@ -36,7 +41,9 @@ public class MainRepository {
         clockInRepository = ClockInRepository.getInstance(telaRoomDatabase);
         clockOutRepository = ClockOutRepository.getInstance(telaRoomDatabase);
         teacherRepository = TeacherRepository.getInstance(telaRoomDatabase);
+        timeOnTaskRepository = TimeOnTaskRepository.getInstance(telaRoomDatabase);
         schoolClassesRepository = SchoolClassesRepository.getInstance(telaRoomDatabase);
+        learnerRepository = LearnerRepository.getInstance(telaRoomDatabase);
 
     }
 
@@ -63,11 +70,6 @@ public class MainRepository {
         return teacherRepository.getAllTeachers();
     }
 
-    //Get all timetables
-    public LiveData<List<SyncTimeTable>> getAllSyncTimeTable(){
-        return syncTimeTableDao.getSyncTimeTables();
-    }
-
     public LiveData<List<SyncClockIn>> OnlyClockedIn (){
         return clockInRepository.getAllClockedIn();
     }
@@ -76,9 +78,6 @@ public class MainRepository {
         return clockInRepository.getClockedInTeachersByDate(dateOfDay);
     }
 
-    public SyncSchoolClassesDao getSyncSchoolClassesDao() {
-        return syncSchoolClassesDao;
-    }
 
     public SyncTimeTableDao getSyncTimeTableDao() {
         return syncTimeTableDao;
@@ -87,10 +86,6 @@ public class MainRepository {
 
     public LiveData<List<SyncTeacher>> getAllSyncTeacher() {
         return teacherRepository.getAllTeachers();
-    }
-
-    public  LiveData<List<SyncSchoolClasses>> allSchoolClasses(){
-        return schoolClassesRepository.getAllClassesInSchool();
     }
 
     public ClockInRepository getClockInRepository() {
@@ -105,7 +100,11 @@ public class MainRepository {
         return teacherRepository;
     }
 
+    public TimeOnTaskRepository getTimeOnTaskRepository(){return timeOnTaskRepository;}
+
     public SchoolClassesRepository getSchoolClassesRepository(){
         return schoolClassesRepository;
     }
+
+    public LearnerRepository getLearnerRepository(){return learnerRepository;}
 }

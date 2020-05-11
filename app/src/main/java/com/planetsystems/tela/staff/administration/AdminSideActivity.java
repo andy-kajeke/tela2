@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.staff.administration.editStaff.EditStaffList;
+import com.planetsystems.tela.staff.administration.learnerAttendance.LearnerClasses;
 import com.planetsystems.tela.staff.administration.timeAttendance.TimeAttendanceList;
 
 public class AdminSideActivity extends AppCompatActivity {
@@ -79,6 +80,14 @@ public class AdminSideActivity extends AppCompatActivity {
 //                i.putExtra("id", HT_Id);
 //                i.putExtra("date", checkIn_date);
 //                i.putExtra("school", checkIn_schoolId);
+                startActivity(i);
+            }
+        });
+
+        learner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), LearnerClasses.class);
                 startActivity(i);
             }
         });
