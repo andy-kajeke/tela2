@@ -38,7 +38,8 @@ public class TeacherHomeActivityViewModel extends AndroidViewModel {
         try {
             SynTimeOnTask timeOnTask = timeOnTaskRepository.getSynTimeOnTaskWithEmployeeNumberAndDate(
                     synTimeOnTask.getEmployeeNumber(),
-                    DynamicData.getDate()
+                    DynamicData.getDate(),
+                    synTimeOnTask.getTaskId()
             );
             if (timeOnTask == null ) timeOnTaskRepository.insertSyncTimeOneTask(synTimeOnTask);
         } catch (ExecutionException | InterruptedException e) {

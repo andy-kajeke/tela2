@@ -50,11 +50,11 @@ public class TimeOnTaskRepository {
         return syncTimeTableDao.getSyncTimeTableByEmployeeIDForDay(employeeNumber, dayOfTheWeek);
     }
 
-    public SynTimeOnTask getSynTimeOnTaskWithEmployeeNumberAndDate(final String employeeNumber, final String transactionDate) throws ExecutionException, InterruptedException {
+    public SynTimeOnTask getSynTimeOnTaskWithEmployeeNumberAndDate(final String employeeNumber, final String transactionDate, final String taskId) throws ExecutionException, InterruptedException {
         Callable<SynTimeOnTask> callable = new Callable<SynTimeOnTask>() {
             @Override
             public SynTimeOnTask call() throws Exception {
-                return synTimeOnTaskDao.getSynTimeOnTaskWithEmployeeNumberAndDate(employeeNumber, transactionDate);
+                return synTimeOnTaskDao.getSynTimeOnTaskWithEmployeeNumberAndDate(employeeNumber, transactionDate, taskId);
             }
         };
         Future<SynTimeOnTask> synTimeOnTaskFuture = TelaRoomDatabase.db_executor.submit(callable);

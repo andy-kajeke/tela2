@@ -22,7 +22,9 @@ public interface SynTimeOnTaskDao {
             + SynTimeOnTaskConstant.EMPLOYEE_NUMBER
             + " =:employeeNumber AND "
             + SynTimeOnTaskConstant.TRANSACTION_DATE
-            + " =:transactionDate"
+            + " =:transactionDate AND "
+            + SynTimeOnTaskConstant.TASK_ID
+            + " =:taskId"
     )
-    SynTimeOnTask getSynTimeOnTaskWithEmployeeNumberAndDate(String employeeNumber, String transactionDate);
+    SynTimeOnTask getSynTimeOnTaskWithEmployeeNumberAndDate(String employeeNumber, String transactionDate, String taskId);
 }
