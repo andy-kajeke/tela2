@@ -45,7 +45,9 @@ public class LearnerClasses extends AppCompatActivity {
         learnerAttendanceViewModel.schoolClasses().observe(this, new Observer<List<SyncSchoolClasses>>() {
             @Override
             public void onChanged(List<SyncSchoolClasses> syncSchoolClasses) {
-                adapter.setSchoolClassesDetails(syncSchoolClasses);
+                for (int i = 0; i < syncSchoolClasses.size(); i++){
+                    adapter.setSchoolClassesDetails(syncSchoolClasses);
+                }
             }
         });
 

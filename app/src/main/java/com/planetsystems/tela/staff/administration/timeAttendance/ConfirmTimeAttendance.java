@@ -19,6 +19,7 @@ import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendance;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class ConfirmTimeAttendance extends AppCompatActivity {
     String supervisorID_extra;
     String dayOfTheWeek;
     String dateOfTheWeek;
+    List<SyncConfirmTimeOnSiteAttendance> onSiteAttendance;
     private TimeAttendanceListViewModel timeAttendanceListViewModel;
 
     @Override
@@ -58,6 +60,8 @@ public class ConfirmTimeAttendance extends AppCompatActivity {
 
         Name.setText(teacherName_extra);
         staffId.setText(teacherID_extra);
+
+        onSiteAttendance = new ArrayList<>();
 
         long date = System.currentTimeMillis();
 
@@ -124,6 +128,10 @@ public class ConfirmTimeAttendance extends AppCompatActivity {
             @Override
             public void onChanged(List<SyncConfirmTimeOnSiteAttendance> syncConfirmTimeOnSiteAttendances) {
                 Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(syncConfirmTimeOnSiteAttendances.size()), Toast.LENGTH_LONG).show();
+
+                for (int i = 0; i < syncConfirmTimeOnSiteAttendances.size(); i++){
+                    setTimeOnSiteDetails(syncConfirmTimeOnSiteAttendances);
+                }
             }
         });
     }
@@ -145,6 +153,19 @@ public class ConfirmTimeAttendance extends AppCompatActivity {
                 ""
         );
 
-        timeAttendanceListViewModel.insertTimeOnSiteAttendance(syncConfirmTimeOnSiteAttendance);
+         timeAttendanceListViewModel.insertTimeOnSiteAttendance(syncConfirmTimeOnSiteAttendance);
+
+//        for (int i = 0; i < onSiteAttendance.size(); i++){
+//            if(onSiteAttendance.get(i).getSupervisionDate().equals(dateOfTheWeek) && syncConfirmTimeOnSiteAttendance.getEmployeeNo().equals(teacherID_extra)){
+//                Toast.makeText(getApplicationContext(), "Already submitted for "+ " " + teacherName_extra, Toast.LENGTH_LONG).show();
+//            }else {
+//                timeAttendanceListViewModel.insertTimeOnSiteAttendance(syncConfirmTimeOnSiteAttendance);
+//            }
+//        }
+    }
+
+    public void setTimeOnSiteDetails(List<SyncConfirmTimeOnSiteAttendance> onSite){
+        onSiteAttendance = onSite;
+        //notifyDataSetChanged();
     }
 }
