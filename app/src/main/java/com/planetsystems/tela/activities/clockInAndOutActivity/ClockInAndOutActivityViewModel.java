@@ -13,6 +13,7 @@ import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
 import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
+import com.planetsystems.tela.utils.DynamicData;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -129,48 +130,6 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
             e.printStackTrace();
         }
         return null;
-    }
-
-    /*
-    * This class Dynamic data that are generated during run time
-    * I create this class to simplify the data management*/
-
-    public static class DynamicData {
-
-        public static String getSchoolID() {
-            //TODO: put codes here for finding school id
-            return SchoolDeviceIMEINumber;
-        }
-
-        static String getLatitude() {
-            return SchoolDeviceIMEINumber;
-        }
-
-        static String getLongitude() {
-            return "77887766";
-        }
-
-        static String getDay() {
-            SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-            Date d = new Date();
-            return sdf.format(d);
-        }
-
-        static String getTime() {
-            long date = System.currentTimeMillis();
-            SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
-            return  time.format(date);
-        }
-
-        static String getDate() {
-            long date = System.currentTimeMillis();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
-            return  dateFormat.format(date);
-        }
-
-        static String getSchoolName() {
-            return "Buganda Road";
-        }
     }
 
 }

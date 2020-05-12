@@ -11,6 +11,7 @@ import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timeOnTask.TimeOnTaskRepository;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
+import com.planetsystems.tela.utils.DynamicData;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -37,12 +38,10 @@ public class TeacherHomeActivityViewModel extends AndroidViewModel {
         try {
             SynTimeOnTask timeOnTask = timeOnTaskRepository.getSynTimeOnTaskWithEmployeeNumberAndDate(
                     synTimeOnTask.getEmployeeNumber(),
-                    "dgdggdggd"
+                    DynamicData.getDate()
             );
             if (timeOnTask == null ) timeOnTaskRepository.insertSyncTimeOneTask(synTimeOnTask);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
     }
