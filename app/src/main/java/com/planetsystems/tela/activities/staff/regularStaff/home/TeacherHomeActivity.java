@@ -46,8 +46,8 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
     TextView tvname;
     //TextView datetoday;
     Button submit, selfmenu;
-    ArrayList<SyncTimeTable> mSyncTimeTables;
-    ArrayList<SyncTimeTable> taskList;
+    List<SyncTimeTable> mSyncTimeTables;
+    List<SyncTimeTable> taskList;
     TasksAdapter adapter;
     //SynTimeOnTask synTimeOnTask;
     public String id_extra;
@@ -84,16 +84,15 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
 
         teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
 
-        teacherHomeActivityViewModel.timetables(emp_id_extra, "Thursday").observe(this, new Observer<List<SyncTimeTable>>() {
+        teacherHomeActivityViewModel.getSyncTimeTableByEmployeeIDForDay(emp_id_extra, "Thursday").observe(this, new Observer<List<SyncTimeTable>>() {
             @Override
             public void onChanged(List<SyncTimeTable> syncTimeTables) {
-                for (int i = 0; i < syncTimeTables.size(); i++){
-                    adapter.setTaskList(syncTimeTables);
-                }
+                adapter.setTaskList(syncTimeTables);
+                mSyncTimeTables = syncTimeTables;
             }
         });
 
-        teacherHomeActivityViewModel.taskRecords().observe(this, new Observer<List<SynTimeOnTask>>() {
+        teacherHomeActivityViewModel.getTimeOnTasks().observe(this, new Observer<List<SynTimeOnTask>>() {
             @Override
             public void onChanged(List<SynTimeOnTask> synTimeOnTasks) {
                 Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(synTimeOnTasks.size()), Toast.LENGTH_LONG).show();
@@ -112,7 +111,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                PostToSyncTimeOnTask();
+                                postToSyncTimeOnTask();
                             }})
                         .setNegativeButton(android.R.string.no, null).show();
             }
@@ -131,7 +130,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
     }
 
     // save teacher confirmation on tasks to syncTimeOneTasks table
-    private void PostToSyncTimeOnTask(){
+    private void postToSyncTimeOnTask(){
 
         for(SyncTimeTable Task:mSyncTimeTables){
             SynTimeOnTask synTimeOnTask = new SynTimeOnTask(
@@ -157,7 +156,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
             //Toast.makeText(getApplicationContext(), "Submitted successfully..", Toast.LENGTH_LONG).show();
 
             //TeacherHomeActivityViewModel teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
-            teacherHomeActivityViewModel.timeOnTask(synTimeOnTask);
+            teacherHomeActivityViewModel.postToSyncTimeOnTask(synTimeOnTask);
 
         }
     }

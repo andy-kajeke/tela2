@@ -15,25 +15,23 @@ import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
 import java.util.List;
 
 public class TeacherHomeActivityViewModel extends AndroidViewModel {
-    SyncTimeTableDao syncTimeTableDao;
     TimeOnTaskRepository timeOnTaskRepository;
     private List<SynTimeOnTask> tasksConfirmation;
 
     public TeacherHomeActivityViewModel(@NonNull Application application) {
         super(application);
-        syncTimeTableDao = new MainRepository(application).getSyncTimeTableDao();
-        timeOnTaskRepository = new MainRepository(application).getTimeOnTaskRepository();
+        timeOnTaskRepository = MainRepository.getInstance(application).getTimeOnTaskRepository();
     }
 
-    LiveData<List<SyncTimeTable>> timetables(String employeeNumber, String dayOfTheWeek) {
-        return syncTimeTableDao.getSyncTimeTableByEmployeeIDForDay(employeeNumber, dayOfTheWeek);
+    LiveData<List<SyncTimeTable>> getSyncTimeTableByEmployeeIDForDay(String employeeNumber, String dayOfTheWeek) {
+        return timeOnTaskRepository.getSyncTimeTableByEmployeeIDForDay(employeeNumber, dayOfTheWeek);
     }
 
-    public void timeOnTask(SynTimeOnTask synTimeOnTask){
-        timeOnTaskRepository.insertSyncTimeOneTask(synTimeOnTask);
-    }
-
-    LiveData<List<SynTimeOnTask>> taskRecords(){
+    LiveData<List<SynTimeOnTask>> getTimeOnTasks(){
         return timeOnTaskRepository.getAllTimeOnTask();
+    }
+
+    public void postToSyncTimeOnTask(SynTimeOnTask synTimeOnTask) {
+        timeOnTaskRepository.insertSyncTimeOneTask(synTimeOnTask);
     }
 }

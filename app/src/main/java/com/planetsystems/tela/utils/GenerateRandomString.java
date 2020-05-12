@@ -1,4 +1,4 @@
-package com.planetsystems.tela;
+package com.planetsystems.tela.utils;
 
 import java.util.Random;
 

@@ -22,8 +22,8 @@ public class TimeAttendanceListViewModel extends AndroidViewModel {
     public TimeAttendanceListViewModel(@NonNull Application application) {
         super(application);
 
-        clockInRepository = new MainRepository(application).getClockInRepository();
-        timeOnSiteAttendanceRepository = new MainRepository(application).getTimeOnSiteAttendanceRepository();
+        clockInRepository = MainRepository.getInstance(application).getClockInRepository();
+        timeOnSiteAttendanceRepository = MainRepository.getInstance(application).getTimeOnSiteAttendanceRepository();
     }
     public LiveData<List<SyncClockIn>> teachers(String dateOfDay){
         return clockInRepository.getClockedInTeachersByDate(dateOfDay);

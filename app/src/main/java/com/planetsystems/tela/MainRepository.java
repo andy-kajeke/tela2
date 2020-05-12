@@ -37,7 +37,7 @@ public class MainRepository {
     private LearnerRepository learnerRepository;
     private TimeOnSiteAttendanceRepository timeOnSiteAttendanceRepository;
 
-    public MainRepository(Application application) {
+    private MainRepository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
         syncTimeTableDao = telaRoomDatabase.getSyncTimeTableDao();
         clockInRepository = ClockInRepository.getInstance(telaRoomDatabase);

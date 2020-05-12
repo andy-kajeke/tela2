@@ -21,8 +21,8 @@ public class LearnerAttendanceViewModel extends AndroidViewModel {
     public LearnerAttendanceViewModel(@NonNull Application application) {
         super(application);
 
-        schoolClassesRepository = new MainRepository(application).getSchoolClassesRepository();
-        learnerRepository = new MainRepository(application).getLearnerRepository();
+        schoolClassesRepository = MainRepository.getInstance(application).getSchoolClassesRepository();
+        learnerRepository = MainRepository.getInstance(application).getLearnerRepository();
     }
     LiveData<List<SyncSchoolClasses>> schoolClasses() {
         return schoolClassesRepository.getAllClassesInSchool();
