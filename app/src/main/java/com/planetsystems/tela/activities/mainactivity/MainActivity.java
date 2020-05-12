@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities;
+package com.planetsystems.tela.activities.mainactivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.planetsystems.tela.activities.SchoolConfirmation;
 import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivityViewModel;
-import com.planetsystems.tela.activityViewModel.MainActivityViewModel;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.workers.WorkManagerTrigger;
 

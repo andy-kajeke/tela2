@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static com.planetsystems.tela.activities.MainActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.mainactivity.MainActivity.SchoolDeviceIMEINumber;
 
 public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     private ClockOutRepository clockOutRepository;

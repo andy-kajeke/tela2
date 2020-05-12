@@ -11,8 +11,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.InputStream;
 import java.util.Objects;
 
-import static com.planetsystems.tela.activities.MainActivity.SchoolDeviceIMEINumber;
-
 public class Urls {
     public static final String DEVICE_IMEI = "354633111523205";
 
