@@ -98,6 +98,13 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
             }
         });
 
+        teacherHomeActivityViewModel.taskRecords().observe(this, new Observer<List<SynTimeOnTask>>() {
+            @Override
+            public void onChanged(List<SynTimeOnTask> synTimeOnTasks) {
+                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(synTimeOnTasks.size()), Toast.LENGTH_LONG).show();
+            }
+        });
+
         //submit attendance commitment
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,11 +164,6 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
             //TeacherHomeActivityViewModel teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
             teacherHomeActivityViewModel.timeOnTask(synTimeOnTask);
 
-            if (teacherHomeActivityViewModel.timeOnTask(synTimeOnTask)) {
-                Toast.makeText(this, "Submitted successfully", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Already submitted", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 
