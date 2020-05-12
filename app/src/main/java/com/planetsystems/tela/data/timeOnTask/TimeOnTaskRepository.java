@@ -7,6 +7,9 @@ import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class TimeOnTaskRepository {
     private SynTimeOnTaskDao synTimeOnTaskDao;
@@ -45,5 +48,16 @@ public class TimeOnTaskRepository {
 
     public LiveData<List<SyncTimeTable>> getSyncTimeTableByEmployeeIDForDay(String employeeNumber, String dayOfTheWeek) {
         return syncTimeTableDao.getSyncTimeTableByEmployeeIDForDay(employeeNumber, dayOfTheWeek);
+    }
+
+    public SynTimeOnTask getSynTimeOnTaskWithEmployeeNumberAndDate(final String employeeNumber, final String transactionDate) throws ExecutionException, InterruptedException {
+        Callable<SynTimeOnTask> callable = new Callable<SynTimeOnTask>() {
+            @Override
+            public SynTimeOnTask call() throws Exception {
+                return synTimeOnTaskDao.getSynTimeOnTaskWithEmployeeNumberAndDate(employeeNumber, transactionDate);
+            }
+        };
+        Future<SynTimeOnTask> synTimeOnTaskFuture = TelaRoomDatabase.db_executor.submit(callable);
+        return synTimeOnTaskFuture.get();
     }
 }

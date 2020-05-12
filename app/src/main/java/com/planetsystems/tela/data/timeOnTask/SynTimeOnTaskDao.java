@@ -15,4 +15,14 @@ public interface SynTimeOnTaskDao {
 
     @Query("SELECT * FROM " + SynTimeOnTaskConstant.TABLE_NAME)
     LiveData<List<SynTimeOnTask>> getSynTimeOnTasks();
+
+    @Query(
+            "SELECT * FROM " + SynTimeOnTaskConstant.TABLE_NAME
+            + " WHERE "
+            + SynTimeOnTaskConstant.EMPLOYEE_NUMBER
+            + " =:employeeNumber AND "
+            + SynTimeOnTaskConstant.TRANSACTION_DATE
+            + " =:transactionDate"
+    )
+    SynTimeOnTask getSynTimeOnTaskWithEmployeeNumberAndDate(String employeeNumber, String transactionDate);
 }
