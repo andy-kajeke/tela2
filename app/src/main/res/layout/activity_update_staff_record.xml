@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".staff.administration.editStaff.UpdateStaffRecord">
+    tools:context=".activities.staff.administration.editStaff.UpdateStaffRecord">
 
     <LinearLayout
         android:layout_width="match_parent"

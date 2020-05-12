@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.administration.timeAttendance;
+package com.planetsystems.tela.activities.staff.administration.timeAttendance;
 
 import android.app.Application;
 
@@ -9,10 +9,8 @@ import androidx.lifecycle.LiveData;
 import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
-import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendance;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.TimeOnSiteAttendanceRepository;
-import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 
 import java.util.List;
 

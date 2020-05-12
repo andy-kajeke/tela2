@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.administration.learnerAttendance;
+package com.planetsystems.tela.activities.staff.administration.learnerAttendance;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;

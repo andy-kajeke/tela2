@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.administration.learnerAttendance;
+package com.planetsystems.tela.activities.staff.administration.learnerAttendance;
 
 import android.app.Application;
 
@@ -7,8 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.MainRepository;
-import com.planetsystems.tela.data.Teacher.SyncTeacher;
-import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.attendance.LearnerRepository;
 import com.planetsystems.tela.data.attendance.SyncAttendanceRecord;
 import com.planetsystems.tela.data.schoolClasses.SchoolClassesRepository;

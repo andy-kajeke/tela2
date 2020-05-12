@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.regularStaff.home;
+package com.planetsystems.tela.activities.staff.regularStaff.home;
 
 import android.app.Application;
 
@@ -7,9 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.MainRepository;
-import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
-import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
 import com.planetsystems.tela.data.timeOnTask.TimeOnTaskRepository;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;

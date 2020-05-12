@@ -32,8 +32,8 @@ import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
 import com.planetsystems.tela.constants.Role;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
-import com.planetsystems.tela.staff.administration.AdminSideActivity;
-import com.planetsystems.tela.staff.regularStaff.home.TeacherHomeActivity;
+import com.planetsystems.tela.activities.staff.administration.AdminSideActivity;
+import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Objects;

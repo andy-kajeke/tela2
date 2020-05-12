@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         SchoolDeviceIMEINumber = telephonyManager.getDeviceId();
         //SchoolDeviceIMEINumber = "354633111523205";
         Toast.makeText(MainActivity.this, "IMEI_NO is: "+ SchoolDeviceIMEINumber, Toast.LENGTH_LONG).show();
-        dynamicData.getSchoolID(SchoolDeviceIMEINumber);
+        dynamicData.getSchoolID();
     }
 
     @Override

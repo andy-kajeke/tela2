@@ -57,8 +57,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                             teacher.getEmployeeNumber(),
                             DynamicData.getLatitude(),
                             DynamicData.getLongitude(),
-                            "3/4/2019",
-                            DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+                            DynamicData.getSchoolID(),
                             DynamicData.getSchoolName(),
                             teacher.getFirstName(),
                             teacher.getLastName()
@@ -94,7 +93,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                             DynamicData.getDate(),
                             DynamicData.getDay(),
                             DynamicData.getTime(),
-                            DynamicData.getSchoolID(SchoolDeviceIMEINumber)
+                            DynamicData.getSchoolID()
                     ));
                     return teacher;
                 }
@@ -138,9 +137,9 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
 
     public static class DynamicData {
 
-        public static String getSchoolID(String schoolID) {
+        public static String getSchoolID() {
             //TODO: put codes here for finding school id
-            return schoolID;
+            return SchoolDeviceIMEINumber;
         }
 
         static String getLatitude() {

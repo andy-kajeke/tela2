@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.administration.learnerAttendance;
+package com.planetsystems.tela.activities.staff.administration.learnerAttendance;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.administration.editStaff;
+package com.planetsystems.tela.activities.staff.administration.editStaff;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;

@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.administration;
+package com.planetsystems.tela.activities.staff.administration;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -14,15 +14,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.staff.administration.editStaff.EditStaffList;
-import com.planetsystems.tela.staff.administration.learnerAttendance.LearnerClasses;
-import com.planetsystems.tela.staff.administration.timeAttendance.TimeAttendanceList;
+import com.planetsystems.tela.activities.staff.administration.editStaff.EditStaffList;
+import com.planetsystems.tela.activities.staff.administration.learnerAttendance.LearnerClasses;
+import com.planetsystems.tela.activities.staff.administration.timeAttendance.TimeAttendanceList;
 
 public class AdminSideActivity extends AppCompatActivity {
-    public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
-    public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_LAST_NAME";
-    public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
-    public static final String SCHOOL_NUMBER = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.SCHOOL_NUMBER";
+    public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
+    public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.TEACHER_LAST_NAME";
+    public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
+    public static final String SCHOOL_NUMBER = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.SCHOOL_NUMBER";
 
 
     CardView myLessons;

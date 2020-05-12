@@ -1,6 +1,5 @@
-package com.planetsystems.tela.staff.regularStaff.home;
+package com.planetsystems.tela.activities.staff.regularStaff.home;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,15 +18,11 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.planetsystems.tela.GenerateRandomString;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
-import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
-import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
-import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
-import com.planetsystems.tela.staff.regularStaff.serviceRequests.MakeRequests;
+import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.MakeRequests;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,9 +30,9 @@ import java.util.Date;
 import java.util.List;
 
 public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
-    public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
-    public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_LAST_NAME";
-    public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
+    public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
+    public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.TEACHER_LAST_NAME";
+    public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
 
     TeacherHomeActivityViewModel teacherHomeActivityViewModel;
 

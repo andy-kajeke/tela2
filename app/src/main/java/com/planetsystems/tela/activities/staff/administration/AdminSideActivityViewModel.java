@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.administration;
+package com.planetsystems.tela.activities.staff.administration;
 
 import android.app.Application;
 
