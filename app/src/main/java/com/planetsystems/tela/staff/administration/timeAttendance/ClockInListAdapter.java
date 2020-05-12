@@ -1,6 +1,7 @@
 package com.planetsystems.tela.staff.administration.timeAttendance;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class ClockInListAdapter extends RecyclerView.Adapter<ClockInListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StaffViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StaffViewHolder holder, final int position) {
         if (mSyncClockIn != null){
             SyncClockIn syncClockIn = mSyncClockIn.get(position);
             holder.setData(syncClockIn.getFirstName(), syncClockIn.getLastName(), syncClockIn.getEmployeeNo(), syncClockIn.getClockInTime(), position);
@@ -56,6 +57,19 @@ public class ClockInListAdapter extends RecyclerView.Adapter<ClockInListAdapter.
             TextDrawable drawable = TextDrawable.builder().buildRoundRect(""+s.toUpperCase(),color1,60); //radius in px
 
             holder.imageView.setImageDrawable(drawable);
+
+            //Confirm teacher attendance on site
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SyncClockIn syncClockIn1 = mSyncClockIn.get(position);
+                    Intent CTA = new Intent(mContext, ConfirmTimeAttendance.class);
+                    CTA.putExtra("admin","");
+                    CTA.putExtra("teacher_id", syncClockIn1.getEmployeeNo());
+                    CTA.putExtra("teacher_name", syncClockIn1.getFirstName() + " " + syncClockIn1.getLastName());
+                    mContext.startActivity(CTA);
+                }
+            });
 
         }else {
             holder.It_role.setText("No record");

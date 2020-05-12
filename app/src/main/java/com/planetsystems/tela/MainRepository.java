@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
+import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.TimeOnSiteAttendanceRepository;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
 import com.planetsystems.tela.data.attendance.LearnerRepository;
 import com.planetsystems.tela.data.clockOut.ClockOutRepository;
@@ -34,6 +35,7 @@ public class MainRepository {
     private TimeOnTaskRepository timeOnTaskRepository;
     private SchoolClassesRepository schoolClassesRepository;
     private LearnerRepository learnerRepository;
+    private TimeOnSiteAttendanceRepository timeOnSiteAttendanceRepository;
 
     public MainRepository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
@@ -44,6 +46,7 @@ public class MainRepository {
         timeOnTaskRepository = TimeOnTaskRepository.getInstance(telaRoomDatabase);
         schoolClassesRepository = SchoolClassesRepository.getInstance(telaRoomDatabase);
         learnerRepository = LearnerRepository.getInstance(telaRoomDatabase);
+        timeOnSiteAttendanceRepository = TimeOnSiteAttendanceRepository.getInstance(telaRoomDatabase);
 
     }
 
@@ -74,11 +77,6 @@ public class MainRepository {
         return clockInRepository.getAllClockedIn();
     }
 
-    public LiveData<List<SyncClockIn>> getClockedInByDateOfDay (String dateOfDay){
-        return clockInRepository.getClockedInTeachersByDate(dateOfDay);
-    }
-
-
     public SyncTimeTableDao getSyncTimeTableDao() {
         return syncTimeTableDao;
     }
@@ -107,4 +105,6 @@ public class MainRepository {
     }
 
     public LearnerRepository getLearnerRepository(){return learnerRepository;}
+
+    public TimeOnSiteAttendanceRepository getTimeOnSiteAttendanceRepository(){return timeOnSiteAttendanceRepository;}
 }

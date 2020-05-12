@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = SyncConfirmTimeOnSiteAttendanceConstant.TABLE_NAME)
 public class SyncConfirmTimeOnSiteAttendance {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.ID)
-    private String id;
+    private int id;
 
     @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.DATE_CREATED)
     private String dateCreated;
@@ -48,8 +48,8 @@ public class SyncConfirmTimeOnSiteAttendance {
     @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.ROW_ID)
     private String rowId;
 
-    public SyncConfirmTimeOnSiteAttendance(@NonNull String id, String dateCreated, String dateUpdated, String status, String employeeId, String employeeNo, String supervisionDate, String supervisionDay, String supervisionStatus, String supervisionComment, String supervisionId, String rowVer, String rowId) {
-        this.id = id;
+    public SyncConfirmTimeOnSiteAttendance(String dateCreated, String dateUpdated, String status, String employeeId, String employeeNo, String supervisionDate, String supervisionDay, String supervisionStatus, String supervisionComment, String supervisionId, String rowVer, String rowId) {
+        //this.id = id;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
         this.status = status;
@@ -65,11 +65,11 @@ public class SyncConfirmTimeOnSiteAttendance {
     }
 
     @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(@NonNull int id) {
         this.id = id;
     }
 

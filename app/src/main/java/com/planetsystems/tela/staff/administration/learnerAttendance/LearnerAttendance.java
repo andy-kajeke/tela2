@@ -33,7 +33,7 @@ public class LearnerAttendance extends AppCompatActivity {
 
     String id_extra;
     String class_extra;
-    String school_id_extra;
+    String class_id_extra;
     String admin_extra;
     String dateString;
     String dayOfTheWeek;
@@ -66,7 +66,7 @@ public class LearnerAttendance extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 //        id_extra = bundle.getString("id");
         class_extra = bundle.getString("class");
-        school_id_extra = bundle.getString("school");
+        class_id_extra = bundle.getString("class_id");
         admin_extra = bundle.getString("admin");
 
         className.setText("Class:  " + "Primary " + class_extra);
@@ -144,8 +144,8 @@ public class LearnerAttendance extends AppCompatActivity {
                 "",
                 1,
                 comment.getText().toString(),
-                "",
-                school_id_extra,
+                class_extra,
+                class_id_extra,
                 numGalsAbsent.getText().toString(),
                 numGalsPresent.getText().toString(),
                 numBoysAbsent.getText().toString(),

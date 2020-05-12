@@ -35,25 +35,6 @@ public class TeacherHomeActivityViewModel extends AndroidViewModel {
         timeOnTaskRepository.insertSyncTimeOneTask(synTimeOnTask);
     }
 
-//    boolean timeOnTask(SynTimeOnTask synTimeOnTask) {
-//        if (!isConfirmed(tasksConfirmation, synTimeOnTask)) {
-//            timeOnTaskRepository.insertSyncTimeOneTask(synTimeOnTask);
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    // checks whether teacher is already enrolled
-//    private boolean isConfirmed(List<SynTimeOnTask> confirmTasks, SynTimeOnTask tasks) {
-//        for (SynTimeOnTask confirmedTasks: confirmTasks) {
-//            if (confirmedTasks.getTransactionDate().equals(tasks.getTransactionDate()) && confirmedTasks.getEmployeeNumber().equals(tasks.getEmployeeNumber())) {
-//                // teacher already submitted
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-
     LiveData<List<SynTimeOnTask>> taskRecords(){
         return timeOnTaskRepository.getAllTimeOnTask();
     }

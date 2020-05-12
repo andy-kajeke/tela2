@@ -159,7 +159,6 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
 
         static String getTime() {
             long date = System.currentTimeMillis();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
             SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
             return  time.format(date);
         }
@@ -168,13 +167,6 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
             long date = System.currentTimeMillis();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
             return  dateFormat.format(date);
-        }
-
-        static String getCurrentTime() {
-            long date = System.currentTimeMillis();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
-            SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
-            return  time.format(date);
         }
 
         static String getSchoolName() {

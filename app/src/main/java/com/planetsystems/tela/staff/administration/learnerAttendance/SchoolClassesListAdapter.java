@@ -67,12 +67,12 @@ public class SchoolClassesListAdapter extends RecyclerView.Adapter<SchoolClasses
                 @Override
                 public void onClick(View v) {
                     SyncSchoolClasses syncSchoolClasses = mSyncSchoolClasses.get(position);
-                    Toast.makeText(mContext, syncSchoolClasses.getClassName(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, syncSchoolClasses.getClassName() + " | " + syncSchoolClasses.getId(),Toast.LENGTH_LONG).show();
 
                     Intent leaner = new Intent(mContext, LearnerAttendance.class);
                     leaner.putExtra("admin", employeeNumber);
                     leaner.putExtra("class", syncSchoolClasses.getClassName());
-                    leaner.putExtra("school", schoolID);
+                    leaner.putExtra("class_id", syncSchoolClasses.getId());
                     mContext.startActivity(leaner);
                 }
             });

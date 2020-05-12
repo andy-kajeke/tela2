@@ -35,7 +35,7 @@ public class TimeAttendanceList extends AppCompatActivity {
 //        school_extra = bundle.getString("school");
 
         long date = System.currentTimeMillis();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd /MM/ yyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
         String dateOfDay = dateFormat.format(date);
 
         adapter = new ClockInListAdapter(this);
@@ -44,10 +44,12 @@ public class TimeAttendanceList extends AppCompatActivity {
 
         timeAttendanceListViewModel = new ViewModelProvider(this).get(TimeAttendanceListViewModel.class);
 
-        timeAttendanceListViewModel.onlyClockedIn().observe(this, new Observer<List<SyncClockIn>>() {
+        timeAttendanceListViewModel.teachers(dateOfDay).observe(this, new Observer<List<SyncClockIn>>() {
             @Override
             public void onChanged(List<SyncClockIn> syncClockIns) {
-                adapter.setTeacherDetails(syncClockIns);
+                for (int i = 0; i < syncClockIns.size(); i++){
+                    adapter.setTeacherDetails(syncClockIns);
+                }
             }
         });
     }

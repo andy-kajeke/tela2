@@ -7,26 +7,39 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.MainRepository;
+import com.planetsystems.tela.data.ClockIn.ClockInRepository;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
+import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendance;
+import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.TimeOnSiteAttendanceRepository;
+import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 
 import java.util.List;
 
 public class TimeAttendanceListViewModel extends AndroidViewModel {
     private String TAG =this.getClass().getSimpleName();
-    private SyncClockInDao syncClockInDao;
-    private MainRepository mainRepository;
+    private ClockInRepository clockInRepository;
+    private TimeOnSiteAttendanceRepository timeOnSiteAttendanceRepository;
 
     public TimeAttendanceListViewModel(@NonNull Application application) {
         super(application);
 
-       mainRepository = new MainRepository(application);
-       // syncClockInDao = new MainRepository(application).getSyncClockInDao();
+        clockInRepository = new MainRepository(application).getClockInRepository();
+        timeOnSiteAttendanceRepository = new MainRepository(application).getTimeOnSiteAttendanceRepository();
     }
     public LiveData<List<SyncClockIn>> teachers(String dateOfDay){
-        return mainRepository.getClockedInByDateOfDay(dateOfDay);
+        return clockInRepository.getClockedInTeachersByDate(dateOfDay);
     }
+
     public LiveData<List<SyncClockIn>> onlyClockedIn(){
-        return mainRepository.OnlyClockedIn();
+        return clockInRepository.getAllClockedIn();
+    }
+
+    public LiveData<List<SyncConfirmTimeOnSiteAttendance>> onSiteAttendance(){
+        return timeOnSiteAttendanceRepository.getAllTimeOnSiteAttendance();
+    }
+
+    public void insertTimeOnSiteAttendance(SyncConfirmTimeOnSiteAttendance syncConfirmTimeOnSiteAttendance){
+        timeOnSiteAttendanceRepository.insertTimeOnSiteAttendance(syncConfirmTimeOnSiteAttendance);
     }
 }
