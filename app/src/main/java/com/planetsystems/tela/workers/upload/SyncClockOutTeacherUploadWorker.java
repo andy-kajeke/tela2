@@ -46,8 +46,16 @@ public class SyncClockOutTeacherUploadWorker extends Worker {
         List<SyncClockOut> syncClockOutForBackUp = syncClockOutDao.getSyncClockOutForBackUp(false);
         for(SyncClockOut syncClockOut: syncClockOutForBackUp) {
             Log.d(getClass().getSimpleName(), "Uploading: " + syncClockOut.toString());
-            // TODO: andrew will add codes here to upload each individual syncclock in to the backend
+            // TODO: upload each individual syncclock out into the backend
             try {
+                syncClockOut.getEmployeeId();
+                syncClockOut.getEmployeeNo();
+                syncClockOut.getLongitude();
+                syncClockOut.getLatitude();
+                syncClockOut.getDate();
+                syncClockOut.getDay();
+                syncClockOut.getTime();
+                syncClockOut.getSchoolId();
 
                 String resp = Urls.POST( Urls.CLOCK_OUT_UPLOAD_URL,  new Gson().toJson(syncClockOut));
 

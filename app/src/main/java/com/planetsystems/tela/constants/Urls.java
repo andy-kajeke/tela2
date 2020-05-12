@@ -11,6 +11,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.InputStream;
 import java.util.Objects;
 
+@SuppressWarnings("ALL")
 public class Urls {
     public static final String DEVICE_IMEI = "354633111523205";
 
@@ -27,8 +28,12 @@ public class Urls {
     public static final String SYNC_TIME_TABLE_URL = BASE_URL + "timetable/" + DEVICE_IMEI;
 
     public static final String SCHOOL_CLASSES = BASE_URL + "classes/" + DEVICE_IMEI;
+
+    public static final String LEARNER_ATTENDANCE = BASE_URL + "learners/attendance";
+
     public static final String DID_WORK = "Work Done!";
 
+    //uploading content to server
     public static String POST(String url, String jsontasks){
         InputStream inputStream = null;
         String result = "";

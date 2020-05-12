@@ -13,6 +13,7 @@ import com.planetsystems.tela.workers.fetch.SyncTeacherWorker;
 import com.planetsystems.tela.workers.fetch.SyncTimeTableWorker;
 import com.planetsystems.tela.workers.upload.SyncClockInTeacherUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncClockOutTeacherUploadWorker;
+import com.planetsystems.tela.workers.upload.SyncLearnerAttendanceUploadWorker;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -27,6 +28,7 @@ public class WorkManagerTrigger {
     public static void startUploadWorkers(Context context) {
         startUploadSyncClockInUploadWorker(context);
         startUploadSyncClockOutUploadWorker(context);
+        startUploadSyncLearnerAttendanceUploadWorker(context);
     }
 
     // picking data from the cloud to SyncTimeTable table
@@ -80,7 +82,20 @@ public class WorkManagerTrigger {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncClockOutTeacherUploadWorker.class, 1, TimeUnit.HOURS)
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncClockOutTeacherUploadWorker.class, 10, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .build();
+
+        WorkManager.getInstance(context).enqueue(workRequest);
+
+    }
+
+    //Upload clock out content to server
+    public static  void startUploadSyncLearnerAttendanceUploadWorker(Context context) {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncLearnerAttendanceUploadWorker.class, 30, TimeUnit.MINUTES)
                 .setConstraints(constraints)
                 .build();
 

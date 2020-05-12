@@ -139,7 +139,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
     // save teacher confirmation on tasks to syncTimeOneTasks table
     private void postToSyncTimeOnTask(){
 
-        for(SyncTimeTable Task:mSyncTimeTables){
+        for(SyncTimeTable Task : mSyncTimeTables){
             SynTimeOnTask synTimeOnTask = new SynTimeOnTask(
                     "",
                     "",
@@ -160,9 +160,6 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
                     Task.getTaskName()
             );
 
-            //Toast.makeText(getApplicationContext(), "Submitted successfully..", Toast.LENGTH_LONG).show();
-
-            //TeacherHomeActivityViewModel teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
             teacherHomeActivityViewModel.postToSyncTimeOnTask(synTimeOnTask);
 
         }

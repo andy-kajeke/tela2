@@ -54,10 +54,13 @@ public class SyncAttendanceRecord {
     @ColumnInfo(name = "taskDay")
     private String taskDay;
 
+    @ColumnInfo(name = "isUploaded")
+    private boolean isUploaded;
+
     public SyncAttendanceRecord(String dateCreated, String dateUpdated, int status,
                                 String comment, String deploymentUnit, String deploymentUnitId, String femaleAbsent,
                                 String femalePresent, String maleAbsent, String malePresent, String submissionDate,
-                                String supervisorId, String taskDay) {
+                                String supervisorId, String taskDay, boolean isUploaded) {
        // this.id = id;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
@@ -72,6 +75,7 @@ public class SyncAttendanceRecord {
         this.submissionDate = submissionDate;
         this.supervisorId = supervisorId;
         this.taskDay = taskDay;
+        this.isUploaded = false;
     }
 
     @NonNull
@@ -185,5 +189,13 @@ public class SyncAttendanceRecord {
 
     public void setTaskDay(String taskDay) {
         this.taskDay = taskDay;
+    }
+
+    public boolean isUploaded() {
+        return isUploaded;
+    }
+
+    public void setUploaded(boolean uploaded) {
+        isUploaded = uploaded;
     }
 }

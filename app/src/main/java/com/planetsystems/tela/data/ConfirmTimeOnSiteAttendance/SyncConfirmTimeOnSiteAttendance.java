@@ -168,4 +168,5 @@ public class SyncConfirmTimeOnSiteAttendance {
     public void setRowId(String rowId) {
         this.rowId = rowId;
     }
+
 }

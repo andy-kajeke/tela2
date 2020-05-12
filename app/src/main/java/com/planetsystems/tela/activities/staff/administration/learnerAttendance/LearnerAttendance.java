@@ -152,7 +152,8 @@ public class LearnerAttendance extends AppCompatActivity {
                 numBoysPresent.getText().toString(),
                 dateString,
                 admin_extra,
-                dayOfTheWeek
+                dayOfTheWeek,
+                false
         );
 
         learnerAttendanceViewModel.learnerAttendance(syncAttendanceRecord);
