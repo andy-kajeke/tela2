@@ -24,6 +24,7 @@ import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.MakeRequests;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -50,7 +51,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
     List<SyncTimeTable> taskList;
     TasksAdapter adapter;
     //SynTimeOnTask synTimeOnTask;
-    public String id_extra;
+    public String dateString, timeString;
     String lat_extra, long_extra;
     String emp_id_extra, emp_name_extra;
 
@@ -68,6 +69,12 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
 
         Date currentTime = Calendar.getInstance().getTime();
         datetoday.setText(""+currentTime.toString());
+
+        long date = System.currentTimeMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm a");
+        dateString = dateFormat.format(date);
+        timeString = time.format(date);
 
         Bundle bundle = getIntent().getExtras();
         emp_id_extra = bundle.getString(EMPLOYEE_NUMBER);
@@ -137,13 +144,13 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
                     "",
                     "",
                     "",
-                    "Present",
+                    Task.getStatus(),
                     "",
                     emp_id_extra,
                     emp_id_extra,
                     Task.getTaskId(),
-                    "",
-                    "",
+                    timeString,
+                    dateString,
                     "",
                     "",
                     emp_name_extra,
