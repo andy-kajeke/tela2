@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context=".staff.administration.timeAttendance.ConfirmTimeAttendance">
+    tools:context=".activities.staff.administration.timeAttendance.ConfirmTimeAttendance">
 
     <LinearLayout
         android:layout_width="match_parent"

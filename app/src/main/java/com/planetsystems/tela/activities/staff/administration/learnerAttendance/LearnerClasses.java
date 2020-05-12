@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.administration.learnerAttendance;
+package com.planetsystems.tela.activities.staff.administration.learnerAttendance;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -7,17 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
-import com.planetsystems.tela.staff.administration.editStaff.StaffListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.planetsystems.tela.activities.MainActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.mainactivity.MainActivity.SchoolDeviceIMEINumber;
 
 public class LearnerClasses extends AppCompatActivity {
 

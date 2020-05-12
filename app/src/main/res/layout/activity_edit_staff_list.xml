@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".staff.administration.editStaff.EditStaffList">
+    tools:context=".activities.staff.administration.editStaff.EditStaffList">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/staff_list"

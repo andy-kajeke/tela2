@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.regularStaff.home;
+package com.planetsystems.tela.activities.staff.regularStaff.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 
 import java.util.List;

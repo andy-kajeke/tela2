@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".staff.administration.learnerAttendance.LearnerAttendance">
+    tools:context=".activities.staff.administration.learnerAttendance.LearnerAttendance">
 
     <RelativeLayout
         android:layout_width="match_parent"

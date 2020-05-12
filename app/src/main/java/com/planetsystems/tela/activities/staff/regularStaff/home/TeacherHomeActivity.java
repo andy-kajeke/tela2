@@ -1,6 +1,5 @@
-package com.planetsystems.tela.staff.regularStaff.home;
+package com.planetsystems.tela.activities.staff.regularStaff.home;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,15 +18,11 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.planetsystems.tela.GenerateRandomString;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
-import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
-import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
-import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
-import com.planetsystems.tela.staff.regularStaff.serviceRequests.MakeRequests;
+import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.MakeRequests;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,9 +30,9 @@ import java.util.Date;
 import java.util.List;
 
 public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
-    public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
-    public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.TEACHER_LAST_NAME";
-    public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
+    public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
+    public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.TEACHER_LAST_NAME";
+    public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
 
     TeacherHomeActivityViewModel teacherHomeActivityViewModel;
 
@@ -51,8 +46,8 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
     TextView tvname;
     //TextView datetoday;
     Button submit, selfmenu;
-    ArrayList<SyncTimeTable> mSyncTimeTables;
-    ArrayList<SyncTimeTable> taskList;
+    List<SyncTimeTable> mSyncTimeTables;
+    List<SyncTimeTable> taskList;
     TasksAdapter adapter;
     //SynTimeOnTask synTimeOnTask;
     public String id_extra;
@@ -89,16 +84,15 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
 
         teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
 
-        teacherHomeActivityViewModel.timetables(emp_id_extra, "Thursday").observe(this, new Observer<List<SyncTimeTable>>() {
+        teacherHomeActivityViewModel.getSyncTimeTableByEmployeeIDForDay(emp_id_extra, "Thursday").observe(this, new Observer<List<SyncTimeTable>>() {
             @Override
             public void onChanged(List<SyncTimeTable> syncTimeTables) {
-                for (int i = 0; i < syncTimeTables.size(); i++){
-                    adapter.setTaskList(syncTimeTables);
-                }
+                adapter.setTaskList(syncTimeTables);
+                mSyncTimeTables = syncTimeTables;
             }
         });
 
-        teacherHomeActivityViewModel.taskRecords().observe(this, new Observer<List<SynTimeOnTask>>() {
+        teacherHomeActivityViewModel.getTimeOnTasks().observe(this, new Observer<List<SynTimeOnTask>>() {
             @Override
             public void onChanged(List<SynTimeOnTask> synTimeOnTasks) {
                 Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(synTimeOnTasks.size()), Toast.LENGTH_LONG).show();
@@ -117,7 +111,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                PostToSyncTimeOnTask();
+                                postToSyncTimeOnTask();
                             }})
                         .setNegativeButton(android.R.string.no, null).show();
             }
@@ -136,7 +130,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
     }
 
     // save teacher confirmation on tasks to syncTimeOneTasks table
-    private void PostToSyncTimeOnTask(){
+    private void postToSyncTimeOnTask(){
 
         for(SyncTimeTable Task:mSyncTimeTables){
             SynTimeOnTask synTimeOnTask = new SynTimeOnTask(
@@ -162,7 +156,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
             //Toast.makeText(getApplicationContext(), "Submitted successfully..", Toast.LENGTH_LONG).show();
 
             //TeacherHomeActivityViewModel teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
-            teacherHomeActivityViewModel.timeOnTask(synTimeOnTask);
+            teacherHomeActivityViewModel.postToSyncTimeOnTask(synTimeOnTask);
 
         }
     }

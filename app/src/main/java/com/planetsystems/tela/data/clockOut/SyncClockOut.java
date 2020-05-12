@@ -40,9 +40,6 @@ public class SyncClockOut {
     @ColumnInfo(name = SyncClockOutTableConstant.LONGITUDE_COLUMN_NAME)
     private String longitude;
 
-    @ColumnInfo(name = SyncClockOutTableConstant.STATUS_COLUMN_NAME)
-    private String status;
-
     @ColumnInfo(name = SyncClockOutTableConstant.SCHOOL_ID_COLUMN_NAME)
     private String schoolId;
 
@@ -132,14 +129,6 @@ public class SyncClockOut {
         this.longitude = longitude;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getSchoolId() {
         return schoolId;
     }
@@ -172,7 +161,7 @@ public class SyncClockOut {
         this.lastName = lastName;
     }
 
-    public SyncClockOut(String date, String day, String time, String comment, @NonNull String employeeNo, String employeeId, String latitude, String longitude, String status, String schoolId, String schoolName, String firstName, String lastName) {
+    public SyncClockOut(String date, String day, String time, String comment, @NonNull String employeeNo, String employeeId, String latitude, String longitude, String schoolId, String schoolName, String firstName, String lastName) {
         this.date = date;
         this.day = day;
         this.time = time;
@@ -181,7 +170,6 @@ public class SyncClockOut {
         this.employeeId = employeeId;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.status = status;
         this.schoolId = schoolId;
         this.schoolName = schoolName;
         this.firstName = firstName;
@@ -209,7 +197,6 @@ public class SyncClockOut {
                 ", employeeId='" + employeeId + '\'' +
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
-                ", status='" + status + '\'' +
                 ", schoolId='" + schoolId + '\'' +
                 ", schoolName='" + schoolName + '\'' +
                 ", firstName='" + firstName + '\'' +

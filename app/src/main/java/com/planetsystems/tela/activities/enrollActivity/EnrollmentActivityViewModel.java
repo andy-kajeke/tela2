@@ -24,7 +24,7 @@ public class EnrollmentActivityViewModel extends AndroidViewModel {
     private List<SyncTeacher> teachers;
     public EnrollmentActivityViewModel(@NonNull Application application) {
         super(application);
-        mainRepository = new MainRepository(application);
+        mainRepository =MainRepository.getInstance(application);
 
     }
 

@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.administration.timeAttendance;
+package com.planetsystems.tela.activities.staff.administration.timeAttendance;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;

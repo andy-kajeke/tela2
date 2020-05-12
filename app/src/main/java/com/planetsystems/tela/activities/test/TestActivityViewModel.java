@@ -25,7 +25,7 @@ public class TestActivityViewModel extends AndroidViewModel {
         //MainRepository mainRepository = MainRepository.getInstance(application);
 //        syncTeacherDao = new MainRepository(application).getSyncTeacherDao();
 //        syncTimeTableDao = new MainRepository(application).getSyncTimeTableDao();
-        schoolClassesRepository = new MainRepository(application).getSchoolClassesRepository();
+        schoolClassesRepository = MainRepository.getInstance(application).getSchoolClassesRepository();
     }
 
     LiveData<List<SyncSchoolClasses>> schoolClasses() {

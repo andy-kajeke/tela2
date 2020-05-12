@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.administration.timeAttendance;
+package com.planetsystems.tela.activities.staff.administration.timeAttendance;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -10,8 +10,6 @@ import android.os.Bundle;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
-import com.planetsystems.tela.staff.administration.editStaff.EditStaffListViewModel;
-import com.planetsystems.tela.staff.administration.editStaff.StaffListAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

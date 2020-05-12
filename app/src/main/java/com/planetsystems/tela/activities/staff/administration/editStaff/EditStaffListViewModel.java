@@ -1,4 +1,4 @@
-package com.planetsystems.tela.staff.administration.editStaff;
+package com.planetsystems.tela.activities.staff.administration.editStaff;
 
 import android.app.Application;
 
@@ -20,7 +20,7 @@ public class EditStaffListViewModel extends AndroidViewModel {
     public EditStaffListViewModel(@NonNull Application application) {
         super(application);
 
-        mainRepository = new MainRepository(application);
+        mainRepository = MainRepository.getInstance(application);
     }
     public LiveData<List<SyncTeacher>> teachers(){
         return mainRepository.getAllTeachers();

@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface SynTimeOnTaskDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void inertSynTimeOnTask(SynTimeOnTask synTimeOnTask);
+    void insertSynTimeOnTask(SynTimeOnTask synTimeOnTask);
 
     @Query("SELECT * FROM " + SynTimeOnTaskConstant.TABLE_NAME)
     LiveData<List<SynTimeOnTask>> getSynTimeOnTasks();
