@@ -45,7 +45,6 @@ public class TimeOnTaskRepository {
         return synTimeOnTaskDao.getSynTimeOnTasks();
     }
 
-
     public LiveData<List<SyncTimeTable>> getSyncTimeTableByEmployeeIDForDay(String employeeNumber, String dayOfTheWeek) {
         return syncTimeTableDao.getSyncTimeTableByEmployeeIDForDay(employeeNumber, dayOfTheWeek);
     }
@@ -59,5 +58,9 @@ public class TimeOnTaskRepository {
         };
         Future<SynTimeOnTask> synTimeOnTaskFuture = TelaRoomDatabase.db_executor.submit(callable);
         return synTimeOnTaskFuture.get();
+    }
+
+    public LiveData<List<SynTimeOnTask>> getTaskWiThActionStatusPresent(final String employeeNumber, final String transactionDate, final String actionStatus){
+        return synTimeOnTaskDao.getSynTimeOnTaskWithEmployeeNumberDateAndActionStatus(employeeNumber, transactionDate, actionStatus);
     }
 }

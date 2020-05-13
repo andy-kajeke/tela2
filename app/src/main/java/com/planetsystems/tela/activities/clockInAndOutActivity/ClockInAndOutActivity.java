@@ -76,12 +76,12 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         checkout = findViewById(R.id.cardview4);
 
         Bundle bundle = getIntent().getExtras();
-        deviceIMEI_extra = bundle.getString("device_imei");
-        schoolName_extra = bundle.getString("schoolName");
+//        deviceIMEI_extra = bundle.getString("device_imei");
+//        schoolName_extra = bundle.getString("schoolName");
 
-        schoolName.setText(schoolName_extra);
+        //schoolName.setText(schoolName_extra);
 
-        SCHOOL_ID = deviceIMEI_extra;
+        //SCHOOL_ID = deviceIMEI_extra;
 
 
         checkInDialog = new Dialog(this);
@@ -371,15 +371,15 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             * teachers home page basing on the role*/
             if (syncTeacher.getRole().equals(Role.TEACHER_ROLE)) {
                 Intent teacherHome = new Intent(this, TeacherHomeActivity.class);
-                teacherHome.putExtra(TeacherHomeActivity.EMPLOYEE_NUMBER, syncTeacher.getEmployeeNumber());
-                teacherHome.putExtra(TeacherHomeActivity.TEACHER_FIRST_NAME, syncTeacher.getFirstName());
-                teacherHome.putExtra(TeacherHomeActivity.TEACHER_LAST_NAME, syncTeacher.getLastName());
+                teacherHome.putExtra("employee_No", syncTeacher.getEmployeeNumber());
+                teacherHome.putExtra("employee_Name", syncTeacher.getFirstName() + " " + syncTeacher.getLastName());
+                //teacherHome.putExtra(TeacherHomeActivity.TEACHER_LAST_NAME, syncTeacher.getLastName());
                 startActivity(teacherHome);
             } else if (syncTeacher.getRole().equals(Role.HEAD_TEACHER_ROLE)) {
                 Intent headTeacherHome = new Intent(this, AdminSideActivity.class);
-                headTeacherHome.putExtra(AdminSideActivity.EMPLOYEE_NUMBER, syncTeacher.getEmployeeNumber());
-                headTeacherHome.putExtra(AdminSideActivity.TEACHER_FIRST_NAME,syncTeacher.getFirstName());
-                headTeacherHome.putExtra(AdminSideActivity.TEACHER_LAST_NAME, syncTeacher.getLastName());
+                headTeacherHome.putExtra("employee_No", syncTeacher.getEmployeeNumber());
+                headTeacherHome.putExtra("employee_Name",syncTeacher.getFirstName() + " " + syncTeacher.getLastName());
+                //headTeacherHome.putExtra(AdminSideActivity.TEACHER_LAST_NAME, syncTeacher.getLastName());
                 // TODO: SCHOOL NUMBER MUST BE CHANGED below
                 headTeacherHome.putExtra(AdminSideActivity.SCHOOL_NUMBER, "354633111523205");
                 startActivity(headTeacherHome);

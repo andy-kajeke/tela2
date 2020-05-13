@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities.staff.regularStaff.home;
+package com.planetsystems.tela.activities.staff.administration.taskAttendance;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,40 +15,40 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.data.timetable.SyncTimeTable;
+import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 
 import java.util.List;
 
 
-public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder> {
+public class TasksConfirmedAdapter extends RecyclerView.Adapter<TasksConfirmedAdapter.TaskViewHolder> {
 
     private LayoutInflater layoutInflater;
     private  Context mContext;
-    private List<SyncTimeTable> mSyncTimeTables;
+    private List<SynTimeOnTask> mSynTimeOnTask;
 
-    public TasksAdapter(Context context, List<SyncTimeTable> mSyncTimeTables){
+    public TasksConfirmedAdapter(Context context, List<SynTimeOnTask> mSynTimeOnTask){
         layoutInflater = LayoutInflater.from(context);
         this.mContext = context;
-        this.mSyncTimeTables = mSyncTimeTables;
+        this.mSynTimeOnTask = mSynTimeOnTask;
     }
 
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.get_task_item, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.get_task_item_supervision, parent, false);
         TaskViewHolder viewHolder = new TaskViewHolder(itemView);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, final int position) {
-        SyncTimeTable syncTimeTable = mSyncTimeTables.get(position);
-        if (mSyncTimeTables != null){
+        SynTimeOnTask synTimeOnTask = mSynTimeOnTask.get(position);
+        if (mSynTimeOnTask != null){
 
-            holder.setData(syncTimeTable.getTaskName(), syncTimeTable.getStartTime(), syncTimeTable.getEndTime(), position);
+            holder.setData(synTimeOnTask.getTaskName(), synTimeOnTask.getStartTime(), synTimeOnTask.getEndTime(), position);
 
-            String L= ""+mSyncTimeTables.get(position).getSubject();
-            char k = mSyncTimeTables.get(position).getSubject().charAt(0);
+            String L= ""+mSynTimeOnTask.get(position).getTaskName();
+            char k = mSynTimeOnTask.get(position).getTaskName().charAt(4);
             String Cap= ""+k+"".toString().toUpperCase();
             String s = Character.toString(k);
 
@@ -65,17 +64,17 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
             holder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
-                    if (!bChecked) {
-                        //Toast.makeText(getContext(),"Checked",Toast.LENGTH_SHORT).show();
-                        mSyncTimeTables.get(position).setStatus("Absent");
-                        Toast.makeText(mContext ,mSyncTimeTables.get(position).getStatus(),Toast.LENGTH_SHORT).show();
-                        //status_ = proList.get(position).setStatus("present");
-
-                    } else {
-                        mSyncTimeTables.get(position).setStatus("Present");
-                        Toast.makeText(mContext,mSyncTimeTables.get(position).getStatus(),Toast.LENGTH_SHORT).show();
-                        //status_ = proList.get(position).setStatus("absent");
-                    }
+//                    if (!bChecked) {
+//                        //Toast.makeText(getContext(),"Checked",Toast.LENGTH_SHORT).show();
+//                        mSynTimeOnTask.get(position).setStatus("Absent");
+//                        Toast.makeText(mContext ,mSynTimeOnTask.get(position).getStatus(),Toast.LENGTH_SHORT).show();
+//                        //status_ = proList.get(position).setStatus("present");
+//
+//                    } else {
+//                        mSynTimeOnTask.get(position).setStatus("present");
+//                        Toast.makeText(mContext,mSynTimeOnTask.get(position).getStatus(),Toast.LENGTH_SHORT).show();
+//                        //status_ = proList.get(position).setStatus("absent");
+//                    }
                 }
             });
 
@@ -86,15 +85,15 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 
     @Override
     public int getItemCount() {
-        if (mSyncTimeTables != null){
-            return  mSyncTimeTables.size();
+        if (mSynTimeOnTask != null){
+            return  mSynTimeOnTask.size();
         }else {
             return 0;
         }
     }
 
-    public void setTaskList(List<SyncTimeTable> task){
-        mSyncTimeTables = task;
+    public void setTaskList(List<SynTimeOnTask> task){
+        mSynTimeOnTask = task;
         notifyDataSetChanged();
     }
 
@@ -115,9 +114,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
             imageView = itemView.findViewById(R.id.personphoto);
         }
 
-
-        public void setData(String subject, String startTime, String endTime, int position) {
-            task_name.setText(subject);
+        public void setData(String TaskName, String startTime, String endTime, int position) {
+            task_name.setText(TaskName);
             task_start.setText(startTime);
             task_end.setText(endTime);
             mPosition = position;

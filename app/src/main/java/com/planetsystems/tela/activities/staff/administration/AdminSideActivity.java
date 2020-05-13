@@ -16,7 +16,9 @@ import android.widget.TextView;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.staff.administration.editStaff.EditStaffList;
 import com.planetsystems.tela.activities.staff.administration.learnerAttendance.LearnerClasses;
+import com.planetsystems.tela.activities.staff.administration.taskAttendance.TaskAttendance;
 import com.planetsystems.tela.activities.staff.administration.timeAttendance.TimeAttendanceList;
+import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActivity;
 
 public class AdminSideActivity extends AppCompatActivity {
     public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
@@ -40,7 +42,7 @@ public class AdminSideActivity extends AppCompatActivity {
     Button edit_time_table;
     Button edit_staff_list;
     TextView headName,headRole;
-    String HT_Id;
+    String admin_id_extra;
     String role_extra;
     String name_extra;
     String checkIn_date;
@@ -63,23 +65,40 @@ public class AdminSideActivity extends AppCompatActivity {
         updateDialog = new Dialog(this);
 
         Bundle bundle = getIntent().getExtras();
-        HT_Id = bundle.getString("admin_id");
+        admin_id_extra = bundle.getString("employee_No");
 //        role_extra = bundle.getString("role");
-//        name_extra = bundle.getString("admin_name");
+        name_extra = bundle.getString("employee_Name");
 //        checkIn_date = bundle.getString("date");
         checkIn_schoolId = bundle.getString(SCHOOL_NUMBER);
 //
         headRole.setText("[ " + "Head Teacher" + " ]");
         headName.setText(name_extra);
 
+        myLessons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), TeacherHomeActivity.class);
+                i.putExtra("employee_No", admin_id_extra);
+                i.putExtra("employee_Name", name_extra);
+                startActivity(i);
+            }
+        });
+
         //List all clocked in staff members by date of week
         staff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), TimeAttendanceList.class);
+//                i.putExtra("employee_No", HT_Id);
+                startActivity(i);
+            }
+        });
+
+        attendClass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), TaskAttendance.class);
 //                i.putExtra("id", HT_Id);
-//                i.putExtra("date", checkIn_date);
-//                i.putExtra("school", checkIn_schoolId);
                 startActivity(i);
             }
         });

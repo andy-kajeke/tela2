@@ -95,7 +95,7 @@ public class WorkManagerTrigger {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncLearnerAttendanceUploadWorker.class, 30, TimeUnit.MINUTES)
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncLearnerAttendanceUploadWorker.class, 10, TimeUnit.MINUTES)
                 .setConstraints(constraints)
                 .build();
 

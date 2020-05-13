@@ -29,7 +29,7 @@ public class TeacherHomeActivityViewModel extends AndroidViewModel {
         return timeOnTaskRepository.getSyncTimeTableByEmployeeIDForDay(employeeNumber, dayOfTheWeek);
     }
 
-    LiveData<List<SynTimeOnTask>> getTimeOnTasks(){
+    public LiveData<List<SynTimeOnTask>> getTimeOnTasks(){
         return timeOnTaskRepository.getAllTimeOnTask();
     }
 
@@ -45,5 +45,9 @@ public class TeacherHomeActivityViewModel extends AndroidViewModel {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public LiveData<List<SynTimeOnTask>> tasksWithPresentActionStatus(String employeeNumber, String transactionDate, String actionStatus){
+        return timeOnTaskRepository.getTaskWiThActionStatusPresent(employeeNumber, transactionDate, actionStatus);
     }
 }

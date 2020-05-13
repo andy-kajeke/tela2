@@ -27,4 +27,16 @@ public interface SynTimeOnTaskDao {
             + " =:taskId"
     )
     SynTimeOnTask getSynTimeOnTaskWithEmployeeNumberAndDate(String employeeNumber, String transactionDate, String taskId);
+
+    @Query(
+            "SELECT * FROM " + SynTimeOnTaskConstant.TABLE_NAME
+                    + " WHERE "
+                    + SynTimeOnTaskConstant.EMPLOYEE_NUMBER
+                    + " =:employeeNumber AND "
+                    + SynTimeOnTaskConstant.TRANSACTION_DATE
+                    + " =:transactionDate AND "
+                    + SynTimeOnTaskConstant.ACTION_STATUS
+                    + " =:actionStatus"
+    )
+    LiveData<List<SynTimeOnTask>> getSynTimeOnTaskWithEmployeeNumberDateAndActionStatus(String employeeNumber, String transactionDate, String actionStatus);
 }

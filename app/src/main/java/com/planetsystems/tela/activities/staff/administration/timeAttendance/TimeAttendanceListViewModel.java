@@ -33,6 +33,7 @@ public class TimeAttendanceListViewModel extends AndroidViewModel {
         return clockInRepository.getAllClockedIn();
     }
 
+    //Confirmation on site attendance
     public LiveData<List<SyncConfirmTimeOnSiteAttendance>> onSiteAttendance(){
         return timeOnSiteAttendanceRepository.getAllTimeOnSiteAttendance();
     }

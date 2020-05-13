@@ -31,15 +31,9 @@ import java.util.Date;
 import java.util.List;
 
 public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
-    public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
-    public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.TEACHER_LAST_NAME";
-    public static final String EMPLOYEE_NUMBER = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.EMPLOYEE_ID";
 
     TeacherHomeActivityViewModel teacherHomeActivityViewModel;
 
-    ProgressDialog dialog;
-    int count =0;
-    int count2 =0;
     RecyclerView tasks;
     TextView datetoday;
     TextView emp_Name;
@@ -48,7 +42,6 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
     //TextView datetoday;
     Button submit, selfmenu;
     List<SyncTimeTable> mSyncTimeTables;
-    List<SyncTimeTable> taskList;
     TasksAdapter adapter;
     //SynTimeOnTask synTimeOnTask;
     public String dateString, timeString;
@@ -77,8 +70,8 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
         timeString = time.format(date);
 
         Bundle bundle = getIntent().getExtras();
-        emp_id_extra = bundle.getString(EMPLOYEE_NUMBER);
-        emp_name_extra = bundle.getString(TEACHER_FIRST_NAME);
+        emp_id_extra = bundle.getString("employee_No");
+        emp_name_extra = bundle.getString("employee_Name");
 
         emp_Name.append(emp_name_extra);
         emp_Id.append(emp_id_extra);
@@ -91,7 +84,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
 
         teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
 
-        teacherHomeActivityViewModel.getSyncTimeTableByEmployeeIDForDay(emp_id_extra, "Thursday").observe(this, new Observer<List<SyncTimeTable>>() {
+        teacherHomeActivityViewModel.getSyncTimeTableByEmployeeIDForDay(emp_id_extra, "Monday").observe(this, new Observer<List<SyncTimeTable>>() {
             @Override
             public void onChanged(List<SyncTimeTable> syncTimeTables) {
                 adapter.setTaskList(syncTimeTables);
