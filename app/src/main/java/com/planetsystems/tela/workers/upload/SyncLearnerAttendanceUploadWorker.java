@@ -49,7 +49,7 @@ public class SyncLearnerAttendanceUploadWorker extends Worker {
                 syncAttendanceRecord.getTaskDay();
                 syncAttendanceRecord.getSupervisorId();
 
-                String resp = Urls.POST(Urls.LEARNER_ATTENDANCE, new Gson().toJson(syncAttendanceRecord));
+                String resp = Urls.POST(Urls.LEARNER_ATTENDANCE_UPLOAD_URL, new Gson().toJson(syncAttendanceRecord));
                 if (resp == Urls.DID_WORK) {
                     syncAttendanceRecord.setUploaded(true);
                     syncAttendanceRecordDao.update(syncAttendanceRecord);

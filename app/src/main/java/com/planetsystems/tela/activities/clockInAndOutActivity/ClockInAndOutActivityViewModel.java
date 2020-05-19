@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;
@@ -70,6 +71,10 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public LiveData<List<SyncClockOut>> allClockOuts(){
+        return clockOutRepository.allClockOuts();
     }
 
     SyncTeacher clockInTeacherEmployeeNumber(String employeeNumber) {

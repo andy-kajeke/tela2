@@ -32,6 +32,7 @@ public class MakeRequests extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_requests);
+        setTitle("Service Requests");
 
         staffName = findViewById(R.id.employeeName);
         staffId = findViewById(R.id.employeeID);

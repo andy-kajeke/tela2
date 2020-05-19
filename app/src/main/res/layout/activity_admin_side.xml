@@ -319,7 +319,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardview6"
                     android:layout_width="0dp"
-                    android:layout_height="46dp"
+                    android:layout_height="50dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
                     android:layout_centerHorizontal="true"

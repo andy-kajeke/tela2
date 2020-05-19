@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".activities.staff.administration.editTimeTable.SelectDay">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="#fff"></View>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/mon_day"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/layout"
+            android:text="Monday"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/tue_day"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/layout"
+            android:text="Tuesday"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/wed_day"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/layout"
+            android:text="Wednesday"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:textColor="#fff"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/thru_day"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/layout"
+            android:text="Thursday"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:textColor="#fff"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/fri_day"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/layout"
+            android:text="Friday"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:textColor="#fff"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/sat_day"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/layout"
+            android:text="Saturday"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:textColor="#fff"/>
+    </LinearLayout>
+
+</LinearLayout>

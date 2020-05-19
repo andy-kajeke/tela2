@@ -71,7 +71,7 @@ public class WorkManagerTrigger {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncClockInTeacherUploadWorker.class , 10, TimeUnit.MINUTES)
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncClockInTeacherUploadWorker.class , 1, TimeUnit.MINUTES)
                 .setConstraints(constraints)
                 .build();
         WorkManager.getInstance(context).enqueue(workRequest);
@@ -82,7 +82,7 @@ public class WorkManagerTrigger {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncClockOutTeacherUploadWorker.class, 10, TimeUnit.MINUTES)
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncClockOutTeacherUploadWorker.class, 1, TimeUnit.MINUTES)
                 .setConstraints(constraints)
                 .build();
 
@@ -95,7 +95,7 @@ public class WorkManagerTrigger {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncLearnerAttendanceUploadWorker.class, 10, TimeUnit.MINUTES)
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncLearnerAttendanceUploadWorker.class, 1, TimeUnit.MINUTES)
                 .setConstraints(constraints)
                 .build();
 

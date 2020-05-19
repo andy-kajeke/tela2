@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
 
-        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+//        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 //
 //        mainActivityViewModel.teachers().observe(this, new Observer<List<SyncTeacher>>() {
 //            @Override

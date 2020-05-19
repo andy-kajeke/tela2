@@ -23,7 +23,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.staff.administration.taskAttendance.SupervisorObservations"></activity>
+        <activity android:name=".activities.staff.administration.editTimeTable.EditTimeTable"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activities.staff.administration.editTimeTable.TimeTable" />
+        <activity
+            android:name=".activities.staff.administration.editTimeTable.SelectDay"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".activities.staff.administration.editTimeTable.SelectClass" />
+        <activity android:name=".activities.staff.administration.taskAttendance.SupervisorObservations" />
         <activity android:name=".activities.staff.administration.taskAttendance.TaskAttendance" />
         <activity android:name=".activities.staff.administration.timeAttendance.ConfirmTimeAttendance" />
         <activity
@@ -54,11 +61,11 @@
             android:name=".activities.fingerprint.FingerPrintActivity"
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".activities.clockInAndOutActivity.ClockInAndOutActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".activities.enrollActivity.EnrollmentActivity"
@@ -68,12 +75,12 @@
             android:name=".activities.mainactivity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
     </application>
 

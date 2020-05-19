@@ -48,10 +48,10 @@ public class SyncClockOutTeacherUploadWorker extends Worker {
             Log.d(getClass().getSimpleName(), "Uploading: " + syncClockOut.toString());
             // TODO: upload each individual syncclock out into the backend
             try {
-                syncClockOut.getEmployeeId();
                 syncClockOut.getEmployeeNo();
-                syncClockOut.getLongitude();
+                syncClockOut.getEmployeeId();
                 syncClockOut.getLatitude();
+                syncClockOut.getLongitude();
                 syncClockOut.getDate();
                 syncClockOut.getDay();
                 syncClockOut.getTime();

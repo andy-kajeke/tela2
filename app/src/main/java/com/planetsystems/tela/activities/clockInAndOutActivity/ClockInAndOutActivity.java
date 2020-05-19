@@ -3,6 +3,7 @@ package com.planetsystems.tela.activities.clockInAndOutActivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
@@ -34,14 +35,16 @@ import com.planetsystems.tela.constants.Role;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.activities.staff.administration.AdminSideActivity;
 import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActivity;
+import com.planetsystems.tela.data.clockOut.SyncClockOut;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Objects;
 
 public class ClockInAndOutActivity extends AppCompatActivity {
 
     private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
-    public String SCHOOL_ID = "";
+    private ClockInAndOutActivityViewModel clockInAndOutActivityViewModel;
 
     TextView dateDisplay, schoolName;
     TextView close_clockIn, close_clockOut;
@@ -76,10 +79,10 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         checkout = findViewById(R.id.cardview4);
 
         Bundle bundle = getIntent().getExtras();
-//        deviceIMEI_extra = bundle.getString("device_imei");
-//        schoolName_extra = bundle.getString("schoolName");
+        deviceIMEI_extra = bundle.getString("device_imei");
+        schoolName_extra = bundle.getString("schoolName");
 
-        //schoolName.setText(schoolName_extra);
+        schoolName.setText(schoolName_extra);
 
         //SCHOOL_ID = deviceIMEI_extra;
 
@@ -113,6 +116,13 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             }
         });
 
+        clockInAndOutActivityViewModel = new ViewModelProvider(this).get(ClockInAndOutActivityViewModel.class);
+        clockInAndOutActivityViewModel.allClockOuts().observe(this, new Observer<List<SyncClockOut>>() {
+            @Override
+            public void onChanged(List<SyncClockOut> syncClockOuts) {
+                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(syncClockOuts.size()), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override

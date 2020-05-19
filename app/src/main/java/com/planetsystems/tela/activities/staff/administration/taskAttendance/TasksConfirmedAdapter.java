@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,8 +64,8 @@ public class TasksConfirmedAdapter extends RecyclerView.Adapter<TasksConfirmedAd
             //switch action when toggled
             holder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
-//                    if (!bChecked) {
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                    if (!isChecked) {
 //                        //Toast.makeText(getContext(),"Checked",Toast.LENGTH_SHORT).show();
 //                        mSynTimeOnTask.get(position).setStatus("Absent");
 //                        Toast.makeText(mContext ,mSynTimeOnTask.get(position).getStatus(),Toast.LENGTH_SHORT).show();
@@ -75,6 +76,17 @@ public class TasksConfirmedAdapter extends RecyclerView.Adapter<TasksConfirmedAd
 //                        Toast.makeText(mContext,mSynTimeOnTask.get(position).getStatus(),Toast.LENGTH_SHORT).show();
 //                        //status_ = proList.get(position).setStatus("absent");
 //                    }
+                }
+            });
+
+            holder.aaSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (!isChecked){
+
+                    }else {
+
+                    }
                 }
             });
 
@@ -101,7 +113,7 @@ public class TasksConfirmedAdapter extends RecyclerView.Adapter<TasksConfirmedAd
         public TextView task_name;
         public TextView task_start;
         public TextView task_end;
-        public Switch aSwitch;
+        public Switch aSwitch, aaSwitch;
         public ImageView imageView;
         public int mPosition;
 
@@ -111,6 +123,7 @@ public class TasksConfirmedAdapter extends RecyclerView.Adapter<TasksConfirmedAd
             task_start = itemView.findViewById(R.id.startTime);
             task_end = itemView.findViewById(R.id.endTime);
             aSwitch = itemView.findViewById(R.id.switch1);
+            aaSwitch = itemView.findViewById(R.id.switch2);
             imageView = itemView.findViewById(R.id.personphoto);
         }
 

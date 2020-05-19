@@ -24,7 +24,7 @@ public class LearnerAttendanceViewModel extends AndroidViewModel {
         schoolClassesRepository = MainRepository.getInstance(application).getSchoolClassesRepository();
         learnerRepository = MainRepository.getInstance(application).getLearnerRepository();
     }
-    LiveData<List<SyncSchoolClasses>> schoolClasses() {
+    public LiveData<List<SyncSchoolClasses>> schoolClasses() {
         return schoolClassesRepository.getAllClassesInSchool();
     }
 
@@ -32,7 +32,7 @@ public class LearnerAttendanceViewModel extends AndroidViewModel {
          learnerRepository.insertLearnerAttendance(syncAttendanceRecord);
     }
 
-    LiveData<List<SyncAttendanceRecord>> learnerRecords(){
+    public LiveData<List<SyncAttendanceRecord>> learnerRecords(){
         return learnerRepository.getAllLearnerRecords();
     }
 }

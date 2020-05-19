@@ -29,7 +29,7 @@ public class Urls {
 
     public static final String SCHOOL_CLASSES = BASE_URL + "classes/" + DEVICE_IMEI;
 
-    public static final String LEARNER_ATTENDANCE = BASE_URL + "learners/attendance";
+    public static final String LEARNER_ATTENDANCE_UPLOAD_URL = BASE_URL + "learners/attendance";
 
     public static final String DID_WORK = "Work Done!";
 

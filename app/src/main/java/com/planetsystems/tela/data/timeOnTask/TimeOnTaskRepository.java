@@ -49,6 +49,10 @@ public class TimeOnTaskRepository {
         return syncTimeTableDao.getSyncTimeTableByEmployeeIDForDay(employeeNumber, dayOfTheWeek);
     }
 
+    public LiveData<List<SyncTimeTable>> getSyncTimeTableByEmployeeIDForClassUnit(String day, String classUnit) {
+        return syncTimeTableDao.getSyncTimeTable(day, classUnit);
+    }
+
     public SynTimeOnTask getSynTimeOnTaskWithEmployeeNumberAndDate(final String employeeNumber, final String transactionDate, final String taskId) throws ExecutionException, InterruptedException {
         Callable<SynTimeOnTask> callable = new Callable<SynTimeOnTask>() {
             @Override

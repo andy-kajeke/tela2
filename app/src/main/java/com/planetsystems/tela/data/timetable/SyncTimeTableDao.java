@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.planetsystems.tela.data.Teacher.SyncTeacherTableConstants;
 
@@ -14,6 +15,21 @@ public interface SyncTimeTableDao {
     @Insert
     void insertSyncTimeTable(SyncTimeTable syncTimeTable);
 
+    //update timetable by task id
+    @Query("UPDATE " + SyncTimeTableConstant.TABLE_NAME
+            + " SET "
+            + SyncTimeTableConstant.START_TIME + " =:startTime "
+            + " , "
+            + SyncTimeTableConstant.END_TIME + " =:endTime "
+            + " , "
+            + SyncTimeTableConstant.EMPLOYEE_NO + " =:employeeNo "
+            + " , "
+            + SyncTimeTableConstant.EMPLOYEE_NAME + " =:employeeName "
+            +" WHERE "
+            + SyncTimeTableConstant.PRIMARY_KEY_COLUMN_NAME + " =:primaryKey")
+    void update(String startTime, String endTime, String employeeNo, String employeeName, int primaryKey);
+
+    //fetch all records from table
     @Query("SELECT * FROM " + SyncTimeTableConstant.TABLE_NAME)
     LiveData<List<SyncTimeTable>> getSyncTimeTables();
 
@@ -26,8 +42,11 @@ public interface SyncTimeTableDao {
             + " =:day")
     LiveData<List<SyncTimeTable>> getSyncTimeTableByEmployeeIDForDay(String employeeID, String day);
 
-    @Query("SELECT * FROM " + SyncTimeTableConstant.TABLE_NAME)
-    List<SyncTimeTable> getSyncTimeTableDebug();
+    @Query("SELECT * FROM " + SyncTimeTableConstant.TABLE_NAME
+            + " WHERE " + SyncTimeTableConstant.DAY +
+            " =:day AND " + SyncTimeTableConstant.CLASS_UNIT + " =:classUnit"
+    )
+    LiveData<List<SyncTimeTable>> getSyncTimeTable(String day, String classUnit);
 
     @Query(
           "SELECT * FROM " + SyncTimeTableConstant.TABLE_NAME +

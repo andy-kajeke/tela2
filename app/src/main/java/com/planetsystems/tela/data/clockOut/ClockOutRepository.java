@@ -1,5 +1,7 @@
 package com.planetsystems.tela.data.clockOut;
 
+import androidx.lifecycle.LiveData;
+
 import com.planetsystems.tela.data.TelaRoomDatabase;
 
 import java.util.List;
@@ -44,5 +46,9 @@ public class ClockOutRepository {
         };
         Future<List<SyncClockOut>> future = TelaRoomDatabase.db_executor.submit(callable);
         return  future.get();
+    }
+
+    public LiveData<List<SyncClockOut>> allClockOuts(){
+        return syncClockOutDao.getAllClockOuts();
     }
 }

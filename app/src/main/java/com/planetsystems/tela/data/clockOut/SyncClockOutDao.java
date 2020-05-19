@@ -34,5 +34,6 @@ public interface SyncClockOutDao {
             + SyncClockOutTableConstant.EMPLOYEE_NUMBER_COLUMN_NAME + " =:employeeId AND " + SyncClockOutTableConstant.DATE_COLUMN_NAME + " =:date")
     List<SyncClockOut> getSyncClockOutByEmployeeIdAndDate(String employeeId, String date);
 
-
+    @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME)
+    LiveData<List<SyncClockOut>> getAllClockOuts();
 }

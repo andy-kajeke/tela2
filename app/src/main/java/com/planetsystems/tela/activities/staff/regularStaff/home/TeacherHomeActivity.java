@@ -38,14 +38,10 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
     TextView datetoday;
     TextView emp_Name;
     TextView emp_Id;
-    TextView tvname;
-    //TextView datetoday;
     Button submit, selfmenu;
     List<SyncTimeTable> mSyncTimeTables;
     TasksAdapter adapter;
-    //SynTimeOnTask synTimeOnTask;
     public String dateString, timeString;
-    String lat_extra, long_extra;
     String emp_id_extra, emp_name_extra;
 
     @Override
@@ -84,7 +80,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
 
         teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
 
-        teacherHomeActivityViewModel.getSyncTimeTableByEmployeeIDForDay(emp_id_extra, "Monday").observe(this, new Observer<List<SyncTimeTable>>() {
+        teacherHomeActivityViewModel.getSyncTimeTableByEmployeeIDForDay(emp_id_extra, "Thursday").observe(this, new Observer<List<SyncTimeTable>>() {
             @Override
             public void onChanged(List<SyncTimeTable> syncTimeTables) {
                 adapter.setTaskList(syncTimeTables);

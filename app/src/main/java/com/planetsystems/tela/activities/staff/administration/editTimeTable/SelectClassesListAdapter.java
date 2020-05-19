@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities.staff.administration.learnerAttendance;
+package com.planetsystems.tela.activities.staff.administration.editTimeTable;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,19 +15,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.staff.administration.learnerAttendance.LearnerAttendance;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 
 import java.util.List;
 
 
-public class SchoolClassesListAdapter extends RecyclerView.Adapter<SchoolClassesListAdapter.SchoolClassesViewHolder> {
+public class SelectClassesListAdapter extends RecyclerView.Adapter<SelectClassesListAdapter.SchoolClassesViewHolder> {
 
     private LayoutInflater layoutInflater;
     private  Context mContext;
     private List<SyncSchoolClasses> mSyncSchoolClasses;
     private String employeeNumber, schoolID;
 
-    public SchoolClassesListAdapter(Context context, List<SyncSchoolClasses> mSyncSchoolClasses, String employeeNumber, String schoolID){
+    public SelectClassesListAdapter(Context context, List<SyncSchoolClasses> mSyncSchoolClasses, String employeeNumber, String schoolID){
         layoutInflater = LayoutInflater.from(context);
         this.mContext = context;
         this.mSyncSchoolClasses = mSyncSchoolClasses;
@@ -68,7 +69,7 @@ public class SchoolClassesListAdapter extends RecyclerView.Adapter<SchoolClasses
                     SyncSchoolClasses syncSchoolClasses = mSyncSchoolClasses.get(position);
                     //Toast.makeText(mContext, syncSchoolClasses.getClassName() + " | " + syncSchoolClasses.getId(),Toast.LENGTH_LONG).show();
 
-                    Intent leaner = new Intent(mContext, LearnerAttendance.class);
+                    Intent leaner = new Intent(mContext, SelectDay.class);
                     leaner.putExtra("admin", employeeNumber);
                     leaner.putExtra("class", syncSchoolClasses.getClassName());
                     leaner.putExtra("class_id", syncSchoolClasses.getId());
