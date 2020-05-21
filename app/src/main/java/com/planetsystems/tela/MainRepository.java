@@ -13,6 +13,9 @@ import com.planetsystems.tela.data.attendance.LearnerRepository;
 import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
+import com.planetsystems.tela.data.employeeTimeOffRequestDM.TimeOffRequestRepository;
+import com.planetsystems.tela.data.helprequest.HelpRequestDao;
+import com.planetsystems.tela.data.helprequest.HelpRequestRepository;
 import com.planetsystems.tela.data.schoolClasses.SchoolClassesRepository;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClassesDao;
@@ -20,6 +23,7 @@ import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timeOnTask.TimeOnTaskRepository;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
+import com.planetsystems.tela.data.timetable.TimeTableRepository;
 
 import java.util.List;
 
@@ -36,6 +40,9 @@ public class MainRepository {
     private SchoolClassesRepository schoolClassesRepository;
     private LearnerRepository learnerRepository;
     private TimeOnSiteAttendanceRepository timeOnSiteAttendanceRepository;
+    private TimeTableRepository timeTableRepository;
+    private TimeOffRequestRepository timeOffRequestRepository;
+    private HelpRequestRepository helpRequestRepository;
 
     private MainRepository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
@@ -47,6 +54,9 @@ public class MainRepository {
         schoolClassesRepository = SchoolClassesRepository.getInstance(telaRoomDatabase);
         learnerRepository = LearnerRepository.getInstance(telaRoomDatabase);
         timeOnSiteAttendanceRepository = TimeOnSiteAttendanceRepository.getInstance(telaRoomDatabase);
+        timeTableRepository = TimeTableRepository.getInstance(telaRoomDatabase);
+        timeOffRequestRepository = TimeOffRequestRepository.getInstance(telaRoomDatabase);
+        helpRequestRepository = HelpRequestRepository.getInstance(telaRoomDatabase);
 
     }
 
@@ -107,4 +117,10 @@ public class MainRepository {
     public LearnerRepository getLearnerRepository(){return learnerRepository;}
 
     public TimeOnSiteAttendanceRepository getTimeOnSiteAttendanceRepository(){return timeOnSiteAttendanceRepository;}
+
+    public TimeTableRepository getTimeTableRepository(){return timeTableRepository;}
+
+    public TimeOffRequestRepository getTimeOffRequestRepository(){return timeOffRequestRepository;}
+
+    public HelpRequestRepository getHelpRequestRepository(){return helpRequestRepository;}
 }

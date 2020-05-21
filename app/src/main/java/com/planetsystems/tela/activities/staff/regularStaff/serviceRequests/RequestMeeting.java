@@ -13,12 +13,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -30,62 +27,52 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-public class RequestTimeOff extends AppCompatActivity {
+public class RequestMeeting extends AppCompatActivity {
 
+    EditText mdateFrom, mdateTo, mtimeFrom, mtimeTo, mstaff_comment;
     ProgressDialog dialog;
-    EditText dateFrom, dateTo, timeFrom, timeTo, tstaff_comment;
-    Spinner leave;
-    TextView closeTimeOff;
-    Button tbtnFollow;
+    Button mbtnFollow;
     String id_extra, name_extra;
     String school_extra;
     String datetoday;
 
     private ServiceRequestsViewModel serviceRequestsViewModel;
-    private DatePickerDialog.OnDateSetListener t_fromDatePicker;
-    private DatePickerDialog.OnDateSetListener t_toDatePicker;
-    private TimePickerDialog.OnTimeSetListener t_fromTimePicker;
-    private TimePickerDialog.OnTimeSetListener t_toTimePicker;
+    private DatePickerDialog.OnDateSetListener m_fromDatePicker;
+    private DatePickerDialog.OnDateSetListener m_toDatePicker;
+    private TimePickerDialog.OnTimeSetListener m_fromTimePicker;
+    private TimePickerDialog.OnTimeSetListener m_toTimePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request_time_off);
-        setTitle("Time off / Leave");
+        setContentView(R.layout.activity_request_meeting);
+        setTitle("Meeting");
 
-        tbtnFollow =(Button) findViewById(R.id.tTimeOut);
-        leave = (Spinner) findViewById(R.id.leaveType);
-        dateFrom =(EditText) findViewById(R.id.tDateFrom);
-        dateTo =(EditText) findViewById(R.id.tDateTo);
-        timeFrom =(EditText) findViewById(R.id.tTimeFrom);
-        timeTo =(EditText) findViewById(R.id.tTimeTo);
-        tstaff_comment =(EditText) findViewById(R.id.tcomment);
+        mbtnFollow =(Button) findViewById(R.id.mTimeOut);
+        mdateFrom =(EditText) findViewById(R.id.mDateFrom);
+        mdateTo =(EditText) findViewById(R.id.mDateTo);
+        mtimeFrom =(EditText) findViewById(R.id.mTimeFrom);
+        mtimeTo =(EditText) findViewById(R.id.mTimeTo);
+        mstaff_comment =(EditText) findViewById(R.id.mcomment);
 
         Bundle bundle = getIntent().getExtras();
         id_extra = bundle.getString("id");
         name_extra = bundle.getString("name");
 
-        ArrayAdapter<CharSequence> Adapter = ArrayAdapter.createFromResource(this, R.array.leave_type,
-                android.R.layout.simple_spinner_item);
-        Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        leave.setAdapter(Adapter);
-
         long date = System.currentTimeMillis();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
         datetoday = dateFormat.format(date);
 
-        //Toast.makeText(getApplicationContext(),id_extra ,Toast.LENGTH_SHORT).show();
-
         serviceRequestsViewModel = new ViewModelProvider(this).get(ServiceRequestsViewModel.class);
-        serviceRequestsViewModel.getAllTimeOffs().observe(this, new Observer<List<SyncEmployeeTimeOffRequestDM>>() {
+        serviceRequestsViewModel.getAllMeetings("Meeting", "Pending").observe(this, new Observer<List<SyncEmployeeTimeOffRequestDM>>() {
             @Override
             public void onChanged(List<SyncEmployeeTimeOffRequestDM> syncEmployeeTimeOffRequestDMS) {
                 Toast.makeText(getApplicationContext(),"size : "+String.valueOf(syncEmployeeTimeOffRequestDMS.size()) ,Toast.LENGTH_SHORT).show();
             }
         });
 
-        ///////////////////////////////////////Date time off starts//////////////////////////////////////////////
-        dateFrom.setOnClickListener(new View.OnClickListener() {
+        ///////////////////////////////////////Date meeting starts//////////////////////////////////////////////
+        mdateFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
@@ -93,7 +80,7 @@ public class RequestTimeOff extends AppCompatActivity {
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(RequestTimeOff.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,t_fromDatePicker,
+                DatePickerDialog dialog = new DatePickerDialog(RequestMeeting.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,m_fromDatePicker,
                         year,month,day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.setIcon(R.drawable.ic_date_range_black_24dp);
@@ -102,20 +89,17 @@ public class RequestTimeOff extends AppCompatActivity {
             }
         });
 
-        t_fromDatePicker = new DatePickerDialog.OnDateSetListener(){
+        m_fromDatePicker = new DatePickerDialog.OnDateSetListener(){
             @Override
             public void onDateSet(DatePicker datePicker, int day, int month, int year){
                 month = month + 1;
-                //String date = year + "/" + day + "/" + month;
-                int _day = day;
-                int _month = month;
-                int _year = year;
-                dateFrom.setText( _month + "/" + _year + "/" + _day);
+                String date = month + "/" + year + "/" + day;
+                mdateFrom.setText(date);
             }
         };
 
-        ///////////////////////////////////////Date for time off ends//////////////////////////////////////////////////
-        dateTo.setOnClickListener(new View.OnClickListener() {
+        ///////////////////////////////////////Date meeting ends//////////////////////////////////////////////////
+        mdateTo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
@@ -123,7 +107,7 @@ public class RequestTimeOff extends AppCompatActivity {
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(RequestTimeOff.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,t_toDatePicker,
+                DatePickerDialog dialog = new DatePickerDialog(RequestMeeting.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,m_toDatePicker,
                         year,month,day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.setIcon(R.drawable.ic_date_range_black_24dp);
@@ -132,16 +116,17 @@ public class RequestTimeOff extends AppCompatActivity {
             }
         });
 
-        t_toDatePicker = new DatePickerDialog.OnDateSetListener(){
+        m_toDatePicker = new DatePickerDialog.OnDateSetListener(){
             @Override
             public void onDateSet(DatePicker datePicker,int day, int month, int year){
                 month = month + 1;
                 String date = month + "/" + year + "/" + day;
-                dateTo.setText(date);
+                mdateTo.setText(date);
             }
         };
+
         //////////////////////////////////////////////Time to start///////////////////////////////////////////////////
-        timeFrom.setOnClickListener(new View.OnClickListener() {
+        mtimeFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
@@ -151,7 +136,7 @@ public class RequestTimeOff extends AppCompatActivity {
                 // Whether show time in 24 hour format or not.
                 boolean is24Hour = false;
 
-                TimePickerDialog timePickerDialog = new TimePickerDialog(RequestTimeOff.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,t_fromTimePicker,
+                TimePickerDialog timePickerDialog = new TimePickerDialog(RequestMeeting.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,m_fromTimePicker,
                         hour, minute, is24Hour);
                 timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 timePickerDialog.setIcon(R.drawable.ic_access_time_black_24dp);
@@ -160,16 +145,16 @@ public class RequestTimeOff extends AppCompatActivity {
             }
         });
 
-        t_fromTimePicker = new TimePickerDialog.OnTimeSetListener(){
+        m_fromTimePicker = new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 minute = minute + 1;
                 String startTime = hour + " : " + minute;
-                timeFrom.setText(startTime);
+                mtimeFrom.setText(startTime);
             }
         };
         //////////////////////////////////////////////Time to end///////////////////////////////////////////////////
-        timeTo.setOnClickListener(new View.OnClickListener() {
+        mtimeTo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
@@ -179,29 +164,30 @@ public class RequestTimeOff extends AppCompatActivity {
                 // Whether show time in 24 hour format or not.
                 boolean is24Hour = false;
 
-                TimePickerDialog timePickerDialog = new TimePickerDialog(RequestTimeOff.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,t_toTimePicker,
+                TimePickerDialog timePickerDialog = new TimePickerDialog(RequestMeeting.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,m_toTimePicker,
                         hour, minute, is24Hour);
                 timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 timePickerDialog.setIcon(R.drawable.ic_access_time_black_24dp);
-                timePickerDialog.setTitle("Select End Time.");
+                timePickerDialog.setTitle(" Select End Time.");
                 timePickerDialog.show();
             }
         });
 
-        t_toTimePicker = new TimePickerDialog.OnTimeSetListener(){
+        m_toTimePicker = new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 minute = minute + 1;
                 String startTime = hour + " : " + minute;
-                timeTo.setText(startTime);
+                mtimeTo.setText(startTime);
             }
         };
 
-        tbtnFollow.setOnClickListener(new View.OnClickListener() {
+
+        mbtnFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                new AlertDialog.Builder(RequestTimeOff.this)
+                new AlertDialog.Builder(RequestMeeting.this)
                         .setTitle("Confirmation")
                         .setMessage("Do you really want to submit?")
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -215,18 +201,19 @@ public class RequestTimeOff extends AppCompatActivity {
 
         });
 
+
     }
 
     private void PostToSyncEmployeeTimeOffRequestDMs() {
-        String leaveType = leave.getSelectedItem().toString();
-        String dataFrom_ = dateFrom.getText().toString();
-        String dateTo_ = dateTo.getText().toString();
-        String timeFrom_ = timeFrom.getText().toString();
-        String timeTo_ = timeTo.getText().toString();
-        String comment = tstaff_comment.getText().toString();
+        String leaveType = "Meeting";
+        String dataFrom_ = mdateFrom.getText().toString();
+        String dateTo_ = mdateTo.getText().toString();
+        String timeFrom_ = mtimeFrom.getText().toString();
+        String timeTo_ = mtimeTo.getText().toString();
+        String comment = mstaff_comment.getText().toString();
         String employeeNo = id_extra;
         String employeeName = name_extra;
-        String RequestType = "Time Off/ Leave";
+        String RequestType = "Meeting";
 
         SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM = new SyncEmployeeTimeOffRequestDM(
                 "",

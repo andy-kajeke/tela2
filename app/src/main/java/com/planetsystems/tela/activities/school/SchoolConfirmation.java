@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities;
+package com.planetsystems.tela.activities.school;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,9 +12,7 @@ import android.net.NetworkInfo;
 import android.net.ParseException;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +30,6 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

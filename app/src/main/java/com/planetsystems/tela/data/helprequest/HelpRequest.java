@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = HelpRequestConstant.TABLE_NAME)
 public class HelpRequest {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
-    @ColumnInfo(name = HelpRequestConstant.ID)
-    private String id;
+    @ColumnInfo(name = HelpRequestConstant.PRIMARY_KEY)
+    private int primaryKey;
 
     @ColumnInfo(name = HelpRequestConstant.DATE_CREATED)
     private String dateCreated;
@@ -43,13 +43,10 @@ public class HelpRequest {
     private String priority;
 
     @ColumnInfo(name = HelpRequestConstant.STAFF_CODE)
-    private String staffCode;
+    private String employeeNo;
 
-    @ColumnInfo(name = HelpRequestConstant.ROW_VER)
-    private String rowVer;
-
-    @ColumnInfo(name = HelpRequestConstant.ROW_ID)
-    private String rowId;
+    @ColumnInfo(name = HelpRequestConstant.EMPLOYEE_NAME)
+    private String employeeName;
 
     @ColumnInfo(name = HelpRequestConstant.REQUESTED_DATE)
     private String requestDate;
@@ -57,8 +54,8 @@ public class HelpRequest {
     @ColumnInfo(name = HelpRequestConstant.APPROVAL_DATE)
     private String approvalDate;
 
-    public HelpRequest(@NonNull String id, String dateCreated, String dateUpdated, String status, String approvalStatus, String confirmation, String comment, String deploymentSite, String deploymentSiteId, String helpCategory, String priority, String staffCode, String rowVer, String rowId, String requestDate, String approvalDate) {
-        this.id = id;
+    public HelpRequest(String dateCreated, String dateUpdated, String status, String approvalStatus, String confirmation, String comment, String deploymentSite, String deploymentSiteId, String helpCategory, String priority, String employeeNo, String employeeName, String requestDate, String approvalDate) {
+        //this.id = id;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
         this.status = status;
@@ -69,20 +66,19 @@ public class HelpRequest {
         this.deploymentSiteId = deploymentSiteId;
         this.helpCategory = helpCategory;
         this.priority = priority;
-        this.staffCode = staffCode;
-        this.rowVer = rowVer;
-        this.rowId = rowId;
+        this.employeeNo = employeeNo;
+        this.employeeName = employeeName;
         this.requestDate = requestDate;
         this.approvalDate = approvalDate;
     }
 
     @NonNull
-    public String getId() {
-        return id;
+    public int getPrimaryKey() {
+        return primaryKey;
     }
 
-    public void setId(@NonNull String id) {
-        this.id = id;
+    public void setPrimaryKey(@NonNull int primaryKey) {
+        this.primaryKey = primaryKey;
     }
 
     public String getDateCreated() {
@@ -165,28 +161,20 @@ public class HelpRequest {
         this.priority = priority;
     }
 
-    public String getStaffCode() {
-        return staffCode;
+    public String getEmployeeNo() {
+        return employeeNo;
     }
 
-    public void setStaffCode(String staffCode) {
-        this.staffCode = staffCode;
+    public void setEmployeeNo(String employeeNo) {
+        this.employeeNo = employeeNo;
     }
 
-    public String getRowVer() {
-        return rowVer;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setRowVer(String rowVer) {
-        this.rowVer = rowVer;
-    }
-
-    public String getRowId() {
-        return rowId;
-    }
-
-    public void setRowId(String rowId) {
-        this.rowId = rowId;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
     public String getRequestDate() {
@@ -205,9 +193,4 @@ public class HelpRequest {
         this.approvalDate = approvalDate;
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return this.id;
-    }
 }

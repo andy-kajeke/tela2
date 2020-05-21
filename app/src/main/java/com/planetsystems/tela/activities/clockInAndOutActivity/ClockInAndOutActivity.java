@@ -116,13 +116,13 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             }
         });
 
-        clockInAndOutActivityViewModel = new ViewModelProvider(this).get(ClockInAndOutActivityViewModel.class);
-        clockInAndOutActivityViewModel.allClockOuts().observe(this, new Observer<List<SyncClockOut>>() {
-            @Override
-            public void onChanged(List<SyncClockOut> syncClockOuts) {
-                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(syncClockOuts.size()), Toast.LENGTH_LONG).show();
-            }
-        });
+//        clockInAndOutActivityViewModel = new ViewModelProvider(this).get(ClockInAndOutActivityViewModel.class);
+//        clockInAndOutActivityViewModel.allClockOuts().observe(this, new Observer<List<SyncClockOut>>() {
+//            @Override
+//            public void onChanged(List<SyncClockOut> syncClockOuts) {
+//                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(syncClockOuts.size()), Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
     @Override

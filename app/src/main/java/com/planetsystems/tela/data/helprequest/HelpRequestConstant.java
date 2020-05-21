@@ -2,20 +2,36 @@ package com.planetsystems.tela.data.helprequest;
 
 class HelpRequestConstant {
     public static final String TABLE_NAME = "help_request";
-    static final String ID = "id";
-    static final String DATE_CREATED = "dateCreated";
-    static final String DATE_UPDATED = "dateUpdated";
-    static final String STATUS = "status";
-    static final String APPROVED_STATUS = "approvedStatus";
-    static final String CONFIRMATION = "confirmation";
-    static final String COMMENT = "comment";
-    static final String DEPLOYMENT_SITE = "deploymentSite";
-    static final String DEPLOYMENT_SITE_ID = "deploymentSiteId";
-    static final String HELP_CATEGORY = "helpCategory";
-    static final String PRIORITY = "priority";
-    static final String STAFF_CODE = "staffCode";
-    static final String ROW_VER = "rowVer";
-    static final String ROW_ID = "rowId";
-    static final String REQUESTED_DATE = "requestedDate";
-    static final String APPROVAL_DATE = "approvalDate";
+
+    public static final String PRIMARY_KEY = "primaryKey";
+
+    public static final String DATE_CREATED = "dateCreated";
+
+    public static final String DATE_UPDATED = "dateUpdated";
+
+    public static final String STATUS = "status";
+
+    public static final String APPROVED_STATUS = "approvedStatus";
+
+    public static final String CONFIRMATION = "confirmation";
+
+    public static final String COMMENT = "comment";
+
+    public static final String DEPLOYMENT_SITE = "deploymentSite";
+
+    public static final String DEPLOYMENT_SITE_ID = "deploymentSiteId";
+
+    public static final String HELP_CATEGORY = "helpCategory";
+
+    public static final String PRIORITY = "priority";
+
+    public static final String STAFF_CODE = "staffCode";
+
+    public static final String ROW_VER = "rowVer";
+
+    public static final String EMPLOYEE_NAME = "employeeName";
+
+    public static final String REQUESTED_DATE = "requestedDate";
+
+    public static final String APPROVAL_DATE = "approvalDate";
 }

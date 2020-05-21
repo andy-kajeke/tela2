@@ -69,7 +69,6 @@ public class MakeRequests extends AppCompatActivity {
                 Intent sch = new Intent(MakeRequests.this, RequestTimeOff.class);
                 sch.putExtra("id", id_extra);
                 sch.putExtra("name", name_extra);
-                sch.putExtra("school_id", school_extra);
                 startActivity(sch);
 
             }
@@ -78,11 +77,10 @@ public class MakeRequests extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                Intent sch = new Intent(MakeRequests.this, RequestMeeting.class);
-//                sch.putExtra("id", id_extra);
-//                sch.putExtra("name", name_extra);
-//                sch.putExtra("school_id", school_extra);
-//                startActivity(sch);
+                Intent sch = new Intent(MakeRequests.this, RequestMeeting.class);
+                sch.putExtra("id", id_extra);
+                sch.putExtra("name", name_extra);
+                startActivity(sch);
 
             }
         });
@@ -90,10 +88,10 @@ public class MakeRequests extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                Intent sch = new Intent(MakeRequests.this, RequestHelp.class);
-//                sch.putExtra("id", id_extra);
-//                sch.putExtra("school_id", school_extra);
-//                startActivity(sch);
+                Intent sch = new Intent(MakeRequests.this, RequestHelp.class);
+                sch.putExtra("id", id_extra);
+                sch.putExtra("name", name_extra);
+                startActivity(sch);
 
             }
         });

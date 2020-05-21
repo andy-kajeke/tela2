@@ -7,84 +7,83 @@ import androidx.room.PrimaryKey;
 
 import com.planetsystems.tela.constants.SyncTableConstants;
 
-@Entity(tableName = SyncTableConstants.SyncEmployeeTimeOffRequestDMs)
+@Entity(tableName = SyncEmployeeTimeOffRequestDMsConstants.TABLE_NAME)
 public class SyncEmployeeTimeOffRequestDM {
 
-    @PrimaryKey
-    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_PRIMARY_KEY)
     @NonNull
-    private String id;
+    private int primaryKey;
 
-    @ColumnInfo(name = "dateCreated")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DATE_CREATED)
     private String dateCreated;
 
-    @ColumnInfo(name = "dateUpdated")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DATE_UPDATED)
     private String dateUpdated;
 
-    @ColumnInfo(name = "status")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_STATUS)
     private int status;
 
-    @ColumnInfo(name = "comment")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_COMMENT)
     private String comment;
 
-    @ColumnInfo(name = "approvalStatus")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_APPROVAL_STATUS)
     private String approvalStatus;
 
-    @ColumnInfo(name = "confirmation")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_CONFIRMATION)
     private String confirmation;
 
-    @ColumnInfo(name = "deploymentSite")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DEPLOYMENT_SITE)
     private String deploymentSite;
 
-    @ColumnInfo(name = "deploymentSiteId")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DEPLOYMENT_SITE_ID)
     private String deploymentSiteId;
 
-    @ColumnInfo(name = "deploymentUnit")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DEPLOYMENT_UNIT)
     private String deploymentUnit;
 
-    @ColumnInfo(name = "deploymentUnitId")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DEPLOYMENT_UNIT_ID)
     private String deploymentUnitId;
 
-    @ColumnInfo(name = "employee")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_EMPLOYEE)
     private String employee;
 
-    @ColumnInfo(name = "employeeId")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_EMPLOYEE_ID)
     private String employeeId;
 
-    @ColumnInfo(name = "employeeRequestType")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_EMPLOYEE_REQUEST_TYPE)
     private String employeeRequestType;
 
-    @ColumnInfo(name = "fromDate")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_FROM_DATE)
     private String fromDate;
 
-    @ColumnInfo(name = "fromTime")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_FROM_TIME)
     private String fromTime;
 
-    @ColumnInfo(name = "generalComment")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_GENERAL_COMMENT)
     private String generalComment;
 
-    @ColumnInfo(name = "requestDate")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_REQUEST_DATE)
     private String requestDate;
 
-    @ColumnInfo(name = "approvalDate")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_APPROVAL_DATE)
     private String approvalDate;
 
-    @ColumnInfo(name = "toDate")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_TO_DATE)
     private String toDate;
 
-    @ColumnInfo(name = "toTime")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_TO_TIME)
     private String toTime;
 
-    @ColumnInfo(name = "typeOfLeave")
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_TYPE_OF_LEAVE)
     private String typeOfLeave;
 
-    public SyncEmployeeTimeOffRequestDM(@NonNull String id, String dateCreated, String dateUpdated, int status, String comment,
+    public SyncEmployeeTimeOffRequestDM(String dateCreated, String dateUpdated, int status, String comment,
                                         String approvalStatus, String confirmation, String deploymentSite,
                                         String deploymentSiteId, String deploymentUnit, String deploymentUnitId,
                                         String employee, String employeeId, String employeeRequestType,
                                         String fromDate, String fromTime, String generalComment, String requestDate,
                                         String approvalDate, String toDate, String toTime, String typeOfLeave) {
-        this.id = id;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
         this.status = status;
@@ -109,12 +108,12 @@ public class SyncEmployeeTimeOffRequestDM {
     }
 
     @NonNull
-    public String getId() {
-        return id;
+    public int getPrimaryKey() {
+        return primaryKey;
     }
 
-    public void setId(@NonNull String id) {
-        this.id = id;
+    public void setPrimaryKey(@NonNull int primaryKey) {
+        this.primaryKey = primaryKey;
     }
 
     public String getDateCreated() {

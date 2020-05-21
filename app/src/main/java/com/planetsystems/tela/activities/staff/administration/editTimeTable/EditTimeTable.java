@@ -2,6 +2,7 @@ package com.planetsystems.tela.activities.staff.administration.editTimeTable;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,6 +15,7 @@ import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
 
 public class EditTimeTable extends AppCompatActivity {
 
+    private EditTimeTableViewModel editTimeTableViewModel;
     SyncTimeTableDao syncTimeTableDao;
     EditText task_Name,staff_name, staff_code;
     EditText startTym,endTym;
@@ -71,15 +73,16 @@ public class EditTimeTable extends AppCompatActivity {
             }
         });
 
+        editTimeTableViewModel = new ViewModelProvider(this).get(EditTimeTableViewModel.class);
     }
 
     private void PostChangeMade() {
 
         String startTime = startTym.getText().toString();
         String endTime = endTym.getText().toString();
-        String employeeNo = staffNumber_extra;
+        String employeeNo = staff_code.getText().toString();
         String employeeName = staff_name.getText().toString();
 
-        syncTimeTableDao.update(startTime, endTime, employeeNo, employeeName, row_id_extra);
+        editTimeTableViewModel.updateTimeTable(startTime, endTime, employeeNo, employeeName, row_id_extra);
     }
 }

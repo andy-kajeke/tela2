@@ -16,7 +16,7 @@ import java.util.List;
 public interface SyncEmployeeTimeOffRequestDMDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void addNew(SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM);
+    void addNewRequest(SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM);
 
     @Update
     void update(SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM);
@@ -24,6 +24,15 @@ public interface SyncEmployeeTimeOffRequestDMDao {
     @Delete
     void delete(SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM);
 
-    @Query("SELECT * FROM " + SyncTableConstants.SyncEmployeeTimeOffRequestDMs)
+    @Query("SELECT * FROM " + SyncEmployeeTimeOffRequestDMsConstants.TABLE_NAME)
     LiveData<List<SyncEmployeeTimeOffRequestDM>> getAllRecords();
+
+    @Query("SELECT * FROM " + SyncEmployeeTimeOffRequestDMsConstants.TABLE_NAME +
+            " WHERE "
+            + SyncEmployeeTimeOffRequestDMsConstants.COLUMN_EMPLOYEE_REQUEST_TYPE +
+            " =:requestType AND "
+            + SyncEmployeeTimeOffRequestDMsConstants.COLUMN_APPROVAL_STATUS +
+            " =:approvalStatus "
+    )
+    LiveData<List<SyncEmployeeTimeOffRequestDM>> getRequestByApprovalStatus (String requestType, String approvalStatus);
 }

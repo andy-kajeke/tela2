@@ -23,8 +23,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.staff.administration.editTimeTable.EditTimeTable"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.RequestHelp"></activity>
+        <activity
+            android:name=".activities.staff.regularStaff.serviceRequests.RequestMeeting"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activities.staff.administration.serviceRequests.RequestsMade" />
+        <activity
+            android:name=".activities.staff.administration.editTimeTable.EditTimeTable"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activities.staff.administration.editTimeTable.TimeTable" />
         <activity
             android:name=".activities.staff.administration.editTimeTable.SelectDay"
@@ -49,8 +55,10 @@
             android:name="org.apache.http.legacy"
             android:required="true" />
 
-        <activity android:name=".activities.SchoolConfirmation" />
-        <activity android:name=".activities.staff.regularStaff.serviceRequests.RequestTimeOff" />
+        <activity android:name=".activities.school.SchoolConfirmation" />
+        <activity
+            android:name=".activities.staff.regularStaff.serviceRequests.RequestTimeOff"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activities.staff.regularStaff.serviceRequests.MakeRequests" />
         <activity android:name=".activities.staff.regularStaff.home.TeacherHomeActivity" />
         <activity
@@ -61,11 +69,13 @@
             android:name=".activities.fingerprint.FingerPrintActivity"
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".activities.clockInAndOutActivity.ClockInAndOutActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".activities.enrollActivity.EnrollmentActivity"
@@ -74,13 +84,11 @@
         <activity
             android:name=".activities.mainactivity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
