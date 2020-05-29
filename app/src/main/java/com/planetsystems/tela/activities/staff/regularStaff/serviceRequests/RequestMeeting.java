@@ -46,7 +46,7 @@ public class RequestMeeting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_meeting);
-        setTitle("Meeting");
+        setTitle("Meeting Request");
 
         mbtnFollow =(Button) findViewById(R.id.mTimeOut);
         mdateFrom =(EditText) findViewById(R.id.mDateFrom);

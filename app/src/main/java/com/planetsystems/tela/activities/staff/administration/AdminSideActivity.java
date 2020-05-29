@@ -17,6 +17,7 @@ import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.staff.administration.editStaff.EditStaffList;
 import com.planetsystems.tela.activities.staff.administration.editTimeTable.SelectClass;
 import com.planetsystems.tela.activities.staff.administration.learnerAttendance.LearnerClasses;
+import com.planetsystems.tela.activities.staff.administration.serviceRequests.RequestsMade;
 import com.planetsystems.tela.activities.staff.administration.taskAttendance.TaskAttendance;
 import com.planetsystems.tela.activities.staff.administration.timeAttendance.TimeAttendanceList;
 import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActivity;
@@ -108,6 +109,14 @@ public class AdminSideActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), LearnerClasses.class);
+                startActivity(i);
+            }
+        });
+
+        requests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), RequestsMade.class);
                 startActivity(i);
             }
         });

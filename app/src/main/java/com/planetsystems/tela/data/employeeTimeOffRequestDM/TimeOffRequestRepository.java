@@ -40,6 +40,10 @@ public class TimeOffRequestRepository {
     }
 
     public LiveData<List<SyncEmployeeTimeOffRequestDM>> getRequestByTypeAndApprovalStatus(final String requestType, final String approvalStatus){
-        return syncEmployeeTimeOffRequestDMDao.getRequestByApprovalStatus(requestType, approvalStatus);
+        return syncEmployeeTimeOffRequestDMDao.getRequestTypeByApprovalStatus(requestType, approvalStatus);
+    }
+
+    public LiveData<List<SyncEmployeeTimeOffRequestDM>> getRequestByApprovalStatus(final String approvalStatus){
+        return syncEmployeeTimeOffRequestDMDao.getRequestByApprovalStatus(approvalStatus);
     }
 }

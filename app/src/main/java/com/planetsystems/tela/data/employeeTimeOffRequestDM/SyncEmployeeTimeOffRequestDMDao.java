@@ -34,5 +34,12 @@ public interface SyncEmployeeTimeOffRequestDMDao {
             + SyncEmployeeTimeOffRequestDMsConstants.COLUMN_APPROVAL_STATUS +
             " =:approvalStatus "
     )
-    LiveData<List<SyncEmployeeTimeOffRequestDM>> getRequestByApprovalStatus (String requestType, String approvalStatus);
+    LiveData<List<SyncEmployeeTimeOffRequestDM>> getRequestTypeByApprovalStatus (String requestType, String approvalStatus);
+
+    @Query("SELECT * FROM " + SyncEmployeeTimeOffRequestDMsConstants.TABLE_NAME +
+            " WHERE "
+            + SyncEmployeeTimeOffRequestDMsConstants.COLUMN_APPROVAL_STATUS +
+            " =:approvalStatus "
+    )
+    LiveData<List<SyncEmployeeTimeOffRequestDM>> getRequestByApprovalStatus (String approvalStatus);
 }

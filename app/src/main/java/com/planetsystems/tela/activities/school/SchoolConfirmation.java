@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
 import com.planetsystems.tela.constants.Urls;
+import com.planetsystems.tela.workers.WorkManagerTrigger;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -53,6 +54,8 @@ public class SchoolConfirmation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_school_confirmation);
+        WorkManagerTrigger.startFetchWorkers(getApplicationContext());
+        WorkManagerTrigger.startUploadWorkers(getApplicationContext());
 
         schoolName = findViewById(R.id.schoolName);
         schoolLocation = findViewById(R.id.schoolLocation);
@@ -101,7 +104,7 @@ public class SchoolConfirmation extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             dialog = new ProgressDialog(SchoolConfirmation.this);
-            dialog.setMessage("Getting device ownership...");
+            dialog.setMessage("Getting product details...\n Pleas wait");
             //dialog.setTitle("Loading ..");
             dialog.show();
             dialog.setCancelable(false);
@@ -111,7 +114,6 @@ public class SchoolConfirmation extends AppCompatActivity {
         protected Boolean doInBackground(String... urls) {
 
             try {
-
 
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
 

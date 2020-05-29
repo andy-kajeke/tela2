@@ -75,7 +75,7 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
 
 
     private  static volatile TelaRoomDatabase tela_DB;
-    public static final int NUMBER_OF_THREADS = 4;
+    public static final int NUMBER_OF_THREADS = 5;
     public static final ExecutorService db_executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static TelaRoomDatabase getInstance(final Context context){

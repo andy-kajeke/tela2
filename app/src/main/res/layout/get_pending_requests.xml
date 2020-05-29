@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="5dp"
@@ -9,7 +8,9 @@
     android:paddingBottom="0dp"
     android:descendantFocusability="beforeDescendants">
 
+
     <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/Card_View"
         android:layout_gravity="center"
         android:layout_width="fill_parent"
@@ -17,7 +18,7 @@
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="1dp">
 
-        <LinearLayout
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:background="#fff"
             android:id="@+id/first_lay"
@@ -57,7 +58,7 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="PI Math"
+                        android:text="Request"
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="0dp"
                         android:layout_marginTop="3dp"
@@ -65,8 +66,7 @@
                         android:textStyle="normal"
                         android:layout_marginBottom="1dp"
                         android:textSize="14sp"
-                        android:id="@+id/taskDescription" />
-
+                        android:id="@+id/requestDescription" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -79,19 +79,19 @@
                         android:id="@+id/bcdd">
 
                         <TextView
-                            android:id="@+id/startTime"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="fill_parent"
+                            android:text="Requested On: "
                             android:layout_marginLeft="0dp"
                             android:layout_marginTop="0dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="0dp"
-                            android:ellipsize="end"
                             android:lines="1"
-                            android:text="10:00AM"
+                            android:ellipsize="end"
+                            android:textStyle="normal"
                             android:textColor="#737373"
+                            android:layout_marginBottom="0dp"
                             android:textSize="14sp"
-                            android:textStyle="normal" />
+                            android:layout_marginRight="10dp"
+                            android:id="@+id/startdate" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="fill_parent"
@@ -104,13 +104,38 @@
                             android:textColor="#737373"
                             android:layout_marginBottom="0dp"
                             android:textSize="14sp"
-                            android:id="@+id/endTime" />
+                            android:id="@+id/requestDate" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:text="Requested By: "
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginTop="0dp"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:textStyle="normal"
+                            android:textColor="#737373"
+                            android:layout_marginBottom="0dp"
+                            android:textSize="14sp"
+                            android:layout_marginRight="10dp" />
 
                         <TextView
                             android:id="@+id/teacherName"
                             android:layout_width="wrap_content"
                             android:gravity="right"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="0dp"
                             android:layout_height="wrap_content"
                             android:text="teacher"
                             android:lines="1"

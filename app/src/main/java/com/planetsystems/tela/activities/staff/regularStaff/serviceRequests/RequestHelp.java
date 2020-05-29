@@ -41,7 +41,7 @@ public class RequestHelp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_help);
-        setTitle("Meeting");
+        setTitle("Help Request");
 
         priorityRate = (TextView) findViewById(R.id.priorityRate);
         high = (RadioButton) findViewById(R.id.High);
