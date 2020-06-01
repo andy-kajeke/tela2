@@ -33,7 +33,7 @@ public class SyncTeacher {
     private String emailAddress;
 
     @ColumnInfo(name = SyncTeacherTableConstants.FINGER_PRINT_COLUMN_NAME)
-    private String fingerPrint;
+    private byte[] fingerPrint;
 
     @ColumnInfo(name = SyncTeacherTableConstants.FINGER_IMAGE_COLUMN_NAME)
     private String fingerImage;
@@ -118,11 +118,11 @@ public class SyncTeacher {
         this.emailAddress = emailAddress;
     }
 
-    public String getFingerPrint() {
+    public byte[] getFingerPrint() {
         return fingerPrint;
     }
 
-    public void setFingerPrint(String fingerPrint) {
+    public void setFingerPrint(byte[] fingerPrint) {
         this.fingerPrint = fingerPrint;
     }
 
@@ -237,7 +237,7 @@ public class SyncTeacher {
             return this;
         }
 
-        public SyncTeacher.Builder setFingerPrint(String fingerPrint) {
+        public SyncTeacher.Builder setFingerPrint(byte[] fingerPrint) {
             INSTANCE.setFingerPrint(fingerPrint);
             return this;
         }
@@ -305,7 +305,7 @@ public class SyncTeacher {
         this.id = id;
     }
 
-    public SyncTeacher(String id, String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, String fingerPrint, String fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
+    public SyncTeacher(String id, String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, byte[] fingerPrint, String fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
         this.id = id;
         this.employeeId = employeeId;
         this.MPSComputerNumber = MPSComputerNumber;

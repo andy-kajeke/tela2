@@ -82,13 +82,14 @@ public class EnrollmentActivity extends AppCompatActivity {
                             .setLastName(edit_lName.getText().toString())
                             .setFirstName(edit_fName.getText().toString())
                             .setFingerImage(intent.getStringExtra(FingerPrintActivity.FINGER_PRINT_IMAGE))
-                            .setFingerPrint(intent.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA))
+                            .setFingerPrint(intent.getByteArrayExtra(FingerPrintActivity.FINGER_PRINT_DATA))
                             .setGender(edit_gender.getText().toString())
                             .setPhoneNumber(edit_phone_No.getText().toString())
                             .setNationalID(edit_nationalID.getText().toString())
                             .setLicensed(false)
                             .build();
-                    if (activityViewModel.enrollTeacher(syncTeacher)) {
+                    boolean result = activityViewModel.enrollTeacher(syncTeacher);
+                    if (result) {
                         edit_fName.setText("");
                         edit_lName.setText("");
                         edit_initials.setText("");
@@ -96,15 +97,16 @@ public class EnrollmentActivity extends AppCompatActivity {
                         edit_phone_No.setText("");
                         edit_nationalID.setText("");
                         edit_gender.setText("");
+                        Toast.makeText(this, "Teacher Enrolled Successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
                     }
-
+//                    Toast.makeText(this, "Fixed " + String.valueOf(result), Toast.LENGTH_SHORT).show();
                 } else if ( resultCode == RESULT_CANCELED) {
                     Toast.makeText(this, "Fingerprint Capture Was Canceled", Toast.LENGTH_SHORT).show();
                 }
             }
         }
-
+        finish();
     }
 }

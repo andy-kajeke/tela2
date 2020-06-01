@@ -175,7 +175,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             public void onClick(View v) {
                 if (capturedTemplateData != null && capturedImageData != null ) {
                     Intent  intent =  new Intent();
-                    intent.putExtra(FINGER_PRINT_DATA, new String(capturedTemplateData.data));
+                    intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
                     intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
                     setResult(RESULT_OK, intent);
                     finish();
