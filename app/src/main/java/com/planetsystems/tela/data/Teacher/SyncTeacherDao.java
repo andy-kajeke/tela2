@@ -37,7 +37,7 @@ public interface SyncTeacherDao {
     @Query(
             "SELECT * FROM " +
                     SyncTeacherTableConstants.TABLE_NAME + " WHERE " + SyncTeacherTableConstants.FINGER_PRINT_COLUMN_NAME + " =:fingerPrint")
-    SyncTeacher getSyncTeacherWithFingerPrint(String fingerPrint);
+    SyncTeacher getSyncTeacherWithFingerPrint(byte[] fingerPrint);
 
     @Query(
             "SELECT * FROM " +

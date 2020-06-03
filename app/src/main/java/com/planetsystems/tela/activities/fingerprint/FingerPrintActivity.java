@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.utils.BitmapConverter;

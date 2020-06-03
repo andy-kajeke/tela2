@@ -11,6 +11,7 @@ import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -32,16 +33,16 @@ public class EnrollmentActivityViewModel extends AndroidViewModel {
 
     }
 
-    boolean enrollTeacher(SyncTeacher syncTeacher) {
-
-        try {
-            SyncTeacher syncTeacher1 = teacherRepository.getTeacherWithFingerPrint(syncTeacher.getFingerPrint());
-            if (syncTeacher1 == null ) {
-                teacherRepository.insertSyncTeacher(syncTeacher);
-                return true;
+    boolean enrollTeacher(SyncTeacher syncTeacher, List<SyncTeacher> teachers) {
+        boolean found = false;
+        for(SyncTeacher syncTeacher1: teachers) {
+            if (Arrays.equals(syncTeacher.getFingerPrint(), syncTeacher1.getFingerPrint())) {
+                found = true;
             }
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+        }
+        if (!found) {
+            teacherRepository.insertSyncTeacher(syncTeacher);
+            return true;
         }
         return false;
     }
@@ -89,5 +90,9 @@ public class EnrollmentActivityViewModel extends AndroidViewModel {
             }
         }
         return true;
+    }
+
+    LiveData<List<SyncTeacher>> getAllTeachers() {
+        return  teacherRepository.getAllTeachers();
     }
 }

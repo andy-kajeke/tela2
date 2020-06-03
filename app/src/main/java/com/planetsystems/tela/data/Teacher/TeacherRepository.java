@@ -84,7 +84,7 @@ public class TeacherRepository {
         return  future.get();
     }
 
-    public SyncTeacher getTeacherWithFingerPrint(final String fingerPrint) throws ExecutionException, InterruptedException {
+    public SyncTeacher getTeacherWithFingerPrint(final byte[] fingerPrint) throws ExecutionException, InterruptedException {
         Callable<SyncTeacher> callable = new Callable<SyncTeacher>() {
             @Override
             public SyncTeacher call() throws Exception {

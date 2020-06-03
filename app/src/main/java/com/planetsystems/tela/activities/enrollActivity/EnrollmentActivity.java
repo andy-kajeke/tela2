@@ -35,6 +35,7 @@ public class EnrollmentActivity extends AppCompatActivity {
     EditText edit_initials, edit_phone_No;
     EditText edit_email, edit_nationalID, edit_gender;
     CardView addUser;
+    List<SyncTeacher> syncTeachers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,13 @@ public class EnrollmentActivity extends AppCompatActivity {
                 activityViewModel.setEnrolledTeachers(syncTeachers);
             }
         });
+
+        activityViewModel.getAllTeachers().observe(this, new Observer<List<SyncTeacher>>() {
+            @Override
+            public void onChanged(List<SyncTeacher> teachers) {
+                syncTeachers = teachers;
+            }
+        });
     }
 
     @Override
@@ -88,7 +96,7 @@ public class EnrollmentActivity extends AppCompatActivity {
                             .setNationalID(edit_nationalID.getText().toString())
                             .setLicensed(false)
                             .build();
-                    boolean result = activityViewModel.enrollTeacher(syncTeacher);
+                    boolean result = activityViewModel.enrollTeacher(syncTeacher, syncTeachers);
                     if (result) {
                         edit_fName.setText("");
                         edit_lName.setText("");
@@ -98,6 +106,7 @@ public class EnrollmentActivity extends AppCompatActivity {
                         edit_nationalID.setText("");
                         edit_gender.setText("");
                         Toast.makeText(this, "Teacher Enrolled Successfully", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(this, result.getFirstName() + " " + result.getLastName(), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
                     }
