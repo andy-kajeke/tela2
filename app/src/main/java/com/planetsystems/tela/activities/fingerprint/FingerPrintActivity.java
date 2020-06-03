@@ -235,19 +235,10 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
                     if (found) {
                         Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
+                    } else {
+                        teacherRepository.insertSyncTeacher(syncTeacher);
+                        Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully " + String.valueOf(found), Toast.LENGTH_SHORT).show();
                     }
-                    teacherRepository.insertSyncTeacher(syncTeacher);
-                    Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully " + String.valueOf(found), Toast.LENGTH_SHORT).show();
-
-//                    boolean isEnrolled = printActivityViewModel.enrollTeacher(syncTeacher, mCurrentDevice);
-//                    if (isEnrolled) {
-////                        finish();
-//                        Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
-//                    }
-
-
                 } else {
                     Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
                 }
