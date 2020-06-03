@@ -25,6 +25,7 @@ import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.utils.BitmapConverter;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
@@ -144,6 +145,9 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        printActivityViewModel = new FingerPrintActivityViewModel(getApplication());
+
+
         setContentView(R.layout.activity_finger_print);
         setTitle(R.string.capture);
 
@@ -193,12 +197,27 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
                     intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
                     setResult(RESULT_OK, intent);
-                    finish();
 
                     // TODO enroll
+                    SyncTeacher syncTeacher = new SyncTeacher.Builder()
+                            .setDOB(null)
+                            .setEmailAddress(intent.getStringExtra(TEACHER_FIRST_NAME))
+                            .setLastName(intent.getStringExtra(TEACHER_LAST_NAME))
+                            .setFirstName(intent.getStringExtra(TEACHER_FIRST_NAME))
+                            .setFingerImage(BitmapConverter.encodeBitmapToBase64(capturedImageData))
+                            .setFingerPrint(capturedTemplateData.data)
+                            .setGender(intent.getStringExtra(TEACHER_GENDER))
+                            .setPhoneNumber(intent.getStringExtra(TEACHER_GENDER))
+                            .setNationalID(intent.getStringExtra(TEACHER_NATIONAL_ID))
+                            .setLicensed(intent.getBooleanExtra(TEACHER_LICENSED, false))
+                            .build();
 
-
-
+                    boolean isEnrolled = printActivityViewModel.enrollTeacher(syncTeacher, mCurrentDevice);
+                    if (isEnrolled) {
+                        finish();
+                    } else {
+                        Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
+                    }
 
 
                 } else {

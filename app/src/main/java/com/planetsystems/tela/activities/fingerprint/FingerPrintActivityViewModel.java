@@ -3,11 +3,11 @@ package com.planetsystems.tela.activities.fingerprint;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 
 import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
+import com.suprema.IBioMiniDevice;
 
 import java.util.List;
 
@@ -20,16 +20,23 @@ public class FingerPrintActivityViewModel {
     private TeacherRepository repository;
     private List<SyncTeacher> syncTeachers;
 
-    public FingerPrintActivityViewModel(@NonNull Application application) {
+    FingerPrintActivityViewModel(@NonNull Application application) {
          repository = MainRepository.getInstance(application).getTeachersRepository();
          syncTeachers = repository.getTeachers();
     }
 
-    public void enrollTeacher(SyncTeacher teacher) {
+    public boolean enrollTeacher(SyncTeacher teacher, IBioMiniDevice mCurrentDevice) {
+        boolean enrolled = false;
         for (SyncTeacher syncTeacher: syncTeachers) {
-            if (syncTeacher.equals(teacher)) {
-                return;
+            if ((mCurrentDevice.verify(teacher.getFingerPrint(), syncTeacher.getFingerPrint())) || (syncTeacher.getNationalId().equals(teacher.getNationalId()))) {
+                enrolled = true;
             }
         }
+
+        if (!enrolled) {
+            repository.insertSyncTeacher(teacher);
+            return true;
+        }
+        return false;
     }
 }
