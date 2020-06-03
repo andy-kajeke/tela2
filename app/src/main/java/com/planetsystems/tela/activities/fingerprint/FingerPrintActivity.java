@@ -73,6 +73,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     private TextView statusTextView;
     private ScrollView mScrollLog = null;
     private Intent startActivityIntent;
+    private Intent incomingIntent;
     private IBioMiniDevice.TemplateData capturedTemplateData;
     private Bitmap capturedImageData;
     private FingerPrintActivityViewModel printActivityViewModel;
@@ -146,6 +147,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         printActivityViewModel = new FingerPrintActivityViewModel(getApplication());
+        incomingIntent = getIntent();
 
 
         setContentView(R.layout.activity_finger_print);
@@ -159,6 +161,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         textViewCapture = findViewById(R.id.textViewCapture);
         textViewEnroll = findViewById(R.id.textViewEnroll);
         fingerprintImageView = findViewById(R.id.imageViewFingerPrint);
+
 
 
         if(mBioMiniFactory != null) {
@@ -194,27 +197,28 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             public void onClick(View v) {
                 if (capturedTemplateData != null && capturedImageData != null ) {
                     Intent  intent =  new Intent();
-                    intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
-                    intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
-                    setResult(RESULT_OK, intent);
+//                    intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
+//                    intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
+//                    setResult(RESULT_OK, intent);
 
                     // TODO enroll
                     SyncTeacher syncTeacher = new SyncTeacher.Builder()
                             .setDOB(null)
-                            .setEmailAddress(intent.getStringExtra(TEACHER_FIRST_NAME))
-                            .setLastName(intent.getStringExtra(TEACHER_LAST_NAME))
-                            .setFirstName(intent.getStringExtra(TEACHER_FIRST_NAME))
+                            .setEmailAddress(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
+                            .setLastName(incomingIntent.getStringExtra(TEACHER_LAST_NAME))
+                            .setFirstName(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
                             .setFingerImage(BitmapConverter.encodeBitmapToBase64(capturedImageData))
                             .setFingerPrint(capturedTemplateData.data)
-                            .setGender(intent.getStringExtra(TEACHER_GENDER))
-                            .setPhoneNumber(intent.getStringExtra(TEACHER_GENDER))
-                            .setNationalID(intent.getStringExtra(TEACHER_NATIONAL_ID))
-                            .setLicensed(intent.getBooleanExtra(TEACHER_LICENSED, false))
+                            .setGender(incomingIntent.getStringExtra(TEACHER_GENDER))
+                            .setPhoneNumber(incomingIntent.getStringExtra(TEACHER_GENDER))
+                            .setNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID))
+                            .setLicensed(incomingIntent.getBooleanExtra(TEACHER_LICENSED, false))
                             .build();
 
                     boolean isEnrolled = printActivityViewModel.enrollTeacher(syncTeacher, mCurrentDevice);
                     if (isEnrolled) {
-                        finish();
+//                        finish();
+                        Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
                     }
