@@ -52,12 +52,13 @@ public class ClockInRepository {
         return syncClockInDao.getSyncClockInByDate(dateOfTheDay);
     }
 
+    public List<SyncClockIn> getClockedInTeachersByDateNoteLiveData (String dateOfTheDay) {
+        return syncClockInDao.getSyncClockInByDateNotLiveData(dateOfTheDay);
+    }
+
     public LiveData<List<SyncClockIn>> getAllClockedIn () {
         return syncClockInDao.getAllClockIn();
     }
 
-//    public LiveData<List<SyncClockIn>> getClockedInByDateOfDay (String dateOfDay){
-//        return syncClockInDao.getSyncClockInByDate(dateOfDay);
-//    }
 
 }

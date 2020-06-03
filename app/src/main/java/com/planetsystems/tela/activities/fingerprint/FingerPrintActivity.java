@@ -26,9 +26,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.data.ClockIn.ClockInRepository;
+import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
 import com.planetsystems.tela.utils.BitmapConverter;
+import com.planetsystems.tela.utils.DynamicData;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
 import com.suprema.IUsbEventHandler;
@@ -38,6 +41,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 public class FingerPrintActivity extends Activity implements FingerPrintCaptureResponder.OnFingerPrintCaptureResponseListener{
     public static final String FINGER_PRINT_DATA = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEMPLATE_DATA";
@@ -86,6 +90,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     private ImageView fingerprintImageView;
     private TeacherRepository teacherRepository;
     private List<SyncTeacher> syncTeachers;
+    private ClockInRepository clockInRepository;
+    private List<SyncClockIn> syncClockIns;
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
 
@@ -183,6 +189,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
         if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
             textViewEnroll.setText("Clock In");
+            clockInRepository = MainRepository.getInstance(getApplication()).getClockInRepository();
+            syncClockIns = clockInRepository.getClockedInTeachersByDateNoteLiveData(DynamicData.getDate());
         }
 
         cardViewCapture.setOnClickListener(new View.OnClickListener() {
@@ -243,12 +251,41 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                         }
                     }
 
-                    if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
-                        // removed enroll button and change the with or cap
-                        textViewEnroll.setText(R.string.clock_out);
+                    if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
+                        SyncTeacher teacher = null;
+                        try {
+                            teacher = teacherRepository.getTeacherWithFingerPrint(capturedTemplateData.data);
+                            Toast.makeText(FingerPrintActivity.this, "Teacher: " + teacher.getFirstName(), Toast.LENGTH_SHORT).show();
+                            if (teacher != null) {
+                                List<SyncClockIn> clockIns = clockInRepository.getSyncClockInByEmployeeIDAndDate(teacher.getEmployeeId(), DynamicData.getDate());
+                                if (clockIns.get(0) == null) {
+                                    clockInRepository.synClockInTeacher(new SyncClockIn(
+                                            teacher.getEmployeeNumber(),
+                                            teacher.getEmployeeNumber(),
+                                            teacher.getFirstName(),
+                                            teacher.getLastName(),
+                                            DynamicData.getLatitude(),
+                                            DynamicData.getLongitude(),
+                                            DynamicData.getDate(),
+                                            DynamicData.getDay(),
+                                            DynamicData.getTime(),
+                                            DynamicData.getSchoolID()
+                                    ));
+
+                                    Toast.makeText(FingerPrintActivity.this, "Clocked In Successfully", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(FingerPrintActivity.this, "Teacher Not Found", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (ExecutionException | InterruptedException e) {
+                            e.printStackTrace();
+                            Toast.makeText(FingerPrintActivity.this, "There was ERROR Clocking In", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
-                    if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
+                    if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
                         textViewEnroll.setText("Clock In");
                     }
 
