@@ -204,41 +204,54 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             public void onClick(View v) {
                 if (capturedTemplateData != null && capturedImageData != null ) {
                     Intent  intent =  new Intent();
-//                    intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
-//                    intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
-//                    setResult(RESULT_OK, intent);
+                    intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
+                    intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
+                    setResult(RESULT_OK, intent);
 
-                    // TODO enroll
-                    SyncTeacher syncTeacher = new SyncTeacher.Builder()
-                            .setDOB(null)
-                            .setEmailAddress(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
-                            .setLastName(incomingIntent.getStringExtra(TEACHER_LAST_NAME))
-                            .setFirstName(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
-                            .setFingerImage(BitmapConverter.encodeBitmapToBase64(capturedImageData))
-                            .setFingerPrint(capturedTemplateData.data)
-                            .setGender(incomingIntent.getStringExtra(TEACHER_GENDER))
-                            .setPhoneNumber(incomingIntent.getStringExtra(TEACHER_GENDER))
-                            .setNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID))
-                            .setLicensed(incomingIntent.getBooleanExtra(TEACHER_LICENSED, false))
-                            .build();
-                    boolean found = false;
 
-                    for(SyncTeacher teacher: syncTeachers) {
-                        if ((teacher.getFingerPrint() != null) && (syncTeacher.getFingerPrint() != null)) {
-                            if (mCurrentDevice.verify(teacher.getFingerPrint(), syncTeacher.getFingerPrint())) {
+                    if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
+                        // TODO enroll
+                        SyncTeacher syncTeacher = new SyncTeacher.Builder()
+                                .setDOB(null)
+                                .setEmailAddress(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
+                                .setLastName(incomingIntent.getStringExtra(TEACHER_LAST_NAME))
+                                .setFirstName(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
+                                .setFingerImage(BitmapConverter.encodeBitmapToBase64(capturedImageData))
+                                .setFingerPrint(capturedTemplateData.data)
+                                .setGender(incomingIntent.getStringExtra(TEACHER_GENDER))
+                                .setPhoneNumber(incomingIntent.getStringExtra(TEACHER_GENDER))
+                                .setNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID))
+                                .setLicensed(incomingIntent.getBooleanExtra(TEACHER_LICENSED, false))
+                                .build();
+                        boolean found = false;
+
+                        for(SyncTeacher teacher: syncTeachers) {
+                            if ((teacher.getFingerPrint() != null) && (syncTeacher.getFingerPrint() != null)) {
+                                if (mCurrentDevice.verify(teacher.getFingerPrint(), syncTeacher.getFingerPrint())) {
+                                    found = true;
+                                }
+                            } else if (teacher.getNationalId().equals(syncTeacher.getNationalId())) {
                                 found = true;
                             }
-                        } else if (teacher.getNationalId().equals(syncTeacher.getNationalId())) {
-                            found = true;
+                        }
+
+                        if (found) {
+                            Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
+                        } else {
+                            teacherRepository.insertSyncTeacher(syncTeacher);
+                            Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully " + String.valueOf(found), Toast.LENGTH_SHORT).show();
                         }
                     }
 
-                    if (found) {
-                        Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
-                    } else {
-                        teacherRepository.insertSyncTeacher(syncTeacher);
-                        Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully " + String.valueOf(found), Toast.LENGTH_SHORT).show();
+                    if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
+                        // removed enroll button and change the with or cap
+                        textViewEnroll.setText(R.string.clock_out);
                     }
+
+                    if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
+                        textViewEnroll.setText("Clock In");
+                    }
+
                 } else {
                     Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
                 }
