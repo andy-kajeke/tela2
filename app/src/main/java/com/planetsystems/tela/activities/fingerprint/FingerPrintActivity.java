@@ -190,7 +190,11 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
             textViewEnroll.setText("Clock In");
             clockInRepository = MainRepository.getInstance(getApplication()).getClockInRepository();
-            syncClockIns = clockInRepository.getClockedInTeachersByDateNoteLiveData(DynamicData.getDate());
+            try {
+                syncClockIns = clockInRepository.getClockedInTeachersByDateNoteLiveData(DynamicData.getDate());
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         cardViewCapture.setOnClickListener(new View.OnClickListener() {
