@@ -41,6 +41,20 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     public static final String ACTION_ENROLL = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_ENROLL";
     public static final String ACTION_CLOCK_OUT = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_CLOCK_OUT";
     public static final String ACTION_CLOCK_IN = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_CLOCK_IN";
+    public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_FIRST_NAME";
+    public static final String TEACHER_LAST_NAME = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_LAST_NAME";
+    public static final String TEACHER_EMAIL = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_EMAIL";
+    public static final String TEACHER_GENDER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_GENDER";
+    public static final String TEACHER_PHONE_NUMBER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_PHONE_NUMBER";
+    public static final String TEACHER_NATIONAL_ID = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_NATION_ID";
+    public static final String TEACHER_LICENSED = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_LICENSED";
+
+
+
+
+
+
+
 
 
     //Flag.
@@ -180,6 +194,13 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
                     setResult(RESULT_OK, intent);
                     finish();
+
+                    // TODO enroll
+
+
+
+
+
                 } else {
                     Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
                 }
