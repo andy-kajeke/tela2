@@ -24,8 +24,10 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
+import com.planetsystems.tela.data.Teacher.TeacherRepository;
 import com.planetsystems.tela.utils.BitmapConverter;
 import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
@@ -33,6 +35,7 @@ import com.suprema.IUsbEventHandler;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -81,6 +84,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     private CardView cardViewCapture, cardViewEnroll;
     private TextView textViewCapture, textViewEnroll;
     private ImageView fingerprintImageView;
+    private TeacherRepository teacherRepository;
+    private List<SyncTeacher> syncTeachers;
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
 
@@ -146,8 +151,10 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        printActivityViewModel = new FingerPrintActivityViewModel(getApplication());
+//        printActivityViewModel = new FingerPrintActivityViewModel(getApplication());
         incomingIntent = getIntent();
+        teacherRepository = MainRepository.getInstance(getApplication()).getTeachersRepository();
+        syncTeachers = teacherRepository.getTeachers();
 
 
         setContentView(R.layout.activity_finger_print);
@@ -214,14 +221,30 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             .setNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID))
                             .setLicensed(incomingIntent.getBooleanExtra(TEACHER_LICENSED, false))
                             .build();
+                    boolean found = false;
 
-                    boolean isEnrolled = printActivityViewModel.enrollTeacher(syncTeacher, mCurrentDevice);
-                    if (isEnrolled) {
-//                        finish();
-                        Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
+                    for(SyncTeacher teacher: syncTeachers) {
+                        if ((teacher.getFingerPrint() != null) && (syncTeacher.getFingerPrint() != null)) {
+                            if (mCurrentDevice.verify(teacher.getFingerPrint(), syncTeacher.getFingerPrint())) {
+                                found = true;
+                            }
+                        } else if (teacher.getNationalId().equals(syncTeacher.getNationalId())) {
+                            found = true;
+                        }
                     }
+
+                    if (found) {
+                        teacherRepository.insertSyncTeacher(syncTeacher);
+                        Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully", Toast.LENGTH_SHORT).show();
+                    }
+
+//                    boolean isEnrolled = printActivityViewModel.enrollTeacher(syncTeacher, mCurrentDevice);
+//                    if (isEnrolled) {
+////                        finish();
+//                        Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
+//                    }
 
 
                 } else {
