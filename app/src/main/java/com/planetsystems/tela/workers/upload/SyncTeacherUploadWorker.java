@@ -2,11 +2,13 @@ package com.planetsystems.tela.workers.upload;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.google.gson.Gson;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.TelaRoomDatabase;
@@ -22,6 +24,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.planetsystems.tela.constants.Urls.DID_WORK;
+import static com.planetsystems.tela.constants.Urls.ENROLL_URL;
 
 public class SyncTeacherUploadWorker extends Worker {
     SyncTeacherDao syncTeacherDao;
@@ -36,13 +39,18 @@ public class SyncTeacherUploadWorker extends Worker {
         List<SyncTeacher> syncTeachers = syncTeacherDao.getList();
         for (SyncTeacher teacher: syncTeachers) {
             // upload
-//            String result = POST()
+            String gson = new Gson().toJson(teacher);
+            String result = POST(ENROLL_URL, gson);
+            if (result.equals(DID_WORK)) {
+                syncTeacherDao.deleteStaff(teacher);
+            }
         }
-        return null;
+//        Toast.makeText(getApplicationContext(),":"+resp,Toast.LENGTH_LONG).show();
+        return Result.success();
     }
 
     //uploading content to server
-    public static String POST(String url, String jsontasks){
+    private static String POST(String url, String jsontasks){
         InputStream inputStream = null;
         String result = "";
         try {
