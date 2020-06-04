@@ -36,11 +36,11 @@ public class SyncTeacherUploadWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        List<SyncTeacher> syncTeachers = syncTeacherDao.getList();
+        List<SyncTeacher> syncTeachers = syncTeacherDao.getListStoredLocally(true);
         for (SyncTeacher teacher: syncTeachers) {
             // upload
-            String gson = new Gson().toJson(teacher);
-            String result = POST(ENROLL_URL, gson);
+            String dataForUpload = new Gson().toJson(teacher);
+            String result = POST(ENROLL_URL, dataForUpload);
             if (result.equals(DID_WORK)) {
                 syncTeacherDao.deleteStaff(teacher);
             }

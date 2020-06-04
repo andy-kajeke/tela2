@@ -62,6 +62,9 @@ public class SyncTeacher {
     @ColumnInfo(name = SyncTeacherTableConstants.SCHOOL_ID_COLUMN_NAME)
     private String schoolId;
 
+    @ColumnInfo(name = SyncTeacherTableConstants.IS_STORED_LOCALLY)
+    private boolean isStoredLocally;
+
     public int getPrimaryKey() {
         return primaryKey;
     }
@@ -293,6 +296,7 @@ public class SyncTeacher {
         }
 
         public SyncTeacher build() {
+            INSTANCE.setStoredLocally(true);
             return INSTANCE;
         }
     }
@@ -323,6 +327,7 @@ public class SyncTeacher {
         this.nationalId = nationalId;
         this.phoneNumber = phoneNumber;
         this.schoolId = schoolId;
+        this.isStoredLocally = false;
     }
 
     @Override
@@ -347,5 +352,13 @@ public class SyncTeacher {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", schoolId='" + schoolId + '\'' +
                 '}';
+    }
+
+    public boolean isStoredLocally() {
+        return isStoredLocally;
+    }
+
+    public void setStoredLocally(boolean storedLocally) {
+        isStoredLocally = storedLocally;
     }
 }

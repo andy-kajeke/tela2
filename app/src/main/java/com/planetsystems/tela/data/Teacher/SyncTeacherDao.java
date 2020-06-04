@@ -8,8 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.planetsystems.tela.constants.SyncTableConstants;
-
 import java.util.List;
 
 
@@ -55,4 +53,10 @@ public interface SyncTeacherDao {
             String id,
             String nationalID
     );
+
+    @Query("SELECT * FROM " +
+            SyncTeacherTableConstants.TABLE_NAME +
+            " WHERE " + SyncTeacherTableConstants.IS_STORED_LOCALLY + " =:isStoredLocally"
+    )
+    List<SyncTeacher> getListStoredLocally(boolean isStoredLocally);
 }
