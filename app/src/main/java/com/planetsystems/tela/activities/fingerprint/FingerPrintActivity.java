@@ -270,23 +270,27 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
                         if (syncTeacher != null) {
                             try {
-                                SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate()).get(0);
-                                if (clockIn == null) {
-                                    clockInRepository.synClockInTeacher(new SyncClockIn(
-                                            syncTeacher.getEmployeeNumber(),
-                                            syncTeacher.getEmployeeNumber(),
-                                            syncTeacher.getFirstName(),
-                                            syncTeacher.getLastName(),
-                                            DynamicData.getLatitude(),
-                                            DynamicData.getLongitude(),
-                                            DynamicData.getDate(),
-                                            DynamicData.getDay(),
-                                            DynamicData.getTime(),
-                                            DynamicData.getSchoolID()
-                                    ));
-                                    Toast.makeText(FingerPrintActivity.this, "Clocked In SuccessFully", Toast.LENGTH_SHORT).show();
-                                } else  {
-                                    Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
+                                if (syncTeacher.getEmployeeNumber() == null) {
+                                    Toast.makeText(FingerPrintActivity.this, "Teacher Information Not Yet Ready", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate()).get(0);
+                                    if (clockIn == null) {
+                                        clockInRepository.synClockInTeacher(new SyncClockIn(
+                                                syncTeacher.getEmployeeNumber(),
+                                                syncTeacher.getEmployeeNumber(),
+                                                syncTeacher.getFirstName(),
+                                                syncTeacher.getLastName(),
+                                                DynamicData.getLatitude(),
+                                                DynamicData.getLongitude(),
+                                                DynamicData.getDate(),
+                                                DynamicData.getDay(),
+                                                DynamicData.getTime(),
+                                                DynamicData.getSchoolID()
+                                        ));
+                                        Toast.makeText(FingerPrintActivity.this, "Clocked In SuccessFully", Toast.LENGTH_SHORT).show();
+                                    } else  {
+                                        Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             } catch (ExecutionException | InterruptedException e) {
                                 e.printStackTrace();
