@@ -253,43 +253,39 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             teacherRepository.insertSyncTeacher(syncTeacher);
                             Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully " + String.valueOf(found), Toast.LENGTH_SHORT).show();
                         }
-                    }
-
-                    if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
-                        SyncTeacher teacher = null;
+                    } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
                         try {
-                            teacher = teacherRepository.getTeacherWithFingerPrint(capturedTemplateData.data);
-                            Toast.makeText(FingerPrintActivity.this, "Teacher: " + teacher.getFirstName(), Toast.LENGTH_SHORT).show();
-                            if (teacher != null) {
-                                List<SyncClockIn> clockIns = clockInRepository.getSyncClockInByEmployeeIDAndDate(teacher.getEmployeeId(), DynamicData.getDate());
-                                if (clockIns.get(0) == null) {
-                                    clockInRepository.synClockInTeacher(new SyncClockIn(
-                                            teacher.getEmployeeNumber(),
-                                            teacher.getEmployeeNumber(),
-                                            teacher.getFirstName(),
-                                            teacher.getLastName(),
-                                            DynamicData.getLatitude(),
-                                            DynamicData.getLongitude(),
-                                            DynamicData.getDate(),
-                                            DynamicData.getDay(),
-                                            DynamicData.getTime(),
-                                            DynamicData.getSchoolID()
-                                    ));
+                            for (SyncTeacher teacher: syncTeachers) {
+                                if (teacher.getFingerPrint() != null ) {
+                                    if (mCurrentDevice.verify(teacher.getFingerPrint(), capturedTemplateData.data)) {
+                                        Toast.makeText(FingerPrintActivity.this, "Teacher: " + teacher.getFirstName(), Toast.LENGTH_SHORT).show();
+                                        List<SyncClockIn> clockIns = clockInRepository.getSyncClockInByEmployeeIDAndDate(teacher.getEmployeeId(), DynamicData.getDate());
+                                        if (clockIns.get(0) == null) {
+                                            clockInRepository.synClockInTeacher(new SyncClockIn(
+                                                    teacher.getEmployeeNumber(),
+                                                    teacher.getEmployeeNumber(),
+                                                    teacher.getFirstName(),
+                                                    teacher.getLastName(),
+                                                    DynamicData.getLatitude(),
+                                                    DynamicData.getLongitude(),
+                                                    DynamicData.getDate(),
+                                                    DynamicData.getDay(),
+                                                    DynamicData.getTime(),
+                                                    DynamicData.getSchoolID()
+                                            ));
 
-                                    Toast.makeText(FingerPrintActivity.this, "Clocked In Successfully", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(FingerPrintActivity.this, "Clocked In Successfully", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
                                 }
-                            } else {
-                                Toast.makeText(FingerPrintActivity.this, "Teacher Not Found", Toast.LENGTH_SHORT).show();
                             }
                         } catch (ExecutionException | InterruptedException e) {
                             e.printStackTrace();
                             Toast.makeText(FingerPrintActivity.this, "There was ERROR Clocking In", Toast.LENGTH_SHORT).show();
                         }
-                    }
-
-                    if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
+                    } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
                         textViewEnroll.setText("Clock In");
                     }
 
