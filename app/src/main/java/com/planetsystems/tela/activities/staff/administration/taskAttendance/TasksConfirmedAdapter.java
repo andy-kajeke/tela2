@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.staff.regularStaff.home.Tasks;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 
 import java.util.List;
@@ -25,9 +26,9 @@ public class TasksConfirmedAdapter extends RecyclerView.Adapter<TasksConfirmedAd
 
     private LayoutInflater layoutInflater;
     private  Context mContext;
-    private List<SynTimeOnTask> mSynTimeOnTask;
+    private List<Tasks> mSynTimeOnTask;
 
-    public TasksConfirmedAdapter(Context context, List<SynTimeOnTask> mSynTimeOnTask){
+    public TasksConfirmedAdapter(Context context, List<Tasks> mSynTimeOnTask){
         layoutInflater = LayoutInflater.from(context);
         this.mContext = context;
         this.mSynTimeOnTask = mSynTimeOnTask;
@@ -43,7 +44,7 @@ public class TasksConfirmedAdapter extends RecyclerView.Adapter<TasksConfirmedAd
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, final int position) {
-        SynTimeOnTask synTimeOnTask = mSynTimeOnTask.get(position);
+        Tasks synTimeOnTask = mSynTimeOnTask.get(position);
         if (mSynTimeOnTask != null){
 
             holder.setData(synTimeOnTask.getTaskName(), synTimeOnTask.getStartTime(), synTimeOnTask.getEndTime(), position);
@@ -65,17 +66,14 @@ public class TasksConfirmedAdapter extends RecyclerView.Adapter<TasksConfirmedAd
             holder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                    if (!isChecked) {
-//                        //Toast.makeText(getContext(),"Checked",Toast.LENGTH_SHORT).show();
-//                        mSynTimeOnTask.get(position).setStatus("Absent");
-//                        Toast.makeText(mContext ,mSynTimeOnTask.get(position).getStatus(),Toast.LENGTH_SHORT).show();
-//                        //status_ = proList.get(position).setStatus("present");
-//
-//                    } else {
-//                        mSynTimeOnTask.get(position).setStatus("present");
-//                        Toast.makeText(mContext,mSynTimeOnTask.get(position).getStatus(),Toast.LENGTH_SHORT).show();
-//                        //status_ = proList.get(position).setStatus("absent");
-//                    }
+                    if (!isChecked) {
+                        mSynTimeOnTask.get(position).setStatus("Not Taught");
+                        Toast.makeText(mContext ,mSynTimeOnTask.get(position).getStatus(),Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        mSynTimeOnTask.get(position).setStatus("Taught");
+                        Toast.makeText(mContext,mSynTimeOnTask.get(position).getStatus(),Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -83,9 +81,11 @@ public class TasksConfirmedAdapter extends RecyclerView.Adapter<TasksConfirmedAd
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (!isChecked){
-
+                        mSynTimeOnTask.get(position).setInTime("Past Time");
+                        Toast.makeText(mContext ,mSynTimeOnTask.get(position).getInTime(),Toast.LENGTH_SHORT).show();
                     }else {
-
+                        mSynTimeOnTask.get(position).setInTime("In Time");
+                        Toast.makeText(mContext ,mSynTimeOnTask.get(position).getInTime(),Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -104,7 +104,7 @@ public class TasksConfirmedAdapter extends RecyclerView.Adapter<TasksConfirmedAd
         }
     }
 
-    public void setTaskList(List<SynTimeOnTask> task){
+    public void setTaskList(List<Tasks> task){
         mSynTimeOnTask = task;
         notifyDataSetChanged();
     }

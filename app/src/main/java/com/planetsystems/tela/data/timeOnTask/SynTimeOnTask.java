@@ -204,6 +204,14 @@ public class SynTimeOnTask {
         this.inTime = inTime;
     }
 
+    public String getSupervisionId() {
+        return supervisionId;
+    }
+
+    public void setSupervisionId(String supervisionId) {
+        this.supervisionId = supervisionId;
+    }
+
     public String getEmployeeFirstName() {
         return employeeFirstName;
     }

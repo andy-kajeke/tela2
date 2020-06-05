@@ -15,6 +15,8 @@ import com.planetsystems.tela.workers.upload.SyncClockInTeacherUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncClockOutTeacherUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncConfirmTimeOnSiteAttendanceUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncLearnerAttendanceUploadWorker;
+import com.planetsystems.tela.workers.upload.SyncSupervisorTimeOnTaskAttendanceUploadWorker;
+import com.planetsystems.tela.workers.upload.SyncTeacherTimeOnTaskAttendanceUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncTeacherUploadWorker;
 
 import java.util.Calendar;
@@ -33,6 +35,8 @@ public class WorkManagerTrigger {
         startUploadSyncClockOutUploadWorker(context);
         startUploadSyncLearnerAttendanceUploadWorker(context);
         startUploadSyncConfirmTimeOnSiteAttendanceUploadWorker(context);
+        startUploadSyncTeacherTimeOnTaskAttendanceUploadWorker(context);
+        startUploadSyncSupervisorTimeOnTaskAttendanceUploadWorker(context);
     }
 
     // picking data from the cloud to SyncTimeTable table
@@ -113,6 +117,32 @@ public class WorkManagerTrigger {
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
         PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncConfirmTimeOnSiteAttendanceUploadWorker.class, 1, TimeUnit.SECONDS)
+                .setConstraints(constraints)
+                .build();
+
+        WorkManager.getInstance(context).enqueue(workRequest);
+
+    }
+
+    //Upload TeacherTimeOnTaskAttendance content to server
+    public static  void startUploadSyncTeacherTimeOnTaskAttendanceUploadWorker(Context context) {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncTeacherTimeOnTaskAttendanceUploadWorker.class, 1, TimeUnit.SECONDS)
+                .setConstraints(constraints)
+                .build();
+
+        WorkManager.getInstance(context).enqueue(workRequest);
+
+    }
+
+    //Upload SupervisorTimeOnTaskAttendance content to server
+    public static  void startUploadSyncSupervisorTimeOnTaskAttendanceUploadWorker(Context context) {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncSupervisorTimeOnTaskAttendanceUploadWorker.class, 1, TimeUnit.SECONDS)
                 .setConstraints(constraints)
                 .build();
 

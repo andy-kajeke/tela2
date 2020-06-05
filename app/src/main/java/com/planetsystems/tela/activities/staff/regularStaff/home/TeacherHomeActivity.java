@@ -84,7 +84,6 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
             public void onChanged(List<SyncTimeTable> syncTimeTables ) {
                 for (int i = 0; i < syncTimeTables.size(); i++){
                     Tasks taskList = new Tasks();
-
                     taskList.setSubject(syncTimeTables.get(i).getSubject());
                     taskList.setTaskId(syncTimeTables.get(i).getTaskId());
                     taskList.setTaskName(syncTimeTables.get(i).getTaskName());
@@ -144,7 +143,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
                     "",
                     Task.getStatus(),
                     Task.getStatus(),
-                    "",
+                    Task.getStatus(),
                     emp_id_extra,
                     emp_id_extra,
                     Task.getTaskId(),
@@ -163,7 +162,6 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
             );
 
             teacherHomeActivityViewModel.postToSyncTimeOnTask(synTimeOnTask);
-
         }
     }
 

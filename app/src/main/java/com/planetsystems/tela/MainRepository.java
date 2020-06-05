@@ -13,6 +13,7 @@ import com.planetsystems.tela.data.attendance.LearnerRepository;
 import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
+import com.planetsystems.tela.data.confirmTimeOnTaskAttendance.ConfirmTimeOnTaskRepository;
 import com.planetsystems.tela.data.employeeTimeOffRequestDM.TimeOffRequestRepository;
 import com.planetsystems.tela.data.helprequest.HelpRequestDao;
 import com.planetsystems.tela.data.helprequest.HelpRequestRepository;
@@ -43,6 +44,7 @@ public class MainRepository {
     private TimeTableRepository timeTableRepository;
     private TimeOffRequestRepository timeOffRequestRepository;
     private HelpRequestRepository helpRequestRepository;
+    private ConfirmTimeOnTaskRepository confirmTimeOnTaskRepository;
 
     private MainRepository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
@@ -57,6 +59,7 @@ public class MainRepository {
         timeTableRepository = TimeTableRepository.getInstance(telaRoomDatabase);
         timeOffRequestRepository = TimeOffRequestRepository.getInstance(telaRoomDatabase);
         helpRequestRepository = HelpRequestRepository.getInstance(telaRoomDatabase);
+        confirmTimeOnTaskRepository = ConfirmTimeOnTaskRepository.getInstance(telaRoomDatabase);
 
     }
 
@@ -83,15 +86,6 @@ public class MainRepository {
         return teacherRepository.getAllTeachers();
     }
 
-    public LiveData<List<SyncClockIn>> OnlyClockedIn (){
-        return clockInRepository.getAllClockedIn();
-    }
-
-    public SyncTimeTableDao getSyncTimeTableDao() {
-        return syncTimeTableDao;
-    }
-
-
     public LiveData<List<SyncTeacher>> getAllSyncTeacher() {
         return teacherRepository.getAllTeachers();
     }
@@ -109,6 +103,8 @@ public class MainRepository {
     }
 
     public TimeOnTaskRepository getTimeOnTaskRepository(){return timeOnTaskRepository;}
+
+    public ConfirmTimeOnTaskRepository getConfirmTimeOnTaskRepository(){return confirmTimeOnTaskRepository;}
 
     public SchoolClassesRepository getSchoolClassesRepository(){
         return schoolClassesRepository;

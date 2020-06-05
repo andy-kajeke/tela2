@@ -39,13 +39,15 @@ public class SyncTeacherTimeOnTaskAttendanceUploadWorker extends Worker {
             Log.d(getClass().getSimpleName(), "Uploading: " + synTimeOnTask.toString());
             // TODO: upload each individual syncTimeOnTask in to the backend
             try {
-                EmployeeTasks employeeTasks = new EmployeeTasks();
 
-                employeeTasks.setEmployeeId(synTimeOnTask.getEmployeeId());
-                employeeTasks.setEmployeeNumber(synTimeOnTask.getEmployeeNumber());
-                employeeTasks.setTasks(teacherHomeActivity.taskList());
+                synTimeOnTask.getEmployeeId();
+                synTimeOnTask.getEmployeeNumber();
+                synTimeOnTask.getTaskId();
+                synTimeOnTask.getActionStatus();
+                synTimeOnTask.getComment();
+                synTimeOnTask.getTransactionDate();
 
-                String resp = Urls.POST(Urls.LEARNER_ATTENDANCE_UPLOAD_URL, new Gson().toJson(employeeTasks));
+                String resp = Urls.POST(Urls.CONFIRM_TASKS, new Gson().toJson(synTimeOnTask));
                 if (resp == Urls.DID_WORK) {
                     synTimeOnTask.setUploaded_teacher(true);
                     synTimeOnTaskDao.update(synTimeOnTask);

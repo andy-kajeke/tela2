@@ -8,16 +8,13 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.planetsystems.tela.constants.SyncTableConstants;
-import com.planetsystems.tela.data.confirmTimeOnTaskAttendance.SyncConfirmTimeOnTaskAttendance;
-
 import java.util.List;
 
 @Dao
 public interface SyncConfirmTimeOnTaskAttendanceDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void addNew(SyncConfirmTimeOnTaskAttendance syncConfirmTimeOnTaskAttendance);
+    void addNewConfirmation(SyncConfirmTimeOnTaskAttendance syncConfirmTimeOnTaskAttendance);
 
     @Update
     void update(SyncConfirmTimeOnTaskAttendance syncConfirmTimeOnTaskAttendance);
@@ -25,6 +22,12 @@ public interface SyncConfirmTimeOnTaskAttendanceDao {
     @Delete
     void delete(SyncConfirmTimeOnTaskAttendance syncConfirmTimeOnTaskAttendance);
 
-    @Query("SELECT * FROM " + SyncTableConstants.SyncConfirmTimeOnTaskAttendances)
+    @Query("SELECT * FROM " + SyncConfirmTimeOnTaskAttendanceConstants.TABLE_NAME)
     LiveData<List<SyncConfirmTimeOnTaskAttendance>> getAllRecords();
+
+    @Query("SELECT * FROM " + SyncConfirmTimeOnTaskAttendanceConstants.TABLE_NAME +
+            " WHERE "
+            + SyncConfirmTimeOnTaskAttendanceConstants.IS_UPLOADED +
+            " =:isUploaded")
+    List<SyncConfirmTimeOnTaskAttendance> getSupervisorRecords(boolean isUploaded);
 }

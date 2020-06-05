@@ -7,107 +7,67 @@ import androidx.room.PrimaryKey;
 
 import com.planetsystems.tela.constants.SyncTableConstants;
 
-@Entity(tableName = SyncTableConstants.SyncConfirmTimeOnTaskAttendances)
+@Entity(tableName = SyncConfirmTimeOnTaskAttendanceConstants.TABLE_NAME)
 public class SyncConfirmTimeOnTaskAttendance {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     @NonNull
-    private String id;
+    private int id;
 
-    @ColumnInfo(name = "dateCreated")
-    private String dateCreated;
+    @ColumnInfo(name = SyncConfirmTimeOnTaskAttendanceConstants.STATUS)
+    private String status;
 
-    @ColumnInfo(name = "dateUpdated")
-    private String dateUpdated;
-
-    @ColumnInfo(name = "status")
-    private int status;
-
-    @ColumnInfo(name = "comment")
+    @ColumnInfo(name = SyncConfirmTimeOnTaskAttendanceConstants.COMMENT)
     private String comment;
 
-    @ColumnInfo(name = "employeeId")
-    @NonNull
+    @ColumnInfo(name = SyncConfirmTimeOnTaskAttendanceConstants.EMPLOYEE_ID)
     private String employeeId;
 
-    @ColumnInfo(name = "employeeNumber")
-    @NonNull
+    @ColumnInfo(name = SyncConfirmTimeOnTaskAttendanceConstants.EMPLOYEE_NO)
     private String employeeNumber;
 
-    @ColumnInfo(name = "endTime")
-    @NonNull
-    private String endTime;
-
-    @ColumnInfo(name = "startTime")
-    @NonNull
-    private String startTime;
-
-    @ColumnInfo(name = "supervisionStatus")
+    @ColumnInfo(name = SyncConfirmTimeOnTaskAttendanceConstants.SUPERVISOR_STATUS)
     private String supervisionStatus;
 
-    @ColumnInfo(name = "supervisorId")
+    @ColumnInfo(name = SyncConfirmTimeOnTaskAttendanceConstants.SUPERVISOR_ID)
     private String supervisorId;
 
-    @ColumnInfo(name = "taskDescription")
-    private String taskDescription;
-
-    @ColumnInfo(name = "taskId")
+    @ColumnInfo(name = SyncConfirmTimeOnTaskAttendanceConstants.TASK_ID)
     private String taskId;
 
-    @ColumnInfo(name = "transactionDate")
+    @ColumnInfo(name = SyncConfirmTimeOnTaskAttendanceConstants.TRANSACTION_DATE)
     private String transactionDate;
 
-    public SyncConfirmTimeOnTaskAttendance(@NonNull String id, String dateCreated, String dateUpdated, int status, String comment,
-                                           @NonNull String employeeId, @NonNull String employeeNumber, @NonNull String endTime,
-                                           @NonNull String startTime, String supervisionStatus, String supervisorId, String taskDescription,
-                                           String taskId, String transactionDate) {
-        this.id = id;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
+    @ColumnInfo(name = SyncConfirmTimeOnTaskAttendanceConstants.IS_UPLOADED)
+    private boolean isUploaded;
+
+    public SyncConfirmTimeOnTaskAttendance(String status, String comment, String employeeId, String employeeNumber, String supervisionStatus,
+                                           String supervisorId, String taskId, String transactionDate, boolean isUploaded) {
         this.status = status;
         this.comment = comment;
         this.employeeId = employeeId;
         this.employeeNumber = employeeNumber;
-        this.endTime = endTime;
-        this.startTime = startTime;
         this.supervisionStatus = supervisionStatus;
         this.supervisorId = supervisorId;
-        this.taskDescription = taskDescription;
         this.taskId = taskId;
         this.transactionDate = transactionDate;
+        this.isUploaded = isUploaded;
     }
 
-    @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public String getDateUpdated() {
-        return dateUpdated;
-    }
-
-    public void setDateUpdated(String dateUpdated) {
-        this.dateUpdated = dateUpdated;
-    }
-
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -119,40 +79,20 @@ public class SyncConfirmTimeOnTaskAttendance {
         this.comment = comment;
     }
 
-    @NonNull
     public String getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(@NonNull String employeeId) {
+    public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
 
-    @NonNull
     public String getEmployeeNumber() {
         return employeeNumber;
     }
 
-    public void setEmployeeNumber(@NonNull String employeeNumber) {
+    public void setEmployeeNumber(String employeeNumber) {
         this.employeeNumber = employeeNumber;
-    }
-
-    @NonNull
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(@NonNull String endTime) {
-        this.endTime = endTime;
-    }
-
-    @NonNull
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(@NonNull String startTime) {
-        this.startTime = startTime;
     }
 
     public String getSupervisionStatus() {
@@ -171,14 +111,6 @@ public class SyncConfirmTimeOnTaskAttendance {
         this.supervisorId = supervisorId;
     }
 
-    public String getTaskDescription() {
-        return taskDescription;
-    }
-
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
-    }
-
     public String getTaskId() {
         return taskId;
     }
@@ -193,5 +125,13 @@ public class SyncConfirmTimeOnTaskAttendance {
 
     public void setTransactionDate(String transactionDate) {
         this.transactionDate = transactionDate;
+    }
+
+    public boolean isUploaded() {
+        return isUploaded;
+    }
+
+    public void setUploaded(boolean uploaded) {
+        isUploaded = uploaded;
     }
 }
