@@ -41,6 +41,15 @@ public class TimeOnTaskRepository {
         });
     }
 
+    public void supervisorConfirmationSyncTimeOneTask(final String supervisor_status, final String inTime, final String comment, final String supervisorId, final int primaryKey) {
+        TelaRoomDatabase.db_executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                synTimeOnTaskDao.update(supervisor_status, inTime, comment, supervisorId, primaryKey);
+            }
+        });
+    }
+
     public LiveData<List<SynTimeOnTask>> getAllTimeOnTask() {
         return synTimeOnTaskDao.getSynTimeOnTasks();
     }

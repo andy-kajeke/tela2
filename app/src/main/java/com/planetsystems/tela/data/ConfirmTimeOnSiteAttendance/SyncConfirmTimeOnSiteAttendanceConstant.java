@@ -30,5 +30,5 @@ public class SyncConfirmTimeOnSiteAttendanceConstant {
 
     public static final String ROW_ID = "rowId";
 
-    public static final String IS_UPLOADED_COLUMN_NAME = "is_uploaded";
+    public static final String IS_UPLOADED_COLUMN_NAME = "isUploaded";
 }

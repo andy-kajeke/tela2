@@ -9,14 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.ServiceRequestsViewModel;
 import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDM;
 import com.planetsystems.tela.data.helprequest.HelpRequest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RequestsMade extends AppCompatActivity {
@@ -32,6 +30,8 @@ public class RequestsMade extends AppCompatActivity {
     CardView help;
     final String Pending = "Pending";
     final String Approved = "Approved";
+    final String TimeOff = "Time Off/ Leave";
+    final String Meeting = "Meeting";
 
     private ServiceRequestsViewModel serviceRequestsViewModel;
 
@@ -61,7 +61,7 @@ public class RequestsMade extends AppCompatActivity {
         //Time off/leave Requests
         serviceRequestsViewModel = new ViewModelProvider(this).get(ServiceRequestsViewModel.class);
 
-        serviceRequestsViewModel.getAllTimeOffs("Time Off/ Leave", Pending).observe(this, new Observer<List<SyncEmployeeTimeOffRequestDM>>() {
+        serviceRequestsViewModel.getAllTimeOffs(TimeOff, Pending).observe(this, new Observer<List<SyncEmployeeTimeOffRequestDM>>() {
             @Override
             public void onChanged(List<SyncEmployeeTimeOffRequestDM> syncEmployeeTimeOffRequestDMS) {
                 //Toast.makeText(getApplicationContext(),"size : "+String.valueOf(syncEmployeeTimeOffRequestDMS.size()) ,Toast.LENGTH_SHORT).show();
@@ -69,7 +69,7 @@ public class RequestsMade extends AppCompatActivity {
             }
         });
 
-        serviceRequestsViewModel.getAllTimeOffs("Time Off/ Leave",Approved).observe(this, new Observer<List<SyncEmployeeTimeOffRequestDM>>() {
+        serviceRequestsViewModel.getAllTimeOffs(TimeOff,Approved).observe(this, new Observer<List<SyncEmployeeTimeOffRequestDM>>() {
             @Override
             public void onChanged(List<SyncEmployeeTimeOffRequestDM> syncEmployeeTimeOffRequestDMS) {
 
@@ -78,7 +78,7 @@ public class RequestsMade extends AppCompatActivity {
         });
 
         //Meeting Requests
-        serviceRequestsViewModel.getAllMeetings("Meeting", Pending).observe(this, new Observer<List<SyncEmployeeTimeOffRequestDM>>() {
+        serviceRequestsViewModel.getAllMeetings(Meeting, Pending).observe(this, new Observer<List<SyncEmployeeTimeOffRequestDM>>() {
             @Override
             public void onChanged(List<SyncEmployeeTimeOffRequestDM> syncEmployeeTimeOffRequestDMS) {
 
@@ -86,7 +86,7 @@ public class RequestsMade extends AppCompatActivity {
             }
         });
 
-        serviceRequestsViewModel.getAllMeetings("Meeting",Approved).observe(this, new Observer<List<SyncEmployeeTimeOffRequestDM>>() {
+        serviceRequestsViewModel.getAllMeetings(Meeting,Approved).observe(this, new Observer<List<SyncEmployeeTimeOffRequestDM>>() {
             @Override
             public void onChanged(List<SyncEmployeeTimeOffRequestDM> syncEmployeeTimeOffRequestDMS) {
 
@@ -124,9 +124,9 @@ public class RequestsMade extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                Intent i = new Intent(RequestMade.this, PendingTimeOff.class);
-//                i.putExtra("school", school_id_extra);
-//                startActivity(i);
+                Intent i = new Intent(RequestsMade.this, PendingLeaveRequest.class);
+                i.putExtra("request", TimeOff);
+                startActivity(i);
 
             }
         });
@@ -135,9 +135,9 @@ public class RequestsMade extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                Intent i = new Intent(RequestMade.this, PendingMeeting.class);
-//                i.putExtra("school", school_id_extra);
-//                startActivity(i);
+                Intent i = new Intent(RequestsMade.this, PendingLeaveRequest.class);
+                i.putExtra("request", Meeting);
+                startActivity(i);
 
             }
         });
@@ -145,20 +145,10 @@ public class RequestsMade extends AppCompatActivity {
         help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent i = new Intent(RequestMade.this, PendingHelpRequest.class);
-//                i.putExtra("school", school_id_extra);
-//                startActivity(i);
+                Intent i = new Intent(RequestsMade.this, PendingHelpRequest.class);
+                startActivity(i);
             }
         });
-
-//        DisplayPendingSchoolMaterials();
-//        DisplayApprovedSchoolMaterials();
-//        DisplayPendingTimeOffRequests();
-//        DisplayApprovedTimeOffRequests();
-//        DisplayPendingMeetingRequest();
-//        DisplayApprovedMeetingRequest();
-//        DisplayPendingHelpRequest();
-//        DisplayApprovedHelpRequest();
 
     }
 }

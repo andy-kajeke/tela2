@@ -77,7 +77,7 @@ public class SupervisorObservations extends AppCompatActivity {
 
         teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
 
-        teacherHomeActivityViewModel.tasksWithPresentActionStatus(emp_id_extra, dateString, "ACTIVE").observe(this, new Observer<List<SynTimeOnTask>>() {
+        teacherHomeActivityViewModel.tasksWithPresentActionStatus(emp_id_extra, dateString, "Present").observe(this, new Observer<List<SynTimeOnTask>>() {
             @Override
             public void onChanged(List<SynTimeOnTask> synTimeOnTasks) {
                 //Toast.makeText(getApplicationContext(), "size is: " + String.valueOfteacher_id(synTimeOnTasks.size()), Toast.LENGTH_LONG).show();

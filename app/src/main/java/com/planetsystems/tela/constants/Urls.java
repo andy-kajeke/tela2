@@ -21,7 +21,11 @@ public class Urls {
 
     public static final String SYNC_TEACHER_URL = BASE_URL + "teachers/" + DEVICE_IMEI;
 
+    public static final String CONFIRM_TASKS = BASE_URL + "confirmtasks";
+
     public static final String CLOCK_IN_UPLOAD_URL = BASE_URL + "clockin";
+
+    public static final String ATTENDANCE_ON_SITE_UPLOAD_URL = BASE_URL + "confirmteacherschoolattendence";
 
     public static final String CLOCK_OUT_UPLOAD_URL = BASE_URL + "clockout";
 

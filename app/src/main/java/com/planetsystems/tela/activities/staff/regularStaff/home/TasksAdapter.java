@@ -25,9 +25,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 
     private LayoutInflater layoutInflater;
     private  Context mContext;
-    private List<SyncTimeTable> mSyncTimeTables;
+    private List<Tasks> mSyncTimeTables;
 
-    public TasksAdapter(Context context, List<SyncTimeTable> mSyncTimeTables){
+    public TasksAdapter(Context context, List<Tasks> mSyncTimeTables){
         layoutInflater = LayoutInflater.from(context);
         this.mContext = context;
         this.mSyncTimeTables = mSyncTimeTables;
@@ -43,7 +43,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, final int position) {
-        SyncTimeTable syncTimeTable = mSyncTimeTables.get(position);
+        Tasks syncTimeTable = mSyncTimeTables.get(position);
         if (mSyncTimeTables != null){
 
             holder.setData(syncTimeTable.getTaskName(), syncTimeTable.getStartTime(), syncTimeTable.getEndTime(), position);
@@ -66,15 +66,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
                     if (!bChecked) {
-                        //Toast.makeText(getContext(),"Checked",Toast.LENGTH_SHORT).show();
                         mSyncTimeTables.get(position).setStatus("Absent");
                         Toast.makeText(mContext ,mSyncTimeTables.get(position).getStatus(),Toast.LENGTH_SHORT).show();
-                        //status_ = proList.get(position).setStatus("present");
 
-                    } else if (bChecked){
+                    } else {
                         mSyncTimeTables.get(position).setStatus("Present");
                         Toast.makeText(mContext,mSyncTimeTables.get(position).getStatus(),Toast.LENGTH_SHORT).show();
-                        //status_ = proList.get(position).setStatus("absent");
                     }
                 }
             });
@@ -93,7 +90,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         }
     }
 
-    public void setTaskList(List<SyncTimeTable> task){
+    public void setTaskList(List<Tasks> task){
         mSyncTimeTables = task;
         notifyDataSetChanged();
     }

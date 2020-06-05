@@ -54,8 +54,6 @@ public class SchoolConfirmation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_school_confirmation);
-        WorkManagerTrigger.startFetchWorkers(getApplicationContext());
-        WorkManagerTrigger.startUploadWorkers(getApplicationContext());
 
         schoolName = findViewById(R.id.schoolName);
         schoolLocation = findViewById(R.id.schoolLocation);
@@ -66,7 +64,22 @@ public class SchoolConfirmation extends AppCompatActivity {
 
         if (!isConnected()) {
             Toast.makeText(this, "No connection", Toast.LENGTH_SHORT).show();
-        } else {
+            new AlertDialog.Builder(SchoolConfirmation.this)
+                    .setTitle("Confirmation")
+                    .setMessage("Network failed. Check your internet connection and Try again... \n")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            SchoolConfirmation.this.finish();
+                        }}).show();
+        }
+        else {
+            //Synchronize the school data to phone and to the sever
+            WorkManagerTrigger.startFetchWorkers(getApplicationContext());
+            WorkManagerTrigger.startUploadWorkers(getApplicationContext());
+
+            //Get device ownership by IMEI number
             new Fetch_API_JSONAsyncTask().execute(Urls.DEVICE_OWNERSHIP + deviceIMEI_extra);
         }
 

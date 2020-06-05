@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,7 +38,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
     TextView emp_Name;
     TextView emp_Id;
     Button submit, selfmenu;
-    List<SyncTimeTable> mSyncTimeTables;
+    public List<Tasks> mSyncTimeTables;
     TasksAdapter adapter;
     public String dateString, timeString;
     String emp_id_extra, emp_name_extra;
@@ -82,9 +81,20 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
 
         teacherHomeActivityViewModel.getSyncTimeTableByEmployeeIDForDay(emp_id_extra, "Thursday").observe(this, new Observer<List<SyncTimeTable>>() {
             @Override
-            public void onChanged(List<SyncTimeTable> syncTimeTables) {
-                adapter.setTaskList(syncTimeTables);
-                mSyncTimeTables = syncTimeTables;
+            public void onChanged(List<SyncTimeTable> syncTimeTables ) {
+                for (int i = 0; i < syncTimeTables.size(); i++){
+                    Tasks taskList = new Tasks();
+
+                    taskList.setSubject(syncTimeTables.get(i).getSubject());
+                    taskList.setTaskId(syncTimeTables.get(i).getTaskId());
+                    taskList.setTaskName(syncTimeTables.get(i).getTaskName());
+                    taskList.setStartTime(syncTimeTables.get(i).getStartTime());
+                    taskList.setEndTime(syncTimeTables.get(i).getEndTime());
+                    taskList.setStatus("Present");
+                    mSyncTimeTables.add(taskList);
+                }
+
+                adapter.setTaskList(mSyncTimeTables);
             }
         });
 
@@ -128,11 +138,11 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
     // save teacher confirmation on tasks to syncTimeOneTasks table
     private void postToSyncTimeOnTask(){
 
-        for(SyncTimeTable Task : mSyncTimeTables){
+        for(Tasks Task : mSyncTimeTables){
             SynTimeOnTask synTimeOnTask = new SynTimeOnTask(
                     "",
                     "",
-                    "",
+                    Task.getStatus(),
                     Task.getStatus(),
                     "",
                     emp_id_extra,
@@ -142,11 +152,14 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
                     dateString,
                     "",
                     "",
+                    "",
                     emp_name_extra,
                     emp_name_extra,
                     Task.getEndTime(),
                     Task.getStartTime(),
-                    Task.getTaskName()
+                    Task.getTaskName(),
+                    false,
+                    false
             );
 
             teacherHomeActivityViewModel.postToSyncTimeOnTask(synTimeOnTask);
@@ -189,5 +202,9 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
 
         return super.onOptionsItemSelected(item);
         //return false;
+    }
+
+    public List taskList(){
+        return mSyncTimeTables;
     }
 }

@@ -43,11 +43,14 @@ public class SynTimeOnTask {
     @ColumnInfo(name = SynTimeOnTaskConstant.TRANSACTION_DATE)
     private String transactionDate;
 
-    @ColumnInfo(name = SynTimeOnTaskConstant.ROW_ID)
-    private String rowId;
+    @ColumnInfo(name = SynTimeOnTaskConstant.SUPERVISION_STATUS)
+    private String supervisionStatus;
 
-    @ColumnInfo(name = SynTimeOnTaskConstant.ROW_VER)
-    private String rowVer;
+    @ColumnInfo(name = SynTimeOnTaskConstant.IN_TIME)
+    private String inTime;
+
+    @ColumnInfo(name = SynTimeOnTaskConstant.SUPERVISION_ID)
+    private String supervisionId;
 
     @ColumnInfo(name = SynTimeOnTaskConstant.EMPLOYEE_FIRST_NAME)
     private String employeeFirstName;
@@ -64,7 +67,15 @@ public class SynTimeOnTask {
     @ColumnInfo(name = SynTimeOnTaskConstant.TASK_NAME)
     private String taskName;
 
-    public SynTimeOnTask(String dateCreated, String dateUpdated, String status, String actionStatus, String comment, String employeeId, String employeeNumber, String taskId, String transactionTime, String transactionDate, String rowId, String rowVer, String employeeFirstName, String employeeLastName, String endTime, String startTime, String taskName) {
+    @ColumnInfo(name = SynTimeOnTaskConstant.IS_UPLOADED_COLUMN_NAME_TEACHER)
+    private boolean isUploaded_teacher;
+
+    @ColumnInfo(name = SynTimeOnTaskConstant.IS_UPLOADED_COLUMN_NAME_SUPERVISOR)
+    private boolean isUploaded_supervisor;
+
+    public SynTimeOnTask(String dateCreated, String dateUpdated, String status, String actionStatus, String comment, String employeeId, String employeeNumber, String taskId,
+                         String transactionTime, String transactionDate,String supervisionStatus, String inTime, String supervisionId, String employeeFirstName,
+                         String employeeLastName, String endTime, String startTime, String taskName, boolean isUploaded_teacher, boolean isUploaded_supervisor) {
         //this.id = id;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
@@ -75,14 +86,17 @@ public class SynTimeOnTask {
         this.employeeNumber = employeeNumber;
         this.taskId = taskId;
         this.transactionTime = transactionTime;
+        this.supervisionStatus = supervisionStatus;
+        this.inTime = inTime;
+        this.supervisionId = supervisionId;
         this.transactionDate = transactionDate;
-        this.rowId = rowId;
-        this.rowVer = rowVer;
         this.employeeFirstName = employeeFirstName;
         this.employeeLastName = employeeLastName;
         this.endTime = endTime;
         this.startTime = startTime;
         this.taskName = taskName;
+        this.isUploaded_teacher = isUploaded_teacher;
+        this.isUploaded_supervisor = isUploaded_supervisor;
     }
 
     @NonNull
@@ -174,20 +188,20 @@ public class SynTimeOnTask {
         this.transactionDate = transactionDate;
     }
 
-    public String getRowId() {
-        return rowId;
+    public String getSupervisionStatus() {
+        return supervisionStatus;
     }
 
-    public void setRowId(String rowId) {
-        this.rowId = rowId;
+    public void setSupervisionStatus(String supervisionStatus) {
+        this.supervisionStatus = supervisionStatus;
     }
 
-    public String getRowVer() {
-        return rowVer;
+    public String getInTime() {
+        return inTime;
     }
 
-    public void setRowVer(String rowVer) {
-        this.rowVer = rowVer;
+    public void setInTime(String inTime) {
+        this.inTime = inTime;
     }
 
     public String getEmployeeFirstName() {
@@ -228,5 +242,21 @@ public class SynTimeOnTask {
 
     public void setTaskName(String taskName) {
         this.taskName = taskName;
+    }
+
+    public boolean isUploaded_teacher() {
+        return isUploaded_teacher;
+    }
+
+    public void setUploaded_teacher(boolean uploaded_teacher) {
+        isUploaded_teacher = uploaded_teacher;
+    }
+
+    public boolean isUploaded_supervisor() {
+        return isUploaded_supervisor;
+    }
+
+    public void setUploaded_supervisor(boolean uploaded_supervisor) {
+        isUploaded_supervisor = uploaded_supervisor;
     }
 }

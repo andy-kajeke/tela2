@@ -63,7 +63,11 @@ public class SyncTimeTable {
     @ColumnInfo(name = SyncTimeTableConstant.TASK_NAME)
     private String taskName;
 
-    public SyncTimeTable(String dateCreated, String dateUpdated, String status, String classId, String classUnit, String day, String employName, String employeeId, String employeeNo, String endTime, String schoolId, String schoolName, String startTime, String subject, String subjectId, String taskId, String taskName) {
+    @ColumnInfo(name = SyncTimeTableConstant.CONFIRMATION_STATUS)
+    private String confirmationStatus;
+
+    public SyncTimeTable(String dateCreated, String dateUpdated, String status, String classId, String classUnit, String day, String employName, String employeeId, String employeeNo,
+                         String endTime, String schoolId, String schoolName, String startTime, String subject, String subjectId, String taskId, String taskName) {
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
         this.status = status;
@@ -227,6 +231,14 @@ public class SyncTimeTable {
         this.taskName = taskName;
     }
 
+    public String getConfirmationStatus() {
+        return confirmationStatus;
+    }
+
+    public void setConfirmationStatus(String confirmationStatus) {
+        this.confirmationStatus = confirmationStatus;
+    }
+
     @Override
     public String toString() {
         return "SyncTimeTable{" +
@@ -248,6 +260,7 @@ public class SyncTimeTable {
                 ", subjectId='" + subjectId + '\'' +
                 ", taskId='" + taskId + '\'' +
                 ", taskName='" + taskName + '\'' +
+                ", confirmationStatus='" + confirmationStatus + '\'' +
                 '}';
     }
 }

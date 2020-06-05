@@ -75,7 +75,7 @@ public class SyncAttendanceRecord {
         this.submissionDate = submissionDate;
         this.supervisorId = supervisorId;
         this.taskDay = taskDay;
-        this.isUploaded = false;
+        this.isUploaded = isUploaded;
     }
 
     @NonNull

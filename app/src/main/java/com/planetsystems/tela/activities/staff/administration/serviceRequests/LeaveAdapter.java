@@ -1,6 +1,7 @@
 package com.planetsystems.tela.activities.staff.administration.serviceRequests;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,38 @@ public class LeaveAdapter extends RecyclerView.Adapter<LeaveAdapter.TaskViewHold
             TextDrawable drawable = TextDrawable.builder().buildRoundRect(""+s.toUpperCase(),color1,60); //radius in px
 
             holder.imageView.setImageDrawable(drawable);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM1 = mSyncEmployeeTimeOffRequestDMS.get(position);
+
+                    if (syncEmployeeTimeOffRequestDM1.getEmployeeRequestType().equals("Time Off/ Leave")){
+                        Intent ALR = new Intent(mContext, ApproveLeaveRequest.class);
+                        ALR.putExtra("db_id",syncEmployeeTimeOffRequestDM1.getPrimaryKey());
+                        ALR.putExtra("leave", syncEmployeeTimeOffRequestDM1.getTypeOfLeave());
+                        ALR.putExtra("employee_Name", syncEmployeeTimeOffRequestDM1.getEmployee());
+                        ALR.putExtra("startDate", syncEmployeeTimeOffRequestDM1.getFromDate());
+                        ALR.putExtra("endDate", syncEmployeeTimeOffRequestDM1.getToDate());
+                        ALR.putExtra("requestDate", syncEmployeeTimeOffRequestDM1.getRequestDate());
+                        ALR.putExtra("reason", syncEmployeeTimeOffRequestDM1.getComment());
+                        mContext.startActivity(ALR);
+                    }
+                    else if (syncEmployeeTimeOffRequestDM1.getEmployeeRequestType().equals("Meeting")){
+                        Intent ALR = new Intent(mContext, ApproveMeetingRequests.class);
+                        ALR.putExtra("db_id",syncEmployeeTimeOffRequestDM1.getPrimaryKey());
+                        ALR.putExtra("leave", syncEmployeeTimeOffRequestDM1.getTypeOfLeave());
+                        ALR.putExtra("employee_Name", syncEmployeeTimeOffRequestDM1.getEmployee());
+                        ALR.putExtra("startDate", syncEmployeeTimeOffRequestDM1.getFromDate());
+                        ALR.putExtra("endDate", syncEmployeeTimeOffRequestDM1.getToDate());
+                        ALR.putExtra("startTime", syncEmployeeTimeOffRequestDM1.getFromTime());
+                        ALR.putExtra("endTime", syncEmployeeTimeOffRequestDM1.getToTime());
+                        ALR.putExtra("requestDate", syncEmployeeTimeOffRequestDM1.getRequestDate());
+                        ALR.putExtra("reason", syncEmployeeTimeOffRequestDM1.getComment());
+                        mContext.startActivity(ALR);
+                    }
+                }
+            });
 
         }else {
             //holder.It_role.setText("No record");

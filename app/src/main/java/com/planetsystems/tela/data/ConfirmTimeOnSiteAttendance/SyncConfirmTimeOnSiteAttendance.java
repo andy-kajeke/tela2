@@ -48,6 +48,9 @@ public class SyncConfirmTimeOnSiteAttendance {
     @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.ROW_ID)
     private String rowId;
 
+    @ColumnInfo(name = SyncConfirmTimeOnSiteAttendanceConstant.IS_UPLOADED_COLUMN_NAME)
+    private boolean isUploaded;
+
     public SyncConfirmTimeOnSiteAttendance(String dateCreated, String dateUpdated, String status, String employeeId, String employeeNo, String supervisionDate, String supervisionDay, String supervisionStatus, String supervisionComment, String supervisionId, String rowVer, String rowId) {
         //this.id = id;
         this.dateCreated = dateCreated;
@@ -62,6 +65,7 @@ public class SyncConfirmTimeOnSiteAttendance {
         this.supervisionId = supervisionId;
         this.rowVer = rowVer;
         this.rowId = rowId;
+        this.isUploaded = false;
     }
 
     @NonNull
@@ -169,4 +173,11 @@ public class SyncConfirmTimeOnSiteAttendance {
         this.rowId = rowId;
     }
 
+    public boolean isUploaded() {
+        return isUploaded;
+    }
+
+    public void setUploaded(boolean uploaded) {
+        isUploaded = uploaded;
+    }
 }
