@@ -52,12 +52,20 @@ public class ClockInRepository {
         return syncClockInDao.getSyncClockInByDate(dateOfTheDay);
     }
 
+    public List<SyncClockIn> getClockedInTeachersByDateNoteLiveData (final String dateOfTheDay) throws ExecutionException, InterruptedException {
+        Callable<List<SyncClockIn>> callable = new Callable<List<SyncClockIn>>() {
+            @Override
+            public List<SyncClockIn> call() throws Exception {
+                return syncClockInDao.getSyncClockInByDateNotLiveData(dateOfTheDay);
+            }
+        };
+        Future<List<SyncClockIn>> future = TelaRoomDatabase.db_executor.submit(callable);
+        return future.get();
+    }
+
     public LiveData<List<SyncClockIn>> getAllClockedIn () {
         return syncClockInDao.getAllClockIn();
     }
 
-//    public LiveData<List<SyncClockIn>> getClockedInByDateOfDay (String dateOfDay){
-//        return syncClockInDao.getSyncClockInByDate(dateOfDay);
-//    }
 
 }

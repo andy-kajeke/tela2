@@ -42,6 +42,24 @@ public class TeacherRepository {
         return syncTeacherDao.getAllTeachers();
     }
 
+    public List<SyncTeacher> getTeachers() {
+        Callable<List<SyncTeacher>> callable = new Callable<List<SyncTeacher>>() {
+            @Override
+            public List<SyncTeacher> call() throws Exception {
+                return syncTeacherDao.getList();
+            }
+        };
+        try {
+            return TelaRoomDatabase.db_executor.submit(callable).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     public SyncTeacher getTeacherWithEmployeeNumber(final String employeeNumber) throws ExecutionException, InterruptedException {
         Callable<SyncTeacher> callable = new Callable<SyncTeacher>() {
             @Override
@@ -54,15 +72,26 @@ public class TeacherRepository {
         return  future.get();
     }
 
-    public SyncTeacher getTeacherFingerPrint(final String fingerPrint) throws ExecutionException, InterruptedException {
+    public SyncTeacher getTeacherEmployeeNumber(final String employeeNumber) throws ExecutionException, InterruptedException {
         Callable<SyncTeacher> callable = new Callable<SyncTeacher>() {
             @Override
             public SyncTeacher call() throws Exception {
-                return syncTeacherDao.getSyncTeacherWithEmployeeNumber(fingerPrint);
+                return syncTeacherDao.getSyncTeacherWithEmployeeNumber(employeeNumber);
             }
         };
 
         Future<SyncTeacher> future = TelaRoomDatabase.db_executor.submit(callable);
         return  future.get();
+    }
+
+    public SyncTeacher getTeacherWithFingerPrint(final byte[] fingerPrint) throws ExecutionException, InterruptedException {
+        Callable<SyncTeacher> callable = new Callable<SyncTeacher>() {
+            @Override
+            public SyncTeacher call() throws Exception {
+                return syncTeacherDao.getSyncTeacherWithFingerPrint(fingerPrint);
+            }
+        };
+        Future<SyncTeacher> future = TelaRoomDatabase.db_executor.submit(callable);
+        return future.get();
     }
 }

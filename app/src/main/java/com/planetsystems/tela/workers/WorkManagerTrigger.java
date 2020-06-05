@@ -15,6 +15,7 @@ import com.planetsystems.tela.workers.upload.SyncClockInTeacherUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncClockOutTeacherUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncConfirmTimeOnSiteAttendanceUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncLearnerAttendanceUploadWorker;
+import com.planetsystems.tela.workers.upload.SyncTeacherUploadWorker;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -24,6 +25,7 @@ public class WorkManagerTrigger {
         startFetchSyncTimeTableWorker(context);
         startFetchSyncTeacherWorker(context);
         startFetchSyncSchoolClassesWorker(context);
+        startUploadSyncTeacherUploadWorker(context);
     }
 
     public static void startUploadWorkers(Context context) {
@@ -116,6 +118,17 @@ public class WorkManagerTrigger {
 
         WorkManager.getInstance(context).enqueue(workRequest);
 
+    }
+
+    //Upload clock in content to server
+    public static  void startUploadSyncTeacherUploadWorker(Context context) {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncTeacherUploadWorker.class , 1, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .build();
+        WorkManager.getInstance(context).enqueue(workRequest);
     }
 
 }

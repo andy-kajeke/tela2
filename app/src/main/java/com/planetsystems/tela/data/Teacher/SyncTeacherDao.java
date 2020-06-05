@@ -8,8 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.planetsystems.tela.constants.SyncTableConstants;
-
 import java.util.List;
 
 
@@ -27,13 +25,17 @@ public interface SyncTeacherDao {
     @Query("SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME)
     LiveData<List<SyncTeacher>> getAllTeachers();
 
+    @Query("SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME)
+    List<SyncTeacher> getList();
+
     @Query(
             "SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME + " WHERE " + SyncTeacherTableConstants.EMPLOYEE_NUMBER_COLUMN_NAME + " =:employeeNumber")
     SyncTeacher getSyncTeacherWithEmployeeNumber(String employeeNumber);
 
     @Query(
-            "SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME + " WHERE " + SyncTeacherTableConstants.FINGER_PRINT_COLUMN_NAME + " =:fingerPrint")
-    SyncTeacher getSyncTeacherWithFingerPrint(String fingerPrint);
+            "SELECT * FROM " +
+                    SyncTeacherTableConstants.TABLE_NAME + " WHERE " + SyncTeacherTableConstants.FINGER_PRINT_COLUMN_NAME + " =:fingerPrint")
+    SyncTeacher getSyncTeacherWithFingerPrint(byte[] fingerPrint);
 
     @Query(
             "SELECT * FROM " +
@@ -51,4 +53,10 @@ public interface SyncTeacherDao {
             String id,
             String nationalID
     );
+
+    @Query("SELECT * FROM " +
+            SyncTeacherTableConstants.TABLE_NAME +
+            " WHERE " + SyncTeacherTableConstants.IS_STORED_LOCALLY + " =:isStoredLocally"
+    )
+    List<SyncTeacher> getListStoredLocally(boolean isStoredLocally);
 }

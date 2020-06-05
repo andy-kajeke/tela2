@@ -9,8 +9,11 @@ import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
+import com.planetsystems.tela.data.Teacher.TeacherRepository;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class EnrollmentActivityViewModel extends AndroidViewModel {
     private MainRepository mainRepository;
@@ -22,15 +25,23 @@ public class EnrollmentActivityViewModel extends AndroidViewModel {
     private String nationalID;
     private String gender;
     private List<SyncTeacher> teachers;
+    private TeacherRepository teacherRepository;
     public EnrollmentActivityViewModel(@NonNull Application application) {
         super(application);
         mainRepository =MainRepository.getInstance(application);
+        teacherRepository = MainRepository.getInstance(application).getTeachersRepository();
 
     }
 
-    boolean enrollTeacher(SyncTeacher syncTeacher) {
-        if (!isEnrolled(teachers, syncTeacher)) {
-            mainRepository.enrollTeacher(syncTeacher);
+    boolean enrollTeacher(SyncTeacher syncTeacher, List<SyncTeacher> teachers) {
+        boolean found = false;
+        for(SyncTeacher syncTeacher1: teachers) {
+            if (Arrays.equals(syncTeacher.getFingerPrint(), syncTeacher1.getFingerPrint())) {
+                found = true;
+            }
+        }
+        if (!found) {
+            teacherRepository.insertSyncTeacher(syncTeacher);
             return true;
         }
         return false;
@@ -79,5 +90,9 @@ public class EnrollmentActivityViewModel extends AndroidViewModel {
             }
         }
         return true;
+    }
+
+    LiveData<List<SyncTeacher>> getAllTeachers() {
+        return  teacherRepository.getAllTeachers();
     }
 }

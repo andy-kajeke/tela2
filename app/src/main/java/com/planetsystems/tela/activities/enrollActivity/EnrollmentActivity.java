@@ -35,6 +35,7 @@ public class EnrollmentActivity extends AppCompatActivity {
     EditText edit_initials, edit_phone_No;
     EditText edit_email, edit_nationalID, edit_gender;
     CardView addUser;
+    List<SyncTeacher> syncTeachers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,13 @@ public class EnrollmentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(EnrollmentActivity.this, FingerPrintActivity.class);
                 intent.setAction(FingerPrintActivity.ACTION_ENROLL);
+                intent.putExtra(FingerPrintActivity.TEACHER_FIRST_NAME, edit_email.getText().toString());
+                intent.putExtra(FingerPrintActivity.TEACHER_FIRST_NAME, edit_lName.getText().toString());
+                intent.putExtra(FingerPrintActivity.TEACHER_EMAIL, edit_email.getText().toString());
+                intent.putExtra(FingerPrintActivity.TEACHER_NATIONAL_ID, edit_nationalID.getText().toString());
+                intent.putExtra(FingerPrintActivity.TEACHER_PHONE_NUMBER, edit_phone_No.getText().toString());
+                intent.putExtra(FingerPrintActivity.TEACHER_LICENSED, false);
+                intent.putExtra(FingerPrintActivity.TEACHER_GENDER, edit_gender.getText().toString());
                 startActivityForResult(intent, CAPTURE_FINGER_PRINT_REQUEST);
             }
         });
@@ -65,6 +73,13 @@ public class EnrollmentActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<SyncTeacher> syncTeachers) {
                 activityViewModel.setEnrolledTeachers(syncTeachers);
+            }
+        });
+
+        activityViewModel.getAllTeachers().observe(this, new Observer<List<SyncTeacher>>() {
+            @Override
+            public void onChanged(List<SyncTeacher> teachers) {
+                syncTeachers = teachers;
             }
         });
     }
@@ -82,13 +97,14 @@ public class EnrollmentActivity extends AppCompatActivity {
                             .setLastName(edit_lName.getText().toString())
                             .setFirstName(edit_fName.getText().toString())
                             .setFingerImage(intent.getStringExtra(FingerPrintActivity.FINGER_PRINT_IMAGE))
-                            .setFingerPrint(intent.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA))
+                            .setFingerPrint(intent.getByteArrayExtra(FingerPrintActivity.FINGER_PRINT_DATA))
                             .setGender(edit_gender.getText().toString())
                             .setPhoneNumber(edit_phone_No.getText().toString())
                             .setNationalID(edit_nationalID.getText().toString())
                             .setLicensed(false)
                             .build();
-                    if (activityViewModel.enrollTeacher(syncTeacher)) {
+                    boolean result = activityViewModel.enrollTeacher(syncTeacher, syncTeachers);
+                    if (result) {
                         edit_fName.setText("");
                         edit_lName.setText("");
                         edit_initials.setText("");
@@ -96,15 +112,17 @@ public class EnrollmentActivity extends AppCompatActivity {
                         edit_phone_No.setText("");
                         edit_nationalID.setText("");
                         edit_gender.setText("");
+                        Toast.makeText(this, "Teacher Enrolled Successfully", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(this, result.getFirstName() + " " + result.getLastName(), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
                     }
-
+//                    Toast.makeText(this, "Fixed " + String.valueOf(result), Toast.LENGTH_SHORT).show();
                 } else if ( resultCode == RESULT_CANCELED) {
                     Toast.makeText(this, "Fingerprint Capture Was Canceled", Toast.LENGTH_SHORT).show();
                 }
             }
         }
-
+        finish();
     }
 }

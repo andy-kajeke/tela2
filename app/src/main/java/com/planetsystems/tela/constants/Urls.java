@@ -37,6 +37,8 @@ public class Urls {
 
     public static final String DID_WORK = "Work Done!";
 
+    public static final String ENROLL_URL = "http://tela.planetsystems.co:8080/weca/webapi/attendance/teachers";
+
     //uploading content to server
     public static String POST(String url, String jsontasks){
         InputStream inputStream = null;

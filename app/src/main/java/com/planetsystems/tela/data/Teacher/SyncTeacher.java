@@ -33,7 +33,7 @@ public class SyncTeacher {
     private String emailAddress;
 
     @ColumnInfo(name = SyncTeacherTableConstants.FINGER_PRINT_COLUMN_NAME)
-    private String fingerPrint;
+    private byte[] fingerPrint;
 
     @ColumnInfo(name = SyncTeacherTableConstants.FINGER_IMAGE_COLUMN_NAME)
     private String fingerImage;
@@ -61,6 +61,9 @@ public class SyncTeacher {
 
     @ColumnInfo(name = SyncTeacherTableConstants.SCHOOL_ID_COLUMN_NAME)
     private String schoolId;
+
+    @ColumnInfo(name = SyncTeacherTableConstants.IS_STORED_LOCALLY)
+    private boolean isStoredLocally;
 
     public int getPrimaryKey() {
         return primaryKey;
@@ -118,11 +121,11 @@ public class SyncTeacher {
         this.emailAddress = emailAddress;
     }
 
-    public String getFingerPrint() {
+    public byte[] getFingerPrint() {
         return fingerPrint;
     }
 
-    public void setFingerPrint(String fingerPrint) {
+    public void setFingerPrint(byte[] fingerPrint) {
         this.fingerPrint = fingerPrint;
     }
 
@@ -237,7 +240,7 @@ public class SyncTeacher {
             return this;
         }
 
-        public SyncTeacher.Builder setFingerPrint(String fingerPrint) {
+        public SyncTeacher.Builder setFingerPrint(byte[] fingerPrint) {
             INSTANCE.setFingerPrint(fingerPrint);
             return this;
         }
@@ -293,6 +296,7 @@ public class SyncTeacher {
         }
 
         public SyncTeacher build() {
+            INSTANCE.setStoredLocally(true);
             return INSTANCE;
         }
     }
@@ -305,7 +309,7 @@ public class SyncTeacher {
         this.id = id;
     }
 
-    public SyncTeacher(String id, String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, String fingerPrint, String fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
+    public SyncTeacher(String id, String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, byte[] fingerPrint, String fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
         this.id = id;
         this.employeeId = employeeId;
         this.MPSComputerNumber = MPSComputerNumber;
@@ -323,6 +327,7 @@ public class SyncTeacher {
         this.nationalId = nationalId;
         this.phoneNumber = phoneNumber;
         this.schoolId = schoolId;
+        this.isStoredLocally = false;
     }
 
     @Override
@@ -347,5 +352,13 @@ public class SyncTeacher {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", schoolId='" + schoolId + '\'' +
                 '}';
+    }
+
+    public boolean isStoredLocally() {
+        return isStoredLocally;
+    }
+
+    public void setStoredLocally(boolean storedLocally) {
+        isStoredLocally = storedLocally;
     }
 }

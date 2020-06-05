@@ -16,12 +16,8 @@ import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 import com.planetsystems.tela.utils.DynamicData;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
-import static com.planetsystems.tela.activities.mainactivity.MainActivity.SchoolDeviceIMEINumber;
 
 public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     private ClockOutRepository clockOutRepository;
@@ -115,7 +111,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     SyncTeacher clockOutTeacherWithFingerPrint(String stringEncodedFingerPrint, String comment) {
         // example employee number 9876 for ojok
         try {
-            SyncTeacher teacher = teacherRepository.getTeacherFingerPrint(stringEncodedFingerPrint);
+            SyncTeacher teacher = teacherRepository.getTeacherEmployeeNumber(stringEncodedFingerPrint);
             if ( teacher != null ) {
                 return clockOutTeacherWithEmployeeID(teacher.getEmployeeNumber(), comment);
             }
@@ -127,7 +123,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
 
     SyncTeacher clockInTeacherWithFingerPrint(String stringEncodedFingerPrint) {
         try {
-             SyncTeacher teacher = teacherRepository.getTeacherFingerPrint(stringEncodedFingerPrint);
+             SyncTeacher teacher = teacherRepository.getTeacherEmployeeNumber(stringEncodedFingerPrint);
              if (teacher != null ) {
                  return clockInTeacherEmployeeNumber(teacher.getEmployeeNumber());
              }
