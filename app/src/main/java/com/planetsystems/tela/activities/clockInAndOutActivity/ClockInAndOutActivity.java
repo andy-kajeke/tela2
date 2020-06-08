@@ -30,6 +30,7 @@ import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.clockInWithEmployeeNumber.ClockInWithEmployeeNumberActivity;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
+import com.planetsystems.tela.activities.staff.smc.SmcActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
 import com.planetsystems.tela.constants.Role;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
@@ -45,15 +46,15 @@ public class ClockInAndOutActivity extends AppCompatActivity {
 
     private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
     private ClockInAndOutActivityViewModel clockInAndOutActivityViewModel;
+    public static final int CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 645;
+    public static final int CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 445;
 
     TextView dateDisplay, schoolName;
     TextView close_clockIn, close_clockOut;
     Button btnFingerprint_In, btnStaffId_In, btnFingerprint_Out, btnStaffId_Out;
     CardView checkin, checkout, datacenter;
     Dialog checkInDialog, checkOutDialog, checkOutPopup;
-    public static final int CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 645;
-    public static final int CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 445;
-    public static  String clockInTime = "";
+
     ClockInAndOutActivityViewModel viewModel;
     String deviceIMEI_extra, schoolName_extra;
     String dateString, timeString;
@@ -350,7 +351,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 // we have the code
                 if (resultCode == RESULT_OK ) {
                     String employeeNumber = data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER);
-                    SyncTeacher syncTeacher = viewModel.clockInTeacherEmployeeNumber(Objects.requireNonNull(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER)));
+                    SyncTeacher syncTeacher = viewModel.clockInTeacherEmployeeNumber(Objects.requireNonNull(employeeNumber));
                     loadTeacherHomePage(syncTeacher);
                 }
             } else if (requestCode == CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE) {
@@ -370,7 +371,6 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                     loadTeacherHomePage(syncTeacher);
                 }
             }  // I don't know what has happened
-
         }
     }
 
@@ -383,16 +383,23 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 Intent teacherHome = new Intent(this, TeacherHomeActivity.class);
                 teacherHome.putExtra("employee_No", syncTeacher.getEmployeeNumber());
                 teacherHome.putExtra("employee_Name", syncTeacher.getFirstName() + " " + syncTeacher.getLastName());
-                //teacherHome.putExtra(TeacherHomeActivity.TEACHER_LAST_NAME, syncTeacher.getLastName());
                 startActivity(teacherHome);
+
             } else if (syncTeacher.getRole().equals(Role.HEAD_TEACHER_ROLE)) {
                 Intent headTeacherHome = new Intent(this, AdminSideActivity.class);
                 headTeacherHome.putExtra("employee_No", syncTeacher.getEmployeeNumber());
                 headTeacherHome.putExtra("employee_Name",syncTeacher.getFirstName() + " " + syncTeacher.getLastName());
-                //headTeacherHome.putExtra(AdminSideActivity.TEACHER_LAST_NAME, syncTeacher.getLastName());
                 // TODO: SCHOOL NUMBER MUST BE CHANGED below
-                headTeacherHome.putExtra(AdminSideActivity.SCHOOL_NUMBER, "354633111523205");
+                //headTeacherHome.putExtra(AdminSideActivity.SCHOOL_NUMBER, "354633111523205");
                 startActivity(headTeacherHome);
+
+            }else if (syncTeacher.getRole().equals(Role.SMC)) {
+                Intent smcHome = new Intent(this, SmcActivity.class);
+                smcHome.putExtra("employee_No", syncTeacher.getEmployeeNumber());
+                smcHome.putExtra("employee_Name",syncTeacher.getFirstName() + " " + syncTeacher.getLastName());
+                // TODO: SCHOOL NUMBER MUST BE CHANGED below
+
+                startActivity(smcHome);
             }
         } else {
             Toast.makeText(this, "Invalid Employee Number or Finger Print", Toast.LENGTH_LONG).show();

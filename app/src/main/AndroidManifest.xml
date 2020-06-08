@@ -23,13 +23,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.staff.administration.serviceRequests.ApproveHelpRequests"></activity>
+        <activity android:name=".activities.staff.smc.SmcActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activities.staff.administration.serviceRequests.ApproveHelpRequests" />
         <activity android:name=".activities.staff.administration.serviceRequests.PendingHelpRequest" />
         <activity android:name=".activities.staff.administration.serviceRequests.ApproveMeetingRequests" />
         <activity android:name=".activities.staff.administration.serviceRequests.ApproveLeaveRequest" />
-        <activity
-            android:name=".ui.login.ApproveLeaveRequests"
-            android:label="@string/title_activity_approve_leave_requests" />
         <activity android:name=".activities.staff.administration.serviceRequests.PendingLeaveRequest" />
         <activity
             android:name=".activities.staff.regularStaff.serviceRequests.RequestHelp"

@@ -37,9 +37,11 @@ public class Urls {
 
     public static final String LEARNER_ATTENDANCE_UPLOAD_URL = BASE_URL + "learners/attendance";
 
-    public static final String DID_WORK = "Work Done!";
+    public static final String SMC_SUPERVISION_URL = BASE_URL + "smcsupervision";
 
-    public static final String ENROLL_URL = "http://tela.planetsystems.co:8080/weca/webapi/attendance/teachers";
+    public static final String ENROLL_URL = BASE_URL + "teachers";
+
+    public static final String DID_WORK = "Work Done!";
 
     //uploading content to server
     public static String POST(String url, String jsontasks){

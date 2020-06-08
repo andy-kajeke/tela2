@@ -7,22 +7,16 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = SyncSMCConstant.TABLE_NAME)
 public class SyncSMC {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = SyncSMCConstant.ID)
-    private String id;
+    private int id;
 
-    @ColumnInfo(name = SyncSMCConstant.DATE_CREATED)
-    private String dateCreated;
+    @ColumnInfo(name = SyncSMCConstant.COMMENT)
+    private String comment;
 
-    @ColumnInfo(name =  SyncSMCConstant.DATE_UPDATED)
-    private String dateUpdated;
-
-    @ColumnInfo(name = SyncSMCConstant.STATUS)
-    private String status;
-
-    @ColumnInfo(name = SyncSMCConstant.DEPLOYMENT_UNIT)
-    private String deploymentUnit;
+    @ColumnInfo(name = SyncSMCConstant.VISIT_DATE)
+    private String visitDate;
 
     @ColumnInfo(name = SyncSMCConstant.DEPLOYMENT_UNIT_ID)
     private String deploymentUnitId;
@@ -63,18 +57,13 @@ public class SyncSMC {
     @ColumnInfo(name = SyncSMCConstant.STAFF_TEACHING)
     private String staffTeaching;
 
-    @ColumnInfo(name = SyncSMCConstant.ROW_VER)
-    private String rowVer;
+    @ColumnInfo(name = SyncSMCConstant.IS_UPLOADED)
+    private boolean isUploaded;
 
-    @ColumnInfo(name = SyncSMCConstant.ROW_ID)
-    private String rowId;
-
-    public SyncSMC(@NonNull String id, String dateCreated, String dateUpdated, String status, String deploymentUnit, String deploymentUnitId, String headTeacherPresent, String p1, String p2, String p3, String p4, String p5, String p6, String p7, String smcCode, String staffNotTeaching, String staffPresent, String staffTeaching, String rowVer, String rowId) {
-        this.id = id;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.status = status;
-        this.deploymentUnit = deploymentUnit;
+    public SyncSMC(String comment, String visitDate, String deploymentUnitId, String headTeacherPresent, String p1, String p2, String p3, String p4,
+                   String p5, String p6, String p7, String smcCode, String staffNotTeaching, String staffPresent, String staffTeaching, boolean isUploaded) {
+        this.comment = comment;
+        this.visitDate = visitDate;
         this.deploymentUnitId = deploymentUnitId;
         this.headTeacherPresent = headTeacherPresent;
         this.p1 = p1;
@@ -88,49 +77,31 @@ public class SyncSMC {
         this.staffNotTeaching = staffNotTeaching;
         this.staffPresent = staffPresent;
         this.staffTeaching = staffTeaching;
-        this.rowVer = rowVer;
-        this.rowId = rowId;
+        this.isUploaded = isUploaded;
     }
 
-    @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
+    public String getComment() {
+        return comment;
     }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public String getDateUpdated() {
-        return dateUpdated;
+    public String getVisitDate() {
+        return visitDate;
     }
 
-    public void setDateUpdated(String dateUpdated) {
-        this.dateUpdated = dateUpdated;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getDeploymentUnit() {
-        return deploymentUnit;
-    }
-
-    public void setDeploymentUnit(String deploymentUnit) {
-        this.deploymentUnit = deploymentUnit;
+    public void setVisitDate(String visitDate) {
+        this.visitDate = visitDate;
     }
 
     public String getDeploymentUnitId() {
@@ -237,19 +208,11 @@ public class SyncSMC {
         this.staffTeaching = staffTeaching;
     }
 
-    public String getRowVer() {
-        return rowVer;
+    public boolean isUploaded() {
+        return isUploaded;
     }
 
-    public void setRowVer(String rowVer) {
-        this.rowVer = rowVer;
-    }
-
-    public String getRowId() {
-        return rowId;
-    }
-
-    public void setRowId(String rowId) {
-        this.rowId = rowId;
+    public void setUploaded(boolean uploaded) {
+        isUploaded = uploaded;
     }
 }

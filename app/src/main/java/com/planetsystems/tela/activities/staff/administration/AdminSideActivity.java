@@ -3,15 +3,19 @@ package com.planetsystems.tela.activities.staff.administration;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.staff.administration.editStaff.EditStaffList;
@@ -21,6 +25,7 @@ import com.planetsystems.tela.activities.staff.administration.serviceRequests.Re
 import com.planetsystems.tela.activities.staff.administration.taskAttendance.TaskAttendance;
 import com.planetsystems.tela.activities.staff.administration.timeAttendance.TimeAttendanceList;
 import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActivity;
+import com.planetsystems.tela.workers.WorkManagerTrigger;
 
 public class AdminSideActivity extends AppCompatActivity {
     public static final String TEACHER_FIRST_NAME = "com.planetsystems.tela.activities.staff.regularStaff. TeacherHomeActivity.TEACHER_FIRST_NAME";
@@ -68,13 +73,19 @@ public class AdminSideActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         admin_id_extra = bundle.getString("employee_No");
-//        role_extra = bundle.getString("role");
         name_extra = bundle.getString("employee_Name");
-//        checkIn_date = bundle.getString("date");
         checkIn_schoolId = bundle.getString(SCHOOL_NUMBER);
 //
         headRole.setText("[ " + "Head Teacher" + " ]");
         headName.setText(name_extra);
+
+        if (!isConnected()) {
+            Toast.makeText(this, "No Internet connection", Toast.LENGTH_SHORT).show();
+        }else {
+            //Synchronize the school data to phone and to the sever
+            WorkManagerTrigger.startFetchWorkers(getApplicationContext());
+            WorkManagerTrigger.startUploadWorkers(getApplicationContext());
+        }
 
         myLessons.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,5 +187,14 @@ public class AdminSideActivity extends AppCompatActivity {
         updateDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         updateDialog.show();
 
+    }
+
+    public boolean isConnected(){
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected())
+            return true;
+        else
+            return false;
     }
 }

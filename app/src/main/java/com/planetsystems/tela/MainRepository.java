@@ -20,6 +20,7 @@ import com.planetsystems.tela.data.helprequest.HelpRequestRepository;
 import com.planetsystems.tela.data.schoolClasses.SchoolClassesRepository;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClassesDao;
+import com.planetsystems.tela.data.smc.SmcRepository;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timeOnTask.TimeOnTaskRepository;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
@@ -45,6 +46,7 @@ public class MainRepository {
     private TimeOffRequestRepository timeOffRequestRepository;
     private HelpRequestRepository helpRequestRepository;
     private ConfirmTimeOnTaskRepository confirmTimeOnTaskRepository;
+    private SmcRepository smcRepository;
 
     private MainRepository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
@@ -60,6 +62,7 @@ public class MainRepository {
         timeOffRequestRepository = TimeOffRequestRepository.getInstance(telaRoomDatabase);
         helpRequestRepository = HelpRequestRepository.getInstance(telaRoomDatabase);
         confirmTimeOnTaskRepository = ConfirmTimeOnTaskRepository.getInstance(telaRoomDatabase);
+        smcRepository = SmcRepository.getInstance(telaRoomDatabase);
 
     }
 
@@ -102,21 +105,23 @@ public class MainRepository {
         return teacherRepository;
     }
 
-    public TimeOnTaskRepository getTimeOnTaskRepository(){return timeOnTaskRepository;}
+    public TimeOnTaskRepository getTimeOnTaskRepository() { return timeOnTaskRepository; }
 
-    public ConfirmTimeOnTaskRepository getConfirmTimeOnTaskRepository(){return confirmTimeOnTaskRepository;}
+    public ConfirmTimeOnTaskRepository getConfirmTimeOnTaskRepository() { return confirmTimeOnTaskRepository; }
 
     public SchoolClassesRepository getSchoolClassesRepository(){
         return schoolClassesRepository;
     }
 
-    public LearnerRepository getLearnerRepository(){return learnerRepository;}
+    public LearnerRepository getLearnerRepository() {return learnerRepository;}
 
-    public TimeOnSiteAttendanceRepository getTimeOnSiteAttendanceRepository(){return timeOnSiteAttendanceRepository;}
+    public TimeOnSiteAttendanceRepository getTimeOnSiteAttendanceRepository() { return timeOnSiteAttendanceRepository; }
 
-    public TimeTableRepository getTimeTableRepository(){return timeTableRepository;}
+    public TimeTableRepository getTimeTableRepository() { return timeTableRepository; }
 
-    public TimeOffRequestRepository getTimeOffRequestRepository(){return timeOffRequestRepository;}
+    public TimeOffRequestRepository getTimeOffRequestRepository() { return timeOffRequestRepository; }
 
-    public HelpRequestRepository getHelpRequestRepository(){return helpRequestRepository;}
+    public HelpRequestRepository getHelpRequestRepository() { return helpRequestRepository; }
+
+    public SmcRepository getSmcRepository() { return smcRepository; }
 }
