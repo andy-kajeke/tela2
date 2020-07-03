@@ -311,6 +311,15 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         });
 
         printRev(""+mBioMiniFactory.getSDKInfo());
+        // start capturing fingerprint on spot
+        if(mCurrentDevice != null) {
+            //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
+            mCurrentDevice.captureSingle(
+                    mCaptureOptionDefault,
+                    new FingerPrintCaptureResponder(mainContext),
+                    true
+            );
+        }
     }
 
     void handleDevChange(IUsbEventHandler.DeviceChangeEvent event, Object dev) {
