@@ -401,7 +401,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                         loadTeacherHomePage(teacherWrapper.getTeacher());
                     }
                 default:
-                    Toast.makeText(this, "Unknown Error", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(this, "Unknown Error", Toast.LENGTH_LONG).show();
             }
 
         } else {
