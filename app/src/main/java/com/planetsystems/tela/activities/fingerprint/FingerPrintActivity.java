@@ -30,6 +30,7 @@ import com.planetsystems.tela.data.ClockIn.ClockInRepository;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
+import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.utils.BitmapConverter;
 import com.planetsystems.tela.utils.DynamicData;
 import com.suprema.BioMiniFactory;
@@ -93,7 +94,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     private TeacherRepository teacherRepository;
     private List<SyncTeacher> syncTeachers;
     private SyncTeacher syncTeacher;
-    private ClockInRepository clockInRepository;
     private List<SyncClockIn> syncClockIns;
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
@@ -398,7 +398,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         cardViewCapture.setVisibility(View.VISIBLE);
     }
 
-    public void saveClockIn(SyncClockIn clockIn, byte[] finger) {
+    public void saveClockIn(SyncClockIn clockIn, byte[] finger, ClockInRepository clockInRepository) {
         if (clockIn == null) {
             clockInRepository.synClockInTeacher(new SyncClockIn(
                     syncTeacher.getEmployeeNumber(),
@@ -420,6 +420,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     }
 
     private void clockInTeacher() {
+        final ClockInRepository clockInRepository = ClockInRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()));
         byte[] finger = new byte[30];
         int i = 0;
         while (i < 20) {
@@ -432,10 +433,10 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                 try {
                     if (syncTeacher.getEmployeeNumber() == null) {
                         SyncClockIn clockIn = clockInRepository.getSyncClockInByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
-                        saveClockIn(clockIn, finger); // save clock in finger print
+                        saveClockIn(clockIn, finger, clockInRepository); // save clock in finger print
                     } else {
                         SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate()).get(0);
-                        saveClockIn(clockIn, finger); // clock teacher since there is no clock in today
+                        saveClockIn(clockIn, finger, clockInRepository); // clock teacher since there is no clock in today
                     }
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
