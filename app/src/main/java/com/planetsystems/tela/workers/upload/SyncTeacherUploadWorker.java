@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
+import com.planetsystems.tela.data.Teacher.TeacherRepository;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 
 
@@ -24,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.xml.transform.Result;
 
@@ -31,9 +33,11 @@ import static com.planetsystems.tela.constants.Urls.ENROLL_URL;
 
 public class SyncTeacherUploadWorker extends Worker {
     SyncTeacherDao syncTeacherDao;
+    TeacherRepository teacherRepository;
     public SyncTeacherUploadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         syncTeacherDao = TelaRoomDatabase.getInstance(context).getSyncTeachersDao();
+        teacherRepository = TeacherRepository.getInstance(TelaRoomDatabase.getInstance(context));
     }
 
     @NonNull
@@ -69,28 +73,34 @@ public class SyncTeacherUploadWorker extends Worker {
                     try {
                         Log.d(getClass().getSimpleName(), "LOADING some data in the DB");
                         JSONObject teacher = response.getJSONObject("teacher");
-                        SyncTeacher savedTeacher = syncTeacherDao.findTeacherWithNationalID(teacher.getString("nationalId"));
-                        SyncTeacher syncTeacher = new SyncTeacher.Builder()
-                                .setPrimaryKey(savedTeacher.getPrimaryKey())
-                                .setSchoolID(teacher.getString("schoolId"))
-                                .setMPSComputerNumber(teacher.getString("MPSComputerNumber"))
-                                .setEmailAddress(teacher.getString("emailAddress"))
-                                .setEmployeeNumber(teacher.getString("employeeNumber"))
-                                .setFirstName(teacher.getString("firstName"))
-                                .setGender(teacher.getString("gender"))
-                                .setID(teacher.getString("id"))
-                                .setInitials(teacher.getString("initials"))
-                                .setLastName(teacher.getString("lastName"))
-                                .setLicensed(teacher.getBoolean("licensed"))
-                                .setNationalID(teacher.getString("nationalId"))
-                                .setPhoneNumber(teacher.getString("phoneNumber"))
-                                .setRole(teacher.getString("role"))
-                                .setSchoolID(teacher.getString("schoolId"))
-                                .setIsStoredLocally(false)
-                                .build();
-                        syncTeacherDao.updateStaff(syncTeacher);
-                        Log.d(getClass().getSimpleName(), "Done");
+                        SyncTeacher savedTeacher = teacherRepository.getTeacherWithNationalIDNumber(teacher.getString("nationalId"));
+                        if (savedTeacher != null) {
+                            SyncTeacher syncTeacher = new SyncTeacher.Builder()
+                                    .setPrimaryKey(savedTeacher.getPrimaryKey())
+                                    .setSchoolID(teacher.getString("schoolId"))
+                                    .setMPSComputerNumber(teacher.getString("MPSComputerNumber"))
+                                    .setEmailAddress(teacher.getString("emailAddress"))
+                                    .setEmployeeNumber(teacher.getString("employeeNumber"))
+                                    .setFirstName(teacher.getString("firstName"))
+                                    .setGender(teacher.getString("gender"))
+                                    .setID(teacher.getString("id"))
+                                    .setInitials(teacher.getString("initials"))
+                                    .setLastName(teacher.getString("lastName"))
+                                    .setLicensed(teacher.getBoolean("licensed"))
+                                    .setNationalID(teacher.getString("nationalId"))
+                                    .setPhoneNumber(teacher.getString("phoneNumber"))
+                                    .setRole(teacher.getString("role"))
+                                    .setSchoolID(teacher.getString("schoolId"))
+                                    .setIsStoredLocally(false)
+                                    .build();
+                            teacherRepository.updateTeacher(syncTeacher);
+                            Log.d(getClass().getSimpleName(), "Done");
+                        }
                     } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
                         e.printStackTrace();
                     }
                     Log.d("Response", response.toString());
