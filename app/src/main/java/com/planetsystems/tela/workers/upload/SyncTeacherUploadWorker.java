@@ -71,25 +71,21 @@ public class SyncTeacherUploadWorker extends Worker {
                         JSONObject teacher = response.getJSONObject("teacher");
                         SyncTeacher savedTeacher = teacherRepository.getTeacherWithNationalIDNumber(teacher.getString("nationalId"));
                         if (savedTeacher != null) {
-                            SyncTeacher syncTeacher = new SyncTeacher.Builder()
-                                    .setPrimaryKey(savedTeacher.getPrimaryKey())
-                                    .setSchoolID(teacher.getString("schoolId"))
-                                    .setMPSComputerNumber(teacher.getString("MPSComputerNumber"))
-                                    .setEmailAddress(teacher.getString("emailAddress"))
-                                    .setEmployeeNumber(teacher.getString("employeeNumber"))
-                                    .setFirstName(teacher.getString("firstName"))
-                                    .setGender(teacher.getString("gender"))
-                                    .setID(teacher.getString("id"))
-                                    .setInitials(teacher.getString("initials"))
-                                    .setLastName(teacher.getString("lastName"))
-                                    .setLicensed(teacher.getBoolean("licensed"))
-                                    .setNationalID(teacher.getString("nationalId"))
-                                    .setPhoneNumber(teacher.getString("phoneNumber"))
-                                    .setRole(teacher.getString("role"))
-                                    .setSchoolID(savedTeacher.getSchoolId())
-                                    .setIsStoredLocally(false)
-                                    .build();
-                            teacherRepository.updateTeacher(syncTeacher);
+                            savedTeacher.setSchoolId(teacher.getString("schoolId"));
+                            savedTeacher.setMPSComputerNumber(teacher.getString("MPSComputerNumber"));
+                            savedTeacher.setEmailAddress(teacher.getString("emailAddress"));
+                            savedTeacher.setEmployeeNumber(teacher.getString("employeeNumber"));
+                            savedTeacher.setFirstName(teacher.getString("firstName"));
+                            savedTeacher.setGender(teacher.getString("gender"));
+                            savedTeacher.setId(teacher.getString("id"));
+                            savedTeacher.setInitials(teacher.getString("initials"));
+                            savedTeacher.setLastName(teacher.getString("lastName"));
+                            savedTeacher.setLicensed(teacher.getBoolean("licensed"));
+                            savedTeacher.setNationalId(teacher.getString("nationalId"));
+                            savedTeacher.setPhoneNumber(teacher.getString("phoneNumber"));
+                            savedTeacher.setRole(teacher.getString("role"));
+                            savedTeacher.setStoredLocally(false);
+                            teacherRepository.updateTeacher(savedTeacher);
                             Log.d(getClass().getSimpleName(), "Done");
                         }
                     } catch (JSONException | InterruptedException | ExecutionException e) {
