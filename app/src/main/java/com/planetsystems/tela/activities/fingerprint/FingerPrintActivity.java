@@ -65,7 +65,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     public static final String TEACHER_COMMENT = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.COMMENT";
     public static final boolean mbUsbExternalUSBManager = false;
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
-    private static final String EMPLOYEEE_NUMBER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.EMPLOYEE_NUMBER";
+    public static final String EMPLOYEEE_NUMBER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.EMPLOYEE_NUMBER";
     private UsbManager mUsbManager = null;
     private PendingIntent mPermissionIntent= null;
     //

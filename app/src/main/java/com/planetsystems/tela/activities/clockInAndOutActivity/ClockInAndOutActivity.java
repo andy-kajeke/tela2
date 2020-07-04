@@ -36,16 +36,18 @@ import com.planetsystems.tela.constants.Role;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.activities.staff.administration.AdminSideActivity;
 import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActivity;
+import com.planetsystems.tela.data.Teacher.TeacherRepository;
+import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 public class ClockInAndOutActivity extends AppCompatActivity {
 
     private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
-    private ClockInAndOutActivityViewModel clockInAndOutActivityViewModel;
     public static final int CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 645;
     public static final int CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 445;
 
@@ -116,14 +118,6 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 ClockOut();
             }
         });
-
-//        clockInAndOutActivityViewModel = new ViewModelProvider(this).get(ClockInAndOutActivityViewModel.class);
-//        clockInAndOutActivityViewModel.allClockOuts().observe(this, new Observer<List<SyncClockOut>>() {
-//            @Override
-//            public void onChanged(List<SyncClockOut> syncClockOuts) {
-//                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(syncClockOuts.size()), Toast.LENGTH_LONG).show();
-//            }
-//        });
     }
 
     @Override
@@ -208,9 +202,6 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                 intent.setAction(FingerPrintActivity.ACTION_CLOCK_OUT);
                 startActivityForResult(intent, CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE);
                 checkOutDialog.dismiss();
-
-
-
             }
         });
 
@@ -377,7 +368,37 @@ public class ClockInAndOutActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_OK) {
+            switch (requestCode) {
+                case CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE:
+                    try {
+                        SyncTeacher syncTeacher = TeacherRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()))
+                                .getTeacherWithEmployeeNumber(data.getStringExtra(FingerPrintActivity.EMPLOYEEE_NUMBER));
+                        if (syncTeacher != null) {
+                            loadTeacherHomePage(syncTeacher);
+                        }
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                case CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE:
+                    try {
+                        SyncTeacher syncTeacher = TeacherRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()))
+                                .getTeacherWithEmployeeNumber(data.getStringExtra(FingerPrintActivity.EMPLOYEEE_NUMBER));
+                        if (syncTeacher != null) {
+                            loadTeacherHomePage(syncTeacher);
+                        }
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                default:
+                    Toast.makeText(this, "Unknown Error", Toast.LENGTH_LONG).show();
+            }
+
+        } else {
+            Toast.makeText(this, "Unknown Error", Toast.LENGTH_LONG).show();
+        }
     }
 }
