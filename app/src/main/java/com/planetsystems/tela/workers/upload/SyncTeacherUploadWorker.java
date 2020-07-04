@@ -13,8 +13,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
@@ -26,8 +24,6 @@ import org.json.JSONObject;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
-import javax.xml.transform.Result;
 
 import static com.planetsystems.tela.constants.Urls.ENROLL_URL;
 
@@ -110,7 +106,6 @@ public class SyncTeacherUploadWorker extends Worker {
                     haveError[0] = true;
                 }
             });
-
             queue.add(jsonObjectRequest);
         }
 
