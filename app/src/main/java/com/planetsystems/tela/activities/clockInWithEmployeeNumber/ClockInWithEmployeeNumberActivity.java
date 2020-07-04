@@ -55,9 +55,7 @@ public class ClockInWithEmployeeNumberActivity extends Activity {
         btnFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String employeeNumber = staffid.getText().toString();
-
                 Intent intent = new Intent();
                 intent.putExtra(EMPLOYEE_NUMBER, employeeNumber);
                 setResult(RESULT_OK, intent);
