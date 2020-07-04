@@ -43,10 +43,7 @@ public class SyncTeacherWorker extends Worker {
                 reader.close();
                 for(int i = 0; i < syncTeachers.teachers.size(); i++) {
                     SyncTeacher teacher = syncTeachers.teachers.get(i);
-                    SyncTeacher syncedTeacher = syncTeacherDao.getSyncTeacher(
-                            teacher.getId(),
-                            teacher.getNationalId()
-                    );
+                    SyncTeacher syncedTeacher = syncTeacherDao.getSyncTeacher(teacher.getNationalId());
 
 //                    SyncTeacher{
 //                        primaryKey=0,
