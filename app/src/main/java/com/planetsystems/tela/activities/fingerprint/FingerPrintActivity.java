@@ -454,16 +454,5 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        SyncTeacher syncTeacher = null;
-        boolean isClockedIn = false;
-        for(SyncTeacher teacher: syncTeachers) {
-            if ((teacher.getFingerPrint() != null) && (capturedTemplateData.data != null)) {
-                if (mCurrentDevice.verify(teacher.getFingerPrint(), capturedTemplateData.data)) {
-                    syncTeacher = teacher;
-                } else {
-                    syncTeacher = null;
-                }
-            }
-        }
     }
 }
