@@ -222,7 +222,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             }
                             SyncTeacher syncTeacher1 = teacherRepository.getTeacherWithFingerPrint(finger);
                             SyncTeacher syncTeacher2 = teacherRepository.getTeacherWithNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID));
-                            syncTeacher = (syncTeacher1 != null ) && (syncTeacher2 != null )? syncTeacher2: null;
+                            syncTeacher = (syncTeacher1 != null ) || (syncTeacher2 != null )? syncTeacher2: null;
                             if (syncTeacher == null ) {
                                 SyncTeacher syncTeacher = new SyncTeacher.Builder()
                                         .setDOB(null)
