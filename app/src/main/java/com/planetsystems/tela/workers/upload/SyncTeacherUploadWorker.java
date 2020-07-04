@@ -70,7 +70,9 @@ public class SyncTeacherUploadWorker extends Worker {
                     try {
                         Log.d(getClass().getSimpleName(), "LOADING some data in the DB");
                         JSONObject teacher = response.getJSONObject("teacher");
+                        SyncTeacher savedTeacher = syncTeacherDao.findTeacherWithNationalID(teacher.getString("nationalId"));
                         SyncTeacher syncTeacher = new SyncTeacher.Builder()
+                                .setPrimaryKey(savedTeacher.getPrimaryKey())
                                 .setSchoolID(teacher.getString("schoolId"))
                                 .setMPSComputerNumber(teacher.getString("MPSComputerNumber"))
                                 .setEmailAddress(teacher.getString("emailAddress"))
@@ -88,10 +90,12 @@ public class SyncTeacherUploadWorker extends Worker {
                                 .setIsStoredLocally(false)
                                 .build();
                         syncTeacherDao.updateStaff(syncTeacher);
+                        Log.d(getClass().getSimpleName(), "Done");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     Log.d("Response", response.toString());
+                    // end of the request
                 }
             }, new Response.ErrorListener() {
                 @Override

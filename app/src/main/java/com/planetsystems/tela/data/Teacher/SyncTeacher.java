@@ -307,6 +307,11 @@ public class SyncTeacher {
             INSTANCE.isStoredLocally = local;
             return  this;
         }
+
+        public Builder setPrimaryKey(int primaryKey) {
+            INSTANCE.primaryKey = primaryKey;
+            return this;
+        }
     }
 
     public String getId() {

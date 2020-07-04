@@ -57,6 +57,6 @@ public interface SyncTeacherDao {
     )
     List<SyncTeacher> getListStoredLocally(boolean isStoredLocally);
 
-    @Query("SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME + " WHERE " + SyncTeacherTableConstants.ID_COLUMN_NAME + " == NULL")
-    List<SyncTeacher> getListWithNullID();
+    @Query("SELECT * FROM " + SyncTeacherTableConstants.TABLE_NAME + " WHERE " + SyncTeacherTableConstants.ID_COLUMN_NAME + " =:nin")
+    SyncTeacher findTeacherWithNationalID(String nin);
 }
