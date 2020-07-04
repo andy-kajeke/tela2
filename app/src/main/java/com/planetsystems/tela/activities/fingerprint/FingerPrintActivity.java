@@ -59,6 +59,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     public static final String TEACHER_NATIONAL_ID = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_NATION_ID";
     public static final String TEACHER_LICENSED = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_LICENSED";
     public static final String TEACHER_INITIALS = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.INITIALS";
+    private static final String TEACHER_ROLE = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_ROLE";
 
 
 
@@ -417,6 +418,10 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         } else  {
             Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
         }
+        Intent intent = new Intent();
+        intent.putExtra(TEACHER_ROLE, syncTeacher.getRole());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     private void clockInTeacher() {
