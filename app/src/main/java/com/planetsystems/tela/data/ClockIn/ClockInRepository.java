@@ -68,4 +68,14 @@ public class ClockInRepository {
     }
 
 
+    public SyncClockIn getSyncClockInByFingerPrintAndDate(final byte[] fingerPrint, final String date) throws ExecutionException, InterruptedException {
+        Callable<SyncClockIn> callable = new Callable<SyncClockIn>() {
+            @Override
+            public SyncClockIn call() throws Exception {
+                return syncClockInDao.getSynClickWithFingerprintAndDate(fingerPrint, date);
+            }
+        };
+
+        return TelaRoomDatabase.db_executor.submit(callable).get();
+    }
 }

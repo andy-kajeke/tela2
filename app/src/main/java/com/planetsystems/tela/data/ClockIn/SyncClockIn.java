@@ -6,6 +6,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.planetsystems.tela.data.Teacher.SyncTeacherTableConstants;
+
 @Entity(tableName = SyncClockInTableConstants.TABLE_NAME)
 public class SyncClockIn {
 
@@ -46,6 +48,9 @@ public class SyncClockIn {
 
     @ColumnInfo(name = SyncClockInTableConstants.COLUMN_IS_UPLOADED)
     private  boolean isUploaded;
+
+    @ColumnInfo(name = SyncClockInTableConstants.COLUMN_FINGER_PRINT)
+    private byte[] fingerPrint;
 
     public SyncClockIn(String employeeNo, String employeeId, String firstName, String lastName, String latitude, String longitude, String clockInDate, String day, String clockInTime, String schoolId) {
         this.employeeNo = employeeNo;
