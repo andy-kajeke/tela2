@@ -258,60 +258,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             e.printStackTrace();
                         }
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
-                        byte[] finger = new byte[30];
-                        int i = 0;
-                        while (i < 20) {
-                            finger[i] = Byte.parseByte(String.valueOf(i * 3 + 20));
-                            i++;
-                        }
-                        try {
-                            SyncTeacher syncTeacher = teacherRepository.getTeacherWithFingerPrint(finger);
-                            if (syncTeacher != null) {
-                                try {
-                                    if (syncTeacher.getEmployeeNumber() == null) {
-                                        Toast.makeText(FingerPrintActivity.this, "Teacher Information Not Yet Ready", Toast.LENGTH_SHORT).show();
-                                        SyncClockIn clockIn = clockInRepository.getSyncClockInByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
-                                    } else {
-                                        SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate()).get(0);
-                                        if (clockIn == null) {
-                                            clockInRepository.synClockInTeacher(new SyncClockIn(
-                                                    syncTeacher.getEmployeeNumber(),
-                                                    syncTeacher.getEmployeeNumber(),
-                                                    syncTeacher.getFirstName(),
-                                                    syncTeacher.getLastName(),
-                                                    DynamicData.getLatitude(),
-                                                    DynamicData.getLongitude(),
-                                                    DynamicData.getDate(),
-                                                    DynamicData.getDay(),
-                                                    DynamicData.getTime(),
-                                                    DynamicData.getSchoolID()
-                                            ));
-                                            Toast.makeText(FingerPrintActivity.this, "Clocked In SuccessFully", Toast.LENGTH_SHORT).show();
-                                        } else  {
-                                            Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                } catch (ExecutionException | InterruptedException e) {
-                                    e.printStackTrace();
-                                    Toast.makeText(FingerPrintActivity.this, "There was Errors", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(FingerPrintActivity.this, "No Records Found", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (ExecutionException | InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        SyncTeacher syncTeacher = null;
-                        boolean isClockedIn = false;
-                        for(SyncTeacher teacher: syncTeachers) {
-                            if ((teacher.getFingerPrint() != null) && (capturedTemplateData.data != null)) {
-                                if (mCurrentDevice.verify(teacher.getFingerPrint(), capturedTemplateData.data)) {
-                                    syncTeacher = teacher;
-                                } else {
-                                    syncTeacher = null;
-                                }
-                            }
-                        }
+                        clockInTeacher();
 
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
                         textViewEnroll.setText("Clock In");
@@ -332,6 +279,47 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     new FingerPrintCaptureResponder(mainContext),
                     true
             );
+        }
+    }
+
+    private void clockInTeacher() {
+        byte[] finger = new byte[30];
+        int i = 0;
+        while (i < 20) {
+            finger[i] = Byte.parseByte(String.valueOf(i * 3 + 20));
+            i++;
+        }
+        try {
+            SyncTeacher syncTeacher = teacherRepository.getTeacherWithFingerPrint(finger);
+            if (syncTeacher != null) {
+                try {
+                    if (syncTeacher.getEmployeeNumber() == null) {
+                        SyncClockIn clockIn = clockInRepository.getSyncClockInByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
+                        saveClockIn(clockIn, finger); // save clock in finger print
+                    } else {
+                        SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate()).get(0);
+                        saveClockIn(clockIn, finger); // clock teacher since there is no clock in today
+                    }
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                    Toast.makeText(FingerPrintActivity.this, "There was Errors", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(FingerPrintActivity.this, "No Records Found", Toast.LENGTH_SHORT).show();
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        SyncTeacher syncTeacher = null;
+        boolean isClockedIn = false;
+        for(SyncTeacher teacher: syncTeachers) {
+            if ((teacher.getFingerPrint() != null) && (capturedTemplateData.data != null)) {
+                if (mCurrentDevice.verify(teacher.getFingerPrint(), capturedTemplateData.data)) {
+                    syncTeacher = teacher;
+                } else {
+                    syncTeacher = null;
+                }
+            }
         }
     }
 
@@ -456,5 +444,26 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         if( errorCode != IBioMiniDevice.ErrorCode.OK.value())
             printState(getResources().getText(R.string.capture_single_fail) + "("+errorMessage+")");
         cardViewCapture.setVisibility(View.VISIBLE);
+    }
+
+    public void saveClockIn(SyncClockIn clockIn, byte[] finger) {
+        if (clockIn == null) {
+            clockInRepository.synClockInTeacher(new SyncClockIn(
+                    syncTeacher.getEmployeeNumber(),
+                    syncTeacher.getEmployeeNumber(),
+                    syncTeacher.getFirstName(),
+                    syncTeacher.getLastName(),
+                    DynamicData.getLatitude(),
+                    DynamicData.getLongitude(),
+                    DynamicData.getDate(),
+                    DynamicData.getDay(),
+                    DynamicData.getTime(),
+                    DynamicData.getSchoolID(),
+                    finger
+            ));
+            Toast.makeText(FingerPrintActivity.this, "Clocked In SuccessFully", Toast.LENGTH_SHORT).show();
+        } else  {
+            Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
+        }
     }
 }
