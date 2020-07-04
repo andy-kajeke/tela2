@@ -51,4 +51,8 @@ public class ClockOutRepository {
     public LiveData<List<SyncClockOut>> allClockOuts(){
         return syncClockOutDao.getAllClockOuts();
     }
+
+    public SyncClockOut getSyncClockOutByFingerPrintAndDate(byte[] fingerPrint, String date) {
+        return null;
+    }
 }

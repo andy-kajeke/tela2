@@ -31,6 +31,8 @@ import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
 import com.planetsystems.tela.data.TelaRoomDatabase;
+import com.planetsystems.tela.data.clockOut.ClockOutRepository;
+import com.planetsystems.tela.data.clockOut.SyncClockOut;
 import com.planetsystems.tela.utils.BitmapConverter;
 import com.planetsystems.tela.utils.DynamicData;
 import com.suprema.BioMiniFactory;
@@ -215,13 +217,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                         // TODO enroll
                         try {
-                            byte[] finger = new byte[30];
-                            int i = 0;
-                            while (i < 20) {
-                                finger[i] = Byte.parseByte(String.valueOf(i * 3 + 20));
-                                i++;
-                            }
-                            SyncTeacher syncTeacher1 = teacherRepository.getTeacherWithFingerPrint(finger);
+                            SyncTeacher syncTeacher1 = teacherRepository.getTeacherWithFingerPrint(capturedTemplateData.data);
                             SyncTeacher syncTeacher2 = teacherRepository.getTeacherWithNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID));
                             syncTeacher = (syncTeacher1 != null ) || (syncTeacher2 != null )? syncTeacher2: null;
                             if (syncTeacher == null ) {
@@ -231,8 +227,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                                         .setLastName(incomingIntent.getStringExtra(TEACHER_LAST_NAME))
                                         .setFirstName(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
                                         //.setFingerImage(BitmapConverter.encodeBitmapToBase64(capturedImageData))
-//                                        .setFingerPrint(capturedTemplateData.data)
-                                        .setFingerPrint(finger)
+                                        .setFingerPrint(capturedTemplateData.data)
                                         .setGender(incomingIntent.getStringExtra(TEACHER_GENDER))
                                         .setPhoneNumber(incomingIntent.getStringExtra(TEACHER_PHONE_NUMBER))
                                         .setNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID))
@@ -255,7 +250,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                         clockInTeacher();
 
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
-                        textViewEnroll.setText("Clock In");
+                        clockOutTeacher();
                     }
 
 //                } else {
@@ -438,6 +433,37 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                 try {
                     if (syncTeacher.getEmployeeNumber() == null) {
                         SyncClockIn clockIn = clockInRepository.getSyncClockInByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
+                        saveClockIn(clockIn, finger, clockInRepository, syncTeacher); // save clock in finger print
+                    } else {
+                        SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate());
+                        saveClockIn(clockIn, finger, clockInRepository, syncTeacher); // clock teacher since there is no clock in today
+                    }
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                    Toast.makeText(FingerPrintActivity.this, "There was Errors", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(FingerPrintActivity.this, "No Records Found", Toast.LENGTH_SHORT).show();
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void clockOutTeacher() {
+        final ClockOutRepository clockOutRepository = ClockOutRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()));
+        byte[] finger = new byte[30];
+        int i = 0;
+        while (i < 20) {
+            finger[i] = Byte.parseByte(String.valueOf(i * 3 + 20));
+            i++;
+        }
+        try {
+            SyncTeacher syncTeacher = teacherRepository.getTeacherWithFingerPrint(finger);
+            if (syncTeacher != null) {
+                try {
+                    if (syncTeacher.getEmployeeNumber() == null) {
+                        SyncClockOut clockOut = clockOutRepository.getSyncClockOutByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
                         saveClockIn(clockIn, finger, clockInRepository, syncTeacher); // save clock in finger print
                     } else {
                         SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate());
