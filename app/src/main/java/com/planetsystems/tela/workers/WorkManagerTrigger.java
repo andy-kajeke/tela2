@@ -28,7 +28,7 @@ public class WorkManagerTrigger {
         startFetchSyncTimeTableWorker(context);
         startFetchSyncTeacherWorker(context);
         startFetchSyncSchoolClassesWorker(context);
-        startUploadSyncTeacherUploadWorker(context);
+
     }
 
     public static void startUploadWorkers(Context context) {
@@ -39,6 +39,7 @@ public class WorkManagerTrigger {
         startUploadSyncTeacherTimeOnTaskAttendanceUploadWorker(context);
         startUploadSyncSupervisorTimeOnTaskAttendanceUploadWorker(context);
         startUploadSyncSmcObservationsUploadWorker(context);
+        startUploadSyncTeacherUploadWorker(context);
     }
 
     // picking data from the cloud to SyncTimeTable table
@@ -170,7 +171,7 @@ public class WorkManagerTrigger {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncTeacherUploadWorker.class , 1, TimeUnit.MINUTES)
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncTeacherUploadWorker.class , 1, TimeUnit.SECONDS)
                 .setConstraints(constraints)
                 .build();
         WorkManager.getInstance(context).enqueue(workRequest);

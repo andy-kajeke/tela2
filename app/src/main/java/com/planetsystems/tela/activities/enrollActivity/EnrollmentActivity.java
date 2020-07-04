@@ -59,12 +59,13 @@ public class EnrollmentActivity extends AppCompatActivity {
                 Intent intent = new Intent(EnrollmentActivity.this, FingerPrintActivity.class);
                 intent.setAction(FingerPrintActivity.ACTION_ENROLL);
                 intent.putExtra(FingerPrintActivity.TEACHER_FIRST_NAME, edit_email.getText().toString());
-                intent.putExtra(FingerPrintActivity.TEACHER_FIRST_NAME, edit_lName.getText().toString());
+                intent.putExtra(FingerPrintActivity.TEACHER_LAST_NAME, edit_lName.getText().toString());
                 intent.putExtra(FingerPrintActivity.TEACHER_EMAIL, edit_email.getText().toString());
                 intent.putExtra(FingerPrintActivity.TEACHER_NATIONAL_ID, edit_nationalID.getText().toString());
                 intent.putExtra(FingerPrintActivity.TEACHER_PHONE_NUMBER, edit_phone_No.getText().toString());
                 intent.putExtra(FingerPrintActivity.TEACHER_LICENSED, false);
                 intent.putExtra(FingerPrintActivity.TEACHER_GENDER, edit_gender.getText().toString());
+                intent.putExtra(FingerPrintActivity.TEACHER_INITIALS, edit_initials.getText().toString());
                 startActivityForResult(intent, CAPTURE_FINGER_PRINT_REQUEST);
             }
         });

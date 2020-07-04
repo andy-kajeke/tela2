@@ -36,6 +36,7 @@ import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
 import com.suprema.IUsbEventHandler;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -56,6 +57,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     public static final String TEACHER_PHONE_NUMBER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_PHONE_NUMBER";
     public static final String TEACHER_NATIONAL_ID = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_NATION_ID";
     public static final String TEACHER_LICENSED = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_LICENSED";
+    public static final String TEACHER_INITIALS = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.INITIALS";
 
 
 
@@ -216,28 +218,52 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         cardViewEnroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (capturedTemplateData != null && capturedImageData != null ) {
-                    Intent  intent =  new Intent();
-                    intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
-                    intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
-                    setResult(RESULT_OK, intent);
+                //if (capturedTemplateData != null && capturedImageData != null ) {
+//                    Intent  intent =  new Intent();
+//                    intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
+//                    intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
+//                    setResult(RESULT_OK, intent);
 
 
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                         // TODO enroll
                         SyncTeacher syncTeacher = new SyncTeacher.Builder()
                                 .setDOB(null)
-                                .setEmailAddress(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
+                                .setEmailAddress(incomingIntent.getStringExtra(TEACHER_EMAIL))
                                 .setLastName(incomingIntent.getStringExtra(TEACHER_LAST_NAME))
                                 .setFirstName(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
-                                .setFingerImage(BitmapConverter.encodeBitmapToBase64(capturedImageData))
-                                .setFingerPrint(capturedTemplateData.data)
+                                //.setFingerImage(BitmapConverter.encodeBitmapToBase64(capturedImageData))
+                                //.setFingerPrint(capturedTemplateData.data)
                                 .setGender(incomingIntent.getStringExtra(TEACHER_GENDER))
-                                .setPhoneNumber(incomingIntent.getStringExtra(TEACHER_GENDER))
+                                .setPhoneNumber(incomingIntent.getStringExtra(TEACHER_PHONE_NUMBER))
                                 .setNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID))
                                 .setLicensed(incomingIntent.getBooleanExtra(TEACHER_LICENSED, false))
+                                .setInitials(incomingIntent.getStringExtra(TEACHER_INITIALS))
+                                .setRole("Teacher")
+                                .setSchoolID("tyteyrthsgferd")
+                                .setDOB(new Date().toString())
                                 .build();
                         boolean found = false;
+
+//                        SyncTeacher{primaryKey=0,
+//                            id='null',
+//                            employeeId='null',
+//                            MPSComputerNumber='null',
+//                            employeeNumber='null',
+//                            role='null',
+//                            dob='null',
+//                            emailAddress='simonojok19@gmail.com',
+//                            fingerPrint=null,
+//                            fingerImage='null',
+//                            firstName='simonojok19@gmail.com',
+//                            lastName='Adams',
+//                            gender='Male',
+//                            initials='null',
+//                            licensed=false,
+//                            nationalId='MUXcTYG',
+//                            phoneNumber='0772241709',
+//                            schoolId='null',
+//                            isStoredLocally=true}
 
                         for(SyncTeacher teacher: syncTeachers) {
                             if ((teacher.getFingerPrint() != null) && (syncTeacher.getFingerPrint() != null)) {
@@ -253,7 +279,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
                         } else {
                             teacherRepository.insertSyncTeacher(syncTeacher);
-                            Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully " + String.valueOf(found), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully ", Toast.LENGTH_SHORT).show();
                         }
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
                         SyncTeacher syncTeacher = null;
@@ -304,9 +330,9 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                         textViewEnroll.setText("Clock In");
                     }
 
-                } else {
-                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
-                }
+//                } else {
+//                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 

@@ -1,8 +1,11 @@
 package com.planetsystems.tela.data.Teacher;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.util.Arrays;
 
 
 @Entity(tableName = SyncTeacherTableConstants.TABLE_NAME)
@@ -341,7 +344,7 @@ public class SyncTeacher {
                 ", role='" + role + '\'' +
                 ", dob='" + dob + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
-                ", fingerPrint='" + fingerPrint + '\'' +
+                ", fingerPrint=" + Arrays.toString(fingerPrint) +
                 ", fingerImage='" + fingerImage + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -351,6 +354,7 @@ public class SyncTeacher {
                 ", nationalId='" + nationalId + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", schoolId='" + schoolId + '\'' +
+                ", isStoredLocally=" + isStoredLocally +
                 '}';
     }
 

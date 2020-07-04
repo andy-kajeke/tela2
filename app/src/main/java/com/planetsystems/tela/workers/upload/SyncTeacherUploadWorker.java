@@ -21,6 +21,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+
+import javax.xml.transform.Result;
+
 import static com.planetsystems.tela.constants.Urls.ENROLL_URL;
 
 public class SyncTeacherUploadWorker extends Worker {
@@ -33,15 +36,15 @@ public class SyncTeacherUploadWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+//        List<SyncTeacher> syncTeachers = syncTeacherDao.getListWithNullID();
+        final boolean[] haveError = {false};
         List<SyncTeacher> syncTeachers = syncTeacherDao.getListStoredLocally(true);
         for (SyncTeacher teacher: syncTeachers) {
-            // upload
-//            String dataForUpload = new Gson().toJson(teacher);
             RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
             JSONObject params = new JSONObject();
             try {
-                params.put("id",teacher.getId());
+                params.put("id",null);
                 params.put("nationalId", teacher.getNationalId());
                 params.put("firstName", teacher.getFirstName());
                 params.put("lastName",teacher.getLastName());
@@ -67,13 +70,17 @@ public class SyncTeacherUploadWorker extends Worker {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d("Respone", error.toString());
+                    Log.d("Response", error.toString());
+                    haveError[0] = true;
                 }
             });
 
             queue.add(jsonObjectRequest);
         }
-//        Toast.makeText(getApplicationContext(),":"+resp,Toast.LENGTH_LONG).show();
+
+        if (haveError[0]) {
+            return Result.retry();
+        }
         return Result.success();
     }
 
