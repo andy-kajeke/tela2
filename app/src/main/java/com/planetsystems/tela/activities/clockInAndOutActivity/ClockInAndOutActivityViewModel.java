@@ -33,4 +33,8 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         teacherRepository = mainRepository.getTeachersRepository();
 
     }
+
+    public SyncTeacher clockOutTeacherWithEmployeeID(String staffID, String staffComment) {
+        return null;
+    }
 }

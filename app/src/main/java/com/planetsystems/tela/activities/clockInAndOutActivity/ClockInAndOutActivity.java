@@ -374,4 +374,10 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             Toast.makeText(this, "Invalid Employee Number or Finger Print", Toast.LENGTH_LONG).show();
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
