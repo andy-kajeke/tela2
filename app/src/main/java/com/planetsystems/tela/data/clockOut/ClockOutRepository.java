@@ -37,14 +37,14 @@ public class ClockOutRepository {
         });
     }
 
-    public List<SyncClockOut> getSyncClockOutByEmployeeNumberAndDate(final String employeeNumber, final String date) throws ExecutionException, InterruptedException {
-        Callable<List<SyncClockOut>> callable = new Callable<List<SyncClockOut>>() {
+    public SyncClockOut getSyncClockOutByEmployeeNumberAndDate(final String employeeNumber, final String date) throws ExecutionException, InterruptedException {
+        Callable<SyncClockOut> callable = new Callable<SyncClockOut>() {
             @Override
-            public List<SyncClockOut> call() throws Exception {
+            public SyncClockOut call() throws Exception {
                 return syncClockOutDao.getSyncClockOutByEmployeeIdAndDate(employeeNumber, date);
             }
         };
-        Future<List<SyncClockOut>> future = TelaRoomDatabase.db_executor.submit(callable);
+        Future<SyncClockOut> future = TelaRoomDatabase.db_executor.submit(callable);
         return  future.get();
     }
 

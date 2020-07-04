@@ -32,7 +32,7 @@ public interface SyncClockOutDao {
 
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME + " WHERE "
             + SyncClockOutTableConstant.EMPLOYEE_NUMBER_COLUMN_NAME + " =:employeeId AND " + SyncClockOutTableConstant.DATE_COLUMN_NAME + " =:date")
-    List<SyncClockOut> getSyncClockOutByEmployeeIdAndDate(String employeeId, String date);
+    SyncClockOut getSyncClockOutByEmployeeIdAndDate(String employeeId, String date);
 
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME)
     LiveData<List<SyncClockOut>> getAllClockOuts();
