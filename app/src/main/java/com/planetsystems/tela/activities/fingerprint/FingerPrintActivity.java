@@ -63,18 +63,9 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     public static final String TEACHER_INITIALS = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.INITIALS";
     public static final String TEACHER_ROLE = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_ROLE";
     public static final String TEACHER_COMMENT = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.COMMENT";
-
-
-
-
-
-
-
-
-
-    //Flag.
     public static final boolean mbUsbExternalUSBManager = false;
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
+    private static final String EMPLOYEEE_NUMBER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.EMPLOYEE_NUMBER";
     private UsbManager mUsbManager = null;
     private PendingIntent mPermissionIntent= null;
     //
@@ -416,6 +407,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         }
         Intent intent = new Intent();
         intent.putExtra(TEACHER_ROLE, syncTeacher.getRole());
+        intent.putExtra(EMPLOYEEE_NUMBER, syncTeacher.getEmployeeNumber());
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -506,6 +498,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         Intent intent = new Intent();
         intent.putExtra(TEACHER_ROLE, syncTeacher.getRole());
         setResult(RESULT_OK, intent);
+        intent.putExtra(EMPLOYEEE_NUMBER, syncTeacher.getEmployeeNumber());
         finish();
     }
 }
