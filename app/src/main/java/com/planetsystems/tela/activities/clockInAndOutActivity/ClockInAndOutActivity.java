@@ -306,12 +306,12 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     private void clockOutWithStaffID() {
         String staffID = staff_Id.getText().toString();
         String staffComment = staff_comment.getText().toString();
-        SyncTeacher teacher = viewModel.clockOutTeacherWithEmployeeID(staffID, staffComment);
+        ClockInAndOutActivityViewModel.TeacherWrapper teacherWrapper = viewModel.clockOutTeacherWithEmployeeID(staffID, staffComment);
         //loadTeacherHomePage(teacher);
-        if(teacher == null){
+        if(teacherWrapper.getTeacher() == null ){
             new AlertDialog.Builder(ClockInAndOutActivity.this)
                     .setTitle("Confirmation")
-                    .setMessage("The employee number is incorrect \n Try again... ")
+                    .setMessage(teacherWrapper.getMsg())
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
 
@@ -320,6 +320,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                         }})
                     .setNegativeButton("", null).show();
         }else {
+            SyncTeacher teacher = teacherWrapper.getTeacher();
             new AlertDialog.Builder(ClockInAndOutActivity.this)
                     .setTitle("Successfully clocked out")
                     .setMessage("=============================\n"+ "Name : " + teacher.getFirstName() + " " + teacher.getLastName()
@@ -394,9 +395,10 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                     }
                 case START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT:
                     assert data != null;
-                    SyncTeacher syncTeacher = viewModel.clockInTeacherWithEmployeeNumber(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER));
-                    if (syncTeacher != null) {
-                        loadTeacherHomePage(syncTeacher);
+                    ClockInAndOutActivityViewModel.TeacherWrapper teacherWrapper = viewModel.clockInTeacherWithEmployeeNumber(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER));
+                    if (teacherWrapper.getTeacher() != null ) {
+                        Toast.makeText(this, teacherWrapper.getMsg(), Toast.LENGTH_SHORT).show();
+                        loadTeacherHomePage(teacherWrapper.getTeacher());
                     }
                 default:
                     Toast.makeText(this, "Unknown Error", Toast.LENGTH_LONG).show();

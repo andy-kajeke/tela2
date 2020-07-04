@@ -35,42 +35,44 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
 
     }
 
-    public SyncTeacher clockOutTeacherWithEmployeeID(String staffID, String staffComment) {
+    public TeacherWrapper clockOutTeacherWithEmployeeID(String staffID, String staffComment) {
         try {
             SyncClockOut clockOut = clockOutRepository.getSyncClockOutByEmployeeNumberAndDate(staffID, DynamicData.getDate());
             SyncTeacher teacher = teacherRepository.getTeacherWithEmployeeNumber(staffID);
             SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(staffID, DynamicData.getDate());
-            if (clockIn != null ){
-                if ((clockOut == null) && (teacher != null )) {
-                    clockOutRepository.insertSynClockOut(
-                            new SyncClockOut(
-                                    DynamicData.getDate(),
-                                    DynamicData.getDay(),
-                                    DynamicData.getTime(),
-                                    staffComment,
-                                    teacher.getEmployeeNumber(),
-                                    teacher.getEmployeeNumber(),
-                                    DynamicData.getLatitude(),
-                                    DynamicData.getLongitude(),
-                                    DynamicData.getSchoolID(),
-                                    DynamicData.getSchoolName(),
-                                    teacher.getFirstName(),
-                                    teacher.getLastName(),
-                                    teacher.getFingerPrint()
-                            )
-                    );
-                    return  teacher;
-                } else {
-                    return null;
-                }
+            if (teacher == null ) {
+                return new TeacherWrapper("No Record for: " + staffID, null);
             } else {
-                Toast.makeText(getApplication(), "Teacher Did not Clock In", Toast.LENGTH_SHORT).show();
-                return null;
+                if (clockIn == null) {
+                    return new TeacherWrapper("Teacher Did No Clocked In", teacher);
+                } else {
+                    if (clockOut == null ) {
+                        clockOutRepository.insertSynClockOut(
+                                new SyncClockOut(
+                                        DynamicData.getDate(),
+                                        DynamicData.getDay(),
+                                        DynamicData.getTime(),
+                                        staffComment,
+                                        teacher.getEmployeeNumber(),
+                                        teacher.getEmployeeNumber(),
+                                        DynamicData.getLatitude(),
+                                        DynamicData.getLongitude(),
+                                        DynamicData.getSchoolID(),
+                                        DynamicData.getSchoolName(),
+                                        teacher.getFirstName(),
+                                        teacher.getLastName(),
+                                        teacher.getFingerPrint()
+                                )
+                        );
+                    } else {
+                        return new TeacherWrapper("Teacher Already Clocked Out", teacher);
+                    }
+                }
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        return new TeacherWrapper("Unknown Error", null);
     }
 
     public TeacherWrapper clockInTeacherWithEmployeeNumber(String employeeNumber) {
