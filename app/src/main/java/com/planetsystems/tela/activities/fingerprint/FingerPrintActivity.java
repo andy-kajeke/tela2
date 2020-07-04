@@ -220,7 +220,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             @Override
             public void onClick(View v) {
                 syncTeachers = teacherRepository.getTeachers();
-                //if (capturedTemplateData != null && capturedImageData != null ) {
+                if (capturedTemplateData != null && capturedImageData != null ) {
 
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                         // TODO enroll
@@ -301,9 +301,9 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                         textViewEnroll.setText("Clock In");
                     }
 
-//                } else {
-//                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
-//                }
+                } else {
+                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
