@@ -46,20 +46,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
             } else {
                 SyncTeacher teacher = teacherRepository.getTeacherWithEmployeeNumber(employeeNumber);
                 if (teacher != null ) {
-                    clockOutRepository.insertSynClockOut(new SyncClockOut(
-                            DynamicData.getDate(),
-                            DynamicData.getDay(),
-                            DynamicData.getTime(),
-                            comment,
-                            teacher.getEmployeeNumber(),
-                            teacher.getEmployeeNumber(),
-                            DynamicData.getLatitude(),
-                            DynamicData.getLongitude(),
-                            DynamicData.getSchoolID(),
-                            DynamicData.getSchoolName(),
-                            teacher.getFirstName(),
-                            teacher.getLastName()
-                    ));
+
                     return teacher;
                 }
             }
