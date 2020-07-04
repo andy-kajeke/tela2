@@ -398,7 +398,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         cardViewCapture.setVisibility(View.VISIBLE);
     }
 
-    public void saveClockIn(SyncClockIn clockIn, byte[] finger, ClockInRepository clockInRepository) {
+    public void saveClockIn(SyncClockIn clockIn, byte[] finger, ClockInRepository clockInRepository, SyncTeacher syncTeacher) {
         if (clockIn == null) {
             clockInRepository.synClockInTeacher(new SyncClockIn(
                     syncTeacher.getEmployeeNumber(),
@@ -433,10 +433,10 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                 try {
                     if (syncTeacher.getEmployeeNumber() == null) {
                         SyncClockIn clockIn = clockInRepository.getSyncClockInByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
-                        saveClockIn(clockIn, finger, clockInRepository); // save clock in finger print
+                        saveClockIn(clockIn, finger, clockInRepository, syncTeacher); // save clock in finger print
                     } else {
                         SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate());
-                        saveClockIn(clockIn, finger, clockInRepository); // clock teacher since there is no clock in today
+                        saveClockIn(clockIn, finger, clockInRepository, syncTeacher); // clock teacher since there is no clock in today
                     }
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
