@@ -220,11 +220,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             public void onClick(View v) {
                 syncTeachers = teacherRepository.getTeachers();
                 //if (capturedTemplateData != null && capturedImageData != null ) {
-//                    Intent  intent =  new Intent();
-//                    intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
-//                    intent.putExtra(FINGER_PRINT_IMAGE, BitmapConverter.encodeBitmapToBase64(capturedImageData));
-//                    setResult(RESULT_OK, intent);
-
 
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                         // TODO enroll
@@ -245,27 +240,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                                 .setSchoolID(DynamicData.getSchoolID())
                                 .build();
                         boolean found = false;
-
-//                        SyncTeacher{primaryKey=0,
-//                            id='null',
-//                            employeeId='null',
-//                            MPSComputerNumber='null',
-//                            employeeNumber='null',
-//                            role='null',
-//                            dob='null',
-//                            emailAddress='simonojok19@gmail.com',
-//                            fingerPrint=null,
-//                            fingerImage='null',
-//                            firstName='simonojok19@gmail.com',
-//                            lastName='Adams',
-//                            gender='Male',
-//                            initials='null',
-//                            licensed=false,
-//                            nationalId='MUXcTYG',
-//                            phoneNumber='0772241709',
-//                            schoolId='null',
-//                            isStoredLocally=true}
-
                         for(SyncTeacher teacher: syncTeachers) {
                             if ((teacher.getFingerPrint() != null) && (syncTeacher.getFingerPrint() != null)) {
                                 if (mCurrentDevice.verify(teacher.getFingerPrint(), syncTeacher.getFingerPrint())) {

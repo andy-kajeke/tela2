@@ -119,4 +119,16 @@ public class TeacherRepository {
         Future<SyncTeacher> future = TelaRoomDatabase.db_executor.submit(callable);
         return  future.get();
     }
+
+    public SyncTeacher getTeacherWithNationalID(final String nationalID) throws ExecutionException, InterruptedException {
+        Callable<SyncTeacher> callable = new Callable<SyncTeacher>() {
+            @Override
+            public SyncTeacher call() throws Exception {
+                return syncTeacherDao.getSyncTeacher(nationalID);
+            }
+        };
+
+        Future<SyncTeacher> future = TelaRoomDatabase.db_executor.submit(callable);
+        return  future.get();
+    }
 }
