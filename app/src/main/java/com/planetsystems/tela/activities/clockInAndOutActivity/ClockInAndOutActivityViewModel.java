@@ -73,29 +73,51 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         return null;
     }
 
-    public SyncTeacher clockInTeacherWithEmployeeNumber(String employeeNumber) {
+    public TeacherWrapper clockInTeacherWithEmployeeNumber(String employeeNumber) {
         try {
             SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(employeeNumber, DynamicData.getDate());
             SyncTeacher syncTeacher = teacherRepository.getTeacherWithEmployeeNumber(employeeNumber);
-            if ((clockIn == null) && (syncTeacher != null)) {
-                clockInRepository.synClockInTeacher(new SyncClockIn(
-                        syncTeacher.getEmployeeNumber(),
-                        syncTeacher.getEmployeeNumber(),
-                        syncTeacher.getFirstName(),
-                        syncTeacher.getLastName(),
-                        DynamicData.getLatitude(),
-                        DynamicData.getLongitude(),
-                        DynamicData.getDate(),
-                        DynamicData.getDay(),
-                        DynamicData.getTime(),
-                        DynamicData.getSchoolID(),
-                        syncTeacher.getFingerPrint()
-                ));
+            if (syncTeacher == null) {
+                return new TeacherWrapper("No Record for: " + employeeNumber, null);
+            } else {
+                if (clockIn == null ) {
+                    clockInRepository.synClockInTeacher(new SyncClockIn(
+                            syncTeacher.getEmployeeNumber(),
+                            syncTeacher.getEmployeeNumber(),
+                            syncTeacher.getFirstName(),
+                            syncTeacher.getLastName(),
+                            DynamicData.getLatitude(),
+                            DynamicData.getLongitude(),
+                            DynamicData.getDate(),
+                            DynamicData.getDay(),
+                            DynamicData.getTime(),
+                            DynamicData.getSchoolID(),
+                            syncTeacher.getFingerPrint()
+                    ));
+                    return new TeacherWrapper("Clocked In Successfully", syncTeacher);
+                } else return new TeacherWrapper("Clocked Already at: " + clockIn.getClockInTime(), syncTeacher);
             }
-            return syncTeacher;
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        return new TeacherWrapper("Unknown Error Occurred", null);
+    }
+
+    public static class TeacherWrapper {
+        private final String msg;
+        private final SyncTeacher teacher;
+
+        public TeacherWrapper(String msg, SyncTeacher teacher){
+            this.msg = msg;
+            this.teacher = teacher;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public SyncTeacher getTeacher() {
+            return teacher;
+        }
     }
 }
