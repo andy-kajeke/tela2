@@ -90,7 +90,7 @@ public class SyncTeacherUploadWorker extends Worker {
                                     .setNationalID(teacher.getString("nationalId"))
                                     .setPhoneNumber(teacher.getString("phoneNumber"))
                                     .setRole(teacher.getString("role"))
-                                    .setSchoolID(teacher.getString("schoolId"))
+                                    .setSchoolID(savedTeacher.getSchoolId())
                                     .setIsStoredLocally(false)
                                     .build();
                             teacherRepository.updateTeacher(syncTeacher);
