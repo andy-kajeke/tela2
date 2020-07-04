@@ -211,6 +211,7 @@ public class SyncTeacher {
         private final SyncTeacher INSTANCE;
         public Builder() {
             INSTANCE = new SyncTeacher();
+            INSTANCE.setStoredLocally(true);
         }
 
         public SyncTeacher.Builder setEmployeeId(String employeeID) {
@@ -299,7 +300,6 @@ public class SyncTeacher {
         }
 
         public SyncTeacher build() {
-            INSTANCE.setStoredLocally(true);
             return INSTANCE;
         }
 
