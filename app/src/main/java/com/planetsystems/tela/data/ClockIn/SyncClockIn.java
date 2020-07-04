@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey;
 
 import com.planetsystems.tela.data.Teacher.SyncTeacherTableConstants;
 
+import java.util.Arrays;
+
 @Entity(tableName = SyncClockInTableConstants.TABLE_NAME)
 public class SyncClockIn {
 
@@ -52,7 +54,7 @@ public class SyncClockIn {
     @ColumnInfo(name = SyncClockInTableConstants.COLUMN_FINGER_PRINT)
     private byte[] fingerPrint;
 
-    public SyncClockIn(String employeeNo, String employeeId, String firstName, String lastName, String latitude, String longitude, String clockInDate, String day, String clockInTime, String schoolId) {
+    public SyncClockIn(String employeeNo, String employeeId, String firstName, String lastName, String latitude, String longitude, String clockInDate, String day, String clockInTime, String schoolId, byte[] fingerPrint) {
         this.employeeNo = employeeNo;
         this.employeeId = employeeId;
         this.firstName = firstName;
@@ -64,6 +66,7 @@ public class SyncClockIn {
         this.clockInTime = clockInTime;
         this.schoolId = schoolId;
         this.isUploaded = false;
+        this.fingerPrint = fingerPrint;
     }
 
     public int getPrimaryKey() {
@@ -162,6 +165,14 @@ public class SyncClockIn {
         isUploaded = uploaded;
     }
 
+    public byte[] getFingerPrint() {
+        return fingerPrint;
+    }
+
+    public void setFingerPrint(byte[] fingerPrint) {
+        this.fingerPrint = fingerPrint;
+    }
+
     @Override
     public String toString() {
         return "SyncClockIn{" +
@@ -177,6 +188,7 @@ public class SyncClockIn {
                 ", clockInTime='" + clockInTime + '\'' +
                 ", schoolId='" + schoolId + '\'' +
                 ", isUploaded=" + isUploaded +
+                ", fingerPrint=" + Arrays.toString(fingerPrint) +
                 '}';
     }
 }
