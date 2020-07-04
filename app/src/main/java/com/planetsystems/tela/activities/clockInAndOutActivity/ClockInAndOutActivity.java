@@ -393,7 +393,11 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 case START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT:
+                    assert data != null;
                     SyncTeacher syncTeacher = viewModel.clockInTeacherWithEmployeeNumber(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER));
+                    if (syncTeacher != null) {
+                        loadTeacherHomePage(syncTeacher);
+                    }
                 default:
                     Toast.makeText(this, "Unknown Error", Toast.LENGTH_LONG).show();
             }
