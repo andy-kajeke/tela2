@@ -37,5 +37,7 @@ public interface SyncClockOutDao {
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME)
     LiveData<List<SyncClockOut>> getAllClockOuts();
 
+    @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME + " WHERE "
+            + SyncClockOutTableConstant.FINGER_PRINT_COLUMN_NAME + " =:fingerPrint AND " + SyncClockOutTableConstant.DATE_COLUMN_NAME + " =:date")
     SyncClockOut getSyncClockOutByFingerPrintAndDate(byte[] fingerPrint, String date);
 }

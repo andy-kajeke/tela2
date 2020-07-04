@@ -2,6 +2,7 @@ package com.planetsystems.tela.data.clockOut;
 
 public class SyncClockOutTableConstant {
     public static final String IS_UPLOADED_COLUMN_NAME = "is_uploaded";
+    public static final String FINGER_PRINT_COLUMN_NAME = "fingerprint";
     static final String TABLE_NAME = "clock_out_table";
     static final String DAY_COLUMN_NAME = "day";
     static final String EMPLOYEE_ID_COLUMN_NAME = "employeeId";
