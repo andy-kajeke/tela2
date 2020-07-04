@@ -343,37 +343,6 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data != null ) {
-            if (requestCode == START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT ) {
-                // we have the code
-                if (resultCode == RESULT_OK ) {
-                    String employeeNumber = data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER);
-                    SyncTeacher syncTeacher = viewModel.clockInTeacherEmployeeNumber(Objects.requireNonNull(employeeNumber));
-                    loadTeacherHomePage(syncTeacher);
-                }
-            } else if (requestCode == CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE) {
-                // teacher clocking out
-                if (resultCode == RESULT_OK ) {
-                    String stringEncodedFingerPrint = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA);
-                    String base64EncodedBitmapImage = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_IMAGE);
-                    SyncTeacher syncTeacher = viewModel.clockOutTeacherWithFingerPrint(stringEncodedFingerPrint, "No Comment");
-                    loadTeacherHomePage(syncTeacher);
-                }
-            } else if (requestCode == CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE) {
-                // teacher clocking out
-                if (resultCode == RESULT_OK ) {
-                    String stringEncodedFingerPrint = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_DATA);
-                    String base64EncodedBitmapImage = data.getStringExtra(FingerPrintActivity.FINGER_PRINT_IMAGE);
-                    SyncTeacher syncTeacher = viewModel.clockInTeacherWithFingerPrint(stringEncodedFingerPrint);
-                    loadTeacherHomePage(syncTeacher);
-                }
-            }  // I don't know what has happened
-        }
-    }
-
     private void loadTeacherHomePage(SyncTeacher syncTeacher) {
         if (syncTeacher != null ) {
             /*
