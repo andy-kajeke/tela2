@@ -57,6 +57,8 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                         )
                 );
                 return  teacher;
+            } else {
+                return null;
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
