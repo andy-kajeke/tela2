@@ -2,6 +2,7 @@ package com.planetsystems.tela.activities.clockInAndOutActivity;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -38,26 +39,32 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         try {
             SyncClockOut clockOut = clockOutRepository.getSyncClockOutByEmployeeNumberAndDate(staffID, DynamicData.getDate());
             SyncTeacher teacher = teacherRepository.getTeacherWithEmployeeNumber(staffID);
-            if ((clockOut == null) && (teacher != null )) {
-                clockOutRepository.insertSynClockOut(
-                        new SyncClockOut(
-                                DynamicData.getDate(),
-                                DynamicData.getDay(),
-                                DynamicData.getTime(),
-                                staffComment,
-                                teacher.getEmployeeNumber(),
-                                teacher.getEmployeeNumber(),
-                                DynamicData.getLatitude(),
-                                DynamicData.getLongitude(),
-                                DynamicData.getSchoolID(),
-                                DynamicData.getSchoolName(),
-                                teacher.getFirstName(),
-                                teacher.getLastName(),
-                                teacher.getFingerPrint()
-                        )
-                );
-                return  teacher;
+            SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(staffID, DynamicData.getDate());
+            if (clockIn != null ){
+                if ((clockOut == null) && (teacher != null )) {
+                    clockOutRepository.insertSynClockOut(
+                            new SyncClockOut(
+                                    DynamicData.getDate(),
+                                    DynamicData.getDay(),
+                                    DynamicData.getTime(),
+                                    staffComment,
+                                    teacher.getEmployeeNumber(),
+                                    teacher.getEmployeeNumber(),
+                                    DynamicData.getLatitude(),
+                                    DynamicData.getLongitude(),
+                                    DynamicData.getSchoolID(),
+                                    DynamicData.getSchoolName(),
+                                    teacher.getFirstName(),
+                                    teacher.getLastName(),
+                                    teacher.getFingerPrint()
+                            )
+                    );
+                    return  teacher;
+                } else {
+                    return null;
+                }
             } else {
+                Toast.makeText(getApplication(), "Teacher Did not Clock In", Toast.LENGTH_SHORT).show();
                 return null;
             }
         } catch (ExecutionException | InterruptedException e) {
