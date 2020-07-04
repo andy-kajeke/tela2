@@ -187,6 +187,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         restartBioMini();
         if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
             // removed enroll button and change the with or cap
+            cardViewCapture.setVisibility(View.INVISIBLE);
             textViewEnroll.setText(R.string.clock_out);
         }
 
@@ -439,5 +440,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         log("onCaptureError : " + errorCode + " ErrorCode :" + errorCode);
         if( errorCode != IBioMiniDevice.ErrorCode.OK.value())
             printState(getResources().getText(R.string.capture_single_fail) + "("+errorMessage+")");
+        cardViewCapture.setVisibility(View.VISIBLE);
     }
 }
