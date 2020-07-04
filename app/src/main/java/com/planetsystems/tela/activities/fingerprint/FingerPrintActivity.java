@@ -218,6 +218,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         cardViewEnroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                syncTeachers = teacherRepository.getTeachers();
                 //if (capturedTemplateData != null && capturedImageData != null ) {
 //                    Intent  intent =  new Intent();
 //                    intent.putExtra(FINGER_PRINT_DATA, capturedTemplateData.data);
@@ -240,8 +241,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                                 .setLicensed(incomingIntent.getBooleanExtra(TEACHER_LICENSED, false))
                                 .setInitials(incomingIntent.getStringExtra(TEACHER_INITIALS))
                                 .setRole("Teacher")
-                                .setSchoolID("tyteyrthsgferd")
                                 .setDOB(new Date().toString())
+                                .setSchoolID(DynamicData.getSchoolID())
                                 .build();
                         boolean found = false;
 

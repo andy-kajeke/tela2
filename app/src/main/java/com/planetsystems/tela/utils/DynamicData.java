@@ -8,11 +8,11 @@ import static com.planetsystems.tela.activities.mainactivity.MainActivity.School
 public class DynamicData {
     public static String getSchoolID() {
         //TODO: put codes here for finding school id
-        return SchoolDeviceIMEINumber;
+        return "354633111523205";
     }
 
     public static String getLatitude() {
-        return SchoolDeviceIMEINumber;
+        return "354633111523205";
     }
 
     public static String getLongitude() {

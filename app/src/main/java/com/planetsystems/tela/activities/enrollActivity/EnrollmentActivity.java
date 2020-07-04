@@ -58,7 +58,7 @@ public class EnrollmentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(EnrollmentActivity.this, FingerPrintActivity.class);
                 intent.setAction(FingerPrintActivity.ACTION_ENROLL);
-                intent.putExtra(FingerPrintActivity.TEACHER_FIRST_NAME, edit_email.getText().toString());
+                intent.putExtra(FingerPrintActivity.TEACHER_FIRST_NAME, edit_fName.getText().toString());
                 intent.putExtra(FingerPrintActivity.TEACHER_LAST_NAME, edit_lName.getText().toString());
                 intent.putExtra(FingerPrintActivity.TEACHER_EMAIL, edit_email.getText().toString());
                 intent.putExtra(FingerPrintActivity.TEACHER_NATIONAL_ID, edit_nationalID.getText().toString());

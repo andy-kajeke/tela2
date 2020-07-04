@@ -302,6 +302,11 @@ public class SyncTeacher {
             INSTANCE.setStoredLocally(true);
             return INSTANCE;
         }
+
+        public Builder setIsStoredLocally(boolean local) {
+            INSTANCE.isStoredLocally = local;
+            return  this;
+        }
     }
 
     public String getId() {
@@ -365,4 +370,6 @@ public class SyncTeacher {
     public void setStoredLocally(boolean storedLocally) {
         isStoredLocally = storedLocally;
     }
+
+
 }
