@@ -65,4 +65,30 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         }
         return null;
     }
+
+    public SyncTeacher clockInTeacherWithEmployeeNumber(String employeeNumber) {
+        try {
+            SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(employeeNumber, DynamicData.getDate());
+            SyncTeacher syncTeacher = teacherRepository.getTeacherWithEmployeeNumber(employeeNumber);
+            if ((clockIn == null) && (syncTeacher != null)) {
+                clockInRepository.synClockInTeacher(new SyncClockIn(
+                        syncTeacher.getEmployeeNumber(),
+                        syncTeacher.getEmployeeNumber(),
+                        syncTeacher.getFirstName(),
+                        syncTeacher.getLastName(),
+                        DynamicData.getLatitude(),
+                        DynamicData.getLongitude(),
+                        DynamicData.getDate(),
+                        DynamicData.getDay(),
+                        DynamicData.getTime(),
+                        DynamicData.getSchoolID(),
+                        syncTeacher.getFingerPrint()
+                ));
+            }
+            return syncTeacher;
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

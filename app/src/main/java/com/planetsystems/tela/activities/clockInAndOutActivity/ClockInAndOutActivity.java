@@ -369,7 +369,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE:
                     try {
@@ -393,15 +393,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 case START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT:
-                    try {
-                        SyncTeacher syncTeacher = TeacherRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()))
-                                .getTeacherWithEmployeeNumber(data.getStringExtra(FingerPrintActivity.EMPLOYEEE_NUMBER));
-                        if (syncTeacher != null) {
-                            loadTeacherHomePage(syncTeacher);
-                        }
-                    } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    SyncTeacher syncTeacher = viewModel.clockInTeacherWithEmployeeNumber(data.getStringExtra(ClockInWithEmployeeNumberActivity.EMPLOYEE_NUMBER));
                 default:
                     Toast.makeText(this, "Unknown Error", Toast.LENGTH_LONG).show();
             }
