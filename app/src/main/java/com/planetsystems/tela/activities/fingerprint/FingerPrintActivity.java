@@ -204,7 +204,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             @Override
             public void onClick(View v) {
                 syncTeachers = teacherRepository.getTeachers();
-                //if (capturedTemplateData != null && capturedImageData != null ) {
+                if (capturedTemplateData != null && capturedImageData != null ) {
 
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                         // TODO enroll
@@ -239,15 +239,15 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             e.printStackTrace();
                         }
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
-                        clockInTeacher();
+                        clockInTeacher(capturedTemplateData.data);
 
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
-                        clockOutTeacher();
+                        clockOutTeacher(capturedTemplateData.data);
                     }
 
-//                } else {
-//                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
-//                }
+                } else {
+                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -412,14 +412,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         finish();
     }
 
-    private void clockInTeacher() {
+    private void clockInTeacher(byte[] finger) {
         final ClockInRepository clockInRepository = ClockInRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()));
-        byte[] finger = new byte[30];
-        int i = 0;
-        while (i < 20) {
-            finger[i] = Byte.parseByte(String.valueOf(i * 3 + 20));
-            i++;
-        }
         try {
             SyncTeacher syncTeacher = teacherRepository.getTeacherWithFingerPrint(finger);
             if (syncTeacher != null) {
@@ -443,14 +437,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         }
     }
 
-    private void clockOutTeacher() {
+    private void clockOutTeacher(byte[] finger) {
         final ClockOutRepository clockOutRepository = ClockOutRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()));
-        byte[] finger = new byte[30];
-        int i = 0;
-        while (i < 20) {
-            finger[i] = Byte.parseByte(String.valueOf(i * 3 + 20));
-            i++;
-        }
         try {
             SyncTeacher syncTeacher = teacherRepository.getTeacherWithFingerPrint(finger);
             if (syncTeacher != null) {
