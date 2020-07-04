@@ -189,14 +189,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
         if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
             textViewEnroll.setText("Clock In");
-            clockInRepository = MainRepository.getInstance(getApplication()).getClockInRepository();
-            try {
-                syncClockIns = clockInRepository.getClockedInTeachersByDateNoteLiveData(DynamicData.getDate());
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
-            Toast.makeText(FingerPrintActivity.this, "Clock Ins " + String.valueOf(syncClockIns.size())
-                    + "Teachers: " + String.valueOf(syncTeachers.size()), Toast.LENGTH_SHORT).show();
         }
 
         cardViewCapture.setOnClickListener(new View.OnClickListener() {
@@ -222,15 +214,16 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                         // TODO enroll
                         try {
-                            syncTeacher = teacherRepository.getTeacherWithNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID));
+                            byte[] finger = new byte[30];
+                            int i = 0;
+                            while (i < 20) {
+                                finger[i] = Byte.parseByte(String.valueOf(i * 3 + 20));
+                                i++;
+                            }
+                            SyncTeacher syncTeacher1 = teacherRepository.getTeacherWithFingerPrint(finger);
+                            SyncTeacher syncTeacher2 = teacherRepository.getTeacherWithNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID));
+                            syncTeacher = (syncTeacher1 != null ) && (syncTeacher2 != null )? syncTeacher2: null;
                             if (syncTeacher == null ) {
-                                byte[] finger = new byte[30];
-                                int i = 0;
-                                while (i < 20) {
-                                    finger[i] = Byte.parseByte(String.valueOf(i * 3 + 20));
-                                    i++;
-                                }
-
                                 SyncTeacher syncTeacher = new SyncTeacher.Builder()
                                         .setDOB(null)
                                         .setEmailAddress(incomingIntent.getStringExtra(TEACHER_EMAIL))
