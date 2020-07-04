@@ -117,6 +117,13 @@ public class EnrollmentActivity extends AppCompatActivity {
 //                        Toast.makeText(this, result.getFirstName() + " " + result.getLastName(), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
+                        edit_fName.setText("");
+                        edit_lName.setText("");
+                        edit_initials.setText("");
+                        edit_email.setText("");
+                        edit_phone_No.setText("");
+                        edit_nationalID.setText("");
+                        edit_gender.setText("");
                     }
 //                    Toast.makeText(this, "Fixed " + String.valueOf(result), Toast.LENGTH_SHORT).show();
                 } else if ( resultCode == RESULT_CANCELED) {
@@ -124,6 +131,5 @@ public class EnrollmentActivity extends AppCompatActivity {
                 }
             }
         }
-        finish();
     }
 }
