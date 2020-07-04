@@ -46,7 +46,6 @@ public class SyncTeacherUploadWorker extends Worker {
 
             JSONObject params = new JSONObject();
             try {
-                params.put("id",null);
                 params.put("nationalId", teacher.getNationalId());
                 params.put("firstName", teacher.getFirstName());
                 params.put("lastName",teacher.getLastName());
