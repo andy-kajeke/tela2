@@ -144,14 +144,11 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         if(mUsbManager == null) return;
         log("checkDevice");
         HashMap<String , UsbDevice> deviceList = mUsbManager.getDeviceList();
-        Iterator<UsbDevice> deviceIter = deviceList.values().iterator();
-        while(deviceIter.hasNext()){
-            UsbDevice _device = deviceIter.next();
-            if( _device.getVendorId() ==0x16d1 ){
+        for (UsbDevice _device : deviceList.values()) {
+            if (_device.getVendorId() == 0x16d1) {
                 //Suprema vendor ID
                 Toast.makeText(this, "Requesting permission", Toast.LENGTH_LONG).show();
-                mUsbManager.requestPermission(_device , mPermissionIntent);
-            }else{
+                mUsbManager.requestPermission(_device, mPermissionIntent);
             }
         }
     }
@@ -160,7 +157,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        printActivityViewModel = new FingerPrintActivityViewModel(getApplication());
         incomingIntent = getIntent();
         teacherRepository = MainRepository.getInstance(getApplication()).getTeachersRepository();
         syncTeachers = teacherRepository.getTeachers();
@@ -221,20 +217,28 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             @Override
             public void onClick(View v) {
                 syncTeachers = teacherRepository.getTeachers();
-                if (capturedTemplateData != null && capturedImageData != null ) {
+                //if (capturedTemplateData != null && capturedImageData != null ) {
 
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                         // TODO enroll
                         try {
                             syncTeacher = teacherRepository.getTeacherWithNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID));
                             if (syncTeacher == null ) {
+                                byte[] finger = new byte[30];
+                                int i = 0;
+                                while (i < 20) {
+                                    finger[i] = Byte.parseByte(String.valueOf(i * 3 + 20));
+                                    i++;
+                                }
+
                                 SyncTeacher syncTeacher = new SyncTeacher.Builder()
                                         .setDOB(null)
                                         .setEmailAddress(incomingIntent.getStringExtra(TEACHER_EMAIL))
                                         .setLastName(incomingIntent.getStringExtra(TEACHER_LAST_NAME))
                                         .setFirstName(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
                                         //.setFingerImage(BitmapConverter.encodeBitmapToBase64(capturedImageData))
-                                        //.setFingerPrint(capturedTemplateData.data)
+//                                        .setFingerPrint(capturedTemplateData.data)
+                                        .setFingerPrint(finger)
                                         .setGender(incomingIntent.getStringExtra(TEACHER_GENDER))
                                         .setPhoneNumber(incomingIntent.getStringExtra(TEACHER_PHONE_NUMBER))
                                         .setNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID))
@@ -254,6 +258,49 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             e.printStackTrace();
                         }
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
+                        byte[] finger = new byte[30];
+                        int i = 0;
+                        while (i < 20) {
+                            finger[i] = Byte.parseByte(String.valueOf(i * 3 + 20));
+                            i++;
+                        }
+                        try {
+                            SyncTeacher syncTeacher = teacherRepository.getTeacherWithFingerPrint(finger);
+                            if (syncTeacher != null) {
+                                try {
+                                    if (syncTeacher.getEmployeeNumber() == null) {
+                                        Toast.makeText(FingerPrintActivity.this, "Teacher Information Not Yet Ready", Toast.LENGTH_SHORT).show();
+                                        SyncClockIn clockIn = clockInRepository.getSyncClockInByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
+                                    } else {
+                                        SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate()).get(0);
+                                        if (clockIn == null) {
+                                            clockInRepository.synClockInTeacher(new SyncClockIn(
+                                                    syncTeacher.getEmployeeNumber(),
+                                                    syncTeacher.getEmployeeNumber(),
+                                                    syncTeacher.getFirstName(),
+                                                    syncTeacher.getLastName(),
+                                                    DynamicData.getLatitude(),
+                                                    DynamicData.getLongitude(),
+                                                    DynamicData.getDate(),
+                                                    DynamicData.getDay(),
+                                                    DynamicData.getTime(),
+                                                    DynamicData.getSchoolID()
+                                            ));
+                                            Toast.makeText(FingerPrintActivity.this, "Clocked In SuccessFully", Toast.LENGTH_SHORT).show();
+                                        } else  {
+                                            Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                } catch (ExecutionException | InterruptedException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(FingerPrintActivity.this, "There was Errors", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(FingerPrintActivity.this, "No Records Found", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (ExecutionException | InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         SyncTeacher syncTeacher = null;
                         boolean isClockedIn = false;
                         for(SyncTeacher teacher: syncTeachers) {
@@ -266,45 +313,13 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             }
                         }
 
-                        if (syncTeacher != null) {
-                            try {
-                                if (syncTeacher.getEmployeeNumber() == null) {
-                                    Toast.makeText(FingerPrintActivity.this, "Teacher Information Not Yet Ready", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate()).get(0);
-                                    if (clockIn == null) {
-                                        clockInRepository.synClockInTeacher(new SyncClockIn(
-                                                syncTeacher.getEmployeeNumber(),
-                                                syncTeacher.getEmployeeNumber(),
-                                                syncTeacher.getFirstName(),
-                                                syncTeacher.getLastName(),
-                                                DynamicData.getLatitude(),
-                                                DynamicData.getLongitude(),
-                                                DynamicData.getDate(),
-                                                DynamicData.getDay(),
-                                                DynamicData.getTime(),
-                                                DynamicData.getSchoolID()
-                                        ));
-                                        Toast.makeText(FingerPrintActivity.this, "Clocked In SuccessFully", Toast.LENGTH_SHORT).show();
-                                    } else  {
-                                        Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            } catch (ExecutionException | InterruptedException e) {
-                                e.printStackTrace();
-                                Toast.makeText(FingerPrintActivity.this, "There was Errors", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(FingerPrintActivity.this, "No Records Found", Toast.LENGTH_SHORT).show();
-                        }
-
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
                         textViewEnroll.setText("Clock In");
                     }
 
-                } else {
-                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
-                }
+//                } else {
+//                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
