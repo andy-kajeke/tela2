@@ -52,7 +52,13 @@ public class ClockOutRepository {
         return syncClockOutDao.getAllClockOuts();
     }
 
-    public SyncClockOut getSyncClockOutByFingerPrintAndDate(byte[] fingerPrint, String date) {
-        return null;
+    public SyncClockOut getSyncClockOutByFingerPrintAndDate(final byte[] fingerPrint, final String date) throws ExecutionException, InterruptedException {
+        Callable<SyncClockOut> callable = new Callable<SyncClockOut>() {
+            @Override
+            public SyncClockOut call() throws Exception {
+                return syncClockOutDao.getSyncClockOutByFingerPrintAndDate(fingerPrint, date);
+            }
+        };
+        return TelaRoomDatabase.db_executor.submit(callable).get();
     }
 }
