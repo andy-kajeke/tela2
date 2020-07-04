@@ -482,7 +482,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         }
     }
 
-    private void saveClockOut(SyncClockOut clockOut, byte[] finger, ClockOutRepository clockOutRepository, SyncTeacher teacher) {
+    private void saveClockOut(SyncClockOut clockOut, byte[] fingerPrint, ClockOutRepository clockOutRepository, SyncTeacher teacher) {
         if (clockOut == null) {
             clockOutRepository.insertSynClockOut(new SyncClockOut(
                     DynamicData.getDate(),
@@ -496,7 +496,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     DynamicData.getSchoolID(),
                     DynamicData.getSchoolName(),
                     teacher.getFirstName(),
-                    teacher.getLastName()
+                    teacher.getLastName(),
+                    fingerPrint
             ));
             Toast.makeText(FingerPrintActivity.this, "Clocked Out SuccessFully", Toast.LENGTH_SHORT).show();
         } else  {

@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.planetsystems.tela.data.ClockIn.SyncClockInTableConstants;
+import java.util.Arrays;
 
 @Entity(tableName = SyncClockOutTableConstant.TABLE_NAME)
 public class SyncClockOut {
@@ -54,6 +54,9 @@ public class SyncClockOut {
 
     @ColumnInfo(name = SyncClockOutTableConstant.IS_UPLOADED_COLUMN_NAME)
     private boolean isUploaded;
+
+    @ColumnInfo(name = SyncClockOutTableConstant.FINGER_PRINT_COLUMN_NAME)
+    private final byte[] fingerPrint;
 
     public int getPrimaryKey() {
         return primaryKey;
@@ -161,7 +164,7 @@ public class SyncClockOut {
         this.lastName = lastName;
     }
 
-    public SyncClockOut(String date, String day, String time, String comment, @NonNull String employeeNo, String employeeId, String latitude, String longitude, String schoolId, String schoolName, String firstName, String lastName) {
+    public SyncClockOut(String date, String day, String time, String comment, @NonNull String employeeNo, String employeeId, String latitude, String longitude, String schoolId, String schoolName, String firstName, String lastName, byte[] fingerPrint) {
         this.date = date;
         this.day = day;
         this.time = time;
@@ -175,6 +178,7 @@ public class SyncClockOut {
         this.firstName = firstName;
         this.lastName = lastName;
         this.isUploaded = false;
+        this.fingerPrint = fingerPrint;
     }
 
     public boolean isUploaded() {
@@ -183,6 +187,10 @@ public class SyncClockOut {
 
     public void setUploaded(boolean uploaded) {
         isUploaded = uploaded;
+    }
+
+    public byte[] getFingerPrint() {
+        return fingerPrint;
     }
 
     @Override
@@ -202,6 +210,7 @@ public class SyncClockOut {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", isUploaded=" + isUploaded +
+                ", fingerPrint=" + Arrays.toString(fingerPrint) +
                 '}';
     }
 }
