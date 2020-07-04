@@ -392,7 +392,16 @@ public class ClockInAndOutActivity extends AppCompatActivity {
                     } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                     }
-
+                case START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT:
+                    try {
+                        SyncTeacher syncTeacher = TeacherRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()))
+                                .getTeacherWithEmployeeNumber(data.getStringExtra(FingerPrintActivity.EMPLOYEEE_NUMBER));
+                        if (syncTeacher != null) {
+                            loadTeacherHomePage(syncTeacher);
+                        }
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 default:
                     Toast.makeText(this, "Unknown Error", Toast.LENGTH_LONG).show();
             }
