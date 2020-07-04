@@ -41,14 +41,17 @@ public interface SyncTeacherDao {
             "SELECT * FROM " +
             SyncTeacherTableConstants.TABLE_NAME +
             " WHERE " +
-            SyncTeacherTableConstants.ID_COLUMN_NAME +
-            " =:id AND " +
+            SyncTeacherTableConstants.EMPLOYEE_NUMBER_COLUMN_NAME +
+            " =:employeeNumber AND " +
             SyncTeacherTableConstants.NATIONAL_ID_COLUMN_NAME +
-            " =:nationalID "
+            " =:nationalID AND " + SyncTeacherTableConstants.ID_COLUMN_NAME
+            + " =:id  AND " + SyncTeacherTableConstants.IS_STORED_LOCALLY + " =:isStoredLocally"
     )
     SyncTeacher getSyncTeacher(
+            String employeeNumber,
+            String nationalID,
             String id,
-            String nationalID
+            boolean isStoredLocally
     );
 
     @Query("SELECT * FROM " +
