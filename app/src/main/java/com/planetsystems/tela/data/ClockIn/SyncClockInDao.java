@@ -46,7 +46,7 @@ public interface SyncClockInDao {
             + SyncClockInTableConstants.COLUMN_EMPLOYEE_NUMBER
             + " =:employeeNumber"
     )
-    List<SyncClockIn> getSyncClockInByEmployeeIDAndDate(String employeeNumber, String date);
+    SyncClockIn getSyncClockInByEmployeeIDAndDate(String employeeNumber, String date);
 
     @Query(
             "SELECT * FROM "

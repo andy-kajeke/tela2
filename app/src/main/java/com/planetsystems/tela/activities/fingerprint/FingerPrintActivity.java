@@ -435,7 +435,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                         SyncClockIn clockIn = clockInRepository.getSyncClockInByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
                         saveClockIn(clockIn, finger, clockInRepository); // save clock in finger print
                     } else {
-                        SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate()).get(0);
+                        SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate());
                         saveClockIn(clockIn, finger, clockInRepository); // clock teacher since there is no clock in today
                     }
                 } catch (ExecutionException | InterruptedException e) {
