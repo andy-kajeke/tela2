@@ -177,6 +177,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         textViewCapture = findViewById(R.id.textViewCapture);
         textViewEnroll = findViewById(R.id.textViewEnroll);
         fingerprintImageView = findViewById(R.id.imageViewFingerPrint);
+        cardViewCapture.setVisibility(View.GONE);
 
 
 
@@ -187,7 +188,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         restartBioMini();
         if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
             // removed enroll button and change the with or cap
-            cardViewCapture.setVisibility(View.INVISIBLE);
             textViewEnroll.setText(R.string.clock_out);
         }
 
