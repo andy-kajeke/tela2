@@ -2,6 +2,7 @@ package com.planetsystems.tela.workers.upload;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -67,6 +68,7 @@ public class SyncTeacherUploadWorker extends Worker {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
+                        Log.d(getClass().getSimpleName(), "LOADING some data in the DB");
                         JSONObject teacher = response.getJSONObject("teacher");
                         SyncTeacher syncTeacher = new SyncTeacher.Builder()
                                 .setSchoolID(teacher.getString("schoolId"))
@@ -86,45 +88,16 @@ public class SyncTeacherUploadWorker extends Worker {
                                 .setIsStoredLocally(false)
                                 .build();
                         syncTeacherDao.updateStaff(syncTeacher);
-                        Log.d(getClass().getSimpleName(), "Teacher Updated");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    // date sent
-//                    {
-//                        "nationalId":"Tyjjkkknbb",
-//                            "firstName":"Simon",
-//                            "licensed":false,
-//                            "phoneNumber":"Male",
-//                            "emailAddress":"Simon",
-//                            "gender":"Male"
-//                    }
-                    // data received
-//                    {
-//                        "message":"Staff enrolled successfully",
-//                            "response":true,
-//                            "teacher":{
-//                            "MPSComputerNumber":"",
-//                                "emailAddress":"Simon",
-//                                "employeeNumber":"406269",
-//                                "firstName":"Simon",
-//                                "gender":"Male",
-//                                "id":"",
-//                                "initials":"",
-//                                "lastName":"",
-//                                "licensed":false,
-//                                "nationalId":"Tyjjkkknbb",
-//                                "phoneNumber":"Male",
-//                                "role":"",
-//                                "schoolId":"2c91808670e77b5a0170e77cf7520001"
-//                        }
-//                    }
                     Log.d("Response", response.toString());
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.d("Response", error.toString());
+                    Toast.makeText(getApplicationContext(), "Error Enrolling Teacher", Toast.LENGTH_SHORT).show();
                     haveError[0] = true;
                 }
             });
