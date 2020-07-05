@@ -421,7 +421,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
     private SyncClockIn getSyncClockInByFingerPrintAndDate(byte[] fingerPrint, String date) {
         SyncClockIn clockIn;
-        List<SyncClockIn> syncClockIns = teacherRepository.getSyncClockInByDate(date);
+        List<SyncClockIn> syncClockIns = ClockInRepository.getInstance(TelaRoomDatabase.getInstance(this))
+                .getClockInByDate(date);
         for (SyncClockIn clock: syncClockIns) {
             if (mCurrentDevice.verify(fingerPrint, clock.getFingerPrint())) {
                 clockIn = clock;

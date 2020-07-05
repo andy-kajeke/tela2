@@ -78,4 +78,15 @@ public class ClockInRepository {
 
         return TelaRoomDatabase.db_executor.submit(callable).get();
     }
+
+    public List<SyncClockIn> getClockInByDate(final String date) throws ExecutionException, InterruptedException {
+        Callable<List<SyncClockIn>> callable = new Callable<List<SyncClockIn>>() {
+            @Override
+            public List<SyncClockIn> call() throws Exception {
+                return syncClockInDao.getSyncClockInsByDate(date);
+            }
+        };
+
+        return TelaRoomDatabase.db_executor.submit(callable).get();
+    }
 }

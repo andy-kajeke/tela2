@@ -132,14 +132,4 @@ public class TeacherRepository {
         Future<SyncTeacher> future = TelaRoomDatabase.db_executor.submit(callable);
         return  future.get();
     }
-
-    public List<SyncClockIn> getSyncClockInByDate(String date) {
-        Callable<List<SyncClockIn>> callable = new Callable<List<SyncClockIn>>() {
-            @Override
-            public List<SyncClockIn> call() throws Exception {
-                return syncTeacherDao.getClockInByDate(date);
-            }
-        };
-        return TelaRoomDatabase.db_executor.submit(callable).get();
-    }
 }

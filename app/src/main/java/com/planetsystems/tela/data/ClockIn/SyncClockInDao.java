@@ -59,7 +59,6 @@ public interface SyncClockInDao {
 
     @Update
     void updateSyncClockIn(SyncClockIn syncClockIn);
-
     @Query("SELECT * FROM "
             + SyncClockInTableConstants.TABLE_NAME
             + " WHERE "
@@ -70,4 +69,8 @@ public interface SyncClockInDao {
             + " =:fingerPrint"
     )
     SyncClockIn getSynClickWithFingerprintAndDate(byte[] fingerPrint, String date);
+
+    @Query("SELECT * FROM " + SyncClockInTableConstants.TABLE_NAME + " WHERE "
+    + SyncClockInTableConstants.COLUMN_DAY + " =:date")
+    List<SyncClockIn> getSyncClockInsByDate(String date);
 }

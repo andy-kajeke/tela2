@@ -2,6 +2,7 @@ package com.planetsystems.tela.data.clockOut;
 
 import androidx.lifecycle.LiveData;
 
+import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 
 import java.util.List;
@@ -61,4 +62,5 @@ public class ClockOutRepository {
         };
         return TelaRoomDatabase.db_executor.submit(callable).get();
     }
+
 }
