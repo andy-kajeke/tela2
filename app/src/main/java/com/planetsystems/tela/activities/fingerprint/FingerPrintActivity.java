@@ -208,39 +208,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                 if (capturedTemplateData != null && capturedImageData != null ) {
 
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
-                        // TODO enroll
-                        try {
-                            byte[] data = { 10, 37, 12, 89, 24, 23, 12, 78, 34};
-//                            clockOutTeacher(data);
-                            SyncTeacher syncTeacher1 = getTeacherWithFingerPrint(data);
-                            SyncTeacher syncTeacher2 = teacherRepository.getTeacherWithNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID));
-                            syncTeacher = (syncTeacher1 != null ) || (syncTeacher2 != null )? syncTeacher2: null;
-                            if (syncTeacher == null ) {
-                                SyncTeacher syncTeacher = new SyncTeacher.Builder()
-                                        .setDOB(null)
-                                        .setEmailAddress(incomingIntent.getStringExtra(TEACHER_EMAIL))
-                                        .setLastName(incomingIntent.getStringExtra(TEACHER_LAST_NAME))
-                                        .setFirstName(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
-                                        //.setFingerImage(BitmapConverter.encodeBitmapToBase64(capturedImageData))
-                                        .setFingerPrint(capturedTemplateData.data)
-                                        .setGender(incomingIntent.getStringExtra(TEACHER_GENDER))
-                                        .setPhoneNumber(incomingIntent.getStringExtra(TEACHER_PHONE_NUMBER))
-                                        .setNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID))
-                                        .setLicensed(incomingIntent.getBooleanExtra(TEACHER_LICENSED, false))
-                                        .setInitials(incomingIntent.getStringExtra(TEACHER_INITIALS))
-                                        .setRole("Teacher")
-                                        .setDOB(new Date().toString())
-                                        .setSchoolID(DynamicData.getSchoolID())
-                                        .build();
-                                teacherRepository.insertSyncTeacher(syncTeacher);
-                                Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully ", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (InterruptedException | ExecutionException e) {
-                            Toast.makeText(FingerPrintActivity.this, "Error Enrolling Teacher", Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        }
+                        enrollTeacher();
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
                         clockInTeacher(capturedTemplateData.data);
 //                        byte[] data = { 10, 37, 12, 89, 24, 23, 12, 78, 34};
@@ -259,6 +227,40 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         });
 
         printRev(""+mBioMiniFactory.getSDKInfo());
+    }
+
+    private void enrollTeacher() {
+        // TODO enroll
+        try {
+            SyncTeacher syncTeacher1 = getTeacherWithFingerPrint(capturedTemplateData.data);
+            SyncTeacher syncTeacher2 = teacherRepository.getTeacherWithNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID));
+            syncTeacher = (syncTeacher1 != null ) || (syncTeacher2 != null )? syncTeacher2: null;
+            if (syncTeacher == null ) {
+                SyncTeacher syncTeacher = new SyncTeacher.Builder()
+                        .setDOB(null)
+                        .setEmailAddress(incomingIntent.getStringExtra(TEACHER_EMAIL))
+                        .setLastName(incomingIntent.getStringExtra(TEACHER_LAST_NAME))
+                        .setFirstName(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
+                        //.setFingerImage(BitmapConverter.encodeBitmapToBase64(capturedImageData))
+                        .setFingerPrint(capturedTemplateData.data)
+                        .setGender(incomingIntent.getStringExtra(TEACHER_GENDER))
+                        .setPhoneNumber(incomingIntent.getStringExtra(TEACHER_PHONE_NUMBER))
+                        .setNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID))
+                        .setLicensed(incomingIntent.getBooleanExtra(TEACHER_LICENSED, false))
+                        .setInitials(incomingIntent.getStringExtra(TEACHER_INITIALS))
+                        .setRole("Teacher")
+                        .setDOB(new Date().toString())
+                        .setSchoolID(DynamicData.getSchoolID())
+                        .build();
+                teacherRepository.insertSyncTeacher(syncTeacher);
+                Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully ", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_SHORT).show();
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            Toast.makeText(FingerPrintActivity.this, "Error Enrolling Teacher", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 
     void handleDevChange(IUsbEventHandler.DeviceChangeEvent event, Object dev) {
