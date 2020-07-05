@@ -206,20 +206,13 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             @Override
             public void onClick(View v) {
                 if (capturedTemplateData != null && capturedImageData != null ) {
-
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                         enrollTeacher();
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
                         clockInTeacher(capturedTemplateData.data);
-//                        byte[] data = { 10, 37, 12, 89, 24, 23, 12, 78, 34};
-//                        clockOutTeacher(data);
-
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
                         clockOutTeacher(capturedTemplateData.data);
-//                        byte[] data = { 10, 37, 12, 89, 24, 23, 12, 78, 34};
-//                        clockOutTeacher(data);
                     }
-
                 } else {
                     Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
                 }
