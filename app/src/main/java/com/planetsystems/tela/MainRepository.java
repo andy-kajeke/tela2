@@ -26,6 +26,7 @@ import com.planetsystems.tela.data.timeOnTask.TimeOnTaskRepository;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
 import com.planetsystems.tela.data.timetable.TimeTableRepository;
+import com.planetsystems.tela.logs.ExecutionLogRepository;
 
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class MainRepository {
     private HelpRequestRepository helpRequestRepository;
     private ConfirmTimeOnTaskRepository confirmTimeOnTaskRepository;
     private SmcRepository smcRepository;
+    private ExecutionLogRepository executionLogRepository;
 
     private MainRepository(Application application) {
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(application);
@@ -63,6 +65,7 @@ public class MainRepository {
         helpRequestRepository = HelpRequestRepository.getInstance(telaRoomDatabase);
         confirmTimeOnTaskRepository = ConfirmTimeOnTaskRepository.getInstance(telaRoomDatabase);
         smcRepository = SmcRepository.getInstance(telaRoomDatabase);
+        executionLogRepository = ExecutionLogRepository.getInstance(telaRoomDatabase);
 
     }
 
@@ -124,4 +127,8 @@ public class MainRepository {
     public HelpRequestRepository getHelpRequestRepository() { return helpRequestRepository; }
 
     public SmcRepository getSmcRepository() { return smcRepository; }
+
+    public ExecutionLogRepository getExecutionLogRepository() {
+        return executionLogRepository;
+    }
 }
