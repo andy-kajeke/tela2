@@ -23,7 +23,6 @@ import java.util.List;
 @SuppressWarnings("ALL")
 public class SyncTeacherTimeOnTaskAttendanceUploadWorker extends Worker {
     SynTimeOnTaskDao synTimeOnTaskDao;
-    TeacherHomeActivity teacherHomeActivity = new TeacherHomeActivity();
     public SyncTeacherTimeOnTaskAttendanceUploadWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(context);
