@@ -30,6 +30,7 @@ import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.clockInWithEmployeeNumber.ClockInWithEmployeeNumberActivity;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
+import com.planetsystems.tela.activities.logs.LogActivity;
 import com.planetsystems.tela.activities.staff.smc.SmcActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
 import com.planetsystems.tela.constants.Role;
@@ -141,6 +142,9 @@ public class ClockInAndOutActivity extends AppCompatActivity {
 
             case R.id.testing:
                 startActivity(new Intent(this, TestActivity.class));
+
+            case R.id.checkLogs:
+                startActivity(new Intent(this, LogActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
