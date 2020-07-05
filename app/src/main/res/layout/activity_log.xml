@@ -8,7 +8,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:background="@color/executionLogBackground"
         android:padding="12dp"
+        tools:itemCount="100"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:listitem="@layout/execution_log_item"
         android:id="@+id/execution_log_recyclerview"/>
 </LinearLayout>
