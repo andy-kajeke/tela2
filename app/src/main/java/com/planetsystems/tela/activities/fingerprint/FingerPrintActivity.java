@@ -33,6 +33,8 @@ import com.planetsystems.tela.data.Teacher.TeacherRepository;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
+import com.planetsystems.tela.data.logs.ExecutionLog;
+import com.planetsystems.tela.data.logs.ExecutionLogRepository;
 import com.planetsystems.tela.utils.BitmapConverter;
 import com.planetsystems.tela.utils.DynamicData;
 import com.suprema.BioMiniFactory;
@@ -93,6 +95,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     private TextView textViewCapture, textViewEnroll;
     private ImageView fingerprintImageView;
     private TeacherRepository teacherRepository;
+    private ExecutionLogRepository executionLogRepository;
     private SyncTeacher syncTeacher;
     private List<SyncClockIn> syncClockIns;
 
@@ -115,6 +118,14 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             @Override
             public void run() {
 //                ((TextView) findViewById(R.id.revText)).setText(msg);
+                executionLogRepository.logMessage(
+                        new ExecutionLog(msg,
+                                DynamicData.getDate(),
+                                DynamicData.getTime(),
+                                getClass().getSimpleName(),
+                                DynamicData.getSchoolID(),
+                                DynamicData.getSchoolName())
+                );
             }
         });
     }
@@ -130,10 +141,25 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             if( mBioMiniFactory == null) return;
                             mBioMiniFactory.addDevice(device);
                             log(String.format(Locale.ENGLISH ,"Initialized device count- BioMiniFactory (%d)" , mBioMiniFactory.getDeviceCount() ));
+                            executionLogRepository.logMessage(
+                                    new ExecutionLog(String.format(Locale.ENGLISH, "Initialized device count- BioMiniFactory (%d)" , mBioMiniFactory.getDeviceCount()),
+                                            DynamicData.getDate(),
+                                            DynamicData.getTime(),
+                                            getClass().getSimpleName(),
+                                            DynamicData.getSchoolID(),
+                                            DynamicData.getSchoolName()));
                         }
                     }
                     else{
                         Log.d(TAG, "permission denied for device"+ device);
+                        executionLogRepository.logMessage(
+                                new ExecutionLog("permission denied for device"+ device,
+                                        DynamicData.getDate(),
+                                        DynamicData.getTime(),
+                                        getClass().getSimpleName(),
+                                        DynamicData.getSchoolID(),
+                                        DynamicData.getSchoolName())
+                        );
                     }
                 }
             }
@@ -141,12 +167,14 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     };
 
     public void checkDevice(){
+        Log_Message("Checking the device");
         if(mUsbManager == null) return;
         log("checkDevice");
         HashMap<String , UsbDevice> deviceList = mUsbManager.getDeviceList();
         for (UsbDevice _device : deviceList.values()) {
             if (_device.getVendorId() == 0x16d1) {
                 //Suprema vendor ID
+                Log_Message("Requesting Permission");
                 Toast.makeText(this, "Requesting permission", Toast.LENGTH_LONG).show();
                 mUsbManager.requestPermission(_device, mPermissionIntent);
             }
@@ -193,6 +221,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             @Override
             public void onClick(View v) {
                 if(mCurrentDevice != null) {
+                    Log_Message("Bio Mini device available capturing fingerprint");
                     //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
                     mCurrentDevice.captureSingle(
                             mCaptureOptionDefault,
@@ -207,11 +236,15 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             @Override
             public void onClick(View v) {
                 //if (capturedTemplateData != null && capturedImageData != null ) {
+                    Log_Message("Captured template exist and image");
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
+                        Log_Message("Enrollment action");
                         enrollTeacher(fakeFingerPrint, teacherRepository, incomingIntent.getStringExtra(TEACHER_NATIONAL_ID));
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
+                        Log_Message("Clock In action");
                         clockInTeacher(fakeFingerPrint);
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
+                        Log_Message("Action Clock Out");
                         clockOutTeacher(fakeFingerPrint);
                     }
                 //} else {
@@ -225,12 +258,15 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
     private void enrollTeacher(byte[] fingerprint, TeacherRepository teacherRepository, String nationalID) {
         // TODO enroll
+        Log_Message("Enrolling Teacher");
         try {
             SyncTeacher syncTeacher1 = getTeacherWithFingerPrint(fingerprint);
             SyncTeacher syncTeacher2 = teacherRepository.getTeacherWithNationalID(nationalID);
             if (syncTeacher1 == null ) {
+                Log_Message("Found Teacher with finger print of size - " + String.valueOf(fingerprint.length));
                 // already enrolled
                 if (syncTeacher2 == null ) {
+                    Log_Message("Found Teacher with ID and Enrolling");
                     SyncTeacher syncTeacher = new SyncTeacher.Builder()
                             .setDOB(null)
                             .setEmailAddress(incomingIntent.getStringExtra(TEACHER_EMAIL))
@@ -249,15 +285,18 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             .build();
                     teacherRepository.insertSyncTeacher(syncTeacher);
                     Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully ", Toast.LENGTH_SHORT).show();
+                    Log_Message("Teacher Enrolled Successfully");
                 }
             }
         } catch (InterruptedException | ExecutionException e) {
             Toast.makeText(FingerPrintActivity.this, "Error Enrolling Teacher", Toast.LENGTH_LONG).show();
+            Log_Message("Error have occurred :- " + e.toString());
             e.printStackTrace();
         }
     }
 
     void handleDevChange(IUsbEventHandler.DeviceChangeEvent event, Object dev) {
+        Log_Message("Device Changing and handling it");
         if (event == IUsbEventHandler.DeviceChangeEvent.DEVICE_ATTACHED && mCurrentDevice == null) {
             new Thread(new Runnable() {
                 @Override
@@ -270,6 +309,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     if (mBioMiniFactory != null) {
                         mCurrentDevice = mBioMiniFactory.getDevice(0);
                         printState(getResources().getText(R.string.device_attached));
+                        Log_Message("mCurrentDevice attached : " + mCurrentDevice);
                         Log.d(TAG, "mCurrentDevice attached : " + mCurrentDevice);
                         if (mCurrentDevice != null /*&& mCurrentDevice.getDeviceInfo() != null*/) {
                             log(" DeviceName : " + mCurrentDevice.getDeviceInfo().deviceName);
@@ -287,7 +327,9 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     }
 
     void restartBioMini() {
+        Log_Message("Restarting Bio Mini");
         if(mBioMiniFactory != null) {
+            Log_Message("Closing Bio Mini Factory");
             mBioMiniFactory.close();
         }
         if( mbUsbExternalUSBManager ){
@@ -296,6 +338,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                 @Override
                 public void onDeviceChange(DeviceChangeEvent event, Object dev) {
                     log("----------------------------------------");
+                    Log_Message("onDeviceChange : " + event + " using external usb-manager");
                     log("onDeviceChange : " + event + " using external usb-manager");
                     log("----------------------------------------");
                     handleDevChange(event, dev);
@@ -310,6 +353,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             mBioMiniFactory = new BioMiniFactory(mainContext) {
                 @Override
                 public void onDeviceChange(DeviceChangeEvent event, Object dev) {
+                    Log_Message("Device Changing : " + event);
                     log("----------------------------------------");
                     log("onDeviceChange : " + event);
                     log("----------------------------------------");
@@ -322,10 +366,12 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     @Override
     protected void onDestroy() {
         if (mBioMiniFactory != null) {
+            Log_Message("Un Registering the device and nulling factory");
             mBioMiniFactory.close();
             mBioMiniFactory = null;
         }
         if( mbUsbExternalUSBManager ){
+            Log_Message("Un registering the receiver");
             unregisterReceiver(mUsbReceiver);
         }
         super.onDestroy();
@@ -333,6 +379,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
     private void requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Log_Message("Requesting Permission");
             requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},  REQUEST_WRITE_PERMISSION);
         }
     }
@@ -340,10 +387,12 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == REQUEST_WRITE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             log("permission granted");
+            Log_Message("Permission Granted");
         }
     }
     @Override
     public void onPostCreate(Bundle savedInstanceState){
+        Log_Message("Post Created asking for permission");
         requestPermission();
         super.onPostCreate(savedInstanceState);
     }
@@ -355,6 +404,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
     @Override
     public boolean onFingerPrintCaptureResponseCaptureEx(Object contest, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
+            Log_Message("Captured Fingerprint successfully");
             log("onCapture : Capture successful!");
             printState(getResources().getText(R.string.capture_single_ok));
             capturedTemplateData = templateData;
@@ -365,6 +415,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                 @Override
                 public void run() {
                     if (capturedImageData != null) {
+                        Log_Message("Captured Image is displayed");
                         fingerprintImageView.setImageBitmap(capturedImageData);
                     }
                 }
@@ -375,12 +426,16 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     @Override
     public void onFingerPrintCaptureResponseCaptureError(Object contest, int errorCode, String errorMessage) {
         log("onCaptureError : " + errorCode + " ErrorCode :" + errorCode);
+        Log_Message("Error During Capturing fingerprint - " + errorMessage);
         if( errorCode != IBioMiniDevice.ErrorCode.OK.value())
+            Log_Message(getResources().getText(R.string.capture_single_fail) + "("+errorMessage+")");
             printState(getResources().getText(R.string.capture_single_fail) + "("+errorMessage+")");
     }
 
     public void saveClockIn(SyncClockIn clockIn, byte[] finger, ClockInRepository clockInRepository, SyncTeacher syncTeacher) {
+        Log_Message("Saving Clock In");
         if (clockIn == null) {
+            Log_Message("Clock In not Null");
             clockInRepository.synClockInTeacher(new SyncClockIn(
                     syncTeacher.getEmployeeNumber(),
                     syncTeacher.getEmployeeNumber(),
@@ -394,8 +449,10 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     DynamicData.getSchoolID(),
                     finger
             ));
+            Log_Message("teacher clocked in successfully");
             Toast.makeText(FingerPrintActivity.this, "Clocked In SuccessFully", Toast.LENGTH_SHORT).show();
         } else  {
+            Log_Message("Teacher already clocked in finishing activity");
             Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
         }
         Intent intent = new Intent();
@@ -406,55 +463,70 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     }
 
     private void clockInTeacher(byte[] finger) {
+        Log_Message("Clocking teacher with fingerprint");
         final ClockInRepository clockInRepository = ClockInRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()));
         SyncTeacher syncTeacher = getTeacherWithFingerPrint(finger);
         if (syncTeacher != null) {
+            Log_Message("Teacher With Finger print found");
             try {
                 if (syncTeacher.getEmployeeNumber() == null) {
+                    Log_Message("Teacher have not Employee number");
                     SyncClockIn clockIn = getSyncClockInByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
                     saveClockIn(clockIn, finger, clockInRepository, syncTeacher); // save clock in finger print
                 } else {
+                    Log_Message("Teacher have employee Number");
                     SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate());
                     saveClockIn(clockIn, finger, clockInRepository, syncTeacher); // clock teacher since there is no clock in today
                 }
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
+                Log_Message("There was error - " + e.toString());
                 Toast.makeText(FingerPrintActivity.this, "There was Errors", Toast.LENGTH_SHORT).show();
             }
         } else {
+            Log_Message("No record Found for fingerprint");
             Toast.makeText(FingerPrintActivity.this, "No Records Found", Toast.LENGTH_SHORT).show();
         }
     }
 
     private SyncClockIn getSyncClockInByFingerPrintAndDate(byte[] fingerPrint, String date) {
+        Log_Message("Find clock in By Fingerprint and Date");
         SyncClockIn clockIn = null;
         List<SyncClockIn> syncClockIns = null;
         try {
             syncClockIns = ClockInRepository.getInstance(TelaRoomDatabase.getInstance(this))
                     .getClockInByDate(date);
             if (mCurrentDevice != null) {
+                Log_Message("BioMini device Not Null");
                 for (SyncClockIn clock: syncClockIns) {
                     if (mCurrentDevice.verify(fingerPrint, clock.getFingerPrint())) {
+                        Log_Message("Teacher found");
                         clockIn = clock;
                         break;
                     }
                 }
             } else {
+                Log_Message("Device Not Connected");
                 Toast.makeText(this, "Device Not Connected", Toast.LENGTH_SHORT).show();
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
+            Log_Message("There was error, app crushed");
         }
+        Log_Message("Clock In - " + String.valueOf(clockIn != null));
         return clockIn;
     }
 
     private SyncTeacher getTeacherWithFingerPrint(byte[] finger) {
+        Log_Message("Getting Teacher With Fingerprint");
         SyncTeacher teacher = null;
         List<SyncTeacher> syncTeachers = teacherRepository.getTeachers();
         //if (mCurrentDevice != null) {
+            Log_Message("BioMini Device Not Null");
             for (SyncTeacher syncTeacher: syncTeachers) {
 //                if (mCurrentDevice.verify(finger, syncTeacher.getFingerPrint())) {
                 if (Arrays.equals(finger, syncTeacher.getFingerPrint())) {
+                    Log_Message("Found Teacher with a given Fingerprint");
                     teacher = syncTeacher;
                     break;
                 }
@@ -462,52 +534,65 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 //        } else {
 //            Toast.makeText(this, "Device Removed", Toast.LENGTH_SHORT).show();
 //        }
+        Log_Message("Teacher of Fingerprint - " + String.valueOf(teacher != null ));
         return teacher;
     }
 
     private void clockOutTeacher(byte[] finger) {
+        Log_Message("Clocking Out Teacher");
         final ClockOutRepository clockOutRepository = ClockOutRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()));
         SyncTeacher syncTeacher = getTeacherWithFingerPrint(finger);
         if (syncTeacher != null) {
+            Log_Message("Teacher With Fingerprint Found");
             try {
                 if (syncTeacher.getEmployeeNumber() == null) {
+                    Log_Message("Teacher has No Employee Number");
                     SyncClockOut clockOut = getSyncClockOutByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
                     saveClockOut(clockOut, finger, clockOutRepository, syncTeacher); // save clock in finger print
                 } else {
+                    Log_Message("Teacher has Employee Number");
                     SyncClockOut clockOut = clockOutRepository.getSyncClockOutByEmployeeNumberAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate());
                     saveClockOut(clockOut, finger, clockOutRepository, syncTeacher); // clock teacher since there is no clock in today
                 }
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
+                Log_Message("There was error");
                 Toast.makeText(FingerPrintActivity.this, "There was Errors", Toast.LENGTH_SHORT).show();
             }
         } else {
+            Log_Message("No Teacher Found with Finger Print");
             Toast.makeText(FingerPrintActivity.this, "No Records Found", Toast.LENGTH_SHORT).show();
         }
     }
 
     private SyncClockOut getSyncClockOutByFingerPrintAndDate(byte[] fingerPrint, String date) {
+        Log_Message("Finding ClockOut By Fingerprint for Today");
         List<SyncClockOut> syncClockOuts = null;
         SyncClockOut clockOut = null;
         try {
             syncClockOuts = ClockOutRepository.getInstance(TelaRoomDatabase.getInstance(this)).getClockOutsByDate(date);
             if ( mCurrentDevice != null) {
+                Log_Message("BioMini device is Available");
                 for (SyncClockOut clock: syncClockOuts) {
                     if (mCurrentDevice.verify(clock.getFingerPrint(), fingerPrint)) {
+                        Log_Message("Clocked Out Found breaking the loop");
                         clockOut = clock;
                         break;
                     }
                 }
             } else  {
                 Toast.makeText(FingerPrintActivity.this, "Device Disconnected", Toast.LENGTH_SHORT).show();
+                Log_Message("BioMini Device Not Available");
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+        Log_Message("Clocked Out -" + String.valueOf(clockOut == null));
         return clockOut;
     }
 
     private void saveClockOut(SyncClockOut clockOut, byte[] fingerPrint, ClockOutRepository clockOutRepository, SyncTeacher teacher) {
+        Log_Message("About to Clock Out");
         if (clockOut == null) {
             clockOutRepository.insertSynClockOut(new SyncClockOut(
                     DynamicData.getDate(),
@@ -525,14 +610,27 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     fingerPrint
             ));
             Toast.makeText(FingerPrintActivity.this, "Clocked Out SuccessFully", Toast.LENGTH_SHORT).show();
+            Log_Message("Clocked Out SuccessFully");
         } else  {
             Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
+            Log_Message("Teacher Already Clocked In");
         }
         Intent intent = new Intent();
         intent.putExtra(TEACHER_ROLE, teacher.getRole());
         setResult(RESULT_OK, intent);
         intent.putExtra(EMPLOYEEE_NUMBER, teacher.getEmployeeNumber());
         finish();
+    }
+
+    public void Log_Message(String message) {
+        executionLogRepository.logMessage(
+                new ExecutionLog(message,
+                        DynamicData.getDate(),
+                        DynamicData.getTime(),
+                        getClass().getSimpleName(),
+                        DynamicData.getSchoolID(),
+                        DynamicData.getSchoolName())
+        );
     }
 }
 
