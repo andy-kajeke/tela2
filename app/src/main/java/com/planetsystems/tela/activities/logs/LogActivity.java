@@ -19,7 +19,6 @@ import java.util.List;
 public class LogActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     LogActivityViewModel logActivityViewModel;
-    ExecutionLogRecyclerViewAdapter viewAdapter;
     List<ExecutionLog> executionLogs;
 
     @Override
@@ -27,10 +26,11 @@ public class LogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
         recyclerView = findViewById(R.id.execution_log_recyclerview);
-        viewAdapter = new ExecutionLogRecyclerViewAdapter();
+        final ExecutionLogRecyclerViewAdapter viewAdapter = new ExecutionLogRecyclerViewAdapter(this);
 
         logActivityViewModel = new ViewModelProvider(this).get(LogActivityViewModel.class);
         recyclerView.setAdapter(viewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         logActivityViewModel.getLogs().observe(this, new Observer<List<ExecutionLog>>() {
             @Override
             public void onChanged(List<ExecutionLog> executionLogs) {

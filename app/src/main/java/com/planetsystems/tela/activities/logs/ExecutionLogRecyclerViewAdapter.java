@@ -1,5 +1,6 @@
 package com.planetsystems.tela.activities.logs;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,16 @@ import java.util.List;
 public class ExecutionLogRecyclerViewAdapter extends RecyclerView.Adapter<ExecutionLogRecyclerViewAdapter.ExecutionLogViewHolder> {
 
     private List<ExecutionLog> executionLogs;
+    private final LayoutInflater layoutInflater;
+
+    ExecutionLogRecyclerViewAdapter(Context context ) {
+        layoutInflater = LayoutInflater.from(context);
+    }
 
     @NonNull
     @Override
     public ExecutionLogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.execution_log_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.execution_log_item, parent, false);
         return new ExecutionLogViewHolder(view);
     }
 
@@ -65,8 +71,8 @@ public class ExecutionLogRecyclerViewAdapter extends RecyclerView.Adapter<Execut
         }
     }
 
-    public void setExecutionLog(List<ExecutionLog> executionLogs) {
-        this.executionLogs = executionLogs;
+    public void setExecutionLog(List<ExecutionLog> executions) {
+        executionLogs = executions;
         notifyDataSetChanged();
     }
 }
