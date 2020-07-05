@@ -37,4 +37,13 @@ public class ExecutionLogRepository {
         };
         return TelaRoomDatabase.db_executor.submit(callable).get();
     }
+
+    public void logMessage(final ExecutionLog executionLog){
+        TelaRoomDatabase.db_executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                executionLogDao.logMessage(executionLog);
+            }
+        });
+    }
 }
