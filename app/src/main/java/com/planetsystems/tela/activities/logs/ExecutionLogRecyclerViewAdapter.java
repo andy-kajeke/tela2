@@ -29,7 +29,7 @@ public class ExecutionLogRecyclerViewAdapter extends RecyclerView.Adapter<Execut
         if (executionLogs != null) {
             ExecutionLog executionLog = executionLogs.get(position);
             holder.bindViewHolder(executionLog);
-        }
+        } else holder.bindViewHolder(new ExecutionLog("No Logs", null, null, null, null, null));
 
     }
 
@@ -37,8 +37,7 @@ public class ExecutionLogRecyclerViewAdapter extends RecyclerView.Adapter<Execut
     public int getItemCount() {
         if (executionLogs != null) {
             return executionLogs.size();
-        }
-        return 0;
+        } else return 0;
     }
 
     public static class ExecutionLogViewHolder extends RecyclerView.ViewHolder {
@@ -54,8 +53,13 @@ public class ExecutionLogRecyclerViewAdapter extends RecyclerView.Adapter<Execut
         }
 
         public void bindViewHolder(ExecutionLog executionLog) {
-            dateView.setText(executionLog.getDate());
-            timeView.setText(executionLog.getTime());
+            if (executionLog.getDate() == null ) {
+                dateView.setVisibility(View.GONE);
+                timeView.setVisibility(View.GONE);
+            } else {
+                dateView.setText(executionLog.getDate());
+                timeView.setText(executionLog.getTime());
+            }
             messageView.setText(executionLog.getMessage());
 
         }
