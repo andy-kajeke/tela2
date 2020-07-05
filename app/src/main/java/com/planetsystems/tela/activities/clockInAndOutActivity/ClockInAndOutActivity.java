@@ -405,7 +405,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             }
 
         } else {
-            Toast.makeText(this, "Unknown Error", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No Fingerprint Captured", Toast.LENGTH_LONG).show();
         }
     }
 }

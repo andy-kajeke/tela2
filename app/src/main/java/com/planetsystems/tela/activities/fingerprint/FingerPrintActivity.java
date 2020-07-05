@@ -200,12 +200,14 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         cardViewEnroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (capturedTemplateData != null && capturedImageData != null ) {
+                //if (capturedTemplateData != null && capturedImageData != null ) {
 
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                         // TODO enroll
                         try {
-                            SyncTeacher syncTeacher1 = teacherRepository.getTeacherWithFingerPrint(capturedTemplateData.data);
+                            byte[] data = { 10, 37, 12, 89, 24, 23, 12, 78, 34};
+//                            clockOutTeacher(data);
+                            SyncTeacher syncTeacher1 = getTeacherWithFingerPrint(data);
                             SyncTeacher syncTeacher2 = teacherRepository.getTeacherWithNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID));
                             syncTeacher = (syncTeacher1 != null ) || (syncTeacher2 != null )? syncTeacher2: null;
                             if (syncTeacher == null ) {
@@ -235,15 +237,19 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             e.printStackTrace();
                         }
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
-                        clockInTeacher(capturedTemplateData.data);
+//                        clockInTeacher(capturedTemplateData.data);
+                        byte[] data = { 10, 37, 12, 89, 24, 23, 12, 78, 34};
+                        clockOutTeacher(data);
 
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
-                        clockOutTeacher(capturedTemplateData.data);
+//                        clockOutTeacher(capturedTemplateData.data);
+                        byte[] data = { 10, 37, 12, 89, 24, 23, 12, 78, 34};
+                        clockOutTeacher(data);
                     }
 
-                } else {
-                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
-                }
+//                } else {
+//                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
