@@ -611,7 +611,8 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                         getClass().getSimpleName(),
                         DynamicData.getSchoolID(),
                         DynamicData.getSchoolName(),
-                        null
+                        null,
+                        String.valueOf(new Throwable().getStackTrace()[0].getLineNumber())
                 )
         );
     }
