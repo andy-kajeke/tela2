@@ -46,4 +46,13 @@ public class ExecutionLogRepository {
             }
         });
     }
+
+    public void clearLogs() {
+        TelaRoomDatabase.db_executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                executionLogDao.clearLogs();
+            }
+        });
+    }
 }

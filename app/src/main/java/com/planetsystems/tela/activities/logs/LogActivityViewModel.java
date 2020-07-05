@@ -31,6 +31,6 @@ public class LogActivityViewModel extends AndroidViewModel {
     }
 
     public void clearLog() {
-
+        executionLogRepository.clearLogs();
     }
 }

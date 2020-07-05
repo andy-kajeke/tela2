@@ -9,4 +9,5 @@ public class ExecutionLogConstants {
     public static final String DEVICE_IMEI = "imei";
     public static final String SCHOOL_NAME = "sch";
     public static final String DATE = "date";
+    public static final String DATA_STRING = "data";
 }

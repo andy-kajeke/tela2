@@ -28,6 +28,19 @@ public class ExecutionLog {
     @ColumnInfo(name = ExecutionLogConstants.SCHOOL_NAME)
     private String school;
 
+    @ColumnInfo(name = ExecutionLogConstants.DATA_STRING)
+    private String data;
+
+    public ExecutionLog(String message, String date, String time, String className, String deviceNo, String school, String data) {
+        this.message = message;
+        this.date = date;
+        this.time = time;
+        this.className = className;
+        this.deviceNo = deviceNo;
+        this.school = school;
+        this.data = data;
+    }
+
     public ExecutionLog(String message, String date, String time, String className, String deviceNo, String school) {
         this.message = message;
         this.date = date;
@@ -91,5 +104,13 @@ public class ExecutionLog {
 
     public void setSchool(String school) {
         this.school = school;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }
