@@ -8,9 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.planetsystems.tela.constants.SyncTableConstants;
-
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Dao
@@ -40,4 +37,7 @@ public interface SyncClockOutDao {
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME + " WHERE "
             + SyncClockOutTableConstant.FINGER_PRINT_COLUMN_NAME + " =:fingerPrint AND " + SyncClockOutTableConstant.DATE_COLUMN_NAME + " =:date")
     SyncClockOut getSyncClockOutByFingerPrintAndDate(byte[] fingerPrint, String date);
+
+    @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME + " WHERE " + SyncClockOutTableConstant.DATE_COLUMN_NAME + " =:date")
+    List<SyncClockOut> getClockOutsByDate(String date);
 }

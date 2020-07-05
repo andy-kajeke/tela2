@@ -63,4 +63,13 @@ public class ClockOutRepository {
         return TelaRoomDatabase.db_executor.submit(callable).get();
     }
 
+    public List<SyncClockOut> getClockOutsByDate(final String date) throws ExecutionException, InterruptedException {
+        Callable<List<SyncClockOut>> callable = new Callable<List<SyncClockOut>>() {
+            @Override
+            public List<SyncClockOut> call() throws Exception {
+                return  syncClockOutDao.getClockOutsByDate(date);
+            }
+        };
+        return TelaRoomDatabase.db_executor.submit(callable).get();
+    }
 }
