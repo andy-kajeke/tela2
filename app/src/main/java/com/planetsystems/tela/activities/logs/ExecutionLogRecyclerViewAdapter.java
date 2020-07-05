@@ -35,7 +35,7 @@ public class ExecutionLogRecyclerViewAdapter extends RecyclerView.Adapter<Execut
         if (executionLogs != null) {
             ExecutionLog executionLog = executionLogs.get(position);
             holder.bindViewHolder(executionLog);
-        } else holder.bindViewHolder(new ExecutionLog("No Logs", null, null, null, null, null, null, null));
+        }
 
     }
 
@@ -50,23 +50,32 @@ public class ExecutionLogRecyclerViewAdapter extends RecyclerView.Adapter<Execut
         private TextView dateView;
         private TextView timeView;
         private TextView messageView;
+        private TextView lineNumberView;
 
         public ExecutionLogViewHolder(@NonNull View itemView) {
             super(itemView);
             dateView = itemView.findViewById(R.id.executionDate);
             timeView = itemView.findViewById(R.id.executionTime);
             messageView = itemView.findViewById(R.id.executionMessage);
+            lineNumberView = itemView.findViewById(R.id.executionLineNumber);
         }
 
         public void bindViewHolder(ExecutionLog executionLog) {
+            String message = "[ " + executionLog.getMessage() + " ] | [ " +
+                    executionLog.getClassName() + " ] | [ " + executionLog.getLineNumber() + " ] | [ "
+                    + executionLog.getDeviceNo() + " ] | [ " + executionLog.getSchool() + " ] | [ "
+                    + executionLog.getDate() + " ] | [ "
+                    + executionLog.getData() +  " ]";
             if (executionLog.getDate() == null ) {
                 dateView.setVisibility(View.GONE);
                 timeView.setVisibility(View.GONE);
+                lineNumberView.setVisibility(View.GONE);
             } else {
                 dateView.setText(executionLog.getDate());
                 timeView.setText(executionLog.getTime());
+                lineNumberView.setText(executionLog.getLineNumber());
             }
-            messageView.setText(executionLog.getMessage());
+            messageView.setText(message);
 
         }
     }
