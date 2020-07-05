@@ -1,6 +1,7 @@
 package com.planetsystems.tela.activities.logs;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -9,13 +10,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.logs.ExecutionLog;
 
-public class ExecutionLogRecyclerView {
-    public static class ExecutionLogViewHold extends RecyclerView.ViewHolder {
+public class ExecutionLogRecyclerView extends RecyclerView.Adapter<ExecutionLogRecyclerView.ExecutionLogViewHolder> {
+    @NonNull
+    @Override
+    public ExecutionLogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ExecutionLogViewHolder holder, int position) {
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
+    }
+
+    public static class ExecutionLogViewHolder extends RecyclerView.ViewHolder {
         private TextView dateView;
         private TextView timeView;
         private TextView messageView;
 
-        public ExecutionLogViewHold(@NonNull View itemView) {
+        public ExecutionLogViewHolder(@NonNull View itemView) {
             super(itemView);
             dateView = itemView.findViewById(R.id.executionDate);
             timeView = itemView.findViewById(R.id.executionTime);
@@ -23,7 +40,9 @@ public class ExecutionLogRecyclerView {
         }
 
         public void bindViewHolder(ExecutionLog executionLog) {
-            dateView.setText(executionLog.getTime());
+            dateView.setText(executionLog.getDate());
+            timeView.setText(executionLog.getTime());
+            messageView.setText(executionLog.getMessage());
 
         }
     }
