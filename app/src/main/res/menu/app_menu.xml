@@ -7,4 +7,7 @@
 
     <item android:id="@+id/testing"
         android:title="@string/settings" />
+
+    <item android:id="@+id/checkLogs"
+        android:title="@string/app_logs" />
 </menu>
