@@ -1,4 +1,4 @@
-package com.planetsystems.tela.logs;
+package com.planetsystems.tela.data.logs;
 
 public class ExecutionLogConstants {
     public static final String TABLE_NAME = "logs_data";
@@ -8,4 +8,5 @@ public class ExecutionLogConstants {
     public static final String CLASS_NAME = "class";
     public static final String DEVICE_IMEI = "imei";
     public static final String SCHOOL_NAME = "sch";
+    public static final String DATE = "date";
 }

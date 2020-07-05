@@ -5,7 +5,6 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;;
-import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.TimeOnSiteAttendanceRepository;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
@@ -15,18 +14,14 @@ import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.confirmTimeOnTaskAttendance.ConfirmTimeOnTaskRepository;
 import com.planetsystems.tela.data.employeeTimeOffRequestDM.TimeOffRequestRepository;
-import com.planetsystems.tela.data.helprequest.HelpRequestDao;
 import com.planetsystems.tela.data.helprequest.HelpRequestRepository;
 import com.planetsystems.tela.data.schoolClasses.SchoolClassesRepository;
-import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClassesDao;
 import com.planetsystems.tela.data.smc.SmcRepository;
-import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timeOnTask.TimeOnTaskRepository;
-import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
 import com.planetsystems.tela.data.timetable.TimeTableRepository;
-import com.planetsystems.tela.logs.ExecutionLogRepository;
+import com.planetsystems.tela.data.logs.ExecutionLogRepository;
 
 import java.util.List;
 

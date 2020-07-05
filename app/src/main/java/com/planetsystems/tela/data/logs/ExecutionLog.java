@@ -1,4 +1,4 @@
-package com.planetsystems.tela.logs;
+package com.planetsystems.tela.data.logs;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -10,6 +10,9 @@ public class ExecutionLog {
 
     @ColumnInfo(name = ExecutionLogConstants.MESSAGE)
     private String message;
+
+    @ColumnInfo(name = ExecutionLogConstants.DATE)
+    private String date;
 
     @ColumnInfo(name = ExecutionLogConstants.TIME)
     private String time;
@@ -23,8 +26,9 @@ public class ExecutionLog {
     @ColumnInfo(name = ExecutionLogConstants.SCHOOL_NAME)
     private String school;
 
-    public ExecutionLog(String message, String time, String className, String deviceNo, String school) {
+    public ExecutionLog(String message, String date, String time, String className, String deviceNo, String school) {
         this.message = message;
+        this.date = date;
         this.time = time;
         this.className = className;
         this.deviceNo = deviceNo;
@@ -45,6 +49,14 @@ public class ExecutionLog {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTime() {

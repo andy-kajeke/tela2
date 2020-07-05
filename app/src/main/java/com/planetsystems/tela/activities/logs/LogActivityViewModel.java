@@ -7,8 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.MainRepository;
-import com.planetsystems.tela.logs.ExecutionLog;
-import com.planetsystems.tela.logs.ExecutionLogRepository;
+import com.planetsystems.tela.data.logs.ExecutionLog;
+import com.planetsystems.tela.data.logs.ExecutionLogRepository;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;

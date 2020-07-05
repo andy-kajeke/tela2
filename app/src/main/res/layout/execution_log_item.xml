@@ -11,7 +11,7 @@
         android:textColor="@color/white"
         android:layout_margin="10dp"
         android:text="23-09-2020"
-        android:id="@+id/date"/>
+        android:id="@+id/executionDate"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:textColor="@color/white"
         android:layout_margin="10dp"
         android:textSize="20sp"
-        android:id="@+id/time"/>
+        android:id="@+id/executionTime"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,6 +27,6 @@
         android:text="Error in form"
         android:layout_margin="10dp"
         android:textSize="20sp"
-        android:id="@+id/message"/>
+        android:id="@+id/executionMessage"/>
 
 </LinearLayout>

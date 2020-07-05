@@ -1,4 +1,4 @@
-package com.planetsystems.tela.logs;
+package com.planetsystems.tela.data.logs;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

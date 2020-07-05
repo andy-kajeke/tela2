@@ -34,8 +34,8 @@ import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
-import com.planetsystems.tela.logs.ExecutionLog;
-import com.planetsystems.tela.logs.ExecutionLogDao;
+import com.planetsystems.tela.data.logs.ExecutionLog;
+import com.planetsystems.tela.data.logs.ExecutionLogDao;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
