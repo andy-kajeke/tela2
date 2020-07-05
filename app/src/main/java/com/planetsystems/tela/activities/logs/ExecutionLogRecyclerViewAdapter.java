@@ -1,5 +1,6 @@
 package com.planetsystems.tela.activities.logs;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -10,20 +11,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.logs.ExecutionLog;
 
-public class ExecutionLogRecyclerView extends RecyclerView.Adapter<ExecutionLogRecyclerView.ExecutionLogViewHolder> {
+import java.util.List;
+
+public class ExecutionLogRecyclerViewAdapter extends RecyclerView.Adapter<ExecutionLogRecyclerViewAdapter.ExecutionLogViewHolder> {
+
+    private List<ExecutionLog> executionLogs;
+
     @NonNull
     @Override
     public ExecutionLogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.execution_log_item, parent, false);
+        return new ExecutionLogViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExecutionLogViewHolder holder, int position) {
+        if (executionLogs != null) {
+            ExecutionLog executionLog = executionLogs.get(position);
+            holder.bindViewHolder(executionLog);
+        }
 
     }
 
     @Override
     public int getItemCount() {
+        if (executionLogs != null) {
+            return executionLogs.size();
+        }
         return 0;
     }
 
@@ -45,5 +59,9 @@ public class ExecutionLogRecyclerView extends RecyclerView.Adapter<ExecutionLogR
             messageView.setText(executionLog.getMessage());
 
         }
+    }
+
+    public void submitList(List<ExecutionLog> list) {
+        this.executionLogs = list;
     }
 }
