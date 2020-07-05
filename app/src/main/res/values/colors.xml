@@ -15,4 +15,6 @@
     <color name="colorDeviceCapturing">#00bfff</color>
     <color name="colorDeviceCapturedSuccess">#228b22</color>
     <color name="colorDeviceCapturedError">#ffff00</color>
+    <color name="colorSupremaDarkSpace">#3D3939</color>
+    <color name="colorWhite">#F0E8E8</color>
 </resources>
