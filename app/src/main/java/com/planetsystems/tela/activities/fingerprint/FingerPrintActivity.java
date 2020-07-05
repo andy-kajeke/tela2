@@ -207,7 +207,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             public void onClick(View v) {
                 //if (capturedTemplateData != null && capturedImageData != null ) {
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
-                        enrollTeacher();
+                        enrollTeacher(fakeFingerPrint, teacherRepository, incomingIntent.getStringExtra(TEACHER_NATIONAL_ID));
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
                         clockInTeacher(capturedTemplateData.data);
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
