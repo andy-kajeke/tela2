@@ -455,7 +455,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         if (syncTeacher != null) {
             try {
                 if (syncTeacher.getEmployeeNumber() == null) {
-                    SyncClockOut clockOut = clockOutRepository.getSyncClockOutByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
+                    SyncClockOut clockOut = getSyncClockOutByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
                     saveClockOut(clockOut, finger, clockOutRepository, syncTeacher); // save clock in finger print
                 } else {
                     SyncClockOut clockOut = clockOutRepository.getSyncClockOutByEmployeeNumberAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate());
@@ -468,6 +468,10 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         } else {
             Toast.makeText(FingerPrintActivity.this, "No Records Found", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private SyncClockOut getSyncClockOutByFingerPrintAndDate(byte[] fingerPrint, String date) {
+        return null;
     }
 
     private void saveClockOut(SyncClockOut clockOut, byte[] fingerPrint, ClockOutRepository clockOutRepository, SyncTeacher teacher) {
