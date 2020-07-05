@@ -451,26 +451,22 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
     private void clockOutTeacher(byte[] finger) {
         final ClockOutRepository clockOutRepository = ClockOutRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()));
-        try {
-            SyncTeacher syncTeacher = teacherRepository.getTeacherWithFingerPrint(finger);
-            if (syncTeacher != null) {
-                try {
-                    if (syncTeacher.getEmployeeNumber() == null) {
-                        SyncClockOut clockOut = clockOutRepository.getSyncClockOutByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
-                        saveClockOut(clockOut, finger, clockOutRepository, syncTeacher); // save clock in finger print
-                    } else {
-                        SyncClockOut clockOut = clockOutRepository.getSyncClockOutByEmployeeNumberAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate());
-                        saveClockOut(clockOut, finger, clockOutRepository, syncTeacher); // clock teacher since there is no clock in today
-                    }
-                } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
-                    Toast.makeText(FingerPrintActivity.this, "There was Errors", Toast.LENGTH_SHORT).show();
+        SyncTeacher syncTeacher = getTeacherWithFingerPrint(finger);
+        if (syncTeacher != null) {
+            try {
+                if (syncTeacher.getEmployeeNumber() == null) {
+                    SyncClockOut clockOut = clockOutRepository.getSyncClockOutByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
+                    saveClockOut(clockOut, finger, clockOutRepository, syncTeacher); // save clock in finger print
+                } else {
+                    SyncClockOut clockOut = clockOutRepository.getSyncClockOutByEmployeeNumberAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate());
+                    saveClockOut(clockOut, finger, clockOutRepository, syncTeacher); // clock teacher since there is no clock in today
                 }
-            } else {
-                Toast.makeText(FingerPrintActivity.this, "No Records Found", Toast.LENGTH_SHORT).show();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+                Toast.makeText(FingerPrintActivity.this, "There was Errors", Toast.LENGTH_SHORT).show();
             }
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+        } else {
+            Toast.makeText(FingerPrintActivity.this, "No Records Found", Toast.LENGTH_SHORT).show();
         }
     }
 
