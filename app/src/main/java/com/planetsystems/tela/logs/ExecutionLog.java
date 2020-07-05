@@ -6,22 +6,22 @@ import androidx.room.Entity;
 @Entity(tableName = ExecutionLogConstants.TABLE_NAME)
 public class ExecutionLog {
     @ColumnInfo(name = ExecutionLogConstants.ID)
-    int primaryKey;
+    private int primaryKey;
 
     @ColumnInfo(name = ExecutionLogConstants.MESSAGE)
-    String message;
+    private String message;
 
     @ColumnInfo(name = ExecutionLogConstants.TIME)
-    String time;
+    private String time;
 
     @ColumnInfo(name = ExecutionLogConstants.CLASS_NAME)
-    String className;
+    private String className;
 
     @ColumnInfo(name = ExecutionLogConstants.DEVICE_IMEI)
-    String deviceNo;
+    private String deviceNo;
 
     @ColumnInfo(name = ExecutionLogConstants.SCHOOL_NAME)
-    String school;
+    private String school;
 
     public ExecutionLog(String message, String time, String className, String deviceNo, String school) {
         this.message = message;
