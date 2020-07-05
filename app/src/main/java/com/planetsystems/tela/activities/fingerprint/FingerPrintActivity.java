@@ -212,7 +212,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
                         clockInTeacher(fakeFingerPrint);
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
-                        clockOutTeacher(capturedTemplateData.data);
+                        clockOutTeacher(fakeFingerPrint);
                     }
                 //} else {
                     // Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
@@ -529,9 +529,9 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             Toast.makeText(FingerPrintActivity.this, "Teacher Already Clocked In", Toast.LENGTH_SHORT).show();
         }
         Intent intent = new Intent();
-        intent.putExtra(TEACHER_ROLE, syncTeacher.getRole());
+        intent.putExtra(TEACHER_ROLE, teacher.getRole());
         setResult(RESULT_OK, intent);
-        intent.putExtra(EMPLOYEEE_NUMBER, syncTeacher.getEmployeeNumber());
+        intent.putExtra(EMPLOYEEE_NUMBER, teacher.getEmployeeNumber());
         finish();
     }
 }
