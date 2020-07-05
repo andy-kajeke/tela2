@@ -61,8 +61,8 @@ public class ExecutionLogRecyclerViewAdapter extends RecyclerView.Adapter<Execut
         }
     }
 
-    public void submitList(List<ExecutionLog> list) {
-        this.executionLogs = list;
-        notify();
+    public void setExecutionLog(List<ExecutionLog> executionLogs) {
+        this.executionLogs = executionLogs;
+        notifyDataSetChanged();
     }
 }

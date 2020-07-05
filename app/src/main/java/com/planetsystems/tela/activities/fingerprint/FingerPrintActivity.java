@@ -187,6 +187,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         super.onCreate(savedInstanceState);
         incomingIntent = getIntent();
         teacherRepository = MainRepository.getInstance(getApplication()).getTeachersRepository();
+        executionLogRepository = MainRepository.getInstance(getApplication()).getExecutionLogRepository();
 
 
         setContentView(R.layout.activity_finger_print);

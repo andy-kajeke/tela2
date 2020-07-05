@@ -20,6 +20,7 @@ public class LogActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     LogActivityViewModel logActivityViewModel;
     ExecutionLogRecyclerViewAdapter viewAdapter;
+    List<ExecutionLog> executionLogs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,8 @@ public class LogActivity extends AppCompatActivity {
         logActivityViewModel.getLogs().observe(this, new Observer<List<ExecutionLog>>() {
             @Override
             public void onChanged(List<ExecutionLog> executionLogs) {
-                viewAdapter.submitList(executionLogs);
                 Toast.makeText(LogActivity.this, String.valueOf(executionLogs.size()), Toast.LENGTH_SHORT).show();
+                viewAdapter.setExecutionLog(executionLogs);
             }
         });
 

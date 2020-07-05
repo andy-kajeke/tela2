@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = ExecutionLogConstants.TABLE_NAME)
 public class ExecutionLog {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ExecutionLogConstants.ID)
     private int primaryKey;
 
