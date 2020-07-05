@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_marginVertical="10dp"
     android:layout_height="wrap_content">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
@@ -11,9 +11,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="15sp"
             android:textColor="@color/white"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="10dp"
             android:text="23-09-2020"
             android:id="@+id/executionDate"/>
         <TextView
@@ -21,17 +21,25 @@
             android:layout_height="wrap_content"
             android:text="08: 30pm"
             android:textColor="@color/white"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="10dp"
             android:textSize="10sp"
             android:id="@+id/executionTime"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="10dp"
+            android:textSize="15sp"
+            android:id="@+id/executionLineNumber"/>
     </LinearLayout>
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:layout_margin="10dp"
+        android:layout_marginHorizontal="10dp"
         android:text="Error in form"
-        android:textSize="10sp"
+        android:textSize="15sp"
         android:id="@+id/executionMessage"/>
 
 </LinearLayout>
