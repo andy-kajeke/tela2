@@ -471,13 +471,18 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     }
 
     private SyncClockOut getSyncClockOutByFingerPrintAndDate(byte[] fingerPrint, String date) {
-        List<SyncClockOut> syncClockOuts = ClockOutRepository.getInstance(TelaRoomDatabase.getInstance(this)).getClockOutsByDate(date);
+        List<SyncClockOut> syncClockOuts = null;
         SyncClockOut clockOut = null;
-        for (SyncClockOut clock: syncClockOuts) {
-            if (mCurrentDevice.verify(clock.getFingerPrint(), fingerPrint)) {
-                clockOut = clock;
-                break;
+        try {
+            syncClockOuts = ClockOutRepository.getInstance(TelaRoomDatabase.getInstance(this)).getClockOutsByDate(date);
+            for (SyncClockOut clock: syncClockOuts) {
+                if (mCurrentDevice.verify(clock.getFingerPrint(), fingerPrint)) {
+                    clockOut = clock;
+                    break;
+                }
             }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
         }
         return clockOut;
     }
