@@ -229,6 +229,29 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             if (syncTeacher1 == null ) {
                 // already enrolled
                 SyncTeacher syncTeacher2 = teacherRepository.getTeacherWithNationalID(nationalID);
+                if (syncTeacher2 == null ) {
+                    SyncTeacher syncTeacher = new SyncTeacher.Builder()
+                            .setDOB(null)
+                            .setEmailAddress(incomingIntent.getStringExtra(TEACHER_EMAIL))
+                            .setLastName(incomingIntent.getStringExtra(TEACHER_LAST_NAME))
+                            .setFirstName(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
+                            //.setFingerImage(BitmapConverter.encodeBitmapToBase64(capturedImageData))
+                            .setFingerPrint(capturedTemplateData.data)
+                            .setGender(incomingIntent.getStringExtra(TEACHER_GENDER))
+                            .setPhoneNumber(incomingIntent.getStringExtra(TEACHER_PHONE_NUMBER))
+                            .setNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID))
+                            .setLicensed(incomingIntent.getBooleanExtra(TEACHER_LICENSED, false))
+                            .setInitials(incomingIntent.getStringExtra(TEACHER_INITIALS))
+                            .setRole("Teacher")
+                            .setDOB(new Date().toString())
+                            .setSchoolID(DynamicData.getSchoolID())
+                            .build();
+                    teacherRepository.insertSyncTeacher(syncTeacher);
+                    Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully ", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully ", Toast.LENGTH_SHORT).show();
+                }
 
             } else {
                 SyncTeacher syncTeacher2 = teacherRepository.getTeacherWithNationalID(nationalID);
