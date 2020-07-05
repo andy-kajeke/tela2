@@ -29,4 +29,8 @@ public class LogActivityViewModel extends AndroidViewModel {
         }
         return null;
     }
+
+    public void clearLog() {
+
+    }
 }
