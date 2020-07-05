@@ -2,9 +2,11 @@ package com.planetsystems.tela.data.logs;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = ExecutionLogConstants.TABLE_NAME)
 public class ExecutionLog {
+    @PrimaryKey
     @ColumnInfo(name = ExecutionLogConstants.ID)
     private int primaryKey;
 
