@@ -87,7 +87,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     private TextView textViewCapture, textViewEnroll;
     private ImageView fingerprintImageView;
     private TeacherRepository teacherRepository;
-    private List<SyncTeacher> syncTeachers;
     private SyncTeacher syncTeacher;
     private List<SyncClockIn> syncClockIns;
 
@@ -154,7 +153,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         super.onCreate(savedInstanceState);
         incomingIntent = getIntent();
         teacherRepository = MainRepository.getInstance(getApplication()).getTeachersRepository();
-        syncTeachers = teacherRepository.getTeachers();
 
 
         setContentView(R.layout.activity_finger_print);
@@ -168,7 +166,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         textViewCapture = findViewById(R.id.textViewCapture);
         textViewEnroll = findViewById(R.id.textViewEnroll);
         fingerprintImageView = findViewById(R.id.imageViewFingerPrint);
-        cardViewCapture.setVisibility(View.GONE);
 
 
 
@@ -203,7 +200,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         cardViewEnroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                syncTeachers = teacherRepository.getTeachers();
                 if (capturedTemplateData != null && capturedImageData != null ) {
 
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
@@ -252,15 +248,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         });
 
         printRev(""+mBioMiniFactory.getSDKInfo());
-        // start capturing fingerprint on spot
-        if(mCurrentDevice != null) {
-            //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
-            mCurrentDevice.captureSingle(
-                    mCaptureOptionDefault,
-                    new FingerPrintCaptureResponder(mainContext),
-                    true
-            );
-        }
     }
 
     void handleDevChange(IUsbEventHandler.DeviceChangeEvent event, Object dev) {
@@ -383,7 +370,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         log("onCaptureError : " + errorCode + " ErrorCode :" + errorCode);
         if( errorCode != IBioMiniDevice.ErrorCode.OK.value())
             printState(getResources().getText(R.string.capture_single_fail) + "("+errorMessage+")");
-        cardViewCapture.setVisibility(View.VISIBLE);
     }
 
     public void saveClockIn(SyncClockIn clockIn, byte[] finger, ClockInRepository clockInRepository, SyncTeacher syncTeacher) {
@@ -414,27 +400,47 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
     private void clockInTeacher(byte[] finger) {
         final ClockInRepository clockInRepository = ClockInRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()));
-        try {
-            SyncTeacher syncTeacher = teacherRepository.getTeacherWithFingerPrint(finger);
-            if (syncTeacher != null) {
-                try {
-                    if (syncTeacher.getEmployeeNumber() == null) {
-                        SyncClockIn clockIn = clockInRepository.getSyncClockInByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
-                        saveClockIn(clockIn, finger, clockInRepository, syncTeacher); // save clock in finger print
-                    } else {
-                        SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate());
-                        saveClockIn(clockIn, finger, clockInRepository, syncTeacher); // clock teacher since there is no clock in today
-                    }
-                } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
-                    Toast.makeText(FingerPrintActivity.this, "There was Errors", Toast.LENGTH_SHORT).show();
+        SyncTeacher syncTeacher = getTeacherWithFingerPrint(finger);
+        if (syncTeacher != null) {
+            try {
+                if (syncTeacher.getEmployeeNumber() == null) {
+                    SyncClockIn clockIn = getSyncClockInByFingerPrintAndDate(syncTeacher.getFingerPrint(), DynamicData.getDate());
+                    saveClockIn(clockIn, finger, clockInRepository, syncTeacher); // save clock in finger print
+                } else {
+                    SyncClockIn clockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(syncTeacher.getEmployeeNumber(), DynamicData.getDate());
+                    saveClockIn(clockIn, finger, clockInRepository, syncTeacher); // clock teacher since there is no clock in today
                 }
-            } else {
-                Toast.makeText(FingerPrintActivity.this, "No Records Found", Toast.LENGTH_SHORT).show();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+                Toast.makeText(FingerPrintActivity.this, "There was Errors", Toast.LENGTH_SHORT).show();
             }
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+        } else {
+            Toast.makeText(FingerPrintActivity.this, "No Records Found", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private SyncClockIn getSyncClockInByFingerPrintAndDate(byte[] fingerPrint, String date) {
+        SyncClockIn clockIn;
+        List<SyncClockIn> syncClockIns = teacherRepository.getSyncClockInByDate(date);
+        for (SyncClockIn clock: syncClockIns) {
+            if (mCurrentDevice.verify(fingerPrint, clock.getFingerPrint())) {
+                clockIn = clock;
+                break;
+            }
+        }
+        return clockIn;
+    }
+
+    private SyncTeacher getTeacherWithFingerPrint(byte[] finger) {
+        SyncTeacher teacher = null;
+        List<SyncTeacher> syncTeachers = teacherRepository.getTeachers();
+        for (SyncTeacher syncTeacher: syncTeachers) {
+            if (mCurrentDevice.verify(finger, syncTeacher.getFingerPrint())) {
+                teacher = syncTeacher;
+                break;
+            }
+        }
+        return teacher;
     }
 
     private void clockOutTeacher(byte[] finger) {
