@@ -39,6 +39,7 @@ import com.suprema.BioMiniFactory;
 import com.suprema.IBioMiniDevice;
 import com.suprema.IUsbEventHandler;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -209,7 +210,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                         enrollTeacher(fakeFingerPrint, teacherRepository, incomingIntent.getStringExtra(TEACHER_NATIONAL_ID));
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
-                        clockInTeacher(capturedTemplateData.data);
+                        clockInTeacher(fakeFingerPrint);
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
                         clockOutTeacher(capturedTemplateData.data);
                     }
@@ -236,7 +237,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             .setLastName(incomingIntent.getStringExtra(TEACHER_LAST_NAME))
                             .setFirstName(incomingIntent.getStringExtra(TEACHER_FIRST_NAME))
                             //.setFingerImage(BitmapConverter.encodeBitmapToBase64(capturedImageData))
-                            .setFingerPrint(capturedTemplateData.data)
+                            .setFingerPrint(fakeFingerPrint)
                             .setGender(incomingIntent.getStringExtra(TEACHER_GENDER))
                             .setPhoneNumber(incomingIntent.getStringExtra(TEACHER_PHONE_NUMBER))
                             .setNationalID(incomingIntent.getStringExtra(TEACHER_NATIONAL_ID))
@@ -450,16 +451,17 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     private SyncTeacher getTeacherWithFingerPrint(byte[] finger) {
         SyncTeacher teacher = null;
         List<SyncTeacher> syncTeachers = teacherRepository.getTeachers();
-        if (mCurrentDevice != null) {
+        //if (mCurrentDevice != null) {
             for (SyncTeacher syncTeacher: syncTeachers) {
-                if (mCurrentDevice.verify(finger, syncTeacher.getFingerPrint())) {
+//                if (mCurrentDevice.verify(finger, syncTeacher.getFingerPrint())) {
+                if (Arrays.equals(finger, syncTeacher.getFingerPrint())) {
                     teacher = syncTeacher;
                     break;
                 }
             }
-        } else {
-            Toast.makeText(this, "Device Removed", Toast.LENGTH_SHORT).show();
-        }
+//        } else {
+//            Toast.makeText(this, "Device Removed", Toast.LENGTH_SHORT).show();
+//        }
         return teacher;
     }
 
