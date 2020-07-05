@@ -18,6 +18,7 @@ public class LogActivityViewModel extends AndroidViewModel {
     public LogActivityViewModel(@NonNull Application application) {
         super(application);
         executionLogRepository = MainRepository.getInstance(application).getExecutionLogRepository();
+
     }
 
     public LiveData<List<ExecutionLog>> getLogs() {
