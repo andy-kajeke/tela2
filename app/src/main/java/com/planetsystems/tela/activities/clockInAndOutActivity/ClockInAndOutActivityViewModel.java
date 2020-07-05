@@ -1,12 +1,9 @@
 package com.planetsystems.tela.activities.clockInAndOutActivity;
 
 import android.app.Application;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;
