@@ -31,7 +31,10 @@ public class ExecutionLog {
     @ColumnInfo(name = ExecutionLogConstants.DATA_STRING)
     private String data;
 
-    public ExecutionLog(String message, String date, String time, String className, String deviceNo, String school, String data) {
+    @ColumnInfo(name = ExecutionLogConstants.LINE_NUMBER)
+    private String lineNumber;
+
+    public ExecutionLog(String message, String date, String time, String className, String deviceNo, String school, String data, String lineNumber) {
         this.message = message;
         this.date = date;
         this.time = time;
@@ -39,15 +42,7 @@ public class ExecutionLog {
         this.deviceNo = deviceNo;
         this.school = school;
         this.data = data;
-    }
-
-    public ExecutionLog(String message, String date, String time, String className, String deviceNo, String school) {
-        this.message = message;
-        this.date = date;
-        this.time = time;
-        this.className = className;
-        this.deviceNo = deviceNo;
-        this.school = school;
+        this.lineNumber = lineNumber;
     }
 
     public int getPrimaryKey() {
@@ -112,5 +107,13 @@ public class ExecutionLog {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public String getLineNumber() {
+        return lineNumber;
+    }
+
+    public void setLineNumber(String lineNumber) {
+        this.lineNumber = lineNumber;
     }
 }

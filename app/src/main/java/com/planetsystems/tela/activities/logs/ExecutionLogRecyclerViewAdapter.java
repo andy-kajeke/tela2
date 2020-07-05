@@ -35,7 +35,7 @@ public class ExecutionLogRecyclerViewAdapter extends RecyclerView.Adapter<Execut
         if (executionLogs != null) {
             ExecutionLog executionLog = executionLogs.get(position);
             holder.bindViewHolder(executionLog);
-        } else holder.bindViewHolder(new ExecutionLog("No Logs", null, null, null, null, null));
+        } else holder.bindViewHolder(new ExecutionLog("No Logs", null, null, null, null, null, null));
 
     }
 

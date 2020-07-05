@@ -10,4 +10,5 @@ public class ExecutionLogConstants {
     public static final String SCHOOL_NAME = "sch";
     public static final String DATE = "date";
     public static final String DATA_STRING = "data";
+    public static final String LINE_NUMBER = "line_number";
 }

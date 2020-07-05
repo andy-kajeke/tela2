@@ -610,7 +610,9 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                         new Date().toString(),
                         getClass().getSimpleName(),
                         DynamicData.getSchoolID(),
-                        DynamicData.getSchoolName())
+                        DynamicData.getSchoolName(),
+                        null
+                )
         );
     }
 }
