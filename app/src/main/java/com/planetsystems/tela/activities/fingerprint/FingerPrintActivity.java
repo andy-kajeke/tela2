@@ -118,14 +118,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             @Override
             public void run() {
 //                ((TextView) findViewById(R.id.revText)).setText(msg);
-                executionLogRepository.logMessage(
-                        new ExecutionLog(msg,
-                                DynamicData.getDate(),
-                                DynamicData.getTime(),
-                                getClass().getSimpleName(),
-                                DynamicData.getSchoolID(),
-                                DynamicData.getSchoolName())
-                );
+                Log_Message(msg);
             }
         });
     }
@@ -141,25 +134,12 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             if( mBioMiniFactory == null) return;
                             mBioMiniFactory.addDevice(device);
                             log(String.format(Locale.ENGLISH ,"Initialized device count- BioMiniFactory (%d)" , mBioMiniFactory.getDeviceCount() ));
-                            executionLogRepository.logMessage(
-                                    new ExecutionLog(String.format(Locale.ENGLISH, "Initialized device count- BioMiniFactory (%d)" , mBioMiniFactory.getDeviceCount()),
-                                            DynamicData.getDate(),
-                                            DynamicData.getTime(),
-                                            getClass().getSimpleName(),
-                                            DynamicData.getSchoolID(),
-                                            DynamicData.getSchoolName()));
+                            Log_Message(String.format(Locale.ENGLISH ,"Initialized device count- BioMiniFactory (%d)" , mBioMiniFactory.getDeviceCount() ));
                         }
                     }
                     else{
                         Log.d(TAG, "permission denied for device"+ device);
-                        executionLogRepository.logMessage(
-                                new ExecutionLog("permission denied for device"+ device,
-                                        DynamicData.getDate(),
-                                        DynamicData.getTime(),
-                                        getClass().getSimpleName(),
-                                        DynamicData.getSchoolID(),
-                                        DynamicData.getSchoolName())
-                        );
+                        Log_Message("permission denied for device"+ device);
                     }
                 }
             }
@@ -627,7 +607,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         executionLogRepository.logMessage(
                 new ExecutionLog(message,
                         DynamicData.getDate(),
-                        DynamicData.getTime(),
+                        new Date().toString(),
                         getClass().getSimpleName(),
                         DynamicData.getSchoolID(),
                         DynamicData.getSchoolName())
