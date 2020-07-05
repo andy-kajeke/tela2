@@ -205,7 +205,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         cardViewEnroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if (capturedTemplateData != null && capturedImageData != null ) {
+                if (capturedTemplateData != null && capturedImageData != null ) {
 
                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                         // TODO enroll
@@ -242,19 +242,19 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                             e.printStackTrace();
                         }
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
-//                        clockInTeacher(capturedTemplateData.data);
-                        byte[] data = { 10, 37, 12, 89, 24, 23, 12, 78, 34};
-                        clockOutTeacher(data);
+                        clockInTeacher(capturedTemplateData.data);
+//                        byte[] data = { 10, 37, 12, 89, 24, 23, 12, 78, 34};
+//                        clockOutTeacher(data);
 
                     } else if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
-//                        clockOutTeacher(capturedTemplateData.data);
-                        byte[] data = { 10, 37, 12, 89, 24, 23, 12, 78, 34};
-                        clockOutTeacher(data);
+                        clockOutTeacher(capturedTemplateData.data);
+//                        byte[] data = { 10, 37, 12, 89, 24, 23, 12, 78, 34};
+//                        clockOutTeacher(data);
                     }
 
-//                } else {
-//                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
-//                }
+                } else {
+                    Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -436,11 +436,15 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         try {
             syncClockIns = ClockInRepository.getInstance(TelaRoomDatabase.getInstance(this))
                     .getClockInByDate(date);
-            for (SyncClockIn clock: syncClockIns) {
-                if (mCurrentDevice.verify(fingerPrint, clock.getFingerPrint())) {
-                    clockIn = clock;
-                    break;
+            if (mCurrentDevice != null) {
+                for (SyncClockIn clock: syncClockIns) {
+                    if (mCurrentDevice.verify(fingerPrint, clock.getFingerPrint())) {
+                        clockIn = clock;
+                        break;
+                    }
                 }
+            } else {
+                Toast.makeText(this, "Device Not Connected", Toast.LENGTH_SHORT).show();
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
@@ -451,11 +455,15 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
     private SyncTeacher getTeacherWithFingerPrint(byte[] finger) {
         SyncTeacher teacher = null;
         List<SyncTeacher> syncTeachers = teacherRepository.getTeachers();
-        for (SyncTeacher syncTeacher: syncTeachers) {
-            if (mCurrentDevice.verify(finger, syncTeacher.getFingerPrint())) {
-                teacher = syncTeacher;
-                break;
+        if (mCurrentDevice != null) {
+            for (SyncTeacher syncTeacher: syncTeachers) {
+                if (mCurrentDevice.verify(finger, syncTeacher.getFingerPrint())) {
+                    teacher = syncTeacher;
+                    break;
+                }
             }
+        } else {
+            Toast.makeText(this, "Device Removed", Toast.LENGTH_SHORT).show();
         }
         return teacher;
     }
@@ -486,11 +494,15 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
         SyncClockOut clockOut = null;
         try {
             syncClockOuts = ClockOutRepository.getInstance(TelaRoomDatabase.getInstance(this)).getClockOutsByDate(date);
-            for (SyncClockOut clock: syncClockOuts) {
-                if (mCurrentDevice.verify(clock.getFingerPrint(), fingerPrint)) {
-                    clockOut = clock;
-                    break;
+            if ( mCurrentDevice != null) {
+                for (SyncClockOut clock: syncClockOuts) {
+                    if (mCurrentDevice.verify(clock.getFingerPrint(), fingerPrint)) {
+                        clockOut = clock;
+                        break;
+                    }
                 }
+            } else  {
+                Toast.makeText(FingerPrintActivity.this, "Device Disconnected", Toast.LENGTH_SHORT).show();
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
