@@ -24,7 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.logs.LogActivity"></activity>
+        <activity
+            android:name=".activities.logs.LogActivity"
+            android:parentActivityName=".activities.clockInAndOutActivity.ClockInAndOutActivity"></activity>
         <activity
             android:name=".activities.staff.smc.SmcActivity"
             android:windowSoftInputMode="stateHidden" />

@@ -585,8 +585,18 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             }.getClass().getEnclosingMethod()).getName());
             for (SyncTeacher syncTeacher: syncTeachers) {
                 if (syncTeacher.getFingerPrint() != null) {
+                    Log_Message("Current Teacher National ID  => " + syncTeacher.getNationalId(), String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
+                    Log_Message("Unknown Teacher National ID  => " + incomingIntent.getStringExtra(TEACHER_NATIONAL_ID), String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
 
-                    Log_Message("Current Teacher has Fingerprint", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+
+                    Log_Message("Current Teacher has Fingerprint => " + Arrays.toString(syncTeacher.getFingerPrint())
+                            + " OF SIZE  { " + String.valueOf(syncTeacher.getFingerPrint().length) + " } ", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
+
+                    Log_Message("Unknown Teacher has Fingerprint => " + Arrays.toString(finger)
+                            + " OF SIZE { " + String.valueOf(finger.length) + " }", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
 
 //                    if (mCurrentDevice.verify(finger, syncTeacher.getFingerPrint())) {
