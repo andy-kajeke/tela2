@@ -227,7 +227,7 @@ public class FingerPrintActivity extends Activity {
         restartBioMini();
     }
 
-    void handleDevChange(IUsbEventHandler.DeviceChangeEvent event, Objects dev) {
+    void handleDevChange(IUsbEventHandler.DeviceChangeEvent event, Object dev) {
         if (event == IUsbEventHandler.DeviceChangeEvent.DEVICE_ATTACHED && mCurrentDevice == null) {
             new Thread(new Runnable() {
                 @Override
@@ -256,6 +256,19 @@ public class FingerPrintActivity extends Activity {
     }
 
     private void restartBioMini() {
+        if (mBioMiniFactory != null) {
+            mBioMiniFactory.close();
+        }
 
+        if (mbUsbExternalUSBManager) {
+            mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
+            mBioMiniFactory = new BioMiniFactory(mainContext, mUsbManager) {
+                @Override
+                public void onDeviceChange(DeviceChangeEvent deviceChangeEvent, Object dev) {
+                    String message = "Changing Device: " + deviceChangeEvent + " using external usb-manager";
+                    handleDevChange(deviceChangeEvent, dev);
+                }
+            };
+        }
     }
 }
