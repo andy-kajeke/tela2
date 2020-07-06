@@ -22,4 +22,5 @@ public class SyncTeacherTableConstants {
     public static final String ID_COLUMN_NAME = "id";
     public static final String IS_STORED_LOCALLY = "is_uploaded";
     public static final String COLUMN_FINGER_PRINT = "fingerprint";
+    public static final String FINGER_PRINT_LENGTH = "length";
 }

@@ -65,8 +65,33 @@ public class SyncTeacher {
     @ColumnInfo(name = SyncTeacherTableConstants.SCHOOL_ID_COLUMN_NAME)
     private String schoolId;
 
+    @ColumnInfo(name = SyncTeacherTableConstants.FINGER_PRINT_LENGTH)
+    private int fingerPrintLength;
+
     @ColumnInfo(name = SyncTeacherTableConstants.IS_STORED_LOCALLY)
     private boolean isStoredLocally;
+
+    public SyncTeacher(String id, String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, byte[] fingerPrint, String fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId, int fingerPrintLength, boolean isStoredLocally) {
+        this.id = id;
+        this.employeeId = employeeId;
+        this.MPSComputerNumber = MPSComputerNumber;
+        this.employeeNumber = employeeNumber;
+        this.role = role;
+        this.dob = dob;
+        this.emailAddress = emailAddress;
+        this.fingerPrint = fingerPrint;
+        this.fingerImage = fingerImage;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.initials = initials;
+        this.licensed = licensed;
+        this.nationalId = nationalId;
+        this.phoneNumber = phoneNumber;
+        this.schoolId = schoolId;
+        this.fingerPrintLength = fingerPrintLength;
+        this.isStoredLocally = isStoredLocally;
+    }
 
     public int getPrimaryKey() {
         return primaryKey;
@@ -74,6 +99,14 @@ public class SyncTeacher {
 
     public void setPrimaryKey(int primaryKey) {
         this.primaryKey = primaryKey;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEmployeeId() {
@@ -130,6 +163,14 @@ public class SyncTeacher {
 
     public void setFingerPrint(byte[] fingerPrint) {
         this.fingerPrint = fingerPrint;
+    }
+
+    public String getFingerImage() {
+        return fingerImage;
+    }
+
+    public void setFingerImage(String fingerImage) {
+        this.fingerImage = fingerImage;
     }
 
     public String getFirstName() {
@@ -196,176 +237,12 @@ public class SyncTeacher {
         this.schoolId = schoolId;
     }
 
-    public String getFingerImage() {
-        return fingerImage;
+    public int getFingerPrintLength() {
+        return fingerPrintLength;
     }
 
-    public void setFingerImage(String fingerImage) {
-        this.fingerImage = fingerImage;
-    }
-
-    private SyncTeacher() {
-    }
-
-    public static class Builder {
-        private final SyncTeacher INSTANCE;
-        public Builder() {
-            INSTANCE = new SyncTeacher();
-            INSTANCE.setStoredLocally(true);
-        }
-
-        public SyncTeacher.Builder setEmployeeId(String employeeID) {
-            INSTANCE.setEmployeeId(employeeID);
-            return this;
-        }
-
-        public SyncTeacher.Builder setMPSComputerNumber(String computerNumber) {
-            INSTANCE.setMPSComputerNumber(computerNumber);
-            return this;
-        }
-
-        public SyncTeacher.Builder setEmployeeNumber(String employeeNumber) {
-            INSTANCE.setEmployeeNumber(employeeNumber);
-            return this;
-        }
-
-        public Builder setRole(String role) {
-            INSTANCE.setRole(role);
-            return this;
-        }
-
-        public SyncTeacher.Builder setDOB(String dob) {
-            INSTANCE.setDob(dob);
-            return this;
-        }
-
-        public SyncTeacher.Builder setEmailAddress(String emailAddress) {
-            INSTANCE.setEmailAddress(emailAddress);
-            return this;
-        }
-
-        public SyncTeacher.Builder setFingerPrint(byte[] fingerPrint) {
-            INSTANCE.setFingerPrint(fingerPrint);
-            return this;
-        }
-
-        public SyncTeacher.Builder setFingerImage(String fingerImage) {
-            INSTANCE.setFingerImage(fingerImage);
-            return this;
-        }
-
-        public SyncTeacher.Builder setFirstName(String firstName) {
-            INSTANCE.setFirstName(firstName);
-            return this;
-        }
-
-        public SyncTeacher.Builder setLastName(String lastName) {
-            INSTANCE.setLastName(lastName);
-            return this;
-        }
-
-        public SyncTeacher.Builder setGender(String gender) {
-            INSTANCE.setGender(gender);
-            return this;
-        }
-
-        public SyncTeacher.Builder setInitials(String initials) {
-            INSTANCE.setInitials(initials);
-            return this;
-        }
-
-        public SyncTeacher.Builder setLicensed(Boolean licensed) {
-            INSTANCE.setLicensed(licensed);
-            return this;
-        }
-
-        public SyncTeacher.Builder setNationalID(String nationalID) {
-            INSTANCE.setNationalId(nationalID);
-            return this;
-        }
-
-        public SyncTeacher.Builder setPhoneNumber(String phoneNumber) {
-            INSTANCE.setPhoneNumber(phoneNumber);
-            return this;
-        }
-
-        public SyncTeacher.Builder setSchoolID(String schoolID) {
-            INSTANCE.setSchoolId(schoolID);
-            return this;
-        }
-
-        public Builder setID(String id) {
-            INSTANCE.setId(id);
-            return this;
-        }
-
-        public SyncTeacher build() {
-            return INSTANCE;
-        }
-
-        public Builder setIsStoredLocally(boolean local) {
-            INSTANCE.isStoredLocally = local;
-            return  this;
-        }
-
-        public Builder setPrimaryKey(int primaryKey) {
-            INSTANCE.primaryKey = primaryKey;
-            return this;
-        }
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public SyncTeacher(String id, String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, byte[] fingerPrint, String fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId) {
-        this.id = id;
-        this.employeeId = employeeId;
-        this.MPSComputerNumber = MPSComputerNumber;
-        this.employeeNumber = employeeNumber;
-        this.role = role;
-        this.dob = dob;
-        this.emailAddress = emailAddress;
-        this.fingerPrint = fingerPrint;
-        this.fingerImage = fingerImage;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.initials = initials;
-        this.licensed = licensed;
-        this.nationalId = nationalId;
-        this.phoneNumber = phoneNumber;
-        this.schoolId = schoolId;
-        this.isStoredLocally = false;
-    }
-
-    @Override
-    public String toString() {
-        return "SyncTeacher{" +
-                "primaryKey=" + primaryKey +
-                ", id='" + id + '\'' +
-                ", employeeId='" + employeeId + '\'' +
-                ", MPSComputerNumber='" + MPSComputerNumber + '\'' +
-                ", employeeNumber='" + employeeNumber + '\'' +
-                ", role='" + role + '\'' +
-                ", dob='" + dob + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", fingerPrint=" + Arrays.toString(fingerPrint) +
-                ", fingerImage='" + fingerImage + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", initials='" + initials + '\'' +
-                ", licensed=" + licensed +
-                ", nationalId='" + nationalId + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", schoolId='" + schoolId + '\'' +
-                ", isStoredLocally=" + isStoredLocally +
-                '}';
+    public void setFingerPrintLength(int fingerPrintLength) {
+        this.fingerPrintLength = fingerPrintLength;
     }
 
     public boolean isStoredLocally() {
@@ -375,6 +252,4 @@ public class SyncTeacher {
     public void setStoredLocally(boolean storedLocally) {
         isStoredLocally = storedLocally;
     }
-
-
 }
