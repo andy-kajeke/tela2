@@ -269,6 +269,10 @@ public class FingerPrintActivity extends Activity {
                     handleDevChange(deviceChangeEvent, dev);
                 }
             };
+            mPermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+            IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+            registerReceiver(mUsbReceiver, filter);
+            checkDevice();
         }
     }
 }
