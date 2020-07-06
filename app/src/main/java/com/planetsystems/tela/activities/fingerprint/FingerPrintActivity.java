@@ -39,6 +39,7 @@ import com.planetsystems.tela.data.logs.ExecutionLogRepository;
 import com.planetsystems.tela.utils.BitmapConverter;
 import com.planetsystems.tela.utils.DynamicData;
 import com.suprema.BioMiniFactory;
+import com.suprema.CaptureResponder;
 import com.suprema.IBioMiniDevice;
 import com.suprema.IUsbEventHandler;
 
@@ -80,6 +81,26 @@ public class FingerPrintActivity extends Activity {
     private FingerPrintActivity mainContext;
 
     public final String className = getClass().getSimpleName();
+
+    private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
+    private CaptureResponder mCaptureResponseDefault = new CaptureResponder() {
+        @Override
+        public void onCapture(Object o, IBioMiniDevice.FingerState fingerState) {
+            super.onCapture(o, fingerState);
+        }
+
+        @Override
+        public boolean onCaptureEx(Object o, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
+
+        }
+
+        @Override
+        public void onCaptureError(Object o, int i, String s) {
+            super.onCaptureError(o, i, s);
+        }
+    }
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
