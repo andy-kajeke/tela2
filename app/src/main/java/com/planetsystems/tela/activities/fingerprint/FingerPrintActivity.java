@@ -249,6 +249,9 @@ public class FingerPrintActivity extends Activity {
                     }
                 }
             }).start();
+        } else if (mCurrentDevice != null && event == IUsbEventHandler.DeviceChangeEvent.DEVICE_DETACHED && mCurrentDevice.isEqual(dev)){
+            printState(getResources().getText(R.string.device_detached));
+            logExecutionMessage("Device Removed: " + mCurrentDevice, null, null, null);
         }
     }
 
