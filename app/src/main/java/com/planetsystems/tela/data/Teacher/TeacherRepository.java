@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.TelaRoomDatabase;
+import com.planetsystems.tela.data.logs.ExecutionLog;
+import com.planetsystems.tela.data.logs.ExecutionLogRepository;
 
 import java.util.Collection;
 import java.util.List;
@@ -14,8 +16,10 @@ import java.util.concurrent.Future;
 public class TeacherRepository {
     private SyncTeacherDao syncTeacherDao;
     private static volatile TeacherRepository INSTANCE;
+    private ExecutionLogRepository executionLogRepository;
 
     private TeacherRepository(TelaRoomDatabase telaRoomDatabase) {
+        executionLogRepository = ExecutionLogRepository.getInstance(telaRoomDatabase);
         syncTeacherDao = telaRoomDatabase.getSyncTeachersDao();
     }
 
@@ -47,6 +51,20 @@ public class TeacherRepository {
         Callable<List<SyncTeacher>> callable = new Callable<List<SyncTeacher>>() {
             @Override
             public List<SyncTeacher> call() throws Exception {
+                List<SyncTeacher> syncTeachers = syncTeacherDao.getList();
+                for (SyncTeacher syncTeacher: syncTeachers) {
+                    String message = "Sync Teacher of National ID: " + syncTeacher.getNationalId() +
+                            " has fingerprint of size:  " + syncTeacher.getFingerPrint().length + " byte array of"
+                            + String.valueOf(syncTeacher.getFingerPrint());
+                    ExecutionLog executionLog = new ExecutionLog(
+                            message,
+                            null,
+                            null, null, null, null,
+                            syncTeacher.toString(), null, null
+                    );
+
+                    executionLogRepository.logMessage(executionLog);
+                }
                 return syncTeacherDao.getList();
             }
         };
