@@ -284,4 +284,22 @@ public class FingerPrintActivity extends Activity {
             };
         }
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mBioMiniFactory != null ) {
+            mBioMiniFactory.close();
+            mBioMiniFactory = null;
+        }
+
+        if (mbUsbExternalUSBManager) {
+            unregisterReceiver(mUsbReceiver);
+        }
+        super.onDestroy();
+    }
 }
