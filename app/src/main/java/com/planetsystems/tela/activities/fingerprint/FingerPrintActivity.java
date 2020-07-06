@@ -124,6 +124,27 @@ public class FingerPrintActivity extends Activity {
         }
     };
 
+    private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (ACTION_USB_PERMISSION.equals(action)) {
+                synchronized (this) {
+                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+                        if (device != null) {
+                            mBioMiniFactory.addDevice(device);
+                            logExecutionMessage(String.format(Locale.ENGLISH, "Initialized device count - BioMiniFactory (%)",
+                                    mBioMiniFactory.getDeviceCount()), null, null, null);
+                        }
+                    } else {
+                        logExecutionMessage("Permission Denied for Device: " + device, null, null, null);
+                    }
+                }
+            }
+        }
+    };
+
     private void printState(final CharSequence text) {
         runOnUiThread(new Runnable() {
             @Override
