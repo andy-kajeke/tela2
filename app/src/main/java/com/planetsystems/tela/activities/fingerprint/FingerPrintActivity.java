@@ -1,5 +1,6 @@
 package com.planetsystems.tela.activities.fingerprint;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -301,5 +302,11 @@ public class FingerPrintActivity extends Activity {
             unregisterReceiver(mUsbReceiver);
         }
         super.onDestroy();
+    }
+
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+        }
     }
 }
