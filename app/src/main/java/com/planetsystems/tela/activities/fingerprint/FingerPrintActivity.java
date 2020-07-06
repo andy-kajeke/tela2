@@ -90,11 +90,23 @@ public class FingerPrintActivity extends Activity {
         }
 
         @Override
-        public boolean onCaptureEx(Object context, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
+        public boolean onCaptureEx(Object context, final Bitmap capturedImage, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
             logExecutionMessage("Captured Fingerprint Successfully: " + Arrays.toString(templateData.data) + " Length: " + String.valueOf(templateData.data.length),
                     "line 34", "onCapureEx", "No data");
             printState(getResources().getText(R.string.capture_single_ok));
             logExecutionMessage(((IBioMiniDevice)context).popPerformanceLog(), null, null, null);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (capturedImage != null ) {
+                        ImageView imageView = findViewById(R.id.imageViewFingerPrint);
+                        if (imageView != null) {
+                            imageView.setImageBitmap(capturedImage);
+                        }
+                    }
+                }
+            });
+            return true;
         }
 
         @Override
