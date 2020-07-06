@@ -85,8 +85,6 @@ public class FingerPrintActivity extends Activity {
     private Bitmap captureBitmapImage = null;
     private CardView cardViewCapture;
     private TextView textViewCapture;
-    private CardView cardViewEnroll;
-    private TextView textViewEnroll;
 
 
     public final String className = getClass().getSimpleName();
@@ -198,8 +196,8 @@ public class FingerPrintActivity extends Activity {
 
         cardViewCapture = findViewById(R.id.cardViewCapture);
         textViewCapture = findViewById(R.id.textViewCapture);
-        cardViewEnroll = findViewById(R.id.cardViewEnroll);
-        textViewEnroll = findViewById(R.id.textViewEnroll);
+        CardView cardViewEnroll = findViewById(R.id.cardViewEnroll);
+        TextView textViewEnroll = findViewById(R.id.textViewEnroll);
 
         if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
             textViewEnroll.setText("Enroll");
