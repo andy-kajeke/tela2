@@ -6,8 +6,10 @@ import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.logs.ExecutionLog;
 import com.planetsystems.tela.data.logs.ExecutionLogRepository;
+import com.planetsystems.tela.utils.DynamicData;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -39,6 +41,12 @@ public class TeacherRepository {
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
+                String message = "Enrolling a teacher of National ID: " + syncTeacher.getNationalId()
+                        + " and fingerprint of size: " + syncTeacher.getFingerPrint().length;
+
+                ExecutionLog executionLog = new ExecutionLog(message,
+                        DynamicData.getDate(), new Date().toString(), className, null, null, syncTeacher.toString(), null, null);
+                executionLogRepository.logMessage(executionLog);
                 syncTeacherDao.enrollTeacher(syncTeacher);
             }
         });
@@ -59,8 +67,8 @@ public class TeacherRepository {
                             + String.valueOf(syncTeacher.getFingerPrint());
                     ExecutionLog executionLog = new ExecutionLog(
                             message,
-                            null,
-                            null, className, null, null,
+                            DynamicData.getDate(),
+                            new Date().toString(), className, null, null,
                             syncTeacher.toString(), null, null
                     );
 
@@ -71,9 +79,7 @@ public class TeacherRepository {
         };
         try {
             return TelaRoomDatabase.db_executor.submit(callable).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return null;
