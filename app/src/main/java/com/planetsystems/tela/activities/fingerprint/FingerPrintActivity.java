@@ -266,6 +266,7 @@ public class FingerPrintActivity extends Activity {
                 @Override
                 public void onDeviceChange(DeviceChangeEvent deviceChangeEvent, Object dev) {
                     String message = "Changing Device: " + deviceChangeEvent + " using external usb-manager";
+                    logExecutionMessage(message, null, null, null);
                     handleDevChange(deviceChangeEvent, dev);
                 }
             };
@@ -273,6 +274,14 @@ public class FingerPrintActivity extends Activity {
             IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
             registerReceiver(mUsbReceiver, filter);
             checkDevice();
+        } else {
+            mBioMiniFactory = new BioMiniFactory() {
+                @Override
+                public void onDeviceChange(DeviceChangeEvent event, Object dev) {
+                    String message = "On Change Device: " + event;
+                    handleDevChange(event, dev);
+                }
+            };
         }
     }
 }
