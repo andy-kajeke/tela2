@@ -50,7 +50,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-public class FingerPrintActivity extends Activity implements FingerPrintCaptureResponder.OnFingerPrintCaptureResponseListener{
+public class FingerPrintActivity extends Activity{
     private final byte[] fakeFingerPrint = { 69, 22, -113 , 25, -112, 0,83,66,33,65,-80, 114,6,26,1,-48,26,-126 ,37,-126,-64 ,24 ,7,
             11,-126,-32, 123, 11, 11, -124, -79, 115, -120, 39, -58, 32, 114, 6, 8, -120, 33, 101, -113,
             8, 73, 64, 4, -115, 30, -53, 80, 21, 7, 14, -53, -48, 102, 3, 52, 11, -47, 23, -120, 17, 76,
