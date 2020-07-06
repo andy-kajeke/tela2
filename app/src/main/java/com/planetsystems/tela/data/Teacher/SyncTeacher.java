@@ -252,4 +252,30 @@ public class SyncTeacher {
     public void setStoredLocally(boolean storedLocally) {
         isStoredLocally = storedLocally;
     }
+
+    @Override
+    public String toString() {
+        return "SyncTeacher{" +
+                "primaryKey=" + primaryKey +
+                ", id='" + id + '\'' +
+                ", employeeId='" + employeeId + '\'' +
+                ", MPSComputerNumber='" + MPSComputerNumber + '\'' +
+                ", employeeNumber='" + employeeNumber + '\'' +
+                ", role='" + role + '\'' +
+                ", dob='" + dob + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", fingerPrint=" + Arrays.toString(fingerPrint) +
+                ", fingerImage='" + fingerImage + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", initials='" + initials + '\'' +
+                ", licensed=" + licensed +
+                ", nationalId='" + nationalId + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", schoolId='" + schoolId + '\'' +
+                ", fingerPrintLength=" + fingerPrintLength +
+                ", isStoredLocally=" + isStoredLocally +
+                '}';
+    }
 }
