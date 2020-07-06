@@ -124,12 +124,28 @@ public class FingerPrintActivity extends Activity {
         }
     };
 
-    private void printState(CharSequence text) {
-
+    private void printState(final CharSequence text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((TextView) findViewById(R.id.textViewStatus)).setText(text);
+            }
+        });
     }
 
-    private void logExecutionMessage(String message, String lineNumber, String methodName, String data) {
-
+    synchronized private void logExecutionMessage(String message, String lineNumber, String methodName, String data) {
+        ExecutionLog executionLog = new ExecutionLog(
+                message,
+                new Date().toString(),
+                DynamicData.getTime(),
+                getClass().getSimpleName(),
+                DynamicData.getSchoolID(),
+                DynamicData.getSchoolName(),
+                data,
+                lineNumber,
+                methodName
+        );
+        ExecutionLogRepository.getInstance(TelaRoomDatabase.getInstance(this)).logMessage(executionLog);
     }
 
 
