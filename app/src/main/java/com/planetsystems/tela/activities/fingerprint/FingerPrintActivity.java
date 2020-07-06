@@ -553,7 +553,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                 Log_Message("BioMini device Not Null", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                 }.getClass().getEnclosingMethod()).getName());
                 for (SyncClockIn clock: syncClockIns) {
-                    if (mCurrentDevice.verify(fingerPrint, clock.getFingerPrint())) {
+                    if (mCurrentDevice.verify(fingerPrint, fingerPrint.length, clock.getFingerPrint(), clock.getFingerPrint().length)) {
                         Log_Message("Teacher found", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                         }.getClass().getEnclosingMethod()).getName());
                         clockIn = clock;
@@ -598,7 +598,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     Log_Message("Unknown Teacher has Fingerprint => " + Arrays.toString(finger)
                             + " OF SIZE { " + String.valueOf(finger.length) + " }", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
-                    if (mCurrentDevice.verify(finger, syncTeacher.getFingerPrint())) {
+                    if (mCurrentDevice.verify(finger, finger.length, syncTeacher.getFingerPrint(), syncTeacher.getFingerPrint().length)) {
                         //TODO Error is here and it needs to fixed
                         //if (Arrays.equals(finger, syncTeacher.getFingerPrint())) {
                         Log_Message("Found Teacher with a given Fingerprint and Returning it ---", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
@@ -669,7 +669,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                 Log_Message("BioMini device is Available", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                 }.getClass().getEnclosingMethod()).getName());
                 for (SyncClockOut clock: syncClockOuts) {
-                    if (mCurrentDevice.verify(clock.getFingerPrint(), fingerPrint)) {
+                    if (mCurrentDevice.verify(clock.getFingerPrint(), clock.getFingerPrint().length, fingerPrint, fingerPrint.length)) {
                         Log_Message("Clocked Out Found breaking the loop", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                         }.getClass().getEnclosingMethod()).getName());
                         clockOut = clock;
