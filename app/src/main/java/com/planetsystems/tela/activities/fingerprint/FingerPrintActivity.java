@@ -116,10 +116,13 @@ public class FingerPrintActivity extends Activity {
         }
 
         @Override
-        public void onCaptureError(Object o, int i, String s) {
-            super.onCaptureError(o, i, s);
+        public void onCaptureError(Object context, int errorCode, String errorMessage) {
+            logExecutionMessage("Error occurred: " + errorMessage + " Error Code" + errorCode, null, null, null);
+            if (errorCode != IBioMiniDevice.ErrorCode.OK.value()) {
+                printState(getResources().getText(R.string.capture_single_fail) + " ( " + errorMessage + " ) ");
+            }
         }
-    }
+    };
 
     private void printState(CharSequence text) {
 
