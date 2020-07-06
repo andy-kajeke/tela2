@@ -79,6 +79,8 @@ public class FingerPrintActivity extends Activity {
     public static final int REQUEST_WRITE_PERMISSION = 786;
     public IBioMiniDevice mCurrentDevice = null;
     private FingerPrintActivity mainContext;
+    private IBioMiniDevice.TemplateData capturedTemplateData = null;
+    private Bitmap captureBitmapImage = null;
 
     public final String className = getClass().getSimpleName();
 
@@ -90,7 +92,7 @@ public class FingerPrintActivity extends Activity {
         }
 
         @Override
-        public boolean onCaptureEx(Object context, final Bitmap capturedImage, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
+        public boolean onCaptureEx(Object context, final Bitmap capturedImage, final IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
             logExecutionMessage("Captured Fingerprint Successfully: " + Arrays.toString(templateData.data) + " Length: " + String.valueOf(templateData.data.length),
                     "line 34", "onCapureEx", "No data");
             printState(getResources().getText(R.string.capture_single_ok));
@@ -98,7 +100,9 @@ public class FingerPrintActivity extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (capturedImage != null ) {
+                    if (capturedImage != null) {
+                        capturedTemplateData = templateData;
+                        captureBitmapImage = capturedImage;
                         ImageView imageView = findViewById(R.id.imageViewFingerPrint);
                         if (imageView != null) {
                             imageView.setImageBitmap(capturedImage);
