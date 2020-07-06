@@ -209,7 +209,6 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                 if(mCurrentDevice != null) {
                     Log_Message("Bio Mini device available capturing fingerprint", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
-                    //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
                     mCurrentDevice.captureSingle(
                             mCaptureOptionDefault,
                             new FingerPrintCaptureResponder(mainContext),
