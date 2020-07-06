@@ -211,5 +211,17 @@ public class FingerPrintActivity extends Activity {
             textViewEnroll.setText("Clock Ou");
         }
 
+        cardViewEnroll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ImageView)findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
+                if (mCurrentDevice != null) {
+                    printState("Capturing Fingerprint");
+                    mCurrentDevice.captureSingle(mCaptureOptionDefault, mCaptureResponseDefault, true);
+                } else {
+                    printState("Please Connect Device");
+                }
+            }
+        });
     }
 }
