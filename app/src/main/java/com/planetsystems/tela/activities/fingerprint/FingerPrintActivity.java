@@ -598,10 +598,9 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     Log_Message("Unknown Teacher has Fingerprint => " + Arrays.toString(finger)
                             + " OF SIZE { " + String.valueOf(finger.length) + " }", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
-
-//                    if (mCurrentDevice.verify(finger, syncTeacher.getFingerPrint())) {
-                    //TODO Error is here and it needs to fixed
-                if (Arrays.equals(finger, syncTeacher.getFingerPrint())) {
+                    if (mCurrentDevice.verify(finger, syncTeacher.getFingerPrint())) {
+                        //TODO Error is here and it needs to fixed
+                        //if (Arrays.equals(finger, syncTeacher.getFingerPrint())) {
                         Log_Message("Found Teacher with a given Fingerprint and Returning it ---", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                         }.getClass().getEnclosingMethod()).getName());
                         return  syncTeacher;
