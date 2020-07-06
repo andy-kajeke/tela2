@@ -81,6 +81,11 @@ public class FingerPrintActivity extends Activity {
     private FingerPrintActivity mainContext;
     private IBioMiniDevice.TemplateData capturedTemplateData = null;
     private Bitmap captureBitmapImage = null;
+    private CardView cardViewCapture;
+    private TextView textViewCapture;
+    private CardView cardViewEnroll;
+    private TextView textViewEnroll;
+
 
     public final String className = getClass().getSimpleName();
 
@@ -186,5 +191,8 @@ public class FingerPrintActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finger_print);
+        mainContext = this;
+        mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
+
     }
 }
