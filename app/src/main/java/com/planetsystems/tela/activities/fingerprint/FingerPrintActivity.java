@@ -103,6 +103,8 @@ public class FingerPrintActivity extends Activity {
                     if (capturedImage != null) {
                         capturedTemplateData = templateData;
                         captureBitmapImage = capturedImage;
+
+
                         ImageView imageView = findViewById(R.id.imageViewFingerPrint);
                         if (imageView != null) {
                             imageView.setImageBitmap(capturedImage);
