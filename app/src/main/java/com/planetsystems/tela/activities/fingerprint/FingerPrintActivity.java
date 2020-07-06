@@ -194,5 +194,10 @@ public class FingerPrintActivity extends Activity {
         mainContext = this;
         mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
 
+        cardViewCapture = findViewById(R.id.cardViewCapture);
+        textViewCapture = findViewById(R.id.textViewCapture);
+        cardViewEnroll = findViewById(R.id.cardViewEnroll);
+        textViewEnroll = findViewById(R.id.textViewEnroll);
+
     }
 }
