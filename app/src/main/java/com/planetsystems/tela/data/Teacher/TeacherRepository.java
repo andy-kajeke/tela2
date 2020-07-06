@@ -17,6 +17,7 @@ public class TeacherRepository {
     private SyncTeacherDao syncTeacherDao;
     private static volatile TeacherRepository INSTANCE;
     private ExecutionLogRepository executionLogRepository;
+    private final String className = getClass().getSimpleName();
 
     private TeacherRepository(TelaRoomDatabase telaRoomDatabase) {
         executionLogRepository = ExecutionLogRepository.getInstance(telaRoomDatabase);
@@ -59,7 +60,7 @@ public class TeacherRepository {
                     ExecutionLog executionLog = new ExecutionLog(
                             message,
                             null,
-                            null, null, null, null,
+                            null, className, null, null,
                             syncTeacher.toString(), null, null
                     );
 
