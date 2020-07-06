@@ -67,9 +67,19 @@ public class FingerPrintActivity extends Activity {
     public static final String TEACHER_INITIALS = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.INITIALS";
     public static final String TEACHER_ROLE = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEACHER_ROLE";
     public static final String TEACHER_COMMENT = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.COMMENT";
+    public static final String EMPLOYEEE_NUMBER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.EMPLOYEE_NUMBER";
+
     public static final boolean mbUsbExternalUSBManager = false;
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
-    public static final String EMPLOYEEE_NUMBER = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.EMPLOYEE_NUMBER";
+    private UsbManager mUsbManager = null;
+    private PendingIntent mPermissionIntent = null;
+
+    private static BioMiniFactory mBioMiniFactory = null;
+    public static final int REQUEST_WRITE_PERMISSION = 786;
+    public IBioMiniDevice mCurrentDevice = null;
+    private FingerPrintActivity mainContext;
+
+    public final String className = getClass().getSimpleName();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
