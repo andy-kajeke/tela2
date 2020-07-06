@@ -275,7 +275,7 @@ public class FingerPrintActivity extends Activity {
             registerReceiver(mUsbReceiver, filter);
             checkDevice();
         } else {
-            mBioMiniFactory = new BioMiniFactory() {
+            mBioMiniFactory = new BioMiniFactory(mainContext, mUsbManager) {
                 @Override
                 public void onDeviceChange(DeviceChangeEvent event, Object dev) {
                     String message = "On Change Device: " + event;
