@@ -91,7 +91,8 @@ public class FingerPrintActivity extends Activity {
 
         @Override
         public boolean onCaptureEx(Object o, Bitmap bitmap, IBioMiniDevice.TemplateData templateData, IBioMiniDevice.FingerState fingerState) {
-
+            logExecutionMessage("Captured Fingerprint Successfully: " + Arrays.toString(templateData.data) + " Length: " + String.valueOf(templateData.data.length),
+                    "line 34", "onCapureEx", "No data");
         }
 
         @Override
@@ -100,6 +101,9 @@ public class FingerPrintActivity extends Activity {
         }
     }
 
+    private void logExecutionMessage(String message, String lineNumber, String methodName, String data) {
+
+    }
 
 
     @Override
