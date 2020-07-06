@@ -18,11 +18,8 @@ import java.util.concurrent.Future;
 public class TeacherRepository {
     private SyncTeacherDao syncTeacherDao;
     private static volatile TeacherRepository INSTANCE;
-    private ExecutionLogRepository executionLogRepository;
-    private final String className = getClass().getSimpleName();
 
     private TeacherRepository(TelaRoomDatabase telaRoomDatabase) {
-        executionLogRepository = ExecutionLogRepository.getInstance(telaRoomDatabase);
         syncTeacherDao = telaRoomDatabase.getSyncTeachersDao();
     }
 
@@ -38,23 +35,9 @@ public class TeacherRepository {
     }
 
     public void insertSyncTeacher(final SyncTeacher syncTeacher) {
-        String message = "Inserting Teacher: ";
-        ExecutionLog executionLog = new ExecutionLog(
-                message,
-                DynamicData.getDate(),
-                new Date().toString(), className, null, null,
-                syncTeacher.toString(), null, null
-        );
-        executionLogRepository.logMessage(executionLog);
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
-                String message = "Enrolling a teacher of National ID: " + syncTeacher.getNationalId()
-                        + " and fingerprint of size: " + syncTeacher.getFingerPrint().length;
-
-                ExecutionLog executionLog = new ExecutionLog(message,
-                        DynamicData.getDate(), new Date().toString(), className, null, null, syncTeacher.toString(), null, null);
-                executionLogRepository.logMessage(executionLog);
                 syncTeacherDao.enrollTeacher(syncTeacher);
             }
         });
@@ -65,30 +48,9 @@ public class TeacherRepository {
     }
 
     public List<SyncTeacher> getTeachers() {
-        String message = "Getting all teachers: ";
-        ExecutionLog executionLog = new ExecutionLog(
-                message,
-                DynamicData.getDate(),
-                new Date().toString(), className, null, null,
-                null, null, null
-        );
-        executionLogRepository.logMessage(executionLog);
-
         Callable<List<SyncTeacher>> callable = new Callable<List<SyncTeacher>>() {
             @Override
             public List<SyncTeacher> call() throws Exception {
-                List<SyncTeacher> syncTeachers = syncTeacherDao.getList();
-                for (SyncTeacher syncTeacher: syncTeachers) {
-                    String message = "Sync Teacher of National ID: " + syncTeacher.getNationalId() +
-                            " has fingerprint of size:  " + syncTeacher.getFingerPrint().length + " byte array of"
-                            + String.valueOf(syncTeacher.getFingerPrint());
-                    ExecutionLog executionLog = new ExecutionLog(
-                            message,
-                            DynamicData.getDate(),
-                            new Date().toString(), className, null, null,
-                            syncTeacher.toString(), null, null
-                    );
-                }
                 return syncTeacherDao.getList();
             }
         };
