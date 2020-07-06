@@ -223,5 +223,11 @@ public class FingerPrintActivity extends Activity {
                 }
             }
         });
+
+        restartBioMini();
+    }
+
+    private void restartBioMini() {
+
     }
 }
