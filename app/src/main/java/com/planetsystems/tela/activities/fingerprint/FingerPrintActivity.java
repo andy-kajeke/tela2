@@ -145,6 +145,17 @@ public class FingerPrintActivity extends Activity {
         }
     };
 
+    public void checkDevice() {
+        if (mUsbManager == null ) return;
+        logExecutionMessage("Checking Device", null, null, null);
+        HashMap<String, UsbDevice> deviceList = mUsbManager.getDeviceList();
+        for (UsbDevice _device : deviceList.values()) {
+            if (_device.getVendorId() == 0x16d1) {
+                mUsbManager.requestPermission(_device, mPermissionIntent);
+            }
+        }
+    }
+
     private void printState(final CharSequence text) {
         runOnUiThread(new Runnable() {
             @Override
