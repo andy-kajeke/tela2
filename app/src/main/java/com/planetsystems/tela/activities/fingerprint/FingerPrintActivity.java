@@ -152,6 +152,7 @@ public class FingerPrintActivity extends Activity {
         for (UsbDevice _device : deviceList.values()) {
             if (_device.getVendorId() == 0x16d1) {
                 mUsbManager.requestPermission(_device, mPermissionIntent);
+                logExecutionMessage("Device Found And Permission Requested", null, null, null);
             }
         }
     }
