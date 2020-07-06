@@ -227,6 +227,31 @@ public class FingerPrintActivity extends Activity {
         restartBioMini();
     }
 
+    void handleDevChange(IUsbEventHandler.DeviceChangeEvent event, Objects dev) {
+        if (event == IUsbEventHandler.DeviceChangeEvent.DEVICE_ATTACHED && mCurrentDevice == null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int cnt = 0;
+                    while (mBioMiniFactory == null && cnt < 20) {
+                        SystemClock.sleep(1000);
+                        cnt++;
+                    }
+                    if (mBioMiniFactory != null ) {
+                        mCurrentDevice = mBioMiniFactory.getDevice(0);
+                        printState(getResources().getText(R.string.device_attached));
+                        logExecutionMessage("Device Attache: " + mCurrentDevice, null, null, null);
+                        if (mCurrentDevice != null) {
+                            String message = "Device Name : " + mCurrentDevice.getDeviceInfo().deviceName + " \n "
+                                    + " SN: " + mCurrentDevice.getDeviceInfo().deviceSN + " \n "
+                                    + "SDK version: " + mCurrentDevice.getDeviceInfo().versionSDK;
+                        }
+                    }
+                }
+            }).start();
+        }
+    }
+
     private void restartBioMini() {
 
     }
