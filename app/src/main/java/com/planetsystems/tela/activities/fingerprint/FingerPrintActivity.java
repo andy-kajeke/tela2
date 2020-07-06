@@ -199,5 +199,17 @@ public class FingerPrintActivity extends Activity {
         cardViewEnroll = findViewById(R.id.cardViewEnroll);
         textViewEnroll = findViewById(R.id.textViewEnroll);
 
+        if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
+            textViewEnroll.setText("Enroll");
+        }
+
+        if (getIntent().getAction().equals(ACTION_CLOCK_IN)) {
+            textViewEnroll.setText("Clock In");
+        }
+
+        if (getIntent().getAction().equals(ACTION_CLOCK_OUT)) {
+            textViewEnroll.setText("Clock Ou");
+        }
+
     }
 }
