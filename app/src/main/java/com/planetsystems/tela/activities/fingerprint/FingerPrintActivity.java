@@ -207,8 +207,10 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             @Override
             public void onClick(View v) {
                 if(mCurrentDevice != null) {
+
                     Log_Message("Bio Mini device available capturing fingerprint", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
+
                     mCurrentDevice.captureSingle(
                             mCaptureOptionDefault,
                             new FingerPrintCaptureResponder(mainContext),
@@ -247,7 +249,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                 } else {
                     Log_Message("No Fingerprint was Captured", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
-                     Toast.makeText(FingerPrintActivity.this, "No Fingerprint was Captured", Toast.LENGTH_SHORT).show();
+                    printState("No Fingerprint was Captured");
                 }
             }
         });
@@ -263,11 +265,11 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             SyncTeacher syncTeacher1 = getTeacherWithFingerPrint(fingerprint);
             SyncTeacher syncTeacher2 = teacherRepository.getTeacherWithNationalID(nationalID);
             if (syncTeacher1 == null ) {
-                Log_Message("Found Teacher with finger print of size - " + String.valueOf(fingerprint.length), String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                Log_Message("Not Found Teacher with finger print of size - " + String.valueOf(fingerprint.length), String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                 }.getClass().getEnclosingMethod()).getName());
                 // already enrolled
                 if (syncTeacher2 == null ) {
-                    Log_Message("Found Teacher with ID and Enrolling", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    Log_Message("Not Found Teacher with ID and Enrolling", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
                     SyncTeacher syncTeacher = new SyncTeacher.Builder()
                             .setDOB(null)
@@ -289,7 +291,13 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
                     Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully ", Toast.LENGTH_SHORT).show();
                     Log_Message("Teacher Enrolled Successfully", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
+                } else {
+                    Log_Message("Found Teacher with National ID -- " + syncTeacher2.getNationalId(), String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
                 }
+            } else {
+                Log_Message("Found Teacher of Fingerprint", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                }.getClass().getEnclosingMethod()).getName());
             }
         } catch (InterruptedException | ExecutionException e) {
             Toast.makeText(FingerPrintActivity.this, "Error Enrolling Teacher", Toast.LENGTH_LONG).show();
@@ -576,12 +584,21 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
             Log_Message("BioMini Device Not Null", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
             }.getClass().getEnclosingMethod()).getName());
             for (SyncTeacher syncTeacher: syncTeachers) {
-                if (mCurrentDevice.verify(finger, syncTeacher.getFingerPrint())) {
-//                if (Arrays.equals(finger, syncTeacher.getFingerPrint())) {
-                    Log_Message("Found Teacher with a given Fingerprint", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                if (syncTeacher.getFingerPrint() != null) {
+
+                    Log_Message("Current Teacher has Fingerprint", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
-                    teacher = syncTeacher;
-                    break;
+
+//                    if (mCurrentDevice.verify(finger, syncTeacher.getFingerPrint())) {
+                    //TODO Error is here and it needs to fixed
+                if (Arrays.equals(finger, syncTeacher.getFingerPrint())) {
+                        Log_Message("Found Teacher with a given Fingerprint and Returning it ---", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                        }.getClass().getEnclosingMethod()).getName());
+                        return  syncTeacher;
+                    } else {
+                        Log_Message("Teacher Not The same", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                        }.getClass().getEnclosingMethod()).getName());
+                    }
                 }
             }
         } else {
@@ -592,7 +609,7 @@ public class FingerPrintActivity extends Activity implements FingerPrintCaptureR
 
             Toast.makeText(this, "Device Removed", Toast.LENGTH_SHORT).show();
         }
-        Log_Message("Teacher of Fingerprint - " + String.valueOf(teacher != null ), String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+        Log_Message("Teacher of Fingerprint  found? - " + String.valueOf(teacher != null ), String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
         }.getClass().getEnclosingMethod()).getName());
         return teacher;
     }
