@@ -317,4 +317,10 @@ public class FingerPrintActivity extends Activity {
             logExecutionMessage("Permission Granted", null, null, null);
         }
     }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        requestPermission();
+        super.onPostCreate(savedInstanceState);
+    }
 }
