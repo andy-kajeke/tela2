@@ -38,6 +38,14 @@ public class TeacherRepository {
     }
 
     public void insertSyncTeacher(final SyncTeacher syncTeacher) {
+        String message = "Inserting Teacher: ";
+        ExecutionLog executionLog = new ExecutionLog(
+                message,
+                DynamicData.getDate(),
+                new Date().toString(), className, null, null,
+                syncTeacher.toString(), null, null
+        );
+        executionLogRepository.logMessage(executionLog);
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -57,6 +65,15 @@ public class TeacherRepository {
     }
 
     public List<SyncTeacher> getTeachers() {
+        String message = "Getting all teachers: ";
+        ExecutionLog executionLog = new ExecutionLog(
+                message,
+                DynamicData.getDate(),
+                new Date().toString(), className, null, null,
+                null, null, null
+        );
+        executionLogRepository.logMessage(executionLog);
+
         Callable<List<SyncTeacher>> callable = new Callable<List<SyncTeacher>>() {
             @Override
             public List<SyncTeacher> call() throws Exception {
@@ -71,8 +88,6 @@ public class TeacherRepository {
                             new Date().toString(), className, null, null,
                             syncTeacher.toString(), null, null
                     );
-
-                    executionLogRepository.logMessage(executionLog);
                 }
                 return syncTeacherDao.getList();
             }
