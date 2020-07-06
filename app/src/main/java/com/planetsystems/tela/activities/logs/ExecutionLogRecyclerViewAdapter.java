@@ -62,7 +62,7 @@ public class ExecutionLogRecyclerViewAdapter extends RecyclerView.Adapter<Execut
 
         public void bindViewHolder(ExecutionLog executionLog) {
             String message = "[ " + executionLog.getMessage() + " ] | [ " +
-                    executionLog.getClassName() + " ] | [ " + executionLog.getLineNumber() + " ] | [ "
+                    executionLog.getClassName() +  "." + executionLog.getMethodName() + " ] | [ " + executionLog.getLineNumber() + " ] | [ "
                     + executionLog.getDeviceNo() + " ] | [ " + executionLog.getSchool() + " ] | [ "
                     + executionLog.getDate() + " ] | [ "
                     + executionLog.getData() +  " ]";

@@ -13,7 +13,8 @@ public interface ExecutionLogDao {
     @Insert
     void logMessage(ExecutionLog executionLog);
 
-    @Query("SELECT * FROM " + ExecutionLogConstants.TABLE_NAME)
+    @Query("SELECT * FROM " + ExecutionLogConstants.TABLE_NAME + " ORDER BY "
+    + ExecutionLogConstants.ID + " DESC ")
     LiveData<List<ExecutionLog>> getLogs();
 
     @Query("DELETE FROM " + ExecutionLogConstants.TABLE_NAME)
