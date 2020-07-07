@@ -630,6 +630,41 @@ public class FingerPrintActivity extends Activity{
                 String message = "Teacher Not Clocked Today, Clocking them in ";
                 logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                 }.getClass().getEnclosingMethod()).getName());
+
+                SyncClockOut syncClockOut = new SyncClockOut(
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                );
+                clockOutRepository.insertSynClockOut(syncClockOut);
+
+                message = "Teacher clocked Out Successfully: " + new Date().toString();
+                logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+                }.getClass().getEnclosingMethod()).getName());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(FingerPrintActivity.this, "Clocked Out Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                Intent intent = new Intent();
+                intent.putExtra(EMPLOYEEE_NUMBER, syncTeacher.getEmployeeNumber());
+                intent.putExtra(TEACHER_ROLE, syncTeacher.getRole());
+                setResult(RESULT_OK, intent);
+                finish();
+
+
             } else {
                 String message = "Teacher already clocked Out";
                 logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
