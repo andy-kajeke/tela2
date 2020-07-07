@@ -171,7 +171,7 @@ public class FingerPrintActivity extends Activity{
 
 
         mainContext = this;
-        cardViewCapture.setVisibility(View.GONE);
+        cardViewEnroll.setVisibility(View.GONE);
 
 
         cardViewCapture.setOnClickListener(new View.OnClickListener() {
@@ -525,10 +525,22 @@ public class FingerPrintActivity extends Activity{
                         Toast.makeText(FingerPrintActivity.this, "Clocked In Successfully", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+                Intent intent = new Intent();
+                intent.putExtra(EMPLOYEEE_NUMBER, syncTeacher.getEmployeeNumber());
+                intent.putExtra(TEACHER_ROLE, syncTeacher.getRole());
+                setResult(RESULT_OK, intent);
+                finish();
             } else {
                 String message = "Teacher already clocked loading home page";
                 logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
                 }.getClass().getEnclosingMethod()).getName());
+
+                Intent intent = new Intent();
+                intent.putExtra(EMPLOYEEE_NUMBER, syncTeacher.getEmployeeNumber());
+                intent.putExtra(TEACHER_ROLE, syncTeacher.getRole());
+                setResult(RESULT_OK, intent);
+                finish();
             }
         } else {
             String message =  "No Teacher found with that fingerprint :- " + Arrays.toString(fingerPrintData);
