@@ -319,24 +319,9 @@ public class FingerPrintActivity extends Activity{
 
     @Override
     protected void onPostResume() {
-        bindComponents();
         super.onPostResume();
     }
 
-    public void bindComponents(){
-        for( int i=0 ; i< nInfComponents.length ; i++){
-            View v = findViewById(nInfComponents[i]);
-            if( v instanceof Button){
-                if( !((Button)v).hasOnClickListeners()){
-                    v.setOnClickListener(ClickEvent);
-                }
-            }else if( v instanceof  EditText && v.getId() == R.id.editLog) {
-                mLogView = (EditText) findViewById(R.id.editLog);
-            }else if( v instanceof  ScrollView && v.getId() == R.id.scrollLog){
-                mScrollLog = (ScrollView)findViewById(R.id.scrollLog);
-            }
-        }
-    }
 
     @Override
     protected void onDestroy() {
@@ -350,26 +335,6 @@ public class FingerPrintActivity extends Activity{
         super.onDestroy();
     }
 
-    public void setMenuPicker(int idx){
-        if( idx >mPager.getChildCount()){return ;}
-        for( int i =0 ; i < mNaviPicks.length ; i++){
-            ImageView img_view = (ImageView)findViewById(mNaviPicks[i]);
-            if(idx == i ){
-                img_view.setImageResource(R.drawable.ic_place_grey600_48dp);
-            }else{
-                img_view.setImageResource(R.drawable.ic_pin_drop_grey_underbar);
-            }
-        }
-    }
-    public void clearState(){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ((TextView)findViewById(R.id.textStatus)).clearComposingText();
-            }
-        });
-
-    }
     private void requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},  REQUEST_WRITE_PERMISSION);
@@ -389,31 +354,6 @@ public class FingerPrintActivity extends Activity{
 
     @Override
     public void onBackPressed() {
-    }
-
-    class  PageAdaptor extends PagerAdapter {
-
-        LayoutInflater infalter ;
-        public PageAdaptor(LayoutInflater inf) {this.infalter = inf;}
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            View view = infalter.inflate(nLayouts[position], null);
-            container.addView(view);
-            return view;
-        }
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-        @Override
-        public int getCount() {
-            return nLayouts.length;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
     }
 
     // OnClick Event .
