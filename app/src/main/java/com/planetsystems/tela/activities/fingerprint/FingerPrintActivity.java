@@ -453,6 +453,7 @@ public class FingerPrintActivity extends Activity{
     }
 
     private SyncTeacher getTeacherWithFingerPrint(byte[] fingerPrintData) {
+        SyncTeacher foundTeacher = null;
         List<SyncTeacher> syncTeachers = teacherRepository.getTeachers();
         for (SyncTeacher syncTeacher: syncTeachers) {
             if (syncTeacher.getFingerPrint() != null) {
@@ -467,7 +468,8 @@ public class FingerPrintActivity extends Activity{
                                 + " has Fingerprint: " + Arrays.toString(syncTeacher.getFingerPrint()) + " Tested against Fingerprint " + Arrays.toString(fingerPrintData);
                         logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                         }.getClass().getEnclosingMethod()).getName());
-                        return syncTeacher;
+                        foundTeacher = syncTeacher;
+                        break;
                     }
 
                     String message =  "Searching for Teacher: " + syncTeacher.getNationalId()
@@ -478,7 +480,7 @@ public class FingerPrintActivity extends Activity{
             }
 
         }
-        return null;
+        return foundTeacher;
     }
 
 //    // OnClick Event .
