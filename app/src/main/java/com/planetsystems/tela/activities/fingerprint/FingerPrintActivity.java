@@ -244,97 +244,14 @@ public class FingerPrintActivity extends Activity{
                 }
             }
         });
-        findViewById(R.id.buttonStartCapturing).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(mCurrentDevice != null) {
-                    BioMiniFactory mBioMiniFactory = new BioMiniFactory(getApplicationContext()) {
-                        @Override
-                        public void onDeviceChange(DeviceChangeEvent event, Object dev) {
-
-                        }
-                    };
-                    IBioMiniDevice mCurrentDeivce = null;
-                    // Make BioMiniFactory instance, and get device handler(IBioMiniDevice).
-                    //mCaptureOptionDefault.captureTemplate =true;
-                    mCaptureOptionDefault.captureImage=true;
-                    //mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.ELOW;
-                    mCurrentDevice.startCapturing(
-                            mCaptureOptionDefault,
-                            mCaptureResponsePrev);
-                }
-            }
-        });
-
-        findViewById(R.id.buttonAbortCapturing).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(mCurrentDevice != null) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mCurrentDevice.abortCapturing();
-                            int nRetryCount =0;
-                            while(mCurrentDevice != null && mCurrentDevice.isCapturing()){
-                                SystemClock.sleep(10);
-                                nRetryCount++;
-                            }
-                            Log.d("AbortCapturing" , String.format(Locale.ENGLISH ,
-                                    "IsCapturing return false.(Abort-lead time: %dms) " ,
-                                    nRetryCount* 10));
-                        }
-                    }).start();
-                }
-            }
-        });
 
         if(mBioMiniFactory != null) {
             mBioMiniFactory.close();
         }
 
-        if( !mbUsbExternalUSBManager ){
-            Button btn_checkDevice = (Button)findViewById(R.id.buttonCheckDevice);
-            btn_checkDevice.setClickable(false);
-            btn_checkDevice.setEnabled(false);
-        }else{
-            ((Button)findViewById(R.id.buttonCheckDevice)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    checkDevice();
-                }
-            });
-        }
-
         restartBioMini();
 
         printRev(""+mBioMiniFactory.getSDKInfo());
-
-        mPager = (ViewPager)findViewById(R.id.viewpager);
-        PageAdaptor viewPageradaptor= new PageAdaptor(getLayoutInflater());
-        mPager.setAdapter(viewPageradaptor);
-        mPager.setOffscreenPageLimit(5);
-        //
-        mScrollLog = (ScrollView) findViewById(R.id.scrollLog);
-
-        mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                setMenuPicker(position);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                bindComponents();
-            }
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        bindComponents();
     }
 
     void handleDevChange(IUsbEventHandler.DeviceChangeEvent event, Object dev) {
