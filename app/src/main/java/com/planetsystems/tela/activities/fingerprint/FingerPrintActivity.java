@@ -400,30 +400,55 @@ public class FingerPrintActivity extends Activity{
                     message = "Teacher Enrolled Successfully With Fingerprint: " + Arrays.toString(fingerPrintData);
                     logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
-                    Toast.makeText(this, "Teacher Enrolled Successfully", Toast.LENGTH_LONG).show();
+
+
+                   runOnUiThread(new Runnable() {
+                       @Override
+                       public void run() {
+                           Toast.makeText(FingerPrintActivity.this, "Teacher Enrolled Successfully", Toast.LENGTH_LONG).show();
+                       }
+                   });
                 } else {
                     String message =  "This Teacher is already Enrolled:  " + getIntent().getStringExtra(TEACHER_NATIONAL_ID) + " \n" +
                             "His/her National ID saved is: " + nationalIdTeacher.getNationalId() + "\n" +
                             "Compared Against National ID: " + getIntent().getStringExtra(TEACHER_NATIONAL_ID);
                     logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
-                    Toast.makeText(this, "Teacher Already Enrolled", Toast.LENGTH_LONG).show();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
                 String message =  "There was error getting Teacher with National ID " + getIntent().getStringExtra(TEACHER_NATIONAL_ID);
                 logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                 }.getClass().getEnclosingMethod()).getName());
-                Toast.makeText(this, "UnKnown Error", Toast.LENGTH_LONG).show();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(FingerPrintActivity.this, "Unknown Error", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         } else {
-            Toast.makeText(this, "Teacher Already Enrolled", Toast.LENGTH_LONG).show();
+
             String message =  "This Teacher is already Enrolled:  " + getIntent().getStringExtra(TEACHER_NATIONAL_ID) + " \n" +
                     "His/her Fingerprint saved is: " + Arrays.toString(syncTeacher.getFingerPrint()) + "\n" +
                     "Compared Against fingerprint: " + Arrays.toString(fingerPrintData);
             logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
             }.getClass().getEnclosingMethod()).getName());
-            Toast.makeText(this, "UnKnown Error", Toast.LENGTH_LONG).show();
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 
