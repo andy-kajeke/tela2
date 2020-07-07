@@ -77,6 +77,7 @@ public class FingerPrintActivity extends Activity{
     private PendingIntent mPermissionIntent= null;
     private ExecutionLogRepository executionLogRepository;
     private TeacherRepository teacherRepository;
+    private ClockInRepository clockInRepository;
     //
 
     private CardView cardViewEnroll = null;
@@ -163,6 +164,10 @@ public class FingerPrintActivity extends Activity{
         textViewCapture = findViewById(R.id.textViewCapture);
         executionLogRepository = ExecutionLogRepository.getInstance(TelaRoomDatabase.getInstance(this));
         teacherRepository = TeacherRepository.getInstance(TelaRoomDatabase.getInstance(this));
+
+        if(Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
+            clockInRepository = ClockInRepository.getInstance(TelaRoomDatabase.getInstance(this));
+        }
 
 
         mainContext = this;
@@ -489,7 +494,28 @@ public class FingerPrintActivity extends Activity{
     }
 
     private void clockInTeacher(byte[] fingerPrintData) {
+        SyncClockIn clockIn = getClockInWithFingerprint(fingerPrintData);
+    }
 
+    private SyncClockIn getClockInWithFingerprint(byte[] fingerPrintData) {
+        try {
+            List<SyncClockIn> syncClockIns = clockInRepository.getClockInByDate(DynamicData.getDate());
+            for (SyncClockIn clockIn: syncClockIns) {
+                if (mCurrentDevice != null) {
+                    if (clockIn.getFingerPrint() != null) {
+                        String message = "Current Clock had fingerprint: " + Arrays.toString(clockIn.getFingerPrint());
+                        logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+                        }.getClass().getEnclosingMethod()).getName());
+                    }
+                }
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            String message = "There was error getting clock ins for today:- " + new Date().toString();
+            logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+            }.getClass().getEnclosingMethod()).getName());
+        }
+        return null;
     }
 
 //    // OnClick Event .
