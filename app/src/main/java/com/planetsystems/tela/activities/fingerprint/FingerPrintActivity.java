@@ -503,19 +503,19 @@ public class FingerPrintActivity extends Activity{
                 }.getClass().getEnclosingMethod()).getName());
 
                 SyncClockIn clock = new SyncClockIn(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
+                        syncTeacher.getEmployeeNumber(),
+                        syncTeacher.getEmployeeId(),
+                        syncTeacher.getFirstName(),
+                        syncTeacher.getLastName(),
+                        DynamicData.getLatitude(),
+                        DynamicData.getLongitude(),
+                        DynamicData.getDate(),
+                        DynamicData.getDay(),
+                        DynamicData.getTime(),
+                        DynamicData.getSchoolID(),
+                        fingerPrintData
                 );
-                clockInRepository.synClockInTeacher(clockIn);
+                clockInRepository.synClockInTeacher(clock);
                 message = "Teacher clocked in Successfully: " + new Date().toString();
                 logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
                 }.getClass().getEnclosingMethod()).getName());
