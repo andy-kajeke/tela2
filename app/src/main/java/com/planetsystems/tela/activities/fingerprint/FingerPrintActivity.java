@@ -166,6 +166,7 @@ public class FingerPrintActivity extends Activity{
 
 
         mainContext = this;
+        cardViewCapture.setVisibility(View.GONE);
 
 
         cardViewCapture.setOnClickListener(new View.OnClickListener() {
@@ -212,6 +213,10 @@ public class FingerPrintActivity extends Activity{
 
                                     if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                                         enrollTeacher(capturedTemplate.data, capturedImage);
+                                    }
+
+                                    if (getIntent().getAction().equals(ACTION_CLOCK_IN)) {
+                                        clockInTeacher(capturedTemplate.data);
                                     }
 
                                     return true;
@@ -474,13 +479,17 @@ public class FingerPrintActivity extends Activity{
 
                     String message =  "Searching for Teacher: " + syncTeacher.getNationalId()
                             + " has Fingerprint: " + Arrays.toString(syncTeacher.getFingerPrint()) + " Tested against Fingerprint " + Arrays.toString(fingerPrintData);
-                    logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
                 }
             }
 
         }
         return foundTeacher;
+    }
+
+    private void clockInTeacher(byte[] fingerPrintData) {
+
     }
 
 //    // OnClick Event .
