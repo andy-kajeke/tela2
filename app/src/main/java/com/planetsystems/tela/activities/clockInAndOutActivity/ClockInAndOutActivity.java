@@ -402,6 +402,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             switch (requestCode) {
                 case CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE:
                     try {
+                        assert data != null;
                         SyncTeacher syncTeacher = TeacherRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()))
                                 .getTeacherWithEmployeeNumber(data.getStringExtra(FingerPrintActivity.EMPLOYEEE_NUMBER));
                         if (syncTeacher != null) {
@@ -413,6 +414,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
 
                 case CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE:
                     try {
+                        assert data != null;
                         SyncTeacher syncTeacher = TeacherRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()))
                                 .getTeacherWithEmployeeNumber(data.getStringExtra(FingerPrintActivity.EMPLOYEEE_NUMBER));
                         if (syncTeacher != null) {
@@ -433,7 +435,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
             }
 
         } else {
-            Toast.makeText(this, "No Fingerprint Captured", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No Information Provided", Toast.LENGTH_LONG).show();
         }
     }
 }

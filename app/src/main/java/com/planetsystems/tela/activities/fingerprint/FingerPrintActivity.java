@@ -583,7 +583,7 @@ public class FingerPrintActivity extends Activity{
                         logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
                         }.getClass().getEnclosingMethod()).getName());
 
-                        if (mCurrentDevice.verify(
+                        if (mCurrentDevice.verify( //3991
                                 fingerPrintData,
                                 fingerPrintData.length,
                                 clockIn.getFingerPrint(),
@@ -598,7 +598,7 @@ public class FingerPrintActivity extends Activity{
                             break;
                         } else {
 
-                            message = "No Record Found, Teacher Not Enrolled";
+                            message = "Clock In Has No Fingerprint";
                             logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                             }.getClass().getEnclosingMethod()).getName());
                         }
