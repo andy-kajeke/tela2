@@ -202,9 +202,6 @@ public class FingerPrintActivity extends Activity{
 
                                     logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                                     }.getClass().getEnclosingMethod()).getName());
-//                                        Toast.makeText(FingerPrintActivity.this, " Template existing ", Toast.LENGTH_SHORT).show();
-                                    // TODO Enroll Teacher
-                                    printState(getResources().getText(R.string.enroll_ok));
                                     message = ((IBioMiniDevice)context).popPerformanceLog();
                                     logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                                     }.getClass().getEnclosingMethod()).getName());
