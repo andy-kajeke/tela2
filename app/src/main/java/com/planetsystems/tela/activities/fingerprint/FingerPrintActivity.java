@@ -108,9 +108,6 @@ public class FingerPrintActivity extends Activity{
         });
 
     }
-    synchronized public void log(final String msg)
-    {
-    }
 
     synchronized public void printRev(final String msg) {
 
@@ -127,11 +124,15 @@ public class FingerPrintActivity extends Activity{
                         if(device != null){
                             if( mBioMiniFactory == null) return;
                             mBioMiniFactory.addDevice(device);
-                            log(String.format(Locale.ENGLISH ,"Initialized device count- BioMiniFactory (%d)" , mBioMiniFactory.getDeviceCount() ));
+                            String message = String.format(Locale.ENGLISH ,"Initialized device count- BioMiniFactory (%d)" , mBioMiniFactory.getDeviceCount() );
+                            logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                            }.getClass().getEnclosingMethod()).getName());
                         }
                     }
                     else{
-                        Log.d(TAG, "permission denied for device"+ device);
+                        String message = "permission denied for device"+ device;
+                        logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                        }.getClass().getEnclosingMethod()).getName());
                     }
                 }
             }
@@ -139,7 +140,9 @@ public class FingerPrintActivity extends Activity{
     };
     public void checkDevice(){
         if(mUsbManager == null) return;
-        log("checkDevice");
+        String message = "checkDevice";
+        logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+        }.getClass().getEnclosingMethod()).getName());
         HashMap<String , UsbDevice> deviceList = mUsbManager.getDeviceList();
         for (UsbDevice _device : deviceList.values()) {
             if (_device.getVendorId() == 0x16d1) {
@@ -195,17 +198,23 @@ public class FingerPrintActivity extends Activity{
                                         printState(getResources().getText(R.string.enroll_ok));
                                     }
                                     else {
-                                        log("<<ERROR>> Template is not extracted...");
+                                        String message = "<<ERROR>> Template is not extracted...";
+                                        logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                                        }.getClass().getEnclosingMethod()).getName());
                                         printState(getResources().getText(R.string.enroll_fail));
                                     }
-                                    log(((IBioMiniDevice)context).popPerformanceLog());
+                                    String message = ((IBioMiniDevice)context).popPerformanceLog();
+                                    logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                                    }.getClass().getEnclosingMethod()).getName());
 
                                     return true;
                                 }
 
                                 @Override
                                 public void onCaptureError(Object context, int errorCode, String error) {
-                                    log("onCaptureError : " + error);
+                                    String message = "onCaptureError : " + error;
+                                    logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                                    }.getClass().getEnclosingMethod()).getName());
                                     Toast.makeText(FingerPrintActivity.this, "There was error here", Toast.LENGTH_SHORT).show();
                                     printState(getResources().getText(R.string.enroll_fail));
                                 }
@@ -238,9 +247,12 @@ public class FingerPrintActivity extends Activity{
                         printState(getResources().getText(R.string.device_attached));
                         Log.d(TAG, "mCurrentDevice attached : " + mCurrentDevice);
                         if (mCurrentDevice != null /*&& mCurrentDevice.getDeviceInfo() != null*/) {
-                            log(" DeviceName : " + mCurrentDevice.getDeviceInfo().deviceName);
-                            log("         SN : " + mCurrentDevice.getDeviceInfo().deviceSN);
-                            log("SDK version : " + mCurrentDevice.getDeviceInfo().versionSDK);
+                            String message = " DeviceName : " + mCurrentDevice.getDeviceInfo().deviceName + "\n" +
+                            "         SN : " + mCurrentDevice.getDeviceInfo().deviceSN + "\n" +
+                            "SDK version : " + mCurrentDevice.getDeviceInfo().versionSDK;
+
+                            logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                            }.getClass().getEnclosingMethod()).getName());
                         }
                     }
                 }
@@ -261,9 +273,9 @@ public class FingerPrintActivity extends Activity{
             mBioMiniFactory = new BioMiniFactory(mainContext, mUsbManager){
                 @Override
                 public void onDeviceChange(DeviceChangeEvent event, Object dev) {
-                    log("----------------------------------------");
-                    log("onDeviceChange : " + event + " using external usb-manager");
-                    log("----------------------------------------");
+                    String message = "onDeviceChange : " + event + " using external usb-manager";
+                    logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
                     handleDevChange(event, dev);
                 }
             };
@@ -276,9 +288,9 @@ public class FingerPrintActivity extends Activity{
             mBioMiniFactory = new BioMiniFactory(mainContext) {
                 @Override
                 public void onDeviceChange(DeviceChangeEvent event, Object dev) {
-                    log("----------------------------------------");
-                    log("onDeviceChange : " + event);
-                    log("----------------------------------------");
+                    String message = "onDeviceChange : " + event;
+                    logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
                     handleDevChange(event, dev);
                 }
             };
@@ -312,7 +324,9 @@ public class FingerPrintActivity extends Activity{
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == REQUEST_WRITE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            log("permission granted");
+            String message = "permission granted";
+            logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+            }.getClass().getEnclosingMethod()).getName());
         }
     }
     @Override
