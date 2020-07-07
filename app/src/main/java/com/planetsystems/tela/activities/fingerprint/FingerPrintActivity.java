@@ -206,6 +206,10 @@ public class FingerPrintActivity extends Activity{
                                     logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                                     }.getClass().getEnclosingMethod()).getName());
 
+                                    if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
+                                        enrollTeacher(capturedTemplate.data, capturedImage);
+                                    }
+
                                     return true;
                                 }
 
@@ -351,6 +355,10 @@ public class FingerPrintActivity extends Activity{
                         methodName
                 )
         );
+    }
+
+    private void enrollTeacher(byte[] fingerPrintData, Bitmap capturedImage) {
+
     }
 
 //    // OnClick Event .
