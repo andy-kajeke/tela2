@@ -238,7 +238,7 @@ public class FingerPrintActivity extends Activity{
 //                            true);
 //                }
 
-                if (getIntent().getAction().equals(ACTION_ENROLL)) {
+                if (Objects.equals(getIntent().getAction(), ACTION_ENROLL)) {
                     if (mCurrentDevice != null) {
                         ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
                         IBioMiniDevice.CaptureOption option = new IBioMiniDevice.CaptureOption();
@@ -401,363 +401,363 @@ public class FingerPrintActivity extends Activity{
     public void onBackPressed() {
     }
 
-    // OnClick Event .
-    View.OnClickListener ClickEvent = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId() ){
-                case R.id.buttonEnroll:
-                    if (mCurrentDevice != null) {
-                        final String userName = ((EditText) findViewById(R.id.editUsername)).getText().toString();
-                        Toast.makeText(FingerPrintActivity.this, " Template existing " + userName, Toast.LENGTH_SHORT).show();
-                        if (userName.equals("")) {
-                            log("<<ERROR>> There is no user name");
-                            return;
-                        }
-                        ((ImageView) findViewById(R.id.imagePreview)).setImageBitmap(null);
-                        IBioMiniDevice.CaptureOption option = new IBioMiniDevice.CaptureOption();
-                        option.extractParam.captureTemplate = true;
-                        option.captureTemplate = true; //deprecated
-                        //option.frameRate = IBioMiniDevice.FrameRate.ELOW;
-                        // capture fingerprint image
-                        mCurrentDevice.captureSingle(option,
-                                new CaptureResponder() {
-                                    @Override
-                                    public boolean onCaptureEx(final Object context, final Bitmap capturedImage,
-                                                               final IBioMiniDevice.TemplateData capturedTemplate,
-                                                               final IBioMiniDevice.FingerState fingerState) {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                if(capturedImage != null) {
-                                                    ImageView iv = (ImageView) findViewById(R.id.imagePreview);
-                                                    if(iv != null) {
-                                                        iv.setImageBitmap(capturedImage);
-                                                        Toast.makeText(FingerPrintActivity.this, "Success image set", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            }
-                                        });
-                                        if(capturedTemplate != null) {
-                                            Toast.makeText(FingerPrintActivity.this, " Template existing ", Toast.LENGTH_SHORT).show();
-                                            mUsers.add(new UserData(userName, capturedTemplate.data, capturedTemplate.data.length));
-                                            log("User data added : " + userName);
-                                            printState(getResources().getText(R.string.enroll_ok));
-                                        }
-                                        else {
-                                            log("<<ERROR>> Template is not extracted...");
-                                            printState(getResources().getText(R.string.enroll_fail));
-                                        }
-                                        log(((IBioMiniDevice)context).popPerformanceLog());
-
-                                        return true;
-                                    }
-
-                                    @Override
-                                    public void onCaptureError(Object context, int errorCode, String error) {
-                                        log("onCaptureError : " + error);
-                                        Toast.makeText(FingerPrintActivity.this, "There was error here", Toast.LENGTH_SHORT).show();
-                                        printState(getResources().getText(R.string.enroll_fail));
-                                    }
-                                }, true);
-                    }
-                    break;
-                case R.id.buttonVerify:
-                    if (mCurrentDevice != null) {
-                        if (mUsers.size() == 0) {
-                            log("There is no enrolled data");
-                            return;
-                        }
-                        // capture fingerprint image
-                        IBioMiniDevice.CaptureOption option = new IBioMiniDevice.CaptureOption();
-                        option.extractParam.captureTemplate = true;
-                        option.captureTemplate = true; //deprecated
-
-                        if (mCurrentDevice.getDeviceInfo().scannerType.getDeviceClass() == IBioMiniDevice.ScannerClass.UNIVERSIAL_DEVICE) {
-                            // capture fingerprint image
-                            mCurrentDevice.captureSingle(option,
-                                    new CaptureResponder() {
-                                        @Override
-                                        public boolean onCaptureEx(final Object context, final Bitmap capturedImage,
-                                                                   final IBioMiniDevice.TemplateData capturedTemplate,
-                                                                   final IBioMiniDevice.FingerState fingerState) {
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    if (capturedImage != null) {
-                                                        ImageView iv = (ImageView) findViewById(R.id.imagePreview);
-                                                        if (iv != null) {
-                                                            iv.setImageBitmap(capturedImage);
-                                                        }
-                                                    }
-                                                }
-                                            });
-                                            if (capturedTemplate != null) {
-                                                boolean isMatched = false;
-                                                String matchedName = "";
-                                                for (UserData ud : mUsers) {
-                                                    if (mCurrentDevice.verify(
-                                                            capturedTemplate.data, capturedTemplate.data.length,
-                                                            ud.template, ud.template.length)) {
-                                                        isMatched = true;
-                                                        matchedName = ud.name;
-                                                        break;
-                                                    }
-                                                }
-                                                if (isMatched) {
-                                                    log("Match found : " + matchedName);
-                                                    printState(getResources().getText(R.string.verify_ok));
-                                                } else {
-                                                    log("No match found : ");
-                                                    printState(getResources().getText(R.string.verify_not_match));
-                                                }
-                                            } else {
-                                                log("<<ERROR>> Template is not extracted...");
-                                                printState(getResources().getText(R.string.verify_fail));
-                                            }
-                                            return true;
-                                        }
-
-                                        @Override
-                                        public void onCaptureError(Object context, int errorCode, String error) {
-                                            log("onCaptureError : " + error);
-                                            printState(getResources().getText(R.string.capture_fail));
-                                        }
-                                    }, true);
-                        }else if (mCurrentDevice.getDeviceInfo().scannerType.getDeviceClass() == IBioMiniDevice.ScannerClass.HID_DEVICE) {
-
-                            UserData _user = mUsers.get(mUsers.size()-1);
-                            if(mCurrentDevice.verify(_user.template , null)) { // HID Device does not supported verify with two templates.
-                                log("Match found : " + _user.name);
-                                printState(getResources().getText(R.string.verify_ok));
-                            }else {
-                                IBioMiniDevice.ErrorCode _ecode =  mCurrentDevice.getLastError();
-                                log(_ecode.toString()  + "("+_ecode.value()  +")");
-                                printState(getResources().getText(R.string.verify_not_match));
-                            }
-                        }
-                    }
-                    break;
-                case R.id.buttonDeleteAll: {
-                    mUsers.clear();
-                    printState(getResources().getText(R.string.delete_user));
-                }
-                break;
-                case R.id.buttonExportBmp:
-                {
-                    if (mCurrentDevice != null) {
-                        final String userName = ((EditText) findViewById(R.id.editUsername)).getText().toString();
-                        if (userName.equals("")) {
-                            log("<<ERROR>> There is no user name");
-                            printState(getResources().getText(R.string.no_user_name));
-                            return;
-                        }
-                        byte[] bmp = mCurrentDevice.getCaptureImageAsBmp();
-                        if (bmp == null) {
-                            log("<<ERROR>> Cannot get BMP buffer");
-                            printState(getResources().getText(R.string.export_bmp_fail));
-                            return;
-                        }
-                        try {
-                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + userName + "_capturedImage.bmp");
-                            FileOutputStream fos = new FileOutputStream(file);
-                            fos.write(bmp);
-                            fos.close();
-
-                            printState(getResources().getText(R.string.export_bmp_ok));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                break;
-                case R.id.buttonExportWsq: {
-                    if (mCurrentDevice != null) {
-                        final String userName = ((EditText) findViewById(R.id.editUsername)).getText().toString();
-                        if (userName.equals("")) {
-                            log("<<ERROR>> There is no user name");
-                            printState(getResources().getText(R.string.no_user_name));
-                            return;
-                        }
-
-                        byte[] wsq = mCurrentDevice.getCaptureImageAsWsq(-1, -1, 3.5f, 0);
-                        if (wsq == null) {
-                            log("<<ERROR>> Cannot get WSQ buffer");
-                            printState(getResources().getText(R.string.export_wsq_fail));
-                            return;
-                        }
-                        try {
-                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + userName + "_capturedImage.wsq");
-                            FileOutputStream fos = new FileOutputStream(file);
-                            fos.write(wsq);
-                            fos.close();
-                            printState(getResources().getText(R.string.export_wsq_ok));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                break;
-                case R.id.buttonTemplate: {
-                    if (mCurrentDevice != null) {
-                        final String userName = ((EditText) findViewById(R.id.editUsername)).getText().toString();
-                        if (userName.equals("")) {
-                            log("<<ERROR>> There is no user name");
-                            printState(getResources().getText(R.string.no_user_name));
-                            return;
-                        }
-
-                        int tmp_type_idx = (int) ((Spinner) findViewById(R.id.spinnerTemplateType)).getSelectedItemId();
-                        int tmp_type;
-                        IBioMiniDevice.TemplateType _type;
-                        String encKey = ((EditText) findViewById(R.id.editEncryptKey)).getText().toString();
-                        if (encKey.equals("")) {
-                            mCurrentDevice.setEncryptionKey(null);
-                        } else {
-                            try {
-                                mCurrentDevice.setEncryptionKey(encKey.getBytes("UTF-8"));
-                            } catch (UnsupportedEncodingException e) {
-                                mCurrentDevice.setEncryptionKey(null);
-                                log("<<ERROR>> cannot set encryption key unsupported character sets assigned...");
-                                printState(getResources().getText(R.string.export_template_fail));
-                                e.printStackTrace();
-                            }
-                        }
-                        switch (tmp_type_idx) {
-                            case 0:
-                                tmp_type = IBioMiniDevice.TemplateType.SUPREMA.value();
-                                _type = IBioMiniDevice.TemplateType.SUPREMA;
-                                break;
-                            case 1:
-                                tmp_type = IBioMiniDevice.TemplateType.ISO19794_2.value();
-                                _type = IBioMiniDevice.TemplateType.ISO19794_2;
-                                break;
-                            case 2:
-                                tmp_type = IBioMiniDevice.TemplateType.ANSI378.value();
-                                _type = IBioMiniDevice.TemplateType.ANSI378;
-                                break;
-                            default:
-                                tmp_type = IBioMiniDevice.TemplateType.SUPREMA.value();
-                                _type = IBioMiniDevice.TemplateType.SUPREMA;
-                                break;
-                        }
-                        mCurrentDevice.setParameter(
-                                new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.TEMPLATE_TYPE,
-                                        tmp_type));
-                        IBioMiniDevice.TemplateData tmp = mCurrentDevice.extractTemplate();
-                        if (tmp == null) {
-                            log("<<ERROR>> Cannot get Template buffer");
-                            printState(getResources().getText(R.string.export_template_fail));
-                            return;
-                        }
-                        if (tmp.data != null) {
-                            try {
-
-                                File file = new File(
-                                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" +
-                                                userName + "_(" + _type.toString() + ")_capturedTemplate.tmp");
-                                FileOutputStream fos = new FileOutputStream(file);
-                                fos.write(tmp.data);
-                                fos.close();
-                                printState(getResources().getText(R.string.export_template_ok));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            } finally {
-                                try {
-                                    if (!encKey.equals("")) {
-                                        File file = new File(
-                                                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" +
-                                                        userName + "_(" + _type.toString() + " _capturedTemplate_dec.tmp");
-                                        FileOutputStream fos = new FileOutputStream(file);
-                                        fos.write(mCurrentDevice.decrypt(tmp.data));
-                                        fos.close();
-                                        printState(getResources().getText(R.string.export_template_ok));
-
-                                    }
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    }
-                }
-                break;
-                case R.id.button19794_4: {
-                    if (mCurrentDevice != null) {
-                        final String userName = ((EditText) findViewById(R.id.editUsername)).getText().toString();
-                        if (userName.equals("")) {
-                            log("<<ERROR>> There is no user name");
-                            printState(getResources().getText(R.string.no_user_name));
-                            return;
-                        }
-                        byte[] format19794_4 = mCurrentDevice.getCaptureImageAs19794_4();
-                        if (format19794_4 == null) {
-                            log("<<ERROR>> Cannot get 19794_4 buffer");
-                            printState(getResources().getText(R.string.export_19794_4_fail));
-                            return;
-                        }
-                        try {
-                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + userName + "_capturedImage.dat");
-                            FileOutputStream fos = new FileOutputStream(file);
-                            fos.write(format19794_4);
-                            fos.close();
-                            printState(getResources().getText(R.string.export_19794_4_ok));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                break;
-                case R.id.buttonReadCaptureParam:
-                    if(mCurrentDevice != null) {
-                        int security_level = (int) mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.SECURITY_LEVEL).value;
-                        int sensitivity_level = (int) mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.SENSITIVITY).value;
-                        int timeout = (int) mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
-                        int lfd_level = (int) mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.DETECT_FAKE).value;
-                        boolean fast_mode = mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.FAST_MODE).value == 1;
-                        boolean crop_mode = mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.SCANNING_MODE).value == 1;
-                        boolean ext_trigger = mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.EXT_TRIGGER).value == 1;
-                        boolean auto_sleep = mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.ENABLE_AUTOSLEEP).value == 1;
-                        boolean extract_mode = mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.EXTRACT_MODE_BIOSTAR).value == 1;
-                        ((SeekBar) findViewById(R.id.seekBarSecurityLevel)).setProgress(security_level);
-                        ((SeekBar) findViewById(R.id.seekBarSensitivity)).setProgress(sensitivity_level);
-                        ((SeekBar) findViewById(R.id.seekBarTimeout)).setProgress(timeout/1000);
-                        ((SeekBar) findViewById(R.id.seekBarLfdLevel)).setProgress(lfd_level);
-                        ((CheckBox) findViewById(R.id.checkBoxFastMode)).setChecked(fast_mode);
-                        ((CheckBox) findViewById(R.id.checkBoxCropMode)).setChecked(crop_mode);
-                        ((CheckBox) findViewById(R.id.checkBoxExtTrigger)).setChecked(ext_trigger);
-                        ((CheckBox) findViewById(R.id.checkBoxAutoSleep)).setChecked(auto_sleep);
-                        printState(getResources().getText(R.string.read_params_ok));
-                    }
-
-                    break;
-                case R.id.buttonWriteCaptureParam:
-
-                    if(mCurrentDevice != null) {
-                        int security_level = ((SeekBar) findViewById(R.id.seekBarSecurityLevel)).getProgress();
-                        int sensitivity_level = ((SeekBar) findViewById(R.id.seekBarSensitivity)).getProgress();
-                        int timeout = ((SeekBar) findViewById(R.id.seekBarTimeout)).getProgress();
-                        int lfd_level = ((SeekBar) findViewById(R.id.seekBarLfdLevel)).getProgress();
-                        boolean fast_mode = ((CheckBox) findViewById(R.id.checkBoxFastMode)).isChecked();
-                        boolean crop_mode = ((CheckBox) findViewById(R.id.checkBoxCropMode)).isChecked();
-                        boolean ext_trigger = ((CheckBox) findViewById(R.id.checkBoxExtTrigger)).isChecked();
-                        boolean auto_sleep = ((CheckBox) findViewById(R.id.checkBoxAutoSleep)).isChecked();
-                        boolean extract_mode = false;
-                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.SECURITY_LEVEL, security_level));
-                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.SENSITIVITY, sensitivity_level));
-                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.TIMEOUT, timeout));
-                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.DETECT_FAKE, lfd_level));
-                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.FAST_MODE, fast_mode?1:0));
-                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.SCANNING_MODE, crop_mode?1:0));
-                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.EXT_TRIGGER, ext_trigger?1:0));
-                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.ENABLE_AUTOSLEEP, auto_sleep?1:0));
-                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.EXTRACT_MODE_BIOSTAR, extract_mode?1:0));
-                        printState(getResources().getText(R.string.write_params_ok));
-                    }
-                    break;
-            }
-        }
-    };
+//    // OnClick Event .
+//    View.OnClickListener ClickEvent = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//            switch (view.getId() ){
+//                case R.id.buttonEnroll:
+//                    if (mCurrentDevice != null) {
+//                        final String userName = ((EditText) findViewById(R.id.editUsername)).getText().toString();
+//                        Toast.makeText(FingerPrintActivity.this, " Template existing " + userName, Toast.LENGTH_SHORT).show();
+//                        if (userName.equals("")) {
+//                            log("<<ERROR>> There is no user name");
+//                            return;
+//                        }
+//                        ((ImageView) findViewById(R.id.imagePreview)).setImageBitmap(null);
+//                        IBioMiniDevice.CaptureOption option = new IBioMiniDevice.CaptureOption();
+//                        option.extractParam.captureTemplate = true;
+//                        option.captureTemplate = true; //deprecated
+//                        //option.frameRate = IBioMiniDevice.FrameRate.ELOW;
+//                        // capture fingerprint image
+//                        mCurrentDevice.captureSingle(option,
+//                                new CaptureResponder() {
+//                                    @Override
+//                                    public boolean onCaptureEx(final Object context, final Bitmap capturedImage,
+//                                                               final IBioMiniDevice.TemplateData capturedTemplate,
+//                                                               final IBioMiniDevice.FingerState fingerState) {
+//                                        runOnUiThread(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                if(capturedImage != null) {
+//                                                    ImageView iv = (ImageView) findViewById(R.id.imagePreview);
+//                                                    if(iv != null) {
+//                                                        iv.setImageBitmap(capturedImage);
+//                                                        Toast.makeText(FingerPrintActivity.this, "Success image set", Toast.LENGTH_SHORT).show();
+//                                                    }
+//                                                }
+//                                            }
+//                                        });
+//                                        if(capturedTemplate != null) {
+//                                            Toast.makeText(FingerPrintActivity.this, " Template existing ", Toast.LENGTH_SHORT).show();
+//                                            mUsers.add(new UserData(userName, capturedTemplate.data, capturedTemplate.data.length));
+//                                            log("User data added : " + userName);
+//                                            printState(getResources().getText(R.string.enroll_ok));
+//                                        }
+//                                        else {
+//                                            log("<<ERROR>> Template is not extracted...");
+//                                            printState(getResources().getText(R.string.enroll_fail));
+//                                        }
+//                                        log(((IBioMiniDevice)context).popPerformanceLog());
+//
+//                                        return true;
+//                                    }
+//
+//                                    @Override
+//                                    public void onCaptureError(Object context, int errorCode, String error) {
+//                                        log("onCaptureError : " + error);
+//                                        Toast.makeText(FingerPrintActivity.this, "There was error here", Toast.LENGTH_SHORT).show();
+//                                        printState(getResources().getText(R.string.enroll_fail));
+//                                    }
+//                                }, true);
+//                    }
+//                    break;
+//                case R.id.buttonVerify:
+//                    if (mCurrentDevice != null) {
+//                        if (mUsers.size() == 0) {
+//                            log("There is no enrolled data");
+//                            return;
+//                        }
+//                        // capture fingerprint image
+//                        IBioMiniDevice.CaptureOption option = new IBioMiniDevice.CaptureOption();
+//                        option.extractParam.captureTemplate = true;
+//                        option.captureTemplate = true; //deprecated
+//
+//                        if (mCurrentDevice.getDeviceInfo().scannerType.getDeviceClass() == IBioMiniDevice.ScannerClass.UNIVERSIAL_DEVICE) {
+//                            // capture fingerprint image
+//                            mCurrentDevice.captureSingle(option,
+//                                    new CaptureResponder() {
+//                                        @Override
+//                                        public boolean onCaptureEx(final Object context, final Bitmap capturedImage,
+//                                                                   final IBioMiniDevice.TemplateData capturedTemplate,
+//                                                                   final IBioMiniDevice.FingerState fingerState) {
+//                                            runOnUiThread(new Runnable() {
+//                                                @Override
+//                                                public void run() {
+//                                                    if (capturedImage != null) {
+//                                                        ImageView iv = (ImageView) findViewById(R.id.imagePreview);
+//                                                        if (iv != null) {
+//                                                            iv.setImageBitmap(capturedImage);
+//                                                        }
+//                                                    }
+//                                                }
+//                                            });
+//                                            if (capturedTemplate != null) {
+//                                                boolean isMatched = false;
+//                                                String matchedName = "";
+//                                                for (UserData ud : mUsers) {
+//                                                    if (mCurrentDevice.verify(
+//                                                            capturedTemplate.data, capturedTemplate.data.length,
+//                                                            ud.template, ud.template.length)) {
+//                                                        isMatched = true;
+//                                                        matchedName = ud.name;
+//                                                        break;
+//                                                    }
+//                                                }
+//                                                if (isMatched) {
+//                                                    log("Match found : " + matchedName);
+//                                                    printState(getResources().getText(R.string.verify_ok));
+//                                                } else {
+//                                                    log("No match found : ");
+//                                                    printState(getResources().getText(R.string.verify_not_match));
+//                                                }
+//                                            } else {
+//                                                log("<<ERROR>> Template is not extracted...");
+//                                                printState(getResources().getText(R.string.verify_fail));
+//                                            }
+//                                            return true;
+//                                        }
+//
+//                                        @Override
+//                                        public void onCaptureError(Object context, int errorCode, String error) {
+//                                            log("onCaptureError : " + error);
+//                                            printState(getResources().getText(R.string.capture_fail));
+//                                        }
+//                                    }, true);
+//                        }else if (mCurrentDevice.getDeviceInfo().scannerType.getDeviceClass() == IBioMiniDevice.ScannerClass.HID_DEVICE) {
+//
+//                            UserData _user = mUsers.get(mUsers.size()-1);
+//                            if(mCurrentDevice.verify(_user.template , null)) { // HID Device does not supported verify with two templates.
+//                                log("Match found : " + _user.name);
+//                                printState(getResources().getText(R.string.verify_ok));
+//                            }else {
+//                                IBioMiniDevice.ErrorCode _ecode =  mCurrentDevice.getLastError();
+//                                log(_ecode.toString()  + "("+_ecode.value()  +")");
+//                                printState(getResources().getText(R.string.verify_not_match));
+//                            }
+//                        }
+//                    }
+//                    break;
+//                case R.id.buttonDeleteAll: {
+//                    mUsers.clear();
+//                    printState(getResources().getText(R.string.delete_user));
+//                }
+//                break;
+//                case R.id.buttonExportBmp:
+//                {
+//                    if (mCurrentDevice != null) {
+//                        final String userName = ((EditText) findViewById(R.id.editUsername)).getText().toString();
+//                        if (userName.equals("")) {
+//                            log("<<ERROR>> There is no user name");
+//                            printState(getResources().getText(R.string.no_user_name));
+//                            return;
+//                        }
+//                        byte[] bmp = mCurrentDevice.getCaptureImageAsBmp();
+//                        if (bmp == null) {
+//                            log("<<ERROR>> Cannot get BMP buffer");
+//                            printState(getResources().getText(R.string.export_bmp_fail));
+//                            return;
+//                        }
+//                        try {
+//                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + userName + "_capturedImage.bmp");
+//                            FileOutputStream fos = new FileOutputStream(file);
+//                            fos.write(bmp);
+//                            fos.close();
+//
+//                            printState(getResources().getText(R.string.export_bmp_ok));
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//                break;
+//                case R.id.buttonExportWsq: {
+//                    if (mCurrentDevice != null) {
+//                        final String userName = ((EditText) findViewById(R.id.editUsername)).getText().toString();
+//                        if (userName.equals("")) {
+//                            log("<<ERROR>> There is no user name");
+//                            printState(getResources().getText(R.string.no_user_name));
+//                            return;
+//                        }
+//
+//                        byte[] wsq = mCurrentDevice.getCaptureImageAsWsq(-1, -1, 3.5f, 0);
+//                        if (wsq == null) {
+//                            log("<<ERROR>> Cannot get WSQ buffer");
+//                            printState(getResources().getText(R.string.export_wsq_fail));
+//                            return;
+//                        }
+//                        try {
+//                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + userName + "_capturedImage.wsq");
+//                            FileOutputStream fos = new FileOutputStream(file);
+//                            fos.write(wsq);
+//                            fos.close();
+//                            printState(getResources().getText(R.string.export_wsq_ok));
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//                break;
+//                case R.id.buttonTemplate: {
+//                    if (mCurrentDevice != null) {
+//                        final String userName = ((EditText) findViewById(R.id.editUsername)).getText().toString();
+//                        if (userName.equals("")) {
+//                            log("<<ERROR>> There is no user name");
+//                            printState(getResources().getText(R.string.no_user_name));
+//                            return;
+//                        }
+//
+//                        int tmp_type_idx = (int) ((Spinner) findViewById(R.id.spinnerTemplateType)).getSelectedItemId();
+//                        int tmp_type;
+//                        IBioMiniDevice.TemplateType _type;
+//                        String encKey = ((EditText) findViewById(R.id.editEncryptKey)).getText().toString();
+//                        if (encKey.equals("")) {
+//                            mCurrentDevice.setEncryptionKey(null);
+//                        } else {
+//                            try {
+//                                mCurrentDevice.setEncryptionKey(encKey.getBytes("UTF-8"));
+//                            } catch (UnsupportedEncodingException e) {
+//                                mCurrentDevice.setEncryptionKey(null);
+//                                log("<<ERROR>> cannot set encryption key unsupported character sets assigned...");
+//                                printState(getResources().getText(R.string.export_template_fail));
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                        switch (tmp_type_idx) {
+//                            case 0:
+//                                tmp_type = IBioMiniDevice.TemplateType.SUPREMA.value();
+//                                _type = IBioMiniDevice.TemplateType.SUPREMA;
+//                                break;
+//                            case 1:
+//                                tmp_type = IBioMiniDevice.TemplateType.ISO19794_2.value();
+//                                _type = IBioMiniDevice.TemplateType.ISO19794_2;
+//                                break;
+//                            case 2:
+//                                tmp_type = IBioMiniDevice.TemplateType.ANSI378.value();
+//                                _type = IBioMiniDevice.TemplateType.ANSI378;
+//                                break;
+//                            default:
+//                                tmp_type = IBioMiniDevice.TemplateType.SUPREMA.value();
+//                                _type = IBioMiniDevice.TemplateType.SUPREMA;
+//                                break;
+//                        }
+//                        mCurrentDevice.setParameter(
+//                                new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.TEMPLATE_TYPE,
+//                                        tmp_type));
+//                        IBioMiniDevice.TemplateData tmp = mCurrentDevice.extractTemplate();
+//                        if (tmp == null) {
+//                            log("<<ERROR>> Cannot get Template buffer");
+//                            printState(getResources().getText(R.string.export_template_fail));
+//                            return;
+//                        }
+//                        if (tmp.data != null) {
+//                            try {
+//
+//                                File file = new File(
+//                                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" +
+//                                                userName + "_(" + _type.toString() + ")_capturedTemplate.tmp");
+//                                FileOutputStream fos = new FileOutputStream(file);
+//                                fos.write(tmp.data);
+//                                fos.close();
+//                                printState(getResources().getText(R.string.export_template_ok));
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            } finally {
+//                                try {
+//                                    if (!encKey.equals("")) {
+//                                        File file = new File(
+//                                                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" +
+//                                                        userName + "_(" + _type.toString() + " _capturedTemplate_dec.tmp");
+//                                        FileOutputStream fos = new FileOutputStream(file);
+//                                        fos.write(mCurrentDevice.decrypt(tmp.data));
+//                                        fos.close();
+//                                        printState(getResources().getText(R.string.export_template_ok));
+//
+//                                    }
+//                                } catch (IOException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                break;
+//                case R.id.button19794_4: {
+//                    if (mCurrentDevice != null) {
+//                        final String userName = ((EditText) findViewById(R.id.editUsername)).getText().toString();
+//                        if (userName.equals("")) {
+//                            log("<<ERROR>> There is no user name");
+//                            printState(getResources().getText(R.string.no_user_name));
+//                            return;
+//                        }
+//                        byte[] format19794_4 = mCurrentDevice.getCaptureImageAs19794_4();
+//                        if (format19794_4 == null) {
+//                            log("<<ERROR>> Cannot get 19794_4 buffer");
+//                            printState(getResources().getText(R.string.export_19794_4_fail));
+//                            return;
+//                        }
+//                        try {
+//                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + userName + "_capturedImage.dat");
+//                            FileOutputStream fos = new FileOutputStream(file);
+//                            fos.write(format19794_4);
+//                            fos.close();
+//                            printState(getResources().getText(R.string.export_19794_4_ok));
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//                break;
+//                case R.id.buttonReadCaptureParam:
+//                    if(mCurrentDevice != null) {
+//                        int security_level = (int) mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.SECURITY_LEVEL).value;
+//                        int sensitivity_level = (int) mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.SENSITIVITY).value;
+//                        int timeout = (int) mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
+//                        int lfd_level = (int) mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.DETECT_FAKE).value;
+//                        boolean fast_mode = mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.FAST_MODE).value == 1;
+//                        boolean crop_mode = mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.SCANNING_MODE).value == 1;
+//                        boolean ext_trigger = mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.EXT_TRIGGER).value == 1;
+//                        boolean auto_sleep = mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.ENABLE_AUTOSLEEP).value == 1;
+//                        boolean extract_mode = mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.EXTRACT_MODE_BIOSTAR).value == 1;
+//                        ((SeekBar) findViewById(R.id.seekBarSecurityLevel)).setProgress(security_level);
+//                        ((SeekBar) findViewById(R.id.seekBarSensitivity)).setProgress(sensitivity_level);
+//                        ((SeekBar) findViewById(R.id.seekBarTimeout)).setProgress(timeout/1000);
+//                        ((SeekBar) findViewById(R.id.seekBarLfdLevel)).setProgress(lfd_level);
+//                        ((CheckBox) findViewById(R.id.checkBoxFastMode)).setChecked(fast_mode);
+//                        ((CheckBox) findViewById(R.id.checkBoxCropMode)).setChecked(crop_mode);
+//                        ((CheckBox) findViewById(R.id.checkBoxExtTrigger)).setChecked(ext_trigger);
+//                        ((CheckBox) findViewById(R.id.checkBoxAutoSleep)).setChecked(auto_sleep);
+//                        printState(getResources().getText(R.string.read_params_ok));
+//                    }
+//
+//                    break;
+//                case R.id.buttonWriteCaptureParam:
+//
+//                    if(mCurrentDevice != null) {
+//                        int security_level = ((SeekBar) findViewById(R.id.seekBarSecurityLevel)).getProgress();
+//                        int sensitivity_level = ((SeekBar) findViewById(R.id.seekBarSensitivity)).getProgress();
+//                        int timeout = ((SeekBar) findViewById(R.id.seekBarTimeout)).getProgress();
+//                        int lfd_level = ((SeekBar) findViewById(R.id.seekBarLfdLevel)).getProgress();
+//                        boolean fast_mode = ((CheckBox) findViewById(R.id.checkBoxFastMode)).isChecked();
+//                        boolean crop_mode = ((CheckBox) findViewById(R.id.checkBoxCropMode)).isChecked();
+//                        boolean ext_trigger = ((CheckBox) findViewById(R.id.checkBoxExtTrigger)).isChecked();
+//                        boolean auto_sleep = ((CheckBox) findViewById(R.id.checkBoxAutoSleep)).isChecked();
+//                        boolean extract_mode = false;
+//                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.SECURITY_LEVEL, security_level));
+//                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.SENSITIVITY, sensitivity_level));
+//                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.TIMEOUT, timeout));
+//                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.DETECT_FAKE, lfd_level));
+//                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.FAST_MODE, fast_mode?1:0));
+//                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.SCANNING_MODE, crop_mode?1:0));
+//                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.EXT_TRIGGER, ext_trigger?1:0));
+//                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.ENABLE_AUTOSLEEP, auto_sleep?1:0));
+//                        mCurrentDevice.setParameter(new IBioMiniDevice.Parameter(IBioMiniDevice.ParameterType.EXTRACT_MODE_BIOSTAR, extract_mode?1:0));
+//                        printState(getResources().getText(R.string.write_params_ok));
+//                    }
+//                    break;
+//            }
+//        }
+//    };
 
 
 
