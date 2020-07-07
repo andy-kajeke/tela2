@@ -206,13 +206,10 @@ public class FingerPrintActivity extends Activity{
         if(mUsbManager == null) return;
         log("checkDevice");
         HashMap<String , UsbDevice> deviceList = mUsbManager.getDeviceList();
-        Iterator<UsbDevice> deviceIter = deviceList.values().iterator();
-        while(deviceIter.hasNext()){
-            UsbDevice _device = deviceIter.next();
-            if( _device.getVendorId() ==0x16d1 ){
+        for (UsbDevice _device : deviceList.values()) {
+            if (_device.getVendorId() == 0x16d1) {
                 //Suprema vendor ID
-                mUsbManager.requestPermission(_device , mPermissionIntent);
-            }else{
+                mUsbManager.requestPermission(_device, mPermissionIntent);
             }
         }
     }
