@@ -497,6 +497,39 @@ public class FingerPrintActivity extends Activity{
         SyncTeacher syncTeacher = getTeacherWithFingerPrint(fingerPrintData);
         if (syncTeacher != null) {
             SyncClockIn clockIn = getClockInWithFingerprint(fingerPrintData, syncTeacher.getEmployeeId());
+            if (clockIn == null ) {
+                String message = "Teacher Not Clocked Today, Clocking them in ";
+                logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+                }.getClass().getEnclosingMethod()).getName());
+
+                SyncClockIn clock = new SyncClockIn(
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                );
+                clockInRepository.synClockInTeacher(clockIn);
+                message = "Teacher clocked in Successfully: " + new Date().toString();
+                logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+                }.getClass().getEnclosingMethod()).getName());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(FingerPrintActivity.this, "Clocked In Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                String message = "Teacher already clocked loading home page";
+                logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+                }.getClass().getEnclosingMethod()).getName());
+            }
         } else {
             String message =  "No Teacher found with that fingerprint :- " + Arrays.toString(fingerPrintData);
             logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
