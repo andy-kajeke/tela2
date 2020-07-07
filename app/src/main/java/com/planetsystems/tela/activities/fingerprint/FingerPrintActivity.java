@@ -624,57 +624,70 @@ public class FingerPrintActivity extends Activity{
     private void clockOutTeacher(byte[] fingerPrintData) {
         SyncTeacher syncTeacher = getTeacherWithFingerPrint(fingerPrintData);
         if (syncTeacher != null) {
-            SyncClockOut clockOut = getClockOutWithFingerPrintOrEmployeeNumber(fingerPrintData, syncTeacher.getEmployeeNumber());
+            SyncClockIn clockIn = getClockInWithFingerPrintOrEmployeeNumber(fingerPrintData, syncTeacher.getEmployeeNumber());
+            if (clockIn == null ) {
+                SyncClockOut clockOut = getClockOutWithFingerPrintOrEmployeeNumber(fingerPrintData, syncTeacher.getEmployeeNumber());
+                if (clockOut == null) {
+                    String message = "Teacher Not Clocked Today, Clocking them in ";
+                    logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
 
-            if (clockOut == null) {
-                String message = "Teacher Not Clocked Today, Clocking them in ";
-                logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
-                }.getClass().getEnclosingMethod()).getName());
+                    SyncClockOut syncClockOut = new SyncClockOut(
+                            DynamicData.getDate(),
+                            DynamicData.getDay(),
+                            DynamicData.getTime(),
+                            null,
+                            syncTeacher.getEmployeeNumber(),
+                            syncTeacher.getEmployeeId(),
+                            DynamicData.getLatitude(),
+                            DynamicData.getLongitude(),
+                            DynamicData.getSchoolID(),
+                            DynamicData.getSchoolName(),
+                            syncTeacher.getFirstName(),
+                            syncTeacher.getLastName(),
+                            fingerPrintData
+                    );
+                    clockOutRepository.insertSynClockOut(syncClockOut);
 
-                SyncClockOut syncClockOut = new SyncClockOut(
-                        DynamicData.getDate(),
-                        DynamicData.getDay(),
-                        DynamicData.getTime(),
-                        null,
-                        syncTeacher.getEmployeeNumber(),
-                        syncTeacher.getEmployeeId(),
-                        DynamicData.getLatitude(),
-                        DynamicData.getLongitude(),
-                        DynamicData.getSchoolID(),
-                        DynamicData.getSchoolName(),
-                        syncTeacher.getFirstName(),
-                        syncTeacher.getLastName(),
-                        fingerPrintData
-                );
-                clockOutRepository.insertSynClockOut(syncClockOut);
+                    message = "Teacher clocked Out Successfully: " + new Date().toString();
+                    logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(FingerPrintActivity.this, "Clocked Out Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-                message = "Teacher clocked Out Successfully: " + new Date().toString();
+                    Intent intent = new Intent();
+                    intent.putExtra(EMPLOYEEE_NUMBER, syncTeacher.getEmployeeNumber());
+                    intent.putExtra(TEACHER_ROLE, syncTeacher.getRole());
+                    setResult(RESULT_OK, intent);
+                    finish();
+
+
+                } else {
+                    String message = "Teacher already clocked Out";
+                    logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
+
+                    Intent intent = new Intent();
+                    intent.putExtra(EMPLOYEEE_NUMBER, syncTeacher.getEmployeeNumber());
+                    intent.putExtra(TEACHER_ROLE, syncTeacher.getRole());
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            } else {
+                String message =  "No Clock In found with that fingerprint :- " + Arrays.toString(fingerPrintData);
                 logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
                 }.getClass().getEnclosingMethod()).getName());
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(FingerPrintActivity.this, "Clocked Out Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FingerPrintActivity.this, "No Record Found", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                Intent intent = new Intent();
-                intent.putExtra(EMPLOYEEE_NUMBER, syncTeacher.getEmployeeNumber());
-                intent.putExtra(TEACHER_ROLE, syncTeacher.getRole());
-                setResult(RESULT_OK, intent);
-                finish();
-
-
-            } else {
-                String message = "Teacher already clocked Out";
-                logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
-                }.getClass().getEnclosingMethod()).getName());
-
-                Intent intent = new Intent();
-                intent.putExtra(EMPLOYEEE_NUMBER, syncTeacher.getEmployeeNumber());
-                intent.putExtra(TEACHER_ROLE, syncTeacher.getRole());
-                setResult(RESULT_OK, intent);
-                finish();
             }
 
         } else {
@@ -717,14 +730,14 @@ public class FingerPrintActivity extends Activity{
                             break;
                         } else {
 
-                            message = "No Clock Out Record Found, Teacher Not Enrolled";
+                            message = "No Clock Out Record Found, Teacher Not Enrolled or Didn't clocked in";
                             logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                             }.getClass().getEnclosingMethod()).getName());
                         }
                     }
                     else {
                         if (syncClockOut.getEmployeeNo().equals(employeeNumber)) {
-                            String message = "Clock Out Teacher has no fingerprint but has employeeNumber clocked In";
+                            String message = "Clock Out Teacher has no fingerprint but has employeeNumber clocked Out";
                             logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                             }.getClass().getEnclosingMethod()).getName());
                             clockOut = syncClockOut;
@@ -739,7 +752,7 @@ public class FingerPrintActivity extends Activity{
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
-            String message = "There was error getting clock ins for today:- " + new Date().toString();
+            String message = "There was error getting clock Out for today:- " + new Date().toString();
             logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
             }.getClass().getEnclosingMethod()).getName());
         }
