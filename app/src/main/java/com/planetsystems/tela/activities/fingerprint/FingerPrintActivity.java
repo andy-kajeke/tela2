@@ -496,10 +496,10 @@ public class FingerPrintActivity extends Activity{
     private void clockInTeacher(byte[] fingerPrintData) {
         SyncTeacher syncTeacher = getTeacherWithFingerPrint(fingerPrintData);
         if (syncTeacher != null) {
-            SyncClockIn clockIn = getClockInWithFingerprintOrEmployeeNumber(fingerPrintData, syncTeacher.getEmployeeId());
+            SyncClockIn clockIn = getClockInWithFingerPrintOrEmployeeNumber(fingerPrintData, syncTeacher.getEmployeeNumber());
             if (clockIn == null ) {
                 String message = "Teacher Not Clocked Today, Clocking them in ";
-                logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+                logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                 }.getClass().getEnclosingMethod()).getName());
 
                 SyncClockIn clock = new SyncClockIn(
@@ -545,8 +545,8 @@ public class FingerPrintActivity extends Activity{
 
     }
 
-    private SyncClockIn getClockInWithFingerprintOrEmployeeNumber(byte[] fingerPrintData, String employeeNumber) {
-        SyncClockIn clock;
+    private SyncClockIn getClockInWithFingerPrintOrEmployeeNumber(byte[] fingerPrintData, String employeeNumber) {
+        SyncClockIn clock = null;
         try {
             List<SyncClockIn> syncClockIns = clockInRepository.getClockInByDate(DynamicData.getDate());
             for (SyncClockIn clockIn: syncClockIns) {
@@ -575,6 +575,14 @@ public class FingerPrintActivity extends Activity{
                             logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                             }.getClass().getEnclosingMethod()).getName());
                         }
+                    } else {
+                        if (clockIn.getEmployeeNo().equals(employeeNumber)) {
+                            String message = "Teacher has no fingerprint but has employeeNumber clocked In";
+                            logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                            }.getClass().getEnclosingMethod()).getName());
+                            clock = clockIn;
+                            break;
+                        }
                     }
                 } else {
                     String message = "Device was disconnected:- " + new Date().toString();
@@ -588,7 +596,7 @@ public class FingerPrintActivity extends Activity{
             logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
             }.getClass().getEnclosingMethod()).getName());
         }
-        return null;
+        return clock;
     }
 
 //    // OnClick Event .
