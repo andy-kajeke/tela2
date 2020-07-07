@@ -83,7 +83,7 @@ public class ClockInRepository {
         Callable<List<SyncClockIn>> callable = new Callable<List<SyncClockIn>>() {
             @Override
             public List<SyncClockIn> call() throws Exception {
-                return syncClockInDao.getSyncClockInsByDate(date);
+                return syncClockInDao.getSyncClockInByDateNotLiveData(date);
             }
         };
 

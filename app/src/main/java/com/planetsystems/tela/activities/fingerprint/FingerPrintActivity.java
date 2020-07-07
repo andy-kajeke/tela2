@@ -172,6 +172,7 @@ public class FingerPrintActivity extends Activity{
 
         if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
             clockOutRepository = ClockOutRepository.getInstance(TelaRoomDatabase.getInstance(this));
+            clockInRepository = ClockInRepository.getInstance(TelaRoomDatabase.getInstance(this));
         }
 
 
@@ -569,7 +570,12 @@ public class FingerPrintActivity extends Activity{
     private SyncClockIn getClockInWithFingerPrintOrEmployeeNumber(byte[] fingerPrintData, String employeeNumber) {
         SyncClockIn clock = null;
         try {
-            List<SyncClockIn> syncClockIns = clockInRepository.getClockInByDate(DynamicData.getDate());
+            List<SyncClockIn> syncClockIns = clockInRepository.getClockedInTeachersByDateNoteLiveData(DynamicData.getDate());
+
+            logMessage("============" + String.valueOf(syncClockIns.size()) + "=========", String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+            }.getClass().getEnclosingMethod()).getName());
+
+
             for (SyncClockIn clockIn: syncClockIns) {
                 if (mCurrentDevice != null) {
                     if (clockIn.getFingerPrint() != null) {
@@ -624,11 +630,21 @@ public class FingerPrintActivity extends Activity{
     private void clockOutTeacher(byte[] fingerPrintData) {
         SyncTeacher syncTeacher = getTeacherWithFingerPrint(fingerPrintData);
         if (syncTeacher != null) {
+            String message = "Teacher with Fingerprint Found :=+ " + Arrays.toString(fingerPrintData);
+
+            logMessage(message + " <= ", String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+            }.getClass().getEnclosingMethod()).getName());
+
             SyncClockIn clockIn = getClockInWithFingerPrintOrEmployeeNumber(fingerPrintData, syncTeacher.getEmployeeNumber());
-            if (clockIn == null ) {
+            if (clockIn != null ) {
+                message = "Teacher Clocked In Today: ";
+                logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                }.getClass().getEnclosingMethod()).getName());
+
+
                 SyncClockOut clockOut = getClockOutWithFingerPrintOrEmployeeNumber(fingerPrintData, syncTeacher.getEmployeeNumber());
                 if (clockOut == null) {
-                    String message = "Teacher Not Clocked Today, Clocking them in ";
+                    message = "Teacher Not Clocked Out Today yet , Clocking them Out ";
                     logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
 
@@ -667,7 +683,7 @@ public class FingerPrintActivity extends Activity{
 
 
                 } else {
-                    String message = "Teacher already clocked Out";
+                    message = "Teacher already clocked Out";
                     logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
 
@@ -678,7 +694,7 @@ public class FingerPrintActivity extends Activity{
                     finish();
                 }
             } else {
-                String message =  "No Clock In found with that fingerprint :- " + Arrays.toString(fingerPrintData);
+                message =  "No Clock In found with that fingerprint :- " + Arrays.toString(fingerPrintData);
                 logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
                 }.getClass().getEnclosingMethod()).getName());
 
@@ -707,7 +723,9 @@ public class FingerPrintActivity extends Activity{
     private SyncClockOut getClockOutWithFingerPrintOrEmployeeNumber(byte[] fingerPrintData, String employeeNumber) {
         SyncClockOut clockOut = null;
         try {
-            List<SyncClockOut> syncClockOuts = clockOutRepository.getClockOutsByDate(DynamicData.getDate());
+            List<SyncClockOut> syncClockOuts = clockOutRepository.getSyncClockOutsByDateNotLiveData(DynamicData.getDate());
+            logMessage("============" + String.valueOf(syncClockOuts.size()) + "=========", String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+            }.getClass().getEnclosingMethod()).getName());
             for (SyncClockOut syncClockOut: syncClockOuts) {
                 if (mCurrentDevice != null) {
                     if (syncClockOut.getFingerPrint() != null) {
