@@ -506,6 +506,8 @@ public class FingerPrintActivity extends Activity{
                         String message = "Current Clock had fingerprint: " + Arrays.toString(clockIn.getFingerPrint());
                         logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
                         }.getClass().getEnclosingMethod()).getName());
+                    } else {
+//                        SyncClockIn syncClockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(emplo)
                     }
                 }
             }
