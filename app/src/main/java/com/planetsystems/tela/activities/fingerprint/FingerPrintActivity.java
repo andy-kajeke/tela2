@@ -13,7 +13,9 @@ import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,6 +45,11 @@ import com.suprema.CaptureResponder;
 import com.suprema.IBioMiniDevice;
 import com.suprema.IUsbEventHandler;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -403,7 +410,9 @@ public class FingerPrintActivity extends Activity{
                             new Date().toString(),
                             intent.getStringExtra(TEACHER_EMAIL),
                             fingerPrintData,
-                            null,
+                            saveBitmapToExternalStorage(capturedImage, intent.getStringExtra(TEACHER_NATIONAL_ID),
+                                    intent.getStringExtra(TEACHER_FIRST_NAME) +
+                                    intent.getStringExtra(TEACHER_LAST_NAME)),
                             intent.getStringExtra(TEACHER_FIRST_NAME),
                             intent.getStringExtra(TEACHER_LAST_NAME),
                             intent.getStringExtra(TEACHER_GENDER),
@@ -470,6 +479,28 @@ public class FingerPrintActivity extends Activity{
                 }
             });
         }
+    }
+
+    private String saveBitmapToExternalStorage(Bitmap capturedImage, String file_name, String description) {
+        String path = Environment.getExternalStorageState().toString();
+        OutputStream fileOutPutStream = null;
+        Integer count = 0;
+        File file = new File(path, file_name + new Date().getYear() + "-" +  new Date().getMonth() + ".jpg");
+        try {
+            fileOutPutStream = new FileOutputStream(file);
+            capturedImage.compress(Bitmap.CompressFormat.JPEG, 85, fileOutPutStream);
+            fileOutPutStream.flush();
+            fileOutPutStream.close();
+            MediaStore.Images.Media.insertImage(getContentResolver(), file.getAbsolutePath(), file.getName(), "Finger print image for " + description);
+
+            String message = "File saved at : " + file.getAbsolutePath();
+            logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+            }.getClass().getEnclosingMethod()).getName());
+            return file.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private SyncTeacher getTeacherWithFingerPrint(byte[] fingerPrintData) {
