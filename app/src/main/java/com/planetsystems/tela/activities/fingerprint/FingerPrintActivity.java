@@ -368,6 +368,9 @@ public class FingerPrintActivity extends Activity{
                 SyncTeacher nationalIdTeacher =  teacherRepository.getTeacherWithNationalID(getIntent().getStringExtra(TEACHER_NATIONAL_ID));
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
+                String message =  "There was error getting Teacher with National ID " + getIntent().getStringExtra(TEACHER_NATIONAL_ID);
+                logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                }.getClass().getEnclosingMethod()).getName());
             }
         }
     }
