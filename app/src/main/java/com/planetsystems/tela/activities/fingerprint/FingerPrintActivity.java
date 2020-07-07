@@ -532,7 +532,7 @@ public class FingerPrintActivity extends Activity{
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(FingerPrintActivity.this, "Clocked In Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FingerPrintActivity.this, "Clocked In Successfully" , Toast.LENGTH_SHORT).show();
                     }
                 });
 
