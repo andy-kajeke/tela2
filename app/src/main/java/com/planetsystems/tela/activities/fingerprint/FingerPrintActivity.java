@@ -222,6 +222,10 @@ public class FingerPrintActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finger_print);
+        cardViewEnroll = findViewById(R.id.cardViewEnroll);
+        cardViewCapture = findViewById(R.id.cardViewCapture);
+        textViewEnroll = findViewById(R.id.textViewEnroll);
+        textViewCapture = findViewById(R.id.textViewCapture);
 
         mainContext = this;
 
