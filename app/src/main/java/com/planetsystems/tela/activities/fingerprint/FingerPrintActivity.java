@@ -619,6 +619,7 @@ public class FingerPrintActivity extends Activity{
     private void clockOutTeacher(byte[] fingerPrintData) {
         SyncTeacher syncTeacher = getTeacherWithFingerPrint(fingerPrintData);
         if (syncTeacher != null) {
+            SyncClockOut clockOut = getClockOutWithFingerPrintOrEmployeeNumber(fingerPrintData, syncTeacher.getEmployeeNumber());
 
         } else {
             String message =  "No Teacher found with that fingerprint :- " + Arrays.toString(fingerPrintData);
@@ -632,6 +633,10 @@ public class FingerPrintActivity extends Activity{
                 }
             });
         }
+    }
+
+    private SyncClockOut getClockOutWithFingerPrintOrEmployeeNumber(byte[] fingerPrintData, String employeeNumber) {
+        return null;
     }
 
 //    // OnClick Event .
