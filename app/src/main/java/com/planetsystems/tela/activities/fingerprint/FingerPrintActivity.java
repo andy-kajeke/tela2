@@ -198,21 +198,13 @@ public class FingerPrintActivity extends Activity{
                                             }
                                         }
                                     });
-                                    if(capturedTemplate != null) {
-                                        message = "Enroll or Clock or Clock out";
+                                    message = "Enroll or Clock or Clock out";
 
-                                        logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
-                                        }.getClass().getEnclosingMethod()).getName());
-                                        Toast.makeText(FingerPrintActivity.this, " Template existing ", Toast.LENGTH_SHORT).show();
-                                        // TODO Enroll Teacher
-                                        printState(getResources().getText(R.string.enroll_ok));
-                                    }
-                                    else {
-                                        message = "<<ERROR>> Template is not extracted...";
-                                        logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
-                                        }.getClass().getEnclosingMethod()).getName());
-                                        printState(getResources().getText(R.string.enroll_fail));
-                                    }
+                                    logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                                    }.getClass().getEnclosingMethod()).getName());
+//                                        Toast.makeText(FingerPrintActivity.this, " Template existing ", Toast.LENGTH_SHORT).show();
+                                    // TODO Enroll Teacher
+                                    printState(getResources().getText(R.string.enroll_ok));
                                     message = ((IBioMiniDevice)context).popPerformanceLog();
                                     logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                                     }.getClass().getEnclosingMethod()).getName());
