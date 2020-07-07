@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.ParseException;
@@ -91,6 +93,7 @@ public class SchoolConfirmation extends AppCompatActivity {
                     Intent home = new Intent(SchoolConfirmation.this, ClockInAndOutActivity.class);
                     home.putExtra("device_imei", deviceIMEI_extra);
                     home.putExtra("schoolName", deploymentSiteName);
+                    saveToSharePreference(deviceIMEI_extra, deploymentSiteName);
                     startActivity(home);
                 }
                 else {
@@ -108,6 +111,10 @@ public class SchoolConfirmation extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void saveToSharePreference(String deviceIMEI_extra, String deploymentSiteName) {
+//        SharedPreferences sharedPreferences = getSharedPreferences("school_infor", )
     }
 
     //getting tasks online
