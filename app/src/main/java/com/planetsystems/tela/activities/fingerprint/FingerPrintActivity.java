@@ -74,6 +74,7 @@ public class FingerPrintActivity extends Activity{
     public static final boolean mbUsbExternalUSBManager = false;
     private UsbManager mUsbManager = null;
     private PendingIntent mPermissionIntent= null;
+    private ExecutionLogRepository executionLogRepository;
     //
 
     private CardView cardViewEnroll = null;
@@ -221,6 +222,7 @@ public class FingerPrintActivity extends Activity{
         cardViewCapture = findViewById(R.id.cardViewCapture);
         textViewEnroll = findViewById(R.id.textViewEnroll);
         textViewCapture = findViewById(R.id.textViewCapture);
+        executionLogRepository = ExecutionLogRepository.getInstance(TelaRoomDatabase.getInstance(this));
 
         mainContext = this;
 
@@ -231,7 +233,6 @@ public class FingerPrintActivity extends Activity{
             public void onClick(View view) {
                 ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
                 if (mCurrentDevice != null) {
-                    ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
                     IBioMiniDevice.CaptureOption option = new IBioMiniDevice.CaptureOption();
                     option.extractParam.captureTemplate = true;
                     option.captureTemplate = true; //deprecated
@@ -389,6 +390,21 @@ public class FingerPrintActivity extends Activity{
 
     @Override
     public void onBackPressed() {
+    }
+
+    public void logMessage(String message, String lineNumber, String methodName) {
+        executionLogRepository.logMessage(
+                new ExecutionLog(message,
+                        DynamicData.getDate(),
+                        new Date().toString(),
+                        getClass().getSimpleName(),
+                        DynamicData.getSchoolID(),
+                        DynamicData.getSchoolName(),
+                        null,
+                        lineNumber,
+                        methodName
+                )
+        );
     }
 
 //    // OnClick Event .
@@ -1400,21 +1416,6 @@ public class FingerPrintActivity extends Activity{
 //        setResult(RESULT_OK, intent);
 //        intent.putExtra(EMPLOYEEE_NUMBER, teacher.getEmployeeNumber());
 //        finish();
-//    }
-//
-//    public void Log_Message(String message, String lineNumber, String methodName) {
-//        executionLogRepository.logMessage(
-//                new ExecutionLog(message,
-//                        DynamicData.getDate(),
-//                        new Date().toString(),
-//                        getClass().getSimpleName(),
-//                        DynamicData.getSchoolID(),
-//                        DynamicData.getSchoolName(),
-//                        null,
-//                        lineNumber,
-//                        methodName
-//                )
-//        );
 //    }
 }
 
