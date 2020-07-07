@@ -626,6 +626,22 @@ public class FingerPrintActivity extends Activity{
         if (syncTeacher != null) {
             SyncClockOut clockOut = getClockOutWithFingerPrintOrEmployeeNumber(fingerPrintData, syncTeacher.getEmployeeNumber());
 
+            if (clockOut == null) {
+                String message = "Teacher Not Clocked Today, Clocking them in ";
+                logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                }.getClass().getEnclosingMethod()).getName());
+            } else {
+                String message = "Teacher already clocked Out";
+                logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+                }.getClass().getEnclosingMethod()).getName());
+
+                Intent intent = new Intent();
+                intent.putExtra(EMPLOYEEE_NUMBER, syncTeacher.getEmployeeNumber());
+                intent.putExtra(TEACHER_ROLE, syncTeacher.getRole());
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+
         } else {
             String message =  "No Teacher found with that fingerprint :- " + Arrays.toString(fingerPrintData);
             logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
