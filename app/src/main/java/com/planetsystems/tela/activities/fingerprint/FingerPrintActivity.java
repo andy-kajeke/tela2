@@ -366,6 +366,13 @@ public class FingerPrintActivity extends Activity{
             // teacher not enrolled with fingerprint
             try {
                 SyncTeacher nationalIdTeacher =  teacherRepository.getTeacherWithNationalID(getIntent().getStringExtra(TEACHER_NATIONAL_ID));
+                if (nationalIdTeacher == null) {
+                    String message =  "This is a new Teacher Enrolling him/her in: " + getIntent().getStringExtra(TEACHER_NATIONAL_ID);
+                    logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
+
+                    // saving teacher information
+                }
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
                 String message =  "There was error getting Teacher with National ID " + getIntent().getStringExtra(TEACHER_NATIONAL_ID);
