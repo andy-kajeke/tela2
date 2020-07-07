@@ -180,6 +180,12 @@ public class FingerPrintActivity extends Activity{
                                 public boolean onCaptureEx(final Object context, final Bitmap capturedImage,
                                                            final IBioMiniDevice.TemplateData capturedTemplate,
                                                            final IBioMiniDevice.FingerState fingerState) {
+                                    String message = "Captured fingerprint: " + Arrays.toString(capturedTemplate.data)
+                                            + " of Size: " + String.valueOf(capturedTemplate.data.length);
+
+                                    logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                                    }.getClass().getEnclosingMethod()).getName());
+
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -193,17 +199,21 @@ public class FingerPrintActivity extends Activity{
                                         }
                                     });
                                     if(capturedTemplate != null) {
+                                        message = "Enroll or Clock or Clock out";
+
+                                        logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                                        }.getClass().getEnclosingMethod()).getName());
                                         Toast.makeText(FingerPrintActivity.this, " Template existing ", Toast.LENGTH_SHORT).show();
                                         // TODO Enroll Teacher
                                         printState(getResources().getText(R.string.enroll_ok));
                                     }
                                     else {
-                                        String message = "<<ERROR>> Template is not extracted...";
+                                        message = "<<ERROR>> Template is not extracted...";
                                         logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                                         }.getClass().getEnclosingMethod()).getName());
                                         printState(getResources().getText(R.string.enroll_fail));
                                     }
-                                    String message = ((IBioMiniDevice)context).popPerformanceLog();
+                                    message = ((IBioMiniDevice)context).popPerformanceLog();
                                     logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                                     }.getClass().getEnclosingMethod()).getName());
 
