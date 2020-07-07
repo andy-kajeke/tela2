@@ -365,6 +365,21 @@ public class FingerPrintActivity extends Activity{
     }
 
     private SyncTeacher getTeacherWithFingerPrint(byte[] fingerPrintData) {
+        List<SyncTeacher> syncTeachers = teacherRepository.getTeachers();
+        for (SyncTeacher syncTeacher: syncTeachers) {
+            if (syncTeacher.getFingerPrint() != null) {
+                if (mCurrentDevice != null ) {
+                    if (mCurrentDevice.verify(
+                            fingerPrintData,
+                            fingerPrintData.length,
+                            syncTeacher.getFingerPrint(),
+                            syncTeacher.getFingerPrint().length)
+                    ) {
+                        return syncTeacher;
+                    }
+                }
+            }
+        }
         return null;
     }
 
