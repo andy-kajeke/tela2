@@ -81,6 +81,11 @@ public class FingerPrintActivity extends Activity{
     private PendingIntent mPermissionIntent= null;
     //
 
+    private CardView cardViewEnroll = null;
+    private TextView textViewEnroll = null;
+    private CardView cardViewCapture = null;
+    private TextView textViewCapture = null;
+
 
     private static BioMiniFactory mBioMiniFactory = null;
     public static final int REQUEST_WRITE_PERMISSION = 786;
