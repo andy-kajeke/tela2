@@ -230,12 +230,62 @@ public class FingerPrintActivity extends Activity{
             @Override
             public void onClick(View view) {
                 ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
-                if(mCurrentDevice != null) {
-                    //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
-                    mCurrentDevice.captureSingle(
-                            mCaptureOptionDefault,
-                            mCaptureResponseDefault,
-                            true);
+//                if(mCurrentDevice != null) {
+//                    //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
+//                    mCurrentDevice.captureSingle(
+//                            mCaptureOptionDefault,
+//                            mCaptureResponseDefault,
+//                            true);
+//                }
+
+                if (getIntent().getAction().equals(ACTION_ENROLL)) {
+                    if (mCurrentDevice != null) {
+                        ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
+                        IBioMiniDevice.CaptureOption option = new IBioMiniDevice.CaptureOption();
+                        option.extractParam.captureTemplate = true;
+                        option.captureTemplate = true; //deprecated
+                        //option.frameRate = IBioMiniDevice.FrameRate.ELOW;
+                        // capture fingerprint image
+                        mCurrentDevice.captureSingle(option,
+                                new CaptureResponder() {
+                                    @Override
+                                    public boolean onCaptureEx(final Object context, final Bitmap capturedImage,
+                                                               final IBioMiniDevice.TemplateData capturedTemplate,
+                                                               final IBioMiniDevice.FingerState fingerState) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if(capturedImage != null) {
+                                                    ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
+                                                    if(iv != null) {
+                                                        iv.setImageBitmap(capturedImage);
+                                                        Toast.makeText(FingerPrintActivity.this, "Success image set", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            }
+                                        });
+                                        if(capturedTemplate != null) {
+                                            Toast.makeText(FingerPrintActivity.this, " Template existing ", Toast.LENGTH_SHORT).show();
+                                            // TODO Enroll Teacher
+                                            printState(getResources().getText(R.string.enroll_ok));
+                                        }
+                                        else {
+                                            log("<<ERROR>> Template is not extracted...");
+                                            printState(getResources().getText(R.string.enroll_fail));
+                                        }
+                                        log(((IBioMiniDevice)context).popPerformanceLog());
+
+                                        return true;
+                                    }
+
+                                    @Override
+                                    public void onCaptureError(Object context, int errorCode, String error) {
+                                        log("onCaptureError : " + error);
+                                        Toast.makeText(FingerPrintActivity.this, "There was error here", Toast.LENGTH_SHORT).show();
+                                        printState(getResources().getText(R.string.enroll_fail));
+                                    }
+                                }, true);
+                    }
                 }
             }
         });
