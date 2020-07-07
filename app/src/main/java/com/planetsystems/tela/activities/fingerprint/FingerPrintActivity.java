@@ -52,11 +52,6 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class FingerPrintActivity extends Activity{
-    private final byte[] fakeFingerPrint = { 69, 22, -113 , 25, -112, 0,83,66,33,65,-80, 114,6,26,1,-48,26,-126 ,37,-126,-64 ,24 ,7,
-            11,-126,-32, 123, 11, 11, -124, -79, 115, -120, 39, -58, 32, 114, 6, 8, -120, 33, 101, -113,
-            8, 73, 64, 4, -115, 30, -53, 80, 21, 7, 14, -53, -48, 102, 3, 52, 11, -47, 23, -120, 17, 76,
-            0, 12, 5, 37, 76, 49, 114, 5, 45, 13, 97, 24, -120, 34, 14, 33, 22, -122, 47, -50, -112, 29,
-            -123, 54, -114, -63, 117, 10, 14, 79, 48, 16, 11, 23, 15 };
     public static final String FINGER_PRINT_DATA = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEMPLATE_DATA";
     public static final String FINGER_PRINT_IMAGE = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.FINGER_PRINT_IMAGE";
     public static final String ACTION_ENROLL = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.ACTION_ENROLL";
