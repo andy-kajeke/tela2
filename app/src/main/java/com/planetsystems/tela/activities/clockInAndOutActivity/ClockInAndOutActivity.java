@@ -156,7 +156,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         btnFingerprint_In = checkInDialog.findViewById(R.id.finger_in);
         btnStaffId_In = checkInDialog.findViewById(R.id.staffId_in);
 
-        //Clock in with fingerprint
+        //Clock in with fingerprint 406413
         btnFingerprint_In.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
