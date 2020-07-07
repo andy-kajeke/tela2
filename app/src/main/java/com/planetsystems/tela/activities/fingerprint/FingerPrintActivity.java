@@ -372,24 +372,25 @@ public class FingerPrintActivity extends Activity{
                     }.getClass().getEnclosingMethod()).getName());
 
                     // saving teacher information
+                    Intent intent = getIntent();
                     SyncTeacher teacher = new SyncTeacher(
                             null,
                             null,
                             null,
                             null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
+                            "Teacher",
+                            new Date().toString(),
+                            intent.getStringExtra(TEACHER_EMAIL),
+                            fingerPrintData,
+                            capturedImage,
+                            intent.getStringExtra(TEACHER_FIRST_NAME),
+                            intent.getStringExtra(TEACHER_LAST_NAME),
+                            intent.getStringExtra(TEACHER_GENDER),
+                            intent.getStringExtra(TEACHER_INITIALS),
                             false,
-                            null,
-                            null,
-                            null,
+                            intent.getStringExtra(TEACHER_NATIONAL_ID),
+                            intent.getStringExtra(TEACHER_PHONE_NUMBER),
+                            DynamicData.getSchoolID(),
                             fingerPrintData.length,
                             true
 

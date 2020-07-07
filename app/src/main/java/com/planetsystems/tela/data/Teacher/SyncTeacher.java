@@ -1,6 +1,7 @@
 package com.planetsystems.tela.data.Teacher;
 
-import androidx.annotation.NonNull;
+import android.graphics.Bitmap;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -71,7 +72,7 @@ public class SyncTeacher {
     @ColumnInfo(name = SyncTeacherTableConstants.IS_STORED_LOCALLY)
     private boolean isStoredLocally;
 
-    public SyncTeacher(String id, String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, byte[] fingerPrint, String fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId, int fingerPrintLength, boolean isStoredLocally) {
+    public SyncTeacher(String id, String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, byte[] fingerPrint, Bitmap fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId, int fingerPrintLength, boolean isStoredLocally) {
         this.id = id;
         this.employeeId = employeeId;
         this.MPSComputerNumber = MPSComputerNumber;
