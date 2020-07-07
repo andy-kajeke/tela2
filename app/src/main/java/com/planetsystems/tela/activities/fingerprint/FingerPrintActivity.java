@@ -78,6 +78,7 @@ public class FingerPrintActivity extends Activity{
     private ExecutionLogRepository executionLogRepository;
     private TeacherRepository teacherRepository;
     private ClockInRepository clockInRepository;
+    private ClockOutRepository clockOutRepository;
     //
 
     private CardView cardViewEnroll = null;
@@ -167,6 +168,10 @@ public class FingerPrintActivity extends Activity{
 
         if(Objects.equals(getIntent().getAction(), ACTION_CLOCK_IN)) {
             clockInRepository = ClockInRepository.getInstance(TelaRoomDatabase.getInstance(this));
+        }
+
+        if (Objects.equals(getIntent().getAction(), ACTION_CLOCK_OUT)) {
+            clockOutRepository = ClockOutRepository.getInstance(TelaRoomDatabase.getInstance(this));
         }
 
 
@@ -636,7 +641,58 @@ public class FingerPrintActivity extends Activity{
     }
 
     private SyncClockOut getClockOutWithFingerPrintOrEmployeeNumber(byte[] fingerPrintData, String employeeNumber) {
-        return null;
+        SyncClockOut clockOut = null;
+        try {
+            List<SyncClockOut> syncClockOuts = clockOutRepository.getClockOutsByDate(DynamicData.getDate());
+            for (SyncClockOut syncClockOut: syncClockOuts) {
+                if (mCurrentDevice != null) {
+                    if (syncClockOut.getFingerPrint() != null) {
+                        String message = "Current Clock Out had fingerprint: " + Arrays.toString(syncClockOut.getFingerPrint());
+                        logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+                        }.getClass().getEnclosingMethod()).getName());
+
+                        if (mCurrentDevice.verify(
+                                fingerPrintData,
+                                fingerPrintData.length,
+                                syncClockOut.getFingerPrint(),
+                                syncClockOut.getFingerPrint().length)
+                        ) {
+
+                            message = "Clock Out Found with Fingerprint: " + Arrays.toString(syncClockOut.getFingerPrint()) + "\n"
+                                    + " Compared against " + Arrays.toString(fingerPrintData) + " EmployeeNumber: " + syncClockOut.getEmployeeNo();
+                            logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                            }.getClass().getEnclosingMethod()).getName());
+                            clockOut = syncClockOut;
+                            break;
+                        } else {
+
+                            message = "No Clock Out Record Found, Teacher Not Enrolled";
+                            logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                            }.getClass().getEnclosingMethod()).getName());
+                        }
+                    }
+                    else {
+                        if (syncClockOut.getEmployeeNo().equals(employeeNumber)) {
+                            String message = "Clock Out Teacher has no fingerprint but has employeeNumber clocked In";
+                            logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                            }.getClass().getEnclosingMethod()).getName());
+                            clockOut = syncClockOut;
+                            break;
+                        }
+                    }
+                } else {
+                    String message = "Device was disconnected:- " + new Date().toString();
+                    logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
+                }
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            String message = "There was error getting clock ins for today:- " + new Date().toString();
+            logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+            }.getClass().getEnclosingMethod()).getName());
+        }
+        return clockOut;
     }
 
 //    // OnClick Event .
