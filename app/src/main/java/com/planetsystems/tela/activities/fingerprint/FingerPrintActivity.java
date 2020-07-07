@@ -401,6 +401,13 @@ public class FingerPrintActivity extends Activity{
                     logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
                     Toast.makeText(this, "Teacher Enrolled Successfully", Toast.LENGTH_LONG).show();
+                } else {
+                    String message =  "This Teacher is already Enrolled:  " + getIntent().getStringExtra(TEACHER_NATIONAL_ID) + " \n" +
+                            "His/her National ID saved is: " + nationalIdTeacher.getNationalId() + "\n" +
+                            "Compared Against National ID: " + getIntent().getStringExtra(TEACHER_NATIONAL_ID);
+                    logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
+                    Toast.makeText(this, "Teacher Already Enrolled", Toast.LENGTH_LONG).show();
                 }
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
