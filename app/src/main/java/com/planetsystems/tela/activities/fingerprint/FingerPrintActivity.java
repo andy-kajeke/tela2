@@ -569,6 +569,11 @@ public class FingerPrintActivity extends Activity{
                             }.getClass().getEnclosingMethod()).getName());
                             clock = clockIn;
                             break;
+                        } else {
+
+                            message = "No Record Found, Teacher Not Enrolled";
+                            logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                            }.getClass().getEnclosingMethod()).getName());
                         }
                     }
                 } else {
