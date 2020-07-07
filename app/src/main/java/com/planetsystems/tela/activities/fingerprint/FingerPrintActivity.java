@@ -494,10 +494,25 @@ public class FingerPrintActivity extends Activity{
     }
 
     private void clockInTeacher(byte[] fingerPrintData) {
-        SyncClockIn clockIn = getClockInWithFingerprint(fingerPrintData);
+        SyncTeacher syncTeacher = getTeacherWithFingerPrint(fingerPrintData);
+        if (syncTeacher != null) {
+            SyncClockIn clockIn = getClockInWithFingerprint(fingerPrintData, syncTeacher.getEmployeeId());
+        } else {
+            String message =  "No Teacher found with that fingerprint :- " + Arrays.toString(fingerPrintData);
+            logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+            }.getClass().getEnclosingMethod()).getName());
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(FingerPrintActivity.this, "No Record Found", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
     }
 
-    private SyncClockIn getClockInWithFingerprint(byte[] fingerPrintData) {
+    private SyncClockIn getClockInWithFingerprint(byte[] fingerPrintData, String employeeNumber) {
         try {
             List<SyncClockIn> syncClockIns = clockInRepository.getClockInByDate(DynamicData.getDate());
             for (SyncClockIn clockIn: syncClockIns) {
