@@ -555,6 +555,21 @@ public class FingerPrintActivity extends Activity{
                         String message = "Current Clock had fingerprint: " + Arrays.toString(clockIn.getFingerPrint());
                         logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
                         }.getClass().getEnclosingMethod()).getName());
+
+                        if (mCurrentDevice.verify(
+                                fingerPrintData,
+                                fingerPrintData.length,
+                                clockIn.getFingerPrint(),
+                                clockIn.getFingerPrint().length)
+                        ) {
+
+                            message = "Clock In Found with Fingerprint: " + Arrays.toString(clockIn.getFingerPrint()) + "\n"
+                                    + " Compared against " + Arrays.toString(fingerPrintData) + " EmployeeNumber: " + clockIn.getEmployeeNo();
+                            logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                            }.getClass().getEnclosingMethod()).getName());
+                            clock = clockIn;
+                            break;
+                        }
                     }
                 } else {
                     String message = "Device was disconnected:- " + new Date().toString();
