@@ -224,6 +224,10 @@ public class FingerPrintActivity extends Activity{
                                         clockInTeacher(capturedTemplate.data);
                                     }
 
+                                    if (getIntent().getAction().equals(ACTION_CLOCK_OUT)) {
+                                        clockOutTeacher(capturedTemplate.data);
+                                    }
+
                                     return true;
                                 }
 
@@ -609,6 +613,25 @@ public class FingerPrintActivity extends Activity{
             }.getClass().getEnclosingMethod()).getName());
         }
         return clock;
+    }
+
+
+    private void clockOutTeacher(byte[] fingerPrintData) {
+        SyncTeacher syncTeacher = getTeacherWithFingerPrint(fingerPrintData);
+        if (syncTeacher != null) {
+
+        } else {
+            String message =  "No Teacher found with that fingerprint :- " + Arrays.toString(fingerPrintData);
+            logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+            }.getClass().getEnclosingMethod()).getName());
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(FingerPrintActivity.this, "No Record Found", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
 //    // OnClick Event .
