@@ -632,19 +632,19 @@ public class FingerPrintActivity extends Activity{
                 }.getClass().getEnclosingMethod()).getName());
 
                 SyncClockOut syncClockOut = new SyncClockOut(
+                        DynamicData.getDate(),
+                        DynamicData.getDay(),
+                        DynamicData.getTime(),
                         null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
+                        syncTeacher.getEmployeeNumber(),
+                        syncTeacher.getEmployeeId(),
+                        DynamicData.getLatitude(),
+                        DynamicData.getLongitude(),
+                        DynamicData.getSchoolID(),
+                        DynamicData.getSchoolName(),
+                        syncTeacher.getFirstName(),
+                        syncTeacher.getLastName(),
+                        fingerPrintData
                 );
                 clockOutRepository.insertSynClockOut(syncClockOut);
 
