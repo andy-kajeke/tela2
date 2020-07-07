@@ -362,6 +362,14 @@ public class FingerPrintActivity extends Activity{
 
     private void enrollTeacher(byte[] fingerPrintData, Bitmap capturedImage) {
         SyncTeacher syncTeacher = getTeacherWithFingerPrint(fingerPrintData);
+        if (syncTeacher == null ) {
+            // teacher not enrolled with fingerprint
+            try {
+                SyncTeacher nationalIdTeacher =  teacherRepository.getTeacherWithNationalID(getIntent().getStringExtra(TEACHER_NATIONAL_ID));
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private SyncTeacher getTeacherWithFingerPrint(byte[] fingerPrintData) {
@@ -375,6 +383,10 @@ public class FingerPrintActivity extends Activity{
                             syncTeacher.getFingerPrint(),
                             syncTeacher.getFingerPrint().length)
                     ) {
+                        String message =  "Teacher with Fingerprint Found: " + syncTeacher.getNationalId()
+                                + " has Fingerprint: " + Arrays.toString(syncTeacher.getFingerPrint()) + " Tested against Fingerprint " + Arrays.toString(fingerPrintData);
+                        logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                        }.getClass().getEnclosingMethod()).getName());
                         return syncTeacher;
                     }
                 }
