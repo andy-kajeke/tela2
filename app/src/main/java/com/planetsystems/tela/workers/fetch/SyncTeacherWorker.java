@@ -44,29 +44,6 @@ public class SyncTeacherWorker extends Worker {
                 for(int i = 0; i < syncTeachers.teachers.size(); i++) {
                     SyncTeacher teacher = syncTeachers.teachers.get(i);
                     SyncTeacher syncedTeacher = syncTeacherDao.getSyncTeacher(teacher.getNationalId());
-
-//                    SyncTeacher{
-//                        primaryKey=0,
-//                                id='2c91808670853be9017091efdb6c0e75',
-//                                employeeId='null',
-//                                MPSComputerNumber='',
-//                                employeeNumber='9876',
-//                                role='Teacher',
-//                                dob='null',
-//                                emailAddress='xtdr@yahoo.com6',
-//                                fingerPrint=null,
-//                                fingerImage='null',
-//                                firstName='John',
-//                                lastName='Ojok',
-//                                gender='',
-//                                initials='',
-//                                licensed=false,
-//                                nationalId='335555',
-//                                phoneNumber='6554223',
-//                                schoolId='null',
-//                                isStoredLocally=false
-//                    }
-
                     if ( syncedTeacher == null ) {
                         syncTeacherDao.enrollTeacher(teacher);
                     }
