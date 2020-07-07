@@ -75,6 +75,7 @@ public class FingerPrintActivity extends Activity{
     private UsbManager mUsbManager = null;
     private PendingIntent mPermissionIntent= null;
     private ExecutionLogRepository executionLogRepository;
+    private TeacherRepository teacherRepository;
     //
 
     private CardView cardViewEnroll = null;
@@ -160,6 +161,8 @@ public class FingerPrintActivity extends Activity{
         textViewEnroll = findViewById(R.id.textViewEnroll);
         textViewCapture = findViewById(R.id.textViewCapture);
         executionLogRepository = ExecutionLogRepository.getInstance(TelaRoomDatabase.getInstance(this));
+        teacherRepository = TeacherRepository.getInstance(TelaRoomDatabase.getInstance(this));
+
 
         mainContext = this;
 
@@ -358,7 +361,11 @@ public class FingerPrintActivity extends Activity{
     }
 
     private void enrollTeacher(byte[] fingerPrintData, Bitmap capturedImage) {
+        SyncTeacher syncTeacher = getTeacherWithFingerPrint(fingerPrintData);
+    }
 
+    private SyncTeacher getTeacherWithFingerPrint(byte[] fingerPrintData) {
+        return null;
     }
 
 //    // OnClick Event .
