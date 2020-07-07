@@ -40,7 +40,7 @@ public class SyncTeacher {
     private byte[] fingerPrint;
 
     @ColumnInfo(name = SyncTeacherTableConstants.FINGER_IMAGE_COLUMN_NAME)
-    private Bitmap fingerImage;
+    private String fingerImage;
 
     @ColumnInfo(name = SyncTeacherTableConstants.FIRST_NAME_COLUMN_NAME)
     private String firstName;
@@ -72,7 +72,7 @@ public class SyncTeacher {
     @ColumnInfo(name = SyncTeacherTableConstants.IS_STORED_LOCALLY)
     private boolean isStoredLocally;
 
-    public SyncTeacher(String id, String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, byte[] fingerPrint, Bitmap fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId, int fingerPrintLength, boolean isStoredLocally) {
+    public SyncTeacher(String id, String employeeId, String MPSComputerNumber, String employeeNumber, String role, String dob, String emailAddress, byte[] fingerPrint, String fingerImage, String firstName, String lastName, String gender, String initials, boolean licensed, String nationalId, String phoneNumber, String schoolId, int fingerPrintLength, boolean isStoredLocally) {
         this.id = id;
         this.employeeId = employeeId;
         this.MPSComputerNumber = MPSComputerNumber;
@@ -170,7 +170,7 @@ public class SyncTeacher {
         return fingerImage;
     }
 
-    public void setFingerImage(String fingerImage) {
+    public void setFingerImage(String  fingerImage) {
         this.fingerImage = fingerImage;
     }
 

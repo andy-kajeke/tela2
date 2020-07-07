@@ -382,7 +382,7 @@ public class FingerPrintActivity extends Activity{
                             new Date().toString(),
                             intent.getStringExtra(TEACHER_EMAIL),
                             fingerPrintData,
-                            capturedImage,
+                            null,
                             intent.getStringExtra(TEACHER_FIRST_NAME),
                             intent.getStringExtra(TEACHER_LAST_NAME),
                             intent.getStringExtra(TEACHER_GENDER),
