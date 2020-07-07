@@ -38,6 +38,7 @@ import com.planetsystems.tela.data.logs.ExecutionLogRepository;
 import com.planetsystems.tela.utils.BitmapConverter;
 import com.planetsystems.tela.utils.DynamicData;
 import com.suprema.BioMiniFactory;
+import com.suprema.CaptureResponder;
 import com.suprema.IBioMiniDevice;
 import com.suprema.IUsbEventHandler;
 
@@ -76,7 +77,6 @@ public class FingerPrintActivity extends Activity{
 
     //Flag.
     public static final boolean mbUsbExternalUSBManager = false;
-    private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
     private UsbManager mUsbManager = null;
     private PendingIntent mPermissionIntent= null;
     //
@@ -88,19 +88,8 @@ public class FingerPrintActivity extends Activity{
     private FingerPrintActivity mainContext;
 
     public final static String TAG = "BioMini Sample";
-    private EditText mLogView;
     private ScrollView mScrollLog = null;
 
-    private ViewPager mPager;
-
-    private int []mNaviPicks= { R.id.pageindexImage_0 , R.id.pageindexImage_1 , R.id.pageindexImage_2, R.id.pageindexImage_3};
-
-    int nInfComponents [] = {R.id.editLog, R.id.scrollLog ,
-            R.id.seekBarSensitivity , R.id.seekBarSecurityLevel , R.id.seekBarTimeout , R.id.checkBoxFastMode , R.id.checkBoxCropMode, R.id.buttonReadCaptureParam , R.id.buttonWriteCaptureParam,
-            R.id.buttonEnroll , R.id.buttonVerify , R.id.buttonDeleteAll ,
-            R.id.buttonExportBmp, R.id.buttonExportWsq , R.id.buttonTemplate, R.id.button19794_4};
-
-    int nLayouts[] = { R.layout.log_view , R.layout.setting_capture , R.layout.enrollment , R.layout.export};
     class UserData {
         String name;
         byte[] template;
@@ -109,7 +98,6 @@ public class FingerPrintActivity extends Activity{
             this.template = Arrays.copyOf(data, len);
         }
     }
-    private ArrayList<UserData> mUsers = new ArrayList<>();
 
     private IBioMiniDevice.CaptureOption mCaptureOptionDefault = new IBioMiniDevice.CaptureOption();
     private CaptureResponder mCaptureResponseDefault = new CaptureResponder() {
@@ -125,7 +113,7 @@ public class FingerPrintActivity extends Activity{
                 @Override
                 public void run() {
                     if(capturedImage != null) {
-                        ImageView iv = (ImageView) findViewById(R.id.imagePreview);
+                        ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
                         if(iv != null) {
                             iv.setImageBitmap(capturedImage);
                         }
@@ -158,7 +146,7 @@ public class FingerPrintActivity extends Activity{
                 @Override
                 public void run() {
                     if(capturedImage != null) {
-                        ImageView iv = (ImageView) findViewById(R.id.imagePreview);
+                        ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
                         if(iv != null) {
                             iv.setImageBitmap(capturedImage);
                         }
@@ -180,42 +168,17 @@ public class FingerPrintActivity extends Activity{
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ((TextView)findViewById(R.id.textStatus)).setText(str);
+                ((TextView)findViewById(R.id.textViewStatus)).setText(str);
             }
         });
 
     }
     synchronized public void log(final String msg)
     {
-        Log.d(TAG, msg);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if( mLogView == null){
-                    mLogView = (EditText) findViewById(R.id.editLog );
-                }
-                if(mLogView != null) {
-                    mLogView.append(msg + "\n");
-                    if(mScrollLog != null) {
-                        mScrollLog.fullScroll(mScrollLog.FOCUS_DOWN);
-                    }else{
-                        Log.d("Log " , "ScrollView is null");
-                    }
-                }
-                else {
-                    Log.d("", msg);
-                }
-            }
-        });
     }
 
     synchronized public void printRev(final String msg) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ((TextView) findViewById(R.id.revText)).setText(msg);
-            }
-        });
+
     }
 
 
