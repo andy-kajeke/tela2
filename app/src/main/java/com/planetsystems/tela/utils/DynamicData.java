@@ -3,8 +3,6 @@ package com.planetsystems.tela.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.planetsystems.tela.activities.mainactivity.MainActivity.SchoolDeviceIMEINumber;
-
 public class DynamicData {
     public static String getSchoolID() {
         //TODO: put codes here for finding school id

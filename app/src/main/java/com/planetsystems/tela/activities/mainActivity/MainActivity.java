@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities.mainactivity;
+package com.planetsystems.tela.activities.mainActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.planetsystems.tela.activities.school.SchoolConfirmation;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.utils.DynamicData;
-import com.planetsystems.tela.workers.WorkManagerTrigger;
 
 public class MainActivity extends AppCompatActivity {
 

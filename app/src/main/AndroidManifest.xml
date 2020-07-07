@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.planetsystems.tela">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -26,7 +28,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activities.logs.LogActivity"
-            android:parentActivityName=".activities.clockInAndOutActivity.ClockInAndOutActivity"></activity>
+            android:parentActivityName=".activities.clockInAndOutActivity.ClockInAndOutActivity" />
         <activity
             android:name=".activities.staff.smc.SmcActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -83,20 +85,13 @@
             android:name=".activities.fingerprint.FingerPrintActivity"
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".activities.clockInAndOutActivity.ClockInAndOutActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".activities.enrollActivity.EnrollmentActivity"
             android:parentActivityName=".activities.clockInAndOutActivity.ClockInAndOutActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.mainactivity.MainActivity"
+            android:name=".activities.mainActivity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

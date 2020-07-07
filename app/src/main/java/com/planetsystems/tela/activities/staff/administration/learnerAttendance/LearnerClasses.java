@@ -14,7 +14,7 @@ import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.planetsystems.tela.activities.mainactivity.MainActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
 
 public class LearnerClasses extends AppCompatActivity {
 

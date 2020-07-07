@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities.mainactivity;
+package com.planetsystems.tela.activities.mainActivity;
 
 import android.app.Application;
 
