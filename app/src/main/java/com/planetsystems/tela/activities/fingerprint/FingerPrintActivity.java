@@ -231,10 +231,10 @@ public class FingerPrintActivity extends Activity{
 
         mCaptureOptionDefault.frameRate = IBioMiniDevice.FrameRate.SHIGH;
 
-        findViewById(R.id.buttonCaptureSingle).setOnClickListener(new View.OnClickListener() {
+        cardViewCapture.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                ((ImageView) findViewById(R.id.imagePreview)).setImageBitmap(null);
+            public void onClick(View view) {
+                ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
                 if(mCurrentDevice != null) {
                     //mCaptureOptionDefault.captureTimeout = (int)mCurrentDevice.getParameter(IBioMiniDevice.ParameterType.TIMEOUT).value;
                     mCurrentDevice.captureSingle(
