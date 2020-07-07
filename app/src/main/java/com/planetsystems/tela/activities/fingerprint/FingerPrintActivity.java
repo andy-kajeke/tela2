@@ -389,8 +389,14 @@ public class FingerPrintActivity extends Activity{
                         }.getClass().getEnclosingMethod()).getName());
                         return syncTeacher;
                     }
+
+                    String message =  "Searching for Teacher: " + syncTeacher.getNationalId()
+                            + " has Fingerprint: " + Arrays.toString(syncTeacher.getFingerPrint()) + " Tested against Fingerprint " + Arrays.toString(fingerPrintData);
+                    logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
                 }
             }
+
         }
         return null;
     }
