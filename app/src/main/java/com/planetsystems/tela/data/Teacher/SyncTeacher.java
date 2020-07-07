@@ -40,7 +40,7 @@ public class SyncTeacher {
     private byte[] fingerPrint;
 
     @ColumnInfo(name = SyncTeacherTableConstants.FINGER_IMAGE_COLUMN_NAME)
-    private String fingerImage;
+    private Bitmap fingerImage;
 
     @ColumnInfo(name = SyncTeacherTableConstants.FIRST_NAME_COLUMN_NAME)
     private String firstName;
