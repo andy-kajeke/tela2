@@ -372,6 +372,32 @@ public class FingerPrintActivity extends Activity{
                     }.getClass().getEnclosingMethod()).getName());
 
                     // saving teacher information
+                    SyncTeacher teacher = new SyncTeacher(
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            false,
+                            null,
+                            null,
+                            null,
+                            fingerPrintData.length,
+                            true
+
+                    );
+                    teacherRepository.insertSyncTeacher(teacher);
+                    message = "Teacher Enrolled Successfully With Fingerprint: " + Arrays.toString(fingerPrintData);
+                    logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
                 }
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
