@@ -496,7 +496,7 @@ public class FingerPrintActivity extends Activity{
     private void clockInTeacher(byte[] fingerPrintData) {
         SyncTeacher syncTeacher = getTeacherWithFingerPrint(fingerPrintData);
         if (syncTeacher != null) {
-            SyncClockIn clockIn = getClockInWithFingerprint(fingerPrintData, syncTeacher.getEmployeeId());
+            SyncClockIn clockIn = getClockInWithFingerprintOrEmployeeNumber(fingerPrintData, syncTeacher.getEmployeeId());
             if (clockIn == null ) {
                 String message = "Teacher Not Clocked Today, Clocking them in ";
                 logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
@@ -545,7 +545,8 @@ public class FingerPrintActivity extends Activity{
 
     }
 
-    private SyncClockIn getClockInWithFingerprint(byte[] fingerPrintData, String employeeNumber) {
+    private SyncClockIn getClockInWithFingerprintOrEmployeeNumber(byte[] fingerPrintData, String employeeNumber) {
+        SyncClockIn clock;
         try {
             List<SyncClockIn> syncClockIns = clockInRepository.getClockInByDate(DynamicData.getDate());
             for (SyncClockIn clockIn: syncClockIns) {
@@ -554,9 +555,11 @@ public class FingerPrintActivity extends Activity{
                         String message = "Current Clock had fingerprint: " + Arrays.toString(clockIn.getFingerPrint());
                         logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
                         }.getClass().getEnclosingMethod()).getName());
-                    } else {
-//                        SyncClockIn syncClockIn = clockInRepository.getSyncClockInByEmployeeIDAndDate(emplo)
                     }
+                } else {
+                    String message = "Device was disconnected:- " + new Date().toString();
+                    logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
+                    }.getClass().getEnclosingMethod()).getName());
                 }
             }
         } catch (ExecutionException | InterruptedException e) {
