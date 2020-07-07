@@ -83,8 +83,32 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         checkout = findViewById(R.id.cardview4);
 
         Bundle bundle = getIntent().getExtras();
-        deviceIMEI_extra = bundle.getString("device_imei");
-        schoolName_extra = bundle.getString("schoolName");
+        if (bundle != null) {
+            // TODO: Please Mr Andrew please fix this, removing this if will make the app crush
+//            E/AndroidRuntime: FATAL EXCEPTION: main
+//            Process: com.planetsystems.tela, PID: 25994
+//            java.lang.RuntimeException: Unable to start activity ComponentInfo{com.planetsystems.tela/com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity}: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String android.os.Bundle.getString(java.lang.String)' on a null object reference
+//            at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3013)
+//            at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3148)
+//            at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:78)
+//            at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:108)
+//            at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:68)
+//            at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1861)
+//            at android.os.Handler.dispatchMessage(Handler.java:106)
+//            at android.os.Looper.loop(Looper.java:193)
+//            at android.app.ActivityThread.main(ActivityThread.java:6819)
+//            at java.lang.reflect.Method.invoke(Native Method)
+//            at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:497)
+//            at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:912)
+//            Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String android.os.Bundle.getString(java.lang.String)' on a null object reference
+//            at com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.onCreate(ClockInAndOutActivity.java:86)
+//            at android.app.Activity.performCreate(Activity.java:7136)
+//            at android.app.Activity.performCreate(Activity.java:7127)
+//            at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1271)
+
+            deviceIMEI_extra = bundle.getString("device_imei");
+            schoolName_extra = bundle.getString("schoolName");
+        }
 
         schoolName.setText(schoolName_extra);
 
