@@ -279,7 +279,6 @@ public class FingerPrintActivity extends Activity{
                     }
                     if (mBioMiniFactory != null) {
                         mCurrentDevice = mBioMiniFactory.getDevice(0);
-                        printState(getResources().getText(R.string.device_attached));
                         Log.d(TAG, "mCurrentDevice attached : " + mCurrentDevice);
                         if (mCurrentDevice != null /*&& mCurrentDevice.getDeviceInfo() != null*/) {
                             String message = " DeviceName : " + mCurrentDevice.getDeviceInfo().deviceName + "\n" +
@@ -288,6 +287,7 @@ public class FingerPrintActivity extends Activity{
 
                             logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                             }.getClass().getEnclosingMethod()).getName());
+                            printState(getResources().getText(R.string.device_attached));
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -302,7 +302,7 @@ public class FingerPrintActivity extends Activity{
             printState(getResources().getText(R.string.device_detached));
             Log.d(TAG, "mCurrentDevice removed : " + mCurrentDevice);
             mCurrentDevice = null;
-            printState("Device Not Connected");
+            printState("Device Device Removed");
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -606,6 +606,7 @@ public class FingerPrintActivity extends Activity{
                 @Override
                 public void run() {
                     Toast.makeText(FingerPrintActivity.this, "No Record Found", Toast.LENGTH_SHORT).show();
+                    printState("No Record Found");
                 }
             });
         }
@@ -747,6 +748,7 @@ public class FingerPrintActivity extends Activity{
                     @Override
                     public void run() {
                         Toast.makeText(FingerPrintActivity.this, "No Record Found", Toast.LENGTH_SHORT).show();
+                        printState("No Record Found");
                     }
                 });
             }
@@ -760,6 +762,7 @@ public class FingerPrintActivity extends Activity{
                 @Override
                 public void run() {
                     Toast.makeText(FingerPrintActivity.this, "No Record Found", Toast.LENGTH_SHORT).show();
+                    printState("No Record Found");
                 }
             });
         }
