@@ -375,6 +375,13 @@ public class FingerPrintActivity extends Activity{
             String message = "permission granted";
             logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
             }.getClass().getEnclosingMethod()).getName());
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    cardViewImage.setCardBackgroundColor(getColor(R.color.colorDeviceCapturing));
+                    printState("Permission Granted");
+                }
+            });
         }
     }
     @Override
