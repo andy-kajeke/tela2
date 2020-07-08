@@ -9,10 +9,16 @@ import androidx.lifecycle.ViewModelProvider;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -43,10 +49,11 @@ import com.planetsystems.tela.data.clockOut.SyncClockOut;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-public class ClockInAndOutActivity extends AppCompatActivity {
+public class ClockInAndOutActivity extends AppCompatActivity implements LocationListener {
 
     private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
     public static final int CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 645;
@@ -67,6 +74,11 @@ public class ClockInAndOutActivity extends AppCompatActivity {
     Button btnClockOut;
     EditText staff_Id, staff_comment;
     CheckBox norm,oth;
+
+    LocationManager locationManager;
+    double lng;
+    double lat;
+
 
     @SuppressLint("MissingPermission")
     @Override
@@ -113,7 +125,7 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         schoolName.setText(schoolName_extra);
 
         //SCHOOL_ID = deviceIMEI_extra;
-
+        Toast.makeText(this, lat+"=="+lng, Toast.LENGTH_LONG).show();
 
         checkInDialog = new Dialog(this);
         checkOutDialog = new Dialog(this);
@@ -437,5 +449,52 @@ public class ClockInAndOutActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "No Information Provided", Toast.LENGTH_LONG).show();
         }
+
+        getLocation();
+    }
+
+    //////////////////////GPS Functionality//////////////////////////////////////////////////////
+    void getLocation() {
+        try {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 5, this);
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        lng = location.getLatitude();
+        lat = location.getLongitude();
+
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            //LocName.setText("Town Name: " + addresses.get(0).getAddressLine(0));
+            if (null != addresses && addresses.size() > 0) {
+                String _addre = addresses.get(0).getAddressLine(0);
+                //LocName.setText(_addre);
+            }
+        }catch(Exception e)
+        {
+
+        }
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }

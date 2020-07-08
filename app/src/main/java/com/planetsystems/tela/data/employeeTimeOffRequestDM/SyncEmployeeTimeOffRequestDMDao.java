@@ -24,6 +24,15 @@ public interface SyncEmployeeTimeOffRequestDMDao {
     @Delete
     void delete(SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM);
 
+    @Query("UPDATE " + SyncEmployeeTimeOffRequestDMsConstants.TABLE_NAME
+            + " SET "
+            + SyncEmployeeTimeOffRequestDMsConstants.COLUMN_APPROVAL_STATUS + " =:approvalStatus"
+            + ","
+            + SyncEmployeeTimeOffRequestDMsConstants.COLUMN_APPROVAL_DATE + " =:approvalDate"
+            + " WHERE "
+            + SyncEmployeeTimeOffRequestDMsConstants.COLUMN_PRIMARY_KEY + " =:primaryKey")
+    void update(String approvalStatus,String approvalDate, int primaryKey);
+
     @Query("SELECT * FROM " + SyncEmployeeTimeOffRequestDMsConstants.TABLE_NAME)
     LiveData<List<SyncEmployeeTimeOffRequestDM>> getAllRecords();
 
@@ -35,6 +44,15 @@ public interface SyncEmployeeTimeOffRequestDMDao {
             " =:approvalStatus "
     )
     LiveData<List<SyncEmployeeTimeOffRequestDM>> getRequestTypeByApprovalStatus (String requestType, String approvalStatus);
+
+    @Query("SELECT * FROM " + SyncEmployeeTimeOffRequestDMsConstants.TABLE_NAME +
+            " WHERE "
+            + SyncEmployeeTimeOffRequestDMsConstants.COLUMN_EMPLOYEE_REQUEST_TYPE +
+            " =:requestType AND "
+            + SyncEmployeeTimeOffRequestDMsConstants.COLUMN_EMPLOYEE_ID +
+            " =:employeeNo "
+    )
+    LiveData<List<SyncEmployeeTimeOffRequestDM>> getApprovalStatusByEmployeeNo (String requestType, String employeeNo);
 
     @Query("SELECT * FROM " + SyncEmployeeTimeOffRequestDMsConstants.TABLE_NAME +
             " WHERE "

@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.viewReplies.viewTimeOffRequest;
 
 public class MakeRequests extends AppCompatActivity {
 
@@ -22,7 +26,7 @@ public class MakeRequests extends AppCompatActivity {
     Button viewTimeOff;
     Button viewMeeting;
     Button viewHelp;
-    Dialog updateDialog;
+    Dialog viewReplyDialog;
 
     String name_extra;
     String id_extra;
@@ -40,7 +44,7 @@ public class MakeRequests extends AppCompatActivity {
         timeOff = findViewById(R.id.TimeOff);
         meetings = findViewById(R.id.Meeting);
         help = findViewById(R.id.Help);
-        replies = findViewById(R.id.replies);
+        replies = findViewById(R.id.viewReplies);
 
         Bundle bundle = getIntent().getExtras();
         id_extra = bundle.getString("id");
@@ -48,6 +52,8 @@ public class MakeRequests extends AppCompatActivity {
 
         staffName.append(name_extra);
         staffId.append(id_extra);
+
+        viewReplyDialog = new Dialog(this);
 
         //On select specific request
         schoolMaterials.setOnClickListener(new View.OnClickListener() {
@@ -99,10 +105,72 @@ public class MakeRequests extends AppCompatActivity {
         replies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               showReplyPopup();
+            }
+        });
+    }
 
-               // showUpdatePopup();
+    public void showReplyPopup(){
+
+        viewReplyDialog.setContentView(R.layout.view_replies_popup);
+
+        close =(TextView) viewReplyDialog.findViewById(R.id.txclose);
+        viewSchMaterials = (Button) viewReplyDialog.findViewById(R.id.viewSchMaterials);
+        viewTimeOff = (Button) viewReplyDialog.findViewById(R.id.viewTimeOff);
+        viewMeeting =(Button) viewReplyDialog.findViewById(R.id.viewMeeting);
+        viewHelp = (Button) viewReplyDialog.findViewById(R.id.viewHelp);
+
+        viewSchMaterials.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                Intent i = new Intent(getApplicationContext(), viewSchoolMaterial.class);
+//                i.putExtra("id", id_extra);
+//                i.putExtra("school", school_extra);
+//                startActivity(i);
 
             }
         });
+
+        viewTimeOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), viewTimeOffRequest.class);
+                i.putExtra("id", id_extra);
+                startActivity(i);
+            }
+        });
+
+        viewMeeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent i = new Intent(getApplicationContext(), viewMeetingRequest.class);
+//                i.putExtra("id", id_extra);
+//                i.putExtra("school", school_extra);
+//                startActivity(i);
+            }
+        });
+
+        viewHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent i = new Intent(getApplicationContext(), viewHelpRequest.class);
+//                i.putExtra("id", id_extra);
+//                i.putExtra("school", school_extra);
+//                startActivity(i);
+            }
+        });
+
+        close.setText("X");
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewReplyDialog.dismiss();
+            }
+        });
+
+        viewReplyDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        viewReplyDialog.show();
+        //Toast.makeText(getApplicationContext(),"clicked", Toast.LENGTH_SHORT).show();
     }
 }

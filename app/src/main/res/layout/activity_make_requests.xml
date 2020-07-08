@@ -205,7 +205,7 @@
                 android:textColor="@color/white"/>
 
             <Button
-                android:id="@+id/replies"
+                android:id="@+id/viewReplies"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="View Request Replies"

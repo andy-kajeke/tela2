@@ -3,10 +3,13 @@ package com.planetsystems.tela.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+
 public class DynamicData {
-    public static String getSchoolID() {
+    public static String getSchoolID(String schoolDevice) {
         //TODO: put codes here for finding school id
-        return "354633111523205";
+        schoolDevice = SchoolDeviceIMEINumber;
+        return schoolDevice;
     }
 
     public static String getLatitude() {

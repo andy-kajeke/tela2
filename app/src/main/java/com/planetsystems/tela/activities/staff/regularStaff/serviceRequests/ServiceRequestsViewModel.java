@@ -34,12 +34,20 @@ public class ServiceRequestsViewModel extends AndroidViewModel {
         timeOffRequestRepository.addNewTimeOffRequest(syncEmployeeTimeOffRequestDM);
     }
 
+    public void updateLeaveApprovalStatus(String approvalStatus, String approvalDate, int primaryKey){
+        timeOffRequestRepository.updateLeaveApprovalStatus(approvalStatus, approvalDate, primaryKey);
+    }
+
     public LiveData<List<SyncEmployeeTimeOffRequestDM>> getAllTimeOffs(){
         return timeOffRequestRepository.getAllRequests();
     }
 
     public LiveData<List<SyncEmployeeTimeOffRequestDM>> getAllTimeOffs(String requestType, String approvalStatus){
         return timeOffRequestRepository.getRequestByTypeAndApprovalStatus(requestType, approvalStatus);
+    }
+
+    public LiveData<List<SyncEmployeeTimeOffRequestDM>> getApprovalStatusByEmployeeNo(String requestType, String employeeNo){
+        return timeOffRequestRepository.getApprovalStatusByEmployeeNo(requestType, employeeNo);
     }
 
     public LiveData<List<SyncEmployeeTimeOffRequestDM>> getAllMeetings(String requestType, String approvalStatus){

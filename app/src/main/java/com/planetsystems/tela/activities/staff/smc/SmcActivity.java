@@ -30,6 +30,8 @@ import com.planetsystems.tela.workers.WorkManagerTrigger;
 
 import java.util.List;
 
+import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+
 public class SmcActivity extends AppCompatActivity {
 
     SmcActivityViewModel smcActivityViewModel;
@@ -269,7 +271,7 @@ public class SmcActivity extends AppCompatActivity {
         SyncSMC syncSMC = new SyncSMC(
                 "",
                 DynamicData.getDate(),
-                DynamicData.getSchoolID(),
+                DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                 status.getText().toString(),
                 P1,
                 P2,

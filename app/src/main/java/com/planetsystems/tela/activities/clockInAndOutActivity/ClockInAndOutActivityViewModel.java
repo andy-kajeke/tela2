@@ -17,6 +17,8 @@ import com.planetsystems.tela.utils.DynamicData;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+
 public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     private ClockOutRepository clockOutRepository;
     private ClockInRepository clockInRepository;
@@ -54,7 +56,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                                         teacher.getEmployeeNumber(),
                                         DynamicData.getLatitude(),
                                         DynamicData.getLongitude(),
-                                        DynamicData.getSchoolID(),
+                                        DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                                         DynamicData.getSchoolName(),
                                         teacher.getFirstName(),
                                         teacher.getLastName(),
@@ -90,7 +92,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                             DynamicData.getDate(),
                             DynamicData.getDay(),
                             DynamicData.getTime(),
-                            DynamicData.getSchoolID(),
+                            DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                             syncTeacher.getFingerPrint()
                     ));
                     return new TeacherWrapper("Clocked In Successfully", syncTeacher);
