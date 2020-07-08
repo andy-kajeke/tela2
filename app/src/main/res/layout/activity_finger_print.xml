@@ -27,7 +27,7 @@
         android:layout_below="@+id/imageView"
         android:layout_width="90dp"
         android:id="@+id/cardViewFingerPrint"
-        android:layout_height="110dp"
+        android:layout_height="120dp"
         android:padding="30dp"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="20dp"
@@ -44,7 +44,7 @@
             android:id="@+id/imageViewFingerPrint"
             android:layout_width="80dp"
             android:src="@drawable/ic_baseline_fingerprint_100"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:background="@drawable/edit_text_style"
             android:contentDescription="TODO" />
     </androidx.cardview.widget.CardView>
