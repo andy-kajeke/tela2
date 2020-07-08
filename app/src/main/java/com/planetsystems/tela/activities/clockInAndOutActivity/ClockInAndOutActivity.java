@@ -32,6 +32,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.clockInWithEmployeeNumber.ClockInWithEmployeeNumberActivity;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
@@ -430,7 +431,7 @@ public class ClockInAndOutActivity extends AppCompatActivity implements Location
                         SyncTeacher syncTeacher = TeacherRepository.getInstance(TelaRoomDatabase.getInstance(getApplicationContext()))
                                 .getTeacherWithEmployeeNumber(data.getStringExtra(FingerPrintActivity.EMPLOYEEE_NUMBER));
                         if (syncTeacher != null) {
-                            loadTeacherHomePage(syncTeacher);
+                            Snackbar.make(close_clockOut, "Clocked Out Successfully: " + syncTeacher.getEmployeeNumber() , Snackbar.LENGTH_LONG).show();
                         }
                     } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
