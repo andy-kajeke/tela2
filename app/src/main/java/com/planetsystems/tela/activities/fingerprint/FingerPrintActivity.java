@@ -92,6 +92,7 @@ public class FingerPrintActivity extends Activity{
     private TextView textViewEnroll = null;
     private CardView cardViewCapture = null;
     private TextView textViewCapture = null;
+    private CardView cardViewImage = null;
 
 
     private static BioMiniFactory mBioMiniFactory = null;
@@ -102,14 +103,6 @@ public class FingerPrintActivity extends Activity{
     public final static String TAG = "BioMini Sample";
     private ScrollView mScrollLog = null;
 
-    class UserData {
-        String name;
-        byte[] template;
-        public UserData(String name, byte[] data, int len) {
-            this.name = name;
-            this.template = Arrays.copyOf(data, len);
-        }
-    }
     synchronized public void printState(final CharSequence str){
         runOnUiThread(new Runnable() {
             @Override
@@ -170,6 +163,7 @@ public class FingerPrintActivity extends Activity{
         cardViewCapture = findViewById(R.id.cardViewCapture);
         textViewEnroll = findViewById(R.id.textViewEnroll);
         textViewCapture = findViewById(R.id.textViewCapture);
+        cardViewImage = findViewById(R.id.cardViewFingerPrint);
         executionLogRepository = ExecutionLogRepository.getInstance(TelaRoomDatabase.getInstance(this));
         teacherRepository = TeacherRepository.getInstance(TelaRoomDatabase.getInstance(this));
 
@@ -190,8 +184,8 @@ public class FingerPrintActivity extends Activity{
         cardViewCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
                 if (mCurrentDevice != null) {
+                    ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
                     IBioMiniDevice.CaptureOption option = new IBioMiniDevice.CaptureOption();
                     option.extractParam.captureTemplate = true;
                     option.captureTemplate = true; //deprecated
@@ -212,6 +206,7 @@ public class FingerPrintActivity extends Activity{
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
+                                            cardViewImage.setCardBackgroundColor(getColor(R.color.colorDeviceCapturedSuccess));
                                             if(capturedImage != null) {
                                                 ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
                                                 if(iv != null) {
@@ -246,6 +241,12 @@ public class FingerPrintActivity extends Activity{
 
                                 @Override
                                 public void onCaptureError(Object context, int errorCode, String error) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            cardViewImage.setCardBackgroundColor(getColor(R.color.colorDeviceCapturedError));
+                                        }
+                                    });
                                     String message = "onCaptureError : " + error;
                                     logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                                     }.getClass().getEnclosingMethod()).getName());
@@ -287,6 +288,12 @@ public class FingerPrintActivity extends Activity{
 
                             logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                             }.getClass().getEnclosingMethod()).getName());
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    cardViewImage.setCardBackgroundColor(getColor(R.color.colorDeviceConnected));
+                                }
+                            });
                         }
                     }
                 }
@@ -295,6 +302,13 @@ public class FingerPrintActivity extends Activity{
             printState(getResources().getText(R.string.device_detached));
             Log.d(TAG, "mCurrentDevice removed : " + mCurrentDevice);
             mCurrentDevice = null;
+            printState("Device Not Connected");
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    cardViewImage.setCardBackgroundColor(getColor(R.color.colorDeviceNoteConnected));
+                }
+            });
         }
     }
 
