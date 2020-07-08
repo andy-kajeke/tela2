@@ -148,6 +148,7 @@ public class FingerPrintActivity extends Activity{
     public void checkDevice(){
         if(mUsbManager == null) return;
         String message = "checkDevice";
+        printState("Checking Device ....");
         logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
         }.getClass().getEnclosingMethod()).getName());
         HashMap<String , UsbDevice> deviceList = mUsbManager.getDeviceList();
@@ -465,6 +466,7 @@ public class FingerPrintActivity extends Activity{
                         @Override
                         public void run() {
                             Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_LONG).show();
+                            printState("Teacher Already Enrolled");
                         }
                     });
                 }
@@ -478,6 +480,7 @@ public class FingerPrintActivity extends Activity{
                     @Override
                     public void run() {
                         Toast.makeText(FingerPrintActivity.this, "Unknown Error", Toast.LENGTH_LONG).show();
+                        printState("Unknown Error");
                     }
                 });
             }
@@ -493,6 +496,7 @@ public class FingerPrintActivity extends Activity{
                 @Override
                 public void run() {
                     Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_LONG).show();
+                    printState("Teacher Already Enrolled");
                 }
             });
         }
@@ -581,6 +585,7 @@ public class FingerPrintActivity extends Activity{
                     @Override
                     public void run() {
                         Toast.makeText(FingerPrintActivity.this, "Clocked In Successfully" , Toast.LENGTH_SHORT).show();
+                        printState("Clocked In Successfully");
                     }
                 });
 
@@ -671,6 +676,7 @@ public class FingerPrintActivity extends Activity{
             String message = "There was error getting clock ins for today:- " + new Date().toString();
             logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
             }.getClass().getEnclosingMethod()).getName());
+            printState("Error Occurred");
         }
         return clock;
     }
@@ -814,6 +820,7 @@ public class FingerPrintActivity extends Activity{
                         }
                     }
                 } else {
+                    printState("Device Disconnected");
                     String message = "Device was disconnected:- " + new Date().toString();
                     logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
@@ -824,6 +831,7 @@ public class FingerPrintActivity extends Activity{
             String message = "There was error getting clock Out for today:- " + new Date().toString();
             logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
             }.getClass().getEnclosingMethod()).getName());
+            printState("Unknown Error");
         }
         return clockOut;
     }
