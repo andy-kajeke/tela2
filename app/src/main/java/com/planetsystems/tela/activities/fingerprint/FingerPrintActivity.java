@@ -29,6 +29,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.snackbar.Snackbar;
 import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.constants.Role;
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
@@ -420,7 +421,7 @@ public class FingerPrintActivity extends Activity{
                             null,
                             null,
                             null,
-                            "Teacher",
+                            Role.HEAD_TEACHER_ROLE,
                             new Date().toString(),
                             intent.getStringExtra(TEACHER_EMAIL),
                             fingerPrintData,
