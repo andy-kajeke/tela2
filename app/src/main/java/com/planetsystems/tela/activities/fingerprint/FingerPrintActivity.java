@@ -59,6 +59,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
+import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+
 public class FingerPrintActivity extends Activity{
     public static final String FINGER_PRINT_DATA = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEMPLATE_DATA";
     public static final String FINGER_PRINT_IMAGE = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.FINGER_PRINT_IMAGE";
@@ -379,7 +381,7 @@ public class FingerPrintActivity extends Activity{
                         DynamicData.getDate(),
                         new Date().toString(),
                         getClass().getSimpleName(),
-                        DynamicData.getSchoolID(),
+                        DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                         DynamicData.getSchoolName(),
                         null,
                         lineNumber,
@@ -420,7 +422,7 @@ public class FingerPrintActivity extends Activity{
                             false,
                             intent.getStringExtra(TEACHER_NATIONAL_ID),
                             intent.getStringExtra(TEACHER_PHONE_NUMBER),
-                            DynamicData.getSchoolID(),
+                            DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                             fingerPrintData.length,
                             true
 
@@ -553,7 +555,7 @@ public class FingerPrintActivity extends Activity{
                         DynamicData.getDate(),
                         DynamicData.getDay(),
                         DynamicData.getTime(),
-                        DynamicData.getSchoolID(),
+                        DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                         fingerPrintData
                 );
                 clockInRepository.synClockInTeacher(clock);
@@ -688,7 +690,7 @@ public class FingerPrintActivity extends Activity{
                             syncTeacher.getEmployeeId(),
                             DynamicData.getLatitude(),
                             DynamicData.getLongitude(),
-                            DynamicData.getSchoolID(),
+                            DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                             DynamicData.getSchoolName(),
                             syncTeacher.getFirstName(),
                             syncTeacher.getLastName(),

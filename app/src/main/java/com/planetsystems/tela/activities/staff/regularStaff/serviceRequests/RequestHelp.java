@@ -25,6 +25,8 @@ import com.planetsystems.tela.utils.DynamicData;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+
 public class RequestHelp extends AppCompatActivity {
 
     Spinner category;
@@ -138,7 +140,7 @@ public class RequestHelp extends AppCompatActivity {
                 "",
                 comment,
                 "",
-                DynamicData.getSchoolID(),
+                DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                 helpType,
                 priority,
                 employeeNo,

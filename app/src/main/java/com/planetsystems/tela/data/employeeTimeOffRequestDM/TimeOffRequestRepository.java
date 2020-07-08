@@ -26,11 +26,20 @@ public class TimeOffRequestRepository {
         return INSTANCE;
     }
 
-    public void  addNewTimeOffRequest(final SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM){
+    public void addNewTimeOffRequest(final SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM){
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
                 syncEmployeeTimeOffRequestDMDao.addNewRequest(syncEmployeeTimeOffRequestDM);
+            }
+        });
+    }
+
+    public void updateLeaveApprovalStatus(final String approvalStatus, final String approvalDate, final int primaryKey){
+        TelaRoomDatabase.db_executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                syncEmployeeTimeOffRequestDMDao.update(approvalStatus, approvalDate, primaryKey);
             }
         });
     }
@@ -41,6 +50,10 @@ public class TimeOffRequestRepository {
 
     public LiveData<List<SyncEmployeeTimeOffRequestDM>> getRequestByTypeAndApprovalStatus(final String requestType, final String approvalStatus){
         return syncEmployeeTimeOffRequestDMDao.getRequestTypeByApprovalStatus(requestType, approvalStatus);
+    }
+
+    public LiveData<List<SyncEmployeeTimeOffRequestDM>> getApprovalStatusByEmployeeNo(final String requestType, final String employeeNo){
+        return syncEmployeeTimeOffRequestDMDao.getApprovalStatusByEmployeeNo(requestType, employeeNo);
     }
 
     public LiveData<List<SyncEmployeeTimeOffRequestDM>> getRequestByApprovalStatus(final String approvalStatus){

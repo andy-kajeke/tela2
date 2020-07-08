@@ -27,6 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+
 public class RequestMeeting extends AppCompatActivity {
 
     EditText mdateFrom, mdateTo, mtimeFrom, mtimeTo, mstaff_comment;
@@ -223,7 +225,7 @@ public class RequestMeeting extends AppCompatActivity {
                 "Pending",
                 "",
                 "",
-                DynamicData.getSchoolID(),
+                DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                 "",
                 "",
                 employeeName,

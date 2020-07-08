@@ -124,7 +124,7 @@ public class SchoolConfirmation extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             dialog = new ProgressDialog(SchoolConfirmation.this);
-            dialog.setMessage("Getting product details...\n Pleas wait");
+            dialog.setMessage("Getting Device Ownership...\n Pleas wait");
             //dialog.setTitle("Loading ..");
             dialog.show();
             dialog.setCancelable(false);

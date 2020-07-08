@@ -5,6 +5,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,9 +25,14 @@ import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 
 import java.util.List;
+import java.util.Locale;
 
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity implements LocationListener{
     TextView textView;
+
+    LocationManager locationManager;
+    double lng;
+    double lat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,5 +79,52 @@ public class TestActivity extends AppCompatActivity {
                 textView.setText(teacherName);
             }
         });
+        getLocation();
+    }
+
+    //////////////////////GPS Functionality//////////////////////////////////////////////////////
+    void getLocation() {
+        try {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 5, (LocationListener) this);
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+        lng = location.getLatitude();
+        lat = location.getLongitude();
+
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            //LocName.setText("Town Name: " + addresses.get(0).getAddressLine(0));
+            if (null != addresses && addresses.size() > 0) {
+                String _addre = addresses.get(0).getAddressLine(0);
+                //LocName.setText(_addre);
+            }
+        }catch(Exception e)
+        {
+
+        }
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }

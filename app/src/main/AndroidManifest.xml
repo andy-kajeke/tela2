@@ -5,7 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -26,6 +27,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.viewTimeOffRequest"></activity>
         <activity
             android:name=".activities.logs.LogActivity"
             android:parentActivityName=".activities.clockInAndOutActivity.ClockInAndOutActivity" />
@@ -84,8 +86,7 @@
         <activity
             android:name=".activities.fingerprint.FingerPrintActivity"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".activities.clockInAndOutActivity.ClockInAndOutActivity">
-        </activity>
+        <activity android:name=".activities.clockInAndOutActivity.ClockInAndOutActivity"></activity>
         <activity
             android:name=".activities.enrollActivity.EnrollmentActivity"
             android:parentActivityName=".activities.clockInAndOutActivity.ClockInAndOutActivity"

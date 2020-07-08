@@ -30,6 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+
 public class RequestTimeOff extends AppCompatActivity {
 
     ProgressDialog dialog;
@@ -236,7 +238,7 @@ public class RequestTimeOff extends AppCompatActivity {
                 "Pending",
                 "",
                 "",
-                DynamicData.getSchoolID(),
+                DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                 "",
                 "",
                 employeeName,
