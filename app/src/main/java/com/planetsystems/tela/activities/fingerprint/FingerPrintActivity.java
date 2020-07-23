@@ -61,6 +61,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.utils.BitmapConverter.encodeBitmapToBase64;
 
 public class FingerPrintActivity extends Activity{
     public static final String FINGER_PRINT_DATA = "com.planetsystems.tela.activities.fingerprint.FingerPrintActivity.TEMPLATE_DATA";
@@ -428,9 +429,7 @@ public class FingerPrintActivity extends Activity{
                             new Date().toString(),
                             intent.getStringExtra(TEACHER_EMAIL),
                             fingerPrintData,
-                            saveBitmapToExternalStorage(capturedImage, intent.getStringExtra(TEACHER_NATIONAL_ID),
-                                    intent.getStringExtra(TEACHER_FIRST_NAME) +
-                                    intent.getStringExtra(TEACHER_LAST_NAME)),
+                            encodeBitmapToBase64(capturedImage),
                             intent.getStringExtra(TEACHER_FIRST_NAME),
                             intent.getStringExtra(TEACHER_LAST_NAME),
                             intent.getStringExtra(TEACHER_GENDER),

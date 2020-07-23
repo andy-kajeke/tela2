@@ -1,6 +1,7 @@
 package com.planetsystems.tela.workers.upload;
 
 import android.content.Context;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -46,6 +47,8 @@ public class SyncTeacherUploadWorker extends Worker {
 
             JSONObject params = new JSONObject();
             try {
+                params.put("fingerPrint", Base64.encode(teacher.getFingerPrint(), Base64.DEFAULT));
+                params.put("fingerPrintImage", teacher.getFingerImage());
                 params.put("nationalId", teacher.getNationalId());
                 params.put("firstName", teacher.getFirstName());
                 params.put("lastName",teacher.getLastName());
@@ -71,6 +74,8 @@ public class SyncTeacherUploadWorker extends Worker {
                         JSONObject teacher = response.getJSONObject("teacher");
                         SyncTeacher savedTeacher = teacherRepository.getTeacherWithNationalIDNumber(teacher.getString("nationalId"));
                         if (savedTeacher != null) {
+                            savedTeacher.setFingerImage(teacher.getString("fingerPrintImage"));
+                            savedTeacher.setFingerPrint(Base64.decode(teacher.getString("fingerPrint"), Base64.DEFAULT));
                             savedTeacher.setSchoolId(teacher.getString("schoolId"));
                             savedTeacher.setMPSComputerNumber(teacher.getString("MPSComputerNumber"));
                             savedTeacher.setEmailAddress(teacher.getString("emailAddress"));
