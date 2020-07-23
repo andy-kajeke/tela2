@@ -29,6 +29,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.snackbar.Snackbar;
 import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.constants.Role;
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
@@ -94,6 +95,7 @@ public class FingerPrintActivity extends Activity{
     private TextView textViewEnroll = null;
     private CardView cardViewCapture = null;
     private TextView textViewCapture = null;
+    private CardView cardViewImage = null;
 
 
     private static BioMiniFactory mBioMiniFactory = null;
@@ -104,14 +106,6 @@ public class FingerPrintActivity extends Activity{
     public final static String TAG = "BioMini Sample";
     private ScrollView mScrollLog = null;
 
-    class UserData {
-        String name;
-        byte[] template;
-        public UserData(String name, byte[] data, int len) {
-            this.name = name;
-            this.template = Arrays.copyOf(data, len);
-        }
-    }
     synchronized public void printState(final CharSequence str){
         runOnUiThread(new Runnable() {
             @Override
@@ -154,6 +148,7 @@ public class FingerPrintActivity extends Activity{
     public void checkDevice(){
         if(mUsbManager == null) return;
         String message = "checkDevice";
+        printState("Checking Device ....");
         logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
         }.getClass().getEnclosingMethod()).getName());
         HashMap<String , UsbDevice> deviceList = mUsbManager.getDeviceList();
@@ -172,6 +167,7 @@ public class FingerPrintActivity extends Activity{
         cardViewCapture = findViewById(R.id.cardViewCapture);
         textViewEnroll = findViewById(R.id.textViewEnroll);
         textViewCapture = findViewById(R.id.textViewCapture);
+        cardViewImage = findViewById(R.id.cardViewFingerPrint);
         executionLogRepository = ExecutionLogRepository.getInstance(TelaRoomDatabase.getInstance(this));
         teacherRepository = TeacherRepository.getInstance(TelaRoomDatabase.getInstance(this));
 
@@ -192,8 +188,8 @@ public class FingerPrintActivity extends Activity{
         cardViewCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
                 if (mCurrentDevice != null) {
+                    ((ImageView) findViewById(R.id.imageViewFingerPrint)).setImageBitmap(null);
                     IBioMiniDevice.CaptureOption option = new IBioMiniDevice.CaptureOption();
                     option.extractParam.captureTemplate = true;
                     option.captureTemplate = true; //deprecated
@@ -214,6 +210,7 @@ public class FingerPrintActivity extends Activity{
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
+                                            cardViewImage.setCardBackgroundColor(getColor(R.color.colorDeviceCapturedSuccess));
                                             if(capturedImage != null) {
                                                 ImageView iv = (ImageView) findViewById(R.id.imageViewFingerPrint);
                                                 if(iv != null) {
@@ -248,6 +245,12 @@ public class FingerPrintActivity extends Activity{
 
                                 @Override
                                 public void onCaptureError(Object context, int errorCode, String error) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            cardViewImage.setCardBackgroundColor(getColor(R.color.colorDeviceCapturedError));
+                                        }
+                                    });
                                     String message = "onCaptureError : " + error;
                                     logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                                     }.getClass().getEnclosingMethod()).getName());
@@ -280,7 +283,6 @@ public class FingerPrintActivity extends Activity{
                     }
                     if (mBioMiniFactory != null) {
                         mCurrentDevice = mBioMiniFactory.getDevice(0);
-                        printState(getResources().getText(R.string.device_attached));
                         Log.d(TAG, "mCurrentDevice attached : " + mCurrentDevice);
                         if (mCurrentDevice != null /*&& mCurrentDevice.getDeviceInfo() != null*/) {
                             String message = " DeviceName : " + mCurrentDevice.getDeviceInfo().deviceName + "\n" +
@@ -289,6 +291,13 @@ public class FingerPrintActivity extends Activity{
 
                             logMessage(message, String.valueOf(new Throwable().getStackTrace()[0].getLineNumber()), Objects.requireNonNull(new Object() {
                             }.getClass().getEnclosingMethod()).getName());
+                            printState(getResources().getText(R.string.device_attached));
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    cardViewImage.setCardBackgroundColor(getColor(R.color.colorDeviceConnected));
+                                }
+                            });
                         }
                     }
                 }
@@ -297,6 +306,13 @@ public class FingerPrintActivity extends Activity{
             printState(getResources().getText(R.string.device_detached));
             Log.d(TAG, "mCurrentDevice removed : " + mCurrentDevice);
             mCurrentDevice = null;
+            printState("Device Device Removed");
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    cardViewImage.setCardBackgroundColor(getColor(R.color.colorDeviceNoteConnected));
+                }
+            });
         }
     }
 
@@ -408,7 +424,7 @@ public class FingerPrintActivity extends Activity{
                             null,
                             null,
                             null,
-                            "Teacher",
+                            Role.HEAD_TEACHER_ROLE,
                             new Date().toString(),
                             intent.getStringExtra(TEACHER_EMAIL),
                             fingerPrintData,
@@ -450,6 +466,7 @@ public class FingerPrintActivity extends Activity{
                         @Override
                         public void run() {
                             Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_LONG).show();
+                            printState("Teacher Already Enrolled");
                         }
                     });
                 }
@@ -463,6 +480,7 @@ public class FingerPrintActivity extends Activity{
                     @Override
                     public void run() {
                         Toast.makeText(FingerPrintActivity.this, "Unknown Error", Toast.LENGTH_LONG).show();
+                        printState("Unknown Error");
                     }
                 });
             }
@@ -478,6 +496,7 @@ public class FingerPrintActivity extends Activity{
                 @Override
                 public void run() {
                     Toast.makeText(FingerPrintActivity.this, "Teacher Already Enrolled", Toast.LENGTH_LONG).show();
+                    printState("Teacher Already Enrolled");
                 }
             });
         }
@@ -566,6 +585,7 @@ public class FingerPrintActivity extends Activity{
                     @Override
                     public void run() {
                         Toast.makeText(FingerPrintActivity.this, "Clocked In Successfully" , Toast.LENGTH_SHORT).show();
+                        printState("Clocked In Successfully");
                     }
                 });
 
@@ -594,6 +614,7 @@ public class FingerPrintActivity extends Activity{
                 @Override
                 public void run() {
                     Toast.makeText(FingerPrintActivity.this, "No Record Found", Toast.LENGTH_SHORT).show();
+                    printState("No Record Found");
                 }
             });
         }
@@ -655,6 +676,7 @@ public class FingerPrintActivity extends Activity{
             String message = "There was error getting clock ins for today:- " + new Date().toString();
             logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
             }.getClass().getEnclosingMethod()).getName());
+            printState("Error Occurred");
         }
         return clock;
     }
@@ -735,6 +757,7 @@ public class FingerPrintActivity extends Activity{
                     @Override
                     public void run() {
                         Toast.makeText(FingerPrintActivity.this, "No Record Found", Toast.LENGTH_SHORT).show();
+                        printState("No Record Found");
                     }
                 });
             }
@@ -748,6 +771,7 @@ public class FingerPrintActivity extends Activity{
                 @Override
                 public void run() {
                     Toast.makeText(FingerPrintActivity.this, "No Record Found", Toast.LENGTH_SHORT).show();
+                    printState("No Record Found");
                 }
             });
         }
@@ -796,6 +820,7 @@ public class FingerPrintActivity extends Activity{
                         }
                     }
                 } else {
+                    printState("Device Disconnected");
                     String message = "Device was disconnected:- " + new Date().toString();
                     logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
                     }.getClass().getEnclosingMethod()).getName());
@@ -806,6 +831,7 @@ public class FingerPrintActivity extends Activity{
             String message = "There was error getting clock Out for today:- " + new Date().toString();
             logMessage(message, String.valueOf(new Throwable().getStackTrace() [0].getLineNumber()), Objects.requireNonNull(new Object() {
             }.getClass().getEnclosingMethod()).getName());
+            printState("Unknown Error");
         }
         return clockOut;
     }

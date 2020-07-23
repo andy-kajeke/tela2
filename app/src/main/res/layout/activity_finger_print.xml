@@ -23,23 +23,35 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:id="@+id/imageViewFingerPrint"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/edit_text_style"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
+    <androidx.cardview.widget.CardView
         android:layout_below="@+id/imageView"
+        android:layout_width="95dp"
+        android:id="@+id/cardViewFingerPrint"
+        android:layout_height="120dp"
+        android:padding="30dp"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"/>
+        android:layout_marginEnd="20dp"
+        app:cardBackgroundColor="@color/colorDeviceNoteConnected"
+        android:layout_centerVertical="true"
+        app:cardCornerRadius="10dp"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/imageViewFingerPrint"
+            android:layout_width="85dp"
+            android:src="@drawable/ic_baseline_fingerprint_100"
+            android:layout_height="110dp"
+            android:background="@drawable/edit_text_style"
+            android:contentDescription="TODO" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/imageViewFingerPrint"
+        android:layout_below="@+id/cardViewFingerPrint"
         android:id="@+id/textViewStatus"
         android:layout_width="match_parent"
         android:textColor="@color/white"
