@@ -46,6 +46,7 @@ import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActi
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
+import com.planetsystems.tela.utils.DynamicData;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -53,12 +54,15 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
+import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+
 public class ClockInAndOutActivity extends AppCompatActivity implements LocationListener {
 
     private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
     public static final int CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 645;
     public static final int CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 445;
 
+    public static String School_ID;
     TextView dateDisplay, schoolName;
     TextView close_clockIn, close_clockOut;
     Button btnFingerprint_In, btnStaffId_In, btnFingerprint_Out, btnStaffId_Out;
@@ -66,7 +70,7 @@ public class ClockInAndOutActivity extends AppCompatActivity implements Location
     Dialog checkInDialog, checkOutDialog, checkOutPopup;
 
     ClockInAndOutActivityViewModel viewModel;
-    String deviceIMEI_extra, schoolName_extra;
+    String deviceIMEI_extra, schoolName_extra, schoolID_extra;
     String dateString, timeString;
 
     ////checkout//
@@ -120,12 +124,15 @@ public class ClockInAndOutActivity extends AppCompatActivity implements Location
 
             deviceIMEI_extra = bundle.getString("device_imei");
             schoolName_extra = bundle.getString("schoolName");
+            schoolID_extra = bundle.getString("schoolId");
+
+            School_ID = schoolID_extra;
         }
 
         schoolName.setText(schoolName_extra);
 
         //SCHOOL_ID = deviceIMEI_extra;
-        Toast.makeText(this, lat+"=="+lng, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, lat+"=="+lng +":"+ DynamicData.getSchoolID(SchoolDeviceIMEINumber), Toast.LENGTH_LONG).show();
 
         checkInDialog = new Dialog(this);
         checkOutDialog = new Dialog(this);
@@ -168,19 +175,19 @@ public class ClockInAndOutActivity extends AppCompatActivity implements Location
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.enroll:
-                Intent home = new Intent(ClockInAndOutActivity.this, EnrollmentActivity.class);
-                startActivity(home);
-                return true;
+//            case R.id.enroll:
+//                Intent home = new Intent(ClockInAndOutActivity.this, EnrollmentActivity.class);
+//                startActivity(home);
+//                return true;
             case R.id.settings:
                 //showHelp();
                 return true;
 
-            case R.id.testing:
-                startActivity(new Intent(this, TestActivity.class));
-
-            case R.id.checkLogs:
-                startActivity(new Intent(this, LogActivity.class));
+//            case R.id.testing:
+//                startActivity(new Intent(this, TestActivity.class));
+//
+//            case R.id.checkLogs:
+//                startActivity(new Intent(this, LogActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }

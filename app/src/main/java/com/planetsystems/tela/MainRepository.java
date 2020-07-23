@@ -8,6 +8,7 @@ import com.planetsystems.tela.data.ClockIn.ClockInRepository;;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.TimeOnSiteAttendanceRepository;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
+import com.planetsystems.tela.data.TeachersEnrolled.TeachersEnrolledRepository;
 import com.planetsystems.tela.data.attendance.LearnerRepository;
 import com.planetsystems.tela.data.clockOut.ClockOutRepository;
 import com.planetsystems.tela.data.TelaRoomDatabase;
@@ -43,6 +44,7 @@ public class MainRepository {
     private HelpRequestRepository helpRequestRepository;
     private ConfirmTimeOnTaskRepository confirmTimeOnTaskRepository;
     private SmcRepository smcRepository;
+    private TeachersEnrolledRepository teachersEnrolledRepository;
     private ExecutionLogRepository executionLogRepository;
 
     private MainRepository(Application application) {
@@ -60,6 +62,7 @@ public class MainRepository {
         helpRequestRepository = HelpRequestRepository.getInstance(telaRoomDatabase);
         confirmTimeOnTaskRepository = ConfirmTimeOnTaskRepository.getInstance(telaRoomDatabase);
         smcRepository = SmcRepository.getInstance(telaRoomDatabase);
+        teachersEnrolledRepository = TeachersEnrolledRepository.getInstance(telaRoomDatabase);
         executionLogRepository = ExecutionLogRepository.getInstance(telaRoomDatabase);
 
     }
@@ -122,6 +125,8 @@ public class MainRepository {
     public HelpRequestRepository getHelpRequestRepository() { return helpRequestRepository; }
 
     public SmcRepository getSmcRepository() { return smcRepository; }
+
+    public TeachersEnrolledRepository getTeachersEnrolledRepository() {return teachersEnrolledRepository;}
 
     public ExecutionLogRepository getExecutionLogRepository() {
         return executionLogRepository;

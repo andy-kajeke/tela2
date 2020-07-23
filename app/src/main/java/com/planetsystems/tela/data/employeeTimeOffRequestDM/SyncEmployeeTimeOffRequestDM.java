@@ -69,6 +69,9 @@ public class SyncEmployeeTimeOffRequestDM {
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_APPROVAL_DATE)
     private String approvalDate;
 
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_SUPERVISOR_ID)
+    private String supervisorId;
+
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_TO_DATE)
     private String toDate;
 
@@ -83,7 +86,7 @@ public class SyncEmployeeTimeOffRequestDM {
                                         String deploymentSiteId, String deploymentUnit, String deploymentUnitId,
                                         String employee, String employeeId, String employeeRequestType,
                                         String fromDate, String fromTime, String generalComment, String requestDate,
-                                        String approvalDate, String toDate, String toTime, String typeOfLeave) {
+                                        String approvalDate, String supervisorId, String toDate, String toTime, String typeOfLeave) {
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
         this.status = status;
@@ -102,6 +105,7 @@ public class SyncEmployeeTimeOffRequestDM {
         this.generalComment = generalComment;
         this.requestDate = requestDate;
         this.approvalDate = approvalDate;
+        this.supervisorId = supervisorId;
         this.toDate = toDate;
         this.toTime = toTime;
         this.typeOfLeave = typeOfLeave;
@@ -258,6 +262,14 @@ public class SyncEmployeeTimeOffRequestDM {
 
     public void setApprovalDate(String approvalDate) {
         this.approvalDate = approvalDate;
+    }
+
+    public String getSupervisorId() {
+        return supervisorId;
+    }
+
+    public void setSupervisorId(String supervisorId) {
+        this.supervisorId = supervisorId;
     }
 
     public String getToDate() {

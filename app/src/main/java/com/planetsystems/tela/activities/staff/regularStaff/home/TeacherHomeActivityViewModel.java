@@ -7,6 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.MainRepository;
+import com.planetsystems.tela.data.TeachersEnrolled.TeachersEnrolled;
+import com.planetsystems.tela.data.TeachersEnrolled.TeachersEnrolledRepository;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timeOnTask.TimeOnTaskRepository;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
@@ -18,11 +20,13 @@ import java.util.concurrent.ExecutionException;
 
 public class TeacherHomeActivityViewModel extends AndroidViewModel {
     TimeOnTaskRepository timeOnTaskRepository;
+    TeachersEnrolledRepository teachersEnrolledRepository;
     private List<SynTimeOnTask> tasksConfirmation;
 
     public TeacherHomeActivityViewModel(@NonNull Application application) {
         super(application);
         timeOnTaskRepository = MainRepository.getInstance(application).getTimeOnTaskRepository();
+        teachersEnrolledRepository = MainRepository.getInstance(application).getTeachersEnrolledRepository();
     }
 
     LiveData<List<SyncTimeTable>> getSyncTimeTableByEmployeeIDForDay(String employeeNumber, String dayOfTheWeek) {
@@ -49,5 +53,13 @@ public class TeacherHomeActivityViewModel extends AndroidViewModel {
 
     public LiveData<List<SynTimeOnTask>> tasksWithPresentActionStatus(String employeeNumber, String transactionDate, String actionStatus){
         return timeOnTaskRepository.getTaskWiThActionStatusPresent(employeeNumber, transactionDate, actionStatus);
+    }
+
+    public void insertTeachersEnrolled(TeachersEnrolled teachersEnrolled){
+        teachersEnrolledRepository.insertTeacherEnrolled(teachersEnrolled);
+    }
+
+    public LiveData<List<TeachersEnrolled>> getTeachersEnrolled() {
+        return teachersEnrolledRepository.getTeachersEnrolled();
     }
 }

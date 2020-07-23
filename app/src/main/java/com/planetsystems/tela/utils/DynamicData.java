@@ -13,11 +13,11 @@ public class DynamicData {
     }
 
     public static String getLatitude() {
-        return "354633111523205";
+        return "0.457799120686";
     }
 
     public static String getLongitude() {
-        return "77887766";
+        return "2.367903344715";
     }
 
     public static String getDay() {

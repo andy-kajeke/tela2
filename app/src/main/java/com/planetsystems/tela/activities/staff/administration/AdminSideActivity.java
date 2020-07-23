@@ -18,8 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.staff.administration.editStaff.EditStaffList;
 import com.planetsystems.tela.activities.staff.administration.editTimeTable.SelectClass;
+import com.planetsystems.tela.activities.staff.administration.enrollments.EnrolledTeachers;
 import com.planetsystems.tela.activities.staff.administration.learnerAttendance.LearnerClasses;
 import com.planetsystems.tela.activities.staff.administration.serviceRequests.RequestsMade;
 import com.planetsystems.tela.activities.staff.administration.taskAttendance.TaskAttendance;
@@ -44,10 +46,12 @@ public class AdminSideActivity extends AppCompatActivity {
     Dialog updateDialog;
     Dialog selectDayDialog;
     EditText _date, staff_comment;
+
     TextView close;
-    Button update_staff;
+    Button enroll_new_staff, teachers_enrolled, learners_enrolled;
     Button edit_time_table;
     Button edit_staff_list;
+
     TextView headName,headRole;
     String admin_id_extra;
     String role_extra;
@@ -145,9 +149,30 @@ public class AdminSideActivity extends AppCompatActivity {
         updateDialog.setContentView(R.layout.schoolupdatepopup);
 
         close =(TextView) updateDialog.findViewById(R.id.txclose);
+        enroll_new_staff = (Button) updateDialog.findViewById(R.id.enrollNewStaff);
+        teachers_enrolled = (Button) updateDialog.findViewById(R.id.enrolledStaff);
+        //learners_enrolled = (Button) updateDialog.findViewById(R.id.enrolledLearners);
         edit_staff_list = (Button) updateDialog.findViewById(R.id.staff_list);
         edit_time_table = (Button) updateDialog.findViewById(R.id.time_table);
         //update_staff =(Button) updateDialog.findViewById(R.id.out);
+
+        enroll_new_staff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), EnrollmentActivity.class);
+                //i.putExtra("school", checkIn_schoolId);
+                startActivity(i);
+            }
+        });
+
+        teachers_enrolled.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), EnrolledTeachers.class);
+                //i.putExtra("school", checkIn_schoolId);
+                startActivity(i);
+            }
+        });
 
         edit_staff_list.setOnClickListener(new View.OnClickListener() {
             @Override

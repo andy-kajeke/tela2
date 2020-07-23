@@ -48,7 +48,7 @@ public class SchoolConfirmation extends AppCompatActivity {
     TextView schoolName, schoolLocation;
     Button confirm;
     ProgressDialog dialog;
-    String data, deploymentSiteName, deploymentSiteLocation;
+    String data, deploymentSiteName, deploymentSiteLocation, schoolId;
     Boolean mResponse;
     String deviceIMEI_extra;
 
@@ -93,6 +93,7 @@ public class SchoolConfirmation extends AppCompatActivity {
                     Intent home = new Intent(SchoolConfirmation.this, ClockInAndOutActivity.class);
                     home.putExtra("device_imei", deviceIMEI_extra);
                     home.putExtra("schoolName", deploymentSiteName);
+                    home.putExtra("schoolId", schoolId);
                     saveToSharePreference(deviceIMEI_extra, deploymentSiteName);
                     startActivity(home);
                 }
@@ -159,6 +160,7 @@ public class SchoolConfirmation extends AppCompatActivity {
 
                     deploymentSiteName =   objectEmp.getString("deploymentSiteName");
                     deploymentSiteLocation = objectEmp.getString("location");
+                    schoolId = objectEmp.getString("id");
 
 //                    JSONArray jarray = jsono.getJSONArray("tasks");
 

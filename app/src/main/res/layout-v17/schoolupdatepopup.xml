@@ -53,6 +53,72 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/enrollNewStaff"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/layout"
+            android:text="Enroll New Staff"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/enrolledStaff"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/layout"
+            android:text="Teachers Enrolled"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <Button-->
+<!--            android:id="@+id/enrolledLearners"-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:layout_marginRight="5dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:background="@drawable/layout"-->
+<!--            android:text="Learners Enrolled"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textStyle="normal"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textColor="#fff" />-->
+<!--    </LinearLayout>-->
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
             android:id="@+id/staff_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -61,7 +127,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/layout"
-            android:text="Staff List"
+            android:text="Edit Staff List"
             android:textAllCaps="false"
             android:textStyle="normal"
             android:textSize="16sp"
@@ -83,7 +149,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/layout"
-            android:text="TimeTable"
+            android:text="Edit TimeTable"
             android:textAllCaps="false"
             android:textStyle="normal"
             android:textSize="16sp"

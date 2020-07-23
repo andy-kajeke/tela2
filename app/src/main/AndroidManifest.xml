@@ -21,13 +21,15 @@
 
     <application
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.viewTimeOffRequest"></activity>
+        <activity android:name=".activities.staff.administration.enrollments.EnrolledTeachers"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.viewTimeOffRequest" />
         <activity
             android:name=".activities.logs.LogActivity"
             android:parentActivityName=".activities.clockInAndOutActivity.ClockInAndOutActivity" />
@@ -86,10 +88,9 @@
         <activity
             android:name=".activities.fingerprint.FingerPrintActivity"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".activities.clockInAndOutActivity.ClockInAndOutActivity"></activity>
+        <activity android:name=".activities.clockInAndOutActivity.ClockInAndOutActivity" />
         <activity
             android:name=".activities.enrollActivity.EnrollmentActivity"
-            android:parentActivityName=".activities.clockInAndOutActivity.ClockInAndOutActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.mainActivity.MainActivity"

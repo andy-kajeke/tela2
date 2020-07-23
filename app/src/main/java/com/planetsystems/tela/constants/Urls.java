@@ -2,6 +2,8 @@ package com.planetsystems.tela.constants;
 
 import android.util.Log;
 
+import com.planetsystems.tela.utils.DynamicData;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -11,9 +13,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.InputStream;
 import java.util.Objects;
 
+import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+
 @SuppressWarnings("ALL")
 public class Urls {
-    public static final String DEVICE_IMEI = "354633111523205";
+    public static final String DEVICE_IMEI = DynamicData.getSchoolID(SchoolDeviceIMEINumber);
 
     public static final String BASE_URL = "http://tela.planetsystems.co:8080/weca/webapi/attendance/";
 
@@ -40,6 +44,8 @@ public class Urls {
     public static final String SMC_SUPERVISION_URL = BASE_URL + "smcsupervision";
 
     public static final String ENROLL_URL = BASE_URL + "teachers";
+
+    public static final String ENROLLED_TEACHERS_URL = BASE_URL + "teachersenrolled";
 
     public static final String DID_WORK = "Work Done!";
 

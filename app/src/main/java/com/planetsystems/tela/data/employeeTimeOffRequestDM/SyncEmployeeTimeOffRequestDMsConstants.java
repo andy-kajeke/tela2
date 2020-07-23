@@ -44,6 +44,8 @@ public class SyncEmployeeTimeOffRequestDMsConstants {
 
     public static final String COLUMN_APPROVAL_DATE = "approvalDate";
 
+    public static final String COLUMN_SUPERVISOR_ID = "supervisorId";
+
     public static final String COLUMN_GENERAL_COMMENT = "generalComment";
 
     public static final String COLUMN_TYPE_OF_LEAVE = "typeOfLeave";
