@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
 import com.planetsystems.tela.constants.Urls;
+import com.planetsystems.tela.utils.DynamicData;
 import com.planetsystems.tela.workers.WorkManagerTrigger;
 
 import org.apache.http.HttpEntity;
@@ -41,6 +42,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
 
 @SuppressWarnings("ALL")
 public class SchoolConfirmation extends AppCompatActivity {
@@ -82,7 +85,7 @@ public class SchoolConfirmation extends AppCompatActivity {
             WorkManagerTrigger.startUploadWorkers(getApplicationContext());
 
             //Get device ownership by IMEI number
-            new Fetch_API_JSONAsyncTask().execute(Urls.DEVICE_OWNERSHIP + deviceIMEI_extra);
+            new Fetch_API_JSONAsyncTask().execute(Urls.DEVICE_OWNERSHIP + DynamicData.getSchoolID(SchoolDeviceIMEINumber));
         }
 
         confirm.setOnClickListener(new View.OnClickListener() {

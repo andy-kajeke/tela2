@@ -79,7 +79,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
 
         teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
 
-        teacherHomeActivityViewModel.getSyncTimeTableByEmployeeIDForDay(emp_id_extra, "Thursday").observe(this, new Observer<List<SyncTimeTable>>() {
+        teacherHomeActivityViewModel.getSyncTimeTableByEmployeeIDForDay(emp_id_extra, dateString).observe(this, new Observer<List<SyncTimeTable>>() {
             @Override
             public void onChanged(List<SyncTimeTable> syncTimeTables ) {
                 for (int i = 0; i < syncTimeTables.size(); i++){

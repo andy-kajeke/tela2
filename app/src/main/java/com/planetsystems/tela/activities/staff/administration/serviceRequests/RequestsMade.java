@@ -32,6 +32,7 @@ public class RequestsMade extends AppCompatActivity {
     final String Approved = "Approved";
     final String TimeOff = "Time Off/ Leave";
     final String Meeting = "Meeting";
+    String supervisor;
 
     private ServiceRequestsViewModel serviceRequestsViewModel;
 
@@ -56,7 +57,7 @@ public class RequestsMade extends AppCompatActivity {
 
 
         Bundle bundle = getIntent().getExtras();
-        //school_id_extra = bundle.getString("school");
+        supervisor = bundle.getString("employee_No");
 
         //Time off/leave Requests
         serviceRequestsViewModel = new ViewModelProvider(this).get(ServiceRequestsViewModel.class);
@@ -126,6 +127,7 @@ public class RequestsMade extends AppCompatActivity {
 
                 Intent i = new Intent(RequestsMade.this, PendingLeaveRequest.class);
                 i.putExtra("request", TimeOff);
+                i.putExtra("supervisor", supervisor);
                 startActivity(i);
 
             }
@@ -137,6 +139,7 @@ public class RequestsMade extends AppCompatActivity {
 
                 Intent i = new Intent(RequestsMade.this, PendingLeaveRequest.class);
                 i.putExtra("request", Meeting);
+                i.putExtra("supervisor", supervisor);
                 startActivity(i);
 
             }

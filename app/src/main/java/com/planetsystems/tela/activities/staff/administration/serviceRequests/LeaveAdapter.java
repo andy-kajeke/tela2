@@ -26,11 +26,13 @@ public class LeaveAdapter extends RecyclerView.Adapter<LeaveAdapter.TaskViewHold
 
     private LayoutInflater layoutInflater;
     private  Context mContext;
+    private String supervisorID;
     private List<SyncEmployeeTimeOffRequestDM> mSyncEmployeeTimeOffRequestDMS;
 
-    public LeaveAdapter(Context context, List<SyncEmployeeTimeOffRequestDM> mSyncEmployeeTimeOffRequestDMS){
+    public LeaveAdapter(Context context, List<SyncEmployeeTimeOffRequestDM> mSyncEmployeeTimeOffRequestDMS, String supervisorID){
         layoutInflater = LayoutInflater.from(context);
         this.mContext = context;
+        this.supervisorID = supervisorID;
         this.mSyncEmployeeTimeOffRequestDMS = mSyncEmployeeTimeOffRequestDMS;
     }
 
@@ -69,19 +71,19 @@ public class LeaveAdapter extends RecyclerView.Adapter<LeaveAdapter.TaskViewHold
 
                     if (syncEmployeeTimeOffRequestDM1.getEmployeeRequestType().equals("Time Off/ Leave")){
                         Intent ALR = new Intent(mContext, ApproveLeaveRequest.class);
-                        ALR.putExtra("db_id",syncEmployeeTimeOffRequestDM1.getPrimaryKey());
+                        ALR.putExtra("db_id",syncEmployeeTimeOffRequestDM1.getRequestId());
                         ALR.putExtra("leave", syncEmployeeTimeOffRequestDM1.getTypeOfLeave());
                         ALR.putExtra("employee_Name", syncEmployeeTimeOffRequestDM1.getEmployee());
                         ALR.putExtra("startDate", syncEmployeeTimeOffRequestDM1.getFromDate());
                         ALR.putExtra("endDate", syncEmployeeTimeOffRequestDM1.getToDate());
                         ALR.putExtra("requestDate", syncEmployeeTimeOffRequestDM1.getRequestDate());
                         ALR.putExtra("reason", syncEmployeeTimeOffRequestDM1.getComment());
+                        ALR.putExtra("supervisor", supervisorID);
                         mContext.startActivity(ALR);
                     }
                     else if (syncEmployeeTimeOffRequestDM1.getEmployeeRequestType().equals("Meeting")){
                         Intent ALR = new Intent(mContext, ApproveMeetingRequests.class);
-                        ALR.putExtra("db_id",syncEmployeeTimeOffRequestDM1.getPrimaryKey());
-                        ALR.putExtra("leave", syncEmployeeTimeOffRequestDM1.getTypeOfLeave());
+                        ALR.putExtra("db_id",syncEmployeeTimeOffRequestDM1.getRequestId());
                         ALR.putExtra("employee_Name", syncEmployeeTimeOffRequestDM1.getEmployee());
                         ALR.putExtra("startDate", syncEmployeeTimeOffRequestDM1.getFromDate());
                         ALR.putExtra("endDate", syncEmployeeTimeOffRequestDM1.getToDate());
@@ -89,6 +91,7 @@ public class LeaveAdapter extends RecyclerView.Adapter<LeaveAdapter.TaskViewHold
                         ALR.putExtra("endTime", syncEmployeeTimeOffRequestDM1.getToTime());
                         ALR.putExtra("requestDate", syncEmployeeTimeOffRequestDM1.getRequestDate());
                         ALR.putExtra("reason", syncEmployeeTimeOffRequestDM1.getComment());
+                        ALR.putExtra("supervisor", supervisorID);
                         mContext.startActivity(ALR);
                     }
                 }

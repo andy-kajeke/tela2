@@ -34,8 +34,8 @@ public class ServiceRequestsViewModel extends AndroidViewModel {
         timeOffRequestRepository.addNewTimeOffRequest(syncEmployeeTimeOffRequestDM);
     }
 
-    public void updateLeaveApprovalStatus(String approvalStatus, String approvalDate, int primaryKey){
-        timeOffRequestRepository.updateLeaveApprovalStatus(approvalStatus, approvalDate, primaryKey);
+    public void updateLeaveApprovalStatus(String approvalStatus, String approvalDate, String supervisorID, int primaryKey){
+        timeOffRequestRepository.updateLeaveApprovalStatus(approvalStatus, approvalDate, supervisorID, primaryKey);
     }
 
     public LiveData<List<SyncEmployeeTimeOffRequestDM>> getAllTimeOffs(){

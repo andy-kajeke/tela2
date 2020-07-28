@@ -41,6 +41,7 @@ import com.planetsystems.tela.activities.logs.LogActivity;
 import com.planetsystems.tela.activities.staff.smc.SmcActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
 import com.planetsystems.tela.constants.Role;
+import com.planetsystems.tela.constants.Urls;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.activities.staff.administration.AdminSideActivity;
 import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActivity;
@@ -133,7 +134,7 @@ public class ClockInAndOutActivity extends AppCompatActivity implements Location
         schoolName.setText(schoolName_extra);
 
         //SCHOOL_ID = deviceIMEI_extra;
-        Toast.makeText(this, lat+"=="+lng +":"+ DynamicData.getSchoolID(SchoolDeviceIMEINumber), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, lat+"=="+lng +": "+ Urls.DEVICE, Toast.LENGTH_LONG).show();
 
         checkInDialog = new Dialog(this);
         checkOutDialog = new Dialog(this);

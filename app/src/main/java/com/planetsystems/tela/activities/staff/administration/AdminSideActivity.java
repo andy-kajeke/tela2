@@ -132,6 +132,7 @@ public class AdminSideActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), RequestsMade.class);
+                i.putExtra("employee_No", admin_id_extra);
                 startActivity(i);
             }
         });

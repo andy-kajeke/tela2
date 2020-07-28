@@ -237,10 +237,7 @@ public class RequestTimeOff extends AppCompatActivity {
                 comment,
                 "Pending",
                 "",
-                "",
                 DynamicData.getSchoolID(SchoolDeviceIMEINumber),
-                "",
-                "",
                 employeeName,
                 employeeNo,
                 RequestType,
@@ -252,7 +249,9 @@ public class RequestTimeOff extends AppCompatActivity {
                 "",
                 dateTo_,
                 timeTo_,
-                leaveType
+                leaveType,
+                false,
+                false
         );
 
         serviceRequestsViewModel.addNewTimeOffRequest(syncEmployeeTimeOffRequestDM);

@@ -13,7 +13,7 @@ public class SyncEmployeeTimeOffRequestDM {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_PRIMARY_KEY)
     @NonNull
-    private int primaryKey;
+    private int requestId;
 
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DATE_CREATED)
     private String dateCreated;
@@ -33,23 +33,14 @@ public class SyncEmployeeTimeOffRequestDM {
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_CONFIRMATION)
     private String confirmation;
 
-    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DEPLOYMENT_SITE)
-    private String deploymentSite;
-
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DEPLOYMENT_SITE_ID)
-    private String deploymentSiteId;
-
-    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DEPLOYMENT_UNIT)
-    private String deploymentUnit;
-
-    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DEPLOYMENT_UNIT_ID)
-    private String deploymentUnitId;
+    private String schoolId;
 
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_EMPLOYEE)
     private String employee;
 
-    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_EMPLOYEE_ID)
-    private String employeeId;
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_EMPLOYEE_NO)
+    private String employeeNo;
 
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_EMPLOYEE_REQUEST_TYPE)
     private String employeeRequestType;
@@ -70,7 +61,7 @@ public class SyncEmployeeTimeOffRequestDM {
     private String approvalDate;
 
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_SUPERVISOR_ID)
-    private String supervisorId;
+    private String supervisor;
 
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_TO_DATE)
     private String toDate;
@@ -81,43 +72,46 @@ public class SyncEmployeeTimeOffRequestDM {
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_TYPE_OF_LEAVE)
     private String typeOfLeave;
 
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_IS_UPLOADED_TEACHER)
+    private boolean isUploadedTeacher;
+
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_IS_UPLOADED_SUPERVISOR)
+    private boolean isUploadedSupervisor;
+
     public SyncEmployeeTimeOffRequestDM(String dateCreated, String dateUpdated, int status, String comment,
-                                        String approvalStatus, String confirmation, String deploymentSite,
-                                        String deploymentSiteId, String deploymentUnit, String deploymentUnitId,
-                                        String employee, String employeeId, String employeeRequestType,
+                                        String approvalStatus, String confirmation, String schoolId,
+                                        String employee, String employeeNo, String employeeRequestType,
                                         String fromDate, String fromTime, String generalComment, String requestDate,
-                                        String approvalDate, String supervisorId, String toDate, String toTime, String typeOfLeave) {
+                                        String approvalDate, String supervisor, String toDate, String toTime, String typeOfLeave, boolean isUploadedTeacher, boolean isUploadedSupervisor) {
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
         this.status = status;
         this.comment = comment;
         this.approvalStatus = approvalStatus;
         this.confirmation = confirmation;
-        this.deploymentSite = deploymentSite;
-        this.deploymentSiteId = deploymentSiteId;
-        this.deploymentUnit = deploymentUnit;
-        this.deploymentUnitId = deploymentUnitId;
+        this.schoolId = schoolId;
         this.employee = employee;
-        this.employeeId = employeeId;
+        this.employeeNo = employeeNo;
         this.employeeRequestType = employeeRequestType;
         this.fromDate = fromDate;
         this.fromTime = fromTime;
         this.generalComment = generalComment;
         this.requestDate = requestDate;
         this.approvalDate = approvalDate;
-        this.supervisorId = supervisorId;
+        this.supervisor = supervisor;
         this.toDate = toDate;
         this.toTime = toTime;
         this.typeOfLeave = typeOfLeave;
+        this.isUploadedTeacher = isUploadedTeacher;
+        this.isUploadedSupervisor = isUploadedSupervisor;
     }
 
-    @NonNull
-    public int getPrimaryKey() {
-        return primaryKey;
+    public int getRequestId() {
+        return requestId;
     }
 
-    public void setPrimaryKey(@NonNull int primaryKey) {
-        this.primaryKey = primaryKey;
+    public void setRequestId(int requestId) {
+        this.requestId = requestId;
     }
 
     public String getDateCreated() {
@@ -168,36 +162,12 @@ public class SyncEmployeeTimeOffRequestDM {
         this.confirmation = confirmation;
     }
 
-    public String getDeploymentSite() {
-        return deploymentSite;
+    public String getSchoolId() {
+        return schoolId;
     }
 
-    public void setDeploymentSite(String deploymentSite) {
-        this.deploymentSite = deploymentSite;
-    }
-
-    public String getDeploymentSiteId() {
-        return deploymentSiteId;
-    }
-
-    public void setDeploymentSiteId(String deploymentSiteId) {
-        this.deploymentSiteId = deploymentSiteId;
-    }
-
-    public String getDeploymentUnit() {
-        return deploymentUnit;
-    }
-
-    public void setDeploymentUnit(String deploymentUnit) {
-        this.deploymentUnit = deploymentUnit;
-    }
-
-    public String getDeploymentUnitId() {
-        return deploymentUnitId;
-    }
-
-    public void setDeploymentUnitId(String deploymentUnitId) {
-        this.deploymentUnitId = deploymentUnitId;
+    public void setSchoolId(String schoolId) {
+        this.schoolId = schoolId;
     }
 
     public String getEmployee() {
@@ -208,12 +178,12 @@ public class SyncEmployeeTimeOffRequestDM {
         this.employee = employee;
     }
 
-    public String getEmployeeId() {
-        return employeeId;
+    public String getEmployeeNo() {
+        return employeeNo;
     }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployeeNo(String employeeNo) {
+        this.employeeNo = employeeNo;
     }
 
     public String getEmployeeRequestType() {
@@ -264,12 +234,12 @@ public class SyncEmployeeTimeOffRequestDM {
         this.approvalDate = approvalDate;
     }
 
-    public String getSupervisorId() {
-        return supervisorId;
+    public String getSupervisor() {
+        return supervisor;
     }
 
-    public void setSupervisorId(String supervisorId) {
-        this.supervisorId = supervisorId;
+    public void setSupervisor(String supervisor) {
+        this.supervisor = supervisor;
     }
 
     public String getToDate() {
@@ -294,5 +264,21 @@ public class SyncEmployeeTimeOffRequestDM {
 
     public void setTypeOfLeave(String typeOfLeave) {
         this.typeOfLeave = typeOfLeave;
+    }
+
+    public boolean isUploadedTeacher() {
+        return isUploadedTeacher;
+    }
+
+    public void setUploadedTeacher(boolean uploadedTeacher) {
+        isUploadedTeacher = uploadedTeacher;
+    }
+
+    public boolean isUploadedSupervisor() {
+        return isUploadedSupervisor;
+    }
+
+    public void setUploadedSupervisor(boolean uploadedSupervisor) {
+        isUploadedSupervisor = uploadedSupervisor;
     }
 }

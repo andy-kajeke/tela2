@@ -4,7 +4,7 @@ public class SyncEmployeeTimeOffRequestDMsConstants {
 
     public static final String TABLE_NAME = "SyncEmployeeTimeOffRequestDMs";
 
-    public static final String COLUMN_PRIMARY_KEY = "primaryKey";
+    public static final String COLUMN_PRIMARY_KEY = "requestId";
 
     public static final String COLUMN_DATE_CREATED = "dateCreated";
 
@@ -18,17 +18,11 @@ public class SyncEmployeeTimeOffRequestDMsConstants {
 
     public static final String COLUMN_CONFIRMATION = "confirmation";
 
-    public static final String COLUMN_DEPLOYMENT_SITE = "deploymentSite";
-
     public static final String COLUMN_DEPLOYMENT_SITE_ID = "deploymentSiteId";
-
-    public static final String COLUMN_DEPLOYMENT_UNIT = "deploymentUnit";
-
-    public static final String COLUMN_DEPLOYMENT_UNIT_ID = "deploymentUnitId";
 
     public static final String COLUMN_EMPLOYEE = "employee";
 
-    public static final String COLUMN_EMPLOYEE_ID = "employeeId";
+    public static final String COLUMN_EMPLOYEE_NO = "employeeNO";
 
     public static final String COLUMN_EMPLOYEE_REQUEST_TYPE = "employeeRequestType";
 
@@ -44,9 +38,13 @@ public class SyncEmployeeTimeOffRequestDMsConstants {
 
     public static final String COLUMN_APPROVAL_DATE = "approvalDate";
 
-    public static final String COLUMN_SUPERVISOR_ID = "supervisorId";
+    public static final String COLUMN_SUPERVISOR_ID = "supervisor";
 
     public static final String COLUMN_GENERAL_COMMENT = "generalComment";
 
     public static final String COLUMN_TYPE_OF_LEAVE = "typeOfLeave";
+
+    public static final String COLUMN_IS_UPLOADED_TEACHER = "isUploadedTeacher";
+
+    public static final String COLUMN_IS_UPLOADED_SUPERVISOR = "isUploadedSupervisor";
 }

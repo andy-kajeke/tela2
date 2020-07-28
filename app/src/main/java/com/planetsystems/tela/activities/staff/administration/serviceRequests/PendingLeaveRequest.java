@@ -21,7 +21,7 @@ public class PendingLeaveRequest extends AppCompatActivity {
     private List<SyncEmployeeTimeOffRequestDM> mSyncEmployeeTimeOffRequestDMS;
     private LeaveAdapter adapter;
     private RecyclerView requestList;
-    String requestType;
+    String requestType, supervisor;
     final String Pending = "Pending";
 
     @Override
@@ -32,13 +32,14 @@ public class PendingLeaveRequest extends AppCompatActivity {
         requestList = findViewById(R.id.request_list);
 
         Bundle bundle = getIntent().getExtras();
-       requestType = bundle.getString("request");
+        requestType = bundle.getString("request");
+        supervisor = bundle.getString("supervisor");
 
         setTitle("Pending"+ " "+ requestType);
 
         mSyncEmployeeTimeOffRequestDMS = new ArrayList<>();
 
-        adapter = new LeaveAdapter(this, mSyncEmployeeTimeOffRequestDMS);
+        adapter = new LeaveAdapter(this, mSyncEmployeeTimeOffRequestDMS, supervisor);
         requestList.setAdapter(adapter);
         requestList.setLayoutManager(new LinearLayoutManager(this));
 

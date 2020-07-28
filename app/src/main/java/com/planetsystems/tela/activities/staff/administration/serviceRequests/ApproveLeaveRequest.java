@@ -25,7 +25,7 @@ public class ApproveLeaveRequest extends AppCompatActivity {
     String dayString;
     int db_id_extra;
     String leave_extra, itemID_extra;
-    String name_extra, school_extra, start_extra, end_extra;
+    String name_extra, supervisorID, start_extra, end_extra;
     String requestedOn_extra, reason_extra;
     private ServiceRequestsViewModel serviceRequestsViewModel;
 
@@ -52,7 +52,7 @@ public class ApproveLeaveRequest extends AppCompatActivity {
         end_extra = bundle.getString("endDate");
         requestedOn_extra = bundle.getString("requestDate");
         reason_extra = bundle.getString("reason");
-        //school_extra = bundle.getString("school");
+        supervisorID = bundle.getString("supervisor");
 
         leaveType.setText(leave_extra);
         startDate.setText(start_extra);
@@ -109,7 +109,7 @@ public class ApproveLeaveRequest extends AppCompatActivity {
         String approvalStatus = "Approved";
         int row_id = db_id_extra;
 
-        serviceRequestsViewModel.updateLeaveApprovalStatus(approvalStatus,  dayString, row_id);
+        serviceRequestsViewModel.updateLeaveApprovalStatus(approvalStatus,  dayString, supervisorID, row_id);
 
         leaveType.setText("");
         startDate.setText("");
@@ -125,7 +125,7 @@ public class ApproveLeaveRequest extends AppCompatActivity {
         String approvalStatus = "Rejected";
         int row_id = db_id_extra;
 
-        serviceRequestsViewModel.updateLeaveApprovalStatus(approvalStatus,  dayString, row_id);
+        serviceRequestsViewModel.updateLeaveApprovalStatus(approvalStatus,  dayString, supervisorID, row_id);
 
         leaveType.setText("");
         startDate.setText("");

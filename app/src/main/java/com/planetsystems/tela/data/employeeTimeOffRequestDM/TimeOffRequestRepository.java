@@ -35,11 +35,11 @@ public class TimeOffRequestRepository {
         });
     }
 
-    public void updateLeaveApprovalStatus(final String approvalStatus, final String approvalDate, final int primaryKey){
+    public void updateLeaveApprovalStatus(final String approvalStatus, final String approvalDate, final String supervisorID, final int primaryKey){
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
-                syncEmployeeTimeOffRequestDMDao.update(approvalStatus, approvalDate, primaryKey);
+                syncEmployeeTimeOffRequestDMDao.update(approvalStatus, approvalDate, supervisorID, primaryKey);
             }
         });
     }
