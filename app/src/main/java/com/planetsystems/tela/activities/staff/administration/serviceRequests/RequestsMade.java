@@ -149,6 +149,7 @@ public class RequestsMade extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(RequestsMade.this, PendingHelpRequest.class);
+                i.putExtra("supervisor", supervisor);
                 startActivity(i);
             }
         });

@@ -21,6 +21,7 @@ import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDM;
 import com.planetsystems.tela.data.helprequest.HelpRequest;
 import com.planetsystems.tela.utils.DynamicData;
+import com.planetsystems.tela.utils.GenerateRandomString;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -133,20 +134,19 @@ public class RequestHelp extends AppCompatActivity {
         String employeeName = name_extra;
 
         HelpRequest helpRequest = new HelpRequest(
-                "",
-                "",
-                "",
+                GenerateRandomString.randomString(30),
                 "Pending",
                 "",
                 comment,
-                "",
                 DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                 helpType,
                 priority,
                 employeeNo,
                 employeeName,
                 DynamicData.getDate(),
-                ""
+                "",
+                false,
+                false
         );
 
         serviceRequestsViewModel.addHelpRequest(helpRequest);

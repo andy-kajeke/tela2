@@ -9,18 +9,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.activities.staff.administration.serviceRequests.LeaveAdapter;
 import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.ServiceRequestsViewModel;
 import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDM;
+import com.planetsystems.tela.data.helprequest.HelpRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class viewTimeOffRequest extends AppCompatActivity {
+public class ViewHelpRequest extends AppCompatActivity {
 
     private ServiceRequestsViewModel serviceRequestsViewModel;
-    private List<SyncEmployeeTimeOffRequestDM> mSyncEmployeeTimeOffRequestDMS;
-    private ViewLeaveAdapter adapter;
+    private List<HelpRequest> mHelpRequests;
+    private ViewHelpAdapter adapter;
     private RecyclerView requestList;
     String RequestType = "Time Off/ Leave";
     String employeeNo;
@@ -28,26 +28,25 @@ public class viewTimeOffRequest extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_time_off_request);
-        setTitle("Time off/ Leave Reply");
+        setContentView(R.layout.activity_view_help_request);
+        setTitle("Help Reply");
         requestList = findViewById(R.id.request_list);
 
         Bundle bundle = getIntent().getExtras();
         employeeNo = bundle.getString("id");
 
-        mSyncEmployeeTimeOffRequestDMS = new ArrayList<>();
+        mHelpRequests = new ArrayList<>();
 
-        adapter = new ViewLeaveAdapter(this, mSyncEmployeeTimeOffRequestDMS);
+        adapter = new ViewHelpAdapter(this, mHelpRequests);
         requestList.setAdapter(adapter);
         requestList.setLayoutManager(new LinearLayoutManager(this));
 
         serviceRequestsViewModel = new ViewModelProvider(this).get(ServiceRequestsViewModel.class);
 
-        serviceRequestsViewModel.getApprovalStatusByEmployeeNo(RequestType, employeeNo).observe(this, new Observer<List<SyncEmployeeTimeOffRequestDM>>() {
+        serviceRequestsViewModel.getRequestsByEmployeeNo(employeeNo).observe(this, new Observer<List<HelpRequest>>() {
             @Override
-            public void onChanged(List<SyncEmployeeTimeOffRequestDM> syncEmployeeTimeOffRequestDMS) {
-                //Toast.makeText(getApplicationContext(),"size : "+String.valueOf(syncEmployeeTimeOffRequestDMS.size()) ,Toast.LENGTH_SHORT).show();
-                adapter.setTaskList(syncEmployeeTimeOffRequestDMS);
+            public void onChanged(List<HelpRequest> helpRequests) {
+                adapter.setHelpRequestsList(helpRequests);
             }
         });
     }

@@ -21,6 +21,7 @@ public class PendingHelpRequest extends AppCompatActivity {
     private List<HelpRequest> mHelpRequests;
     private HelpAdapter adapter;
     RecyclerView requestList;
+    String supervisor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +30,12 @@ public class PendingHelpRequest extends AppCompatActivity {
 
         requestList = findViewById(R.id.request_list);
 
+        Bundle bundle = getIntent().getExtras();
+        supervisor = bundle.getString("supervisor");
+
         mHelpRequests = new ArrayList<>();
 
-        adapter = new HelpAdapter(this, mHelpRequests);
+        adapter = new HelpAdapter(this, mHelpRequests, supervisor);
         requestList.setAdapter(adapter);
         requestList.setLayoutManager(new LinearLayoutManager(this));
 

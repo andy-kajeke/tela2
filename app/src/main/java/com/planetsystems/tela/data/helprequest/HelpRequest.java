@@ -12,32 +12,23 @@ public class HelpRequest {
     @ColumnInfo(name = HelpRequestConstant.PRIMARY_KEY)
     private int primaryKey;
 
-    @ColumnInfo(name = HelpRequestConstant.DATE_CREATED)
-    private String dateCreated;
+    @ColumnInfo(name = HelpRequestConstant.RequestID)
+    private String requestID;
 
-    @ColumnInfo(name = HelpRequestConstant.DATE_UPDATED)
-    private String dateUpdated;
-
-    @ColumnInfo(name = HelpRequestConstant.STATUS)
-    private String status;
-
-    @ColumnInfo(name = HelpRequestConstant.APPROVED_STATUS)
+    @ColumnInfo(name = HelpRequestConstant.APPROVAL_STATUS)
     private String approvalStatus;
 
-    @ColumnInfo(name = HelpRequestConstant.CONFIRMATION)
-    private String confirmation;
+    @ColumnInfo(name = HelpRequestConstant.SUPERVISOR)
+    private String supervisor;
 
     @ColumnInfo(name = HelpRequestConstant.COMMENT)
     private String comment;
 
-    @ColumnInfo(name = HelpRequestConstant.DEPLOYMENT_SITE)
-    private String deploymentSite;
-
     @ColumnInfo(name = HelpRequestConstant.DEPLOYMENT_SITE_ID)
-    private String deploymentSiteId;
+    private String schoolID;
 
     @ColumnInfo(name = HelpRequestConstant.HELP_CATEGORY)
-    private String helpCategory;
+    private String requestType;
 
     @ColumnInfo(name = HelpRequestConstant.PRIORITY)
     private String priority;
@@ -54,55 +45,43 @@ public class HelpRequest {
     @ColumnInfo(name = HelpRequestConstant.APPROVAL_DATE)
     private String approvalDate;
 
-    public HelpRequest(String dateCreated, String dateUpdated, String status, String approvalStatus, String confirmation, String comment, String deploymentSite, String deploymentSiteId, String helpCategory, String priority, String employeeNo, String employeeName, String requestDate, String approvalDate) {
-        //this.id = id;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.status = status;
+    @ColumnInfo(name = HelpRequestConstant.COLUMN_IS_UPLOADED_TEACHER)
+    private boolean isUploadedTeacher;
+
+    @ColumnInfo(name = HelpRequestConstant.COLUMN_IS_UPLOADED_SUPERVISOR)
+    private boolean isUploadedSupervisor;
+
+    public HelpRequest(String requestID, String approvalStatus, String supervisor, String comment, String schoolID, String requestType, String priority,
+                       String employeeNo, String employeeName, String requestDate, String approvalDate, boolean isUploadedTeacher, boolean isUploadedSupervisor) {
+        this.requestID = requestID;
         this.approvalStatus = approvalStatus;
-        this.confirmation = confirmation;
+        this.supervisor = supervisor;
         this.comment = comment;
-        this.deploymentSite = deploymentSite;
-        this.deploymentSiteId = deploymentSiteId;
-        this.helpCategory = helpCategory;
+        this.schoolID = schoolID;
+        this.requestType = requestType;
         this.priority = priority;
         this.employeeNo = employeeNo;
         this.employeeName = employeeName;
         this.requestDate = requestDate;
         this.approvalDate = approvalDate;
+        this.isUploadedTeacher = isUploadedTeacher;
+        this.isUploadedSupervisor = isUploadedSupervisor;
     }
 
-    @NonNull
     public int getPrimaryKey() {
         return primaryKey;
     }
 
-    public void setPrimaryKey(@NonNull int primaryKey) {
+    public void setPrimaryKey(int primaryKey) {
         this.primaryKey = primaryKey;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
+    public String getRequestID() {
+        return requestID;
     }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public String getDateUpdated() {
-        return dateUpdated;
-    }
-
-    public void setDateUpdated(String dateUpdated) {
-        this.dateUpdated = dateUpdated;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setRequestID(String requestID) {
+        this.requestID = requestID;
     }
 
     public String getApprovalStatus() {
@@ -113,12 +92,12 @@ public class HelpRequest {
         this.approvalStatus = approvalStatus;
     }
 
-    public String getConfirmation() {
-        return confirmation;
+    public String getSupervisor() {
+        return supervisor;
     }
 
-    public void setConfirmation(String confirmation) {
-        this.confirmation = confirmation;
+    public void setSupervisor(String supervisor) {
+        this.supervisor = supervisor;
     }
 
     public String getComment() {
@@ -129,28 +108,20 @@ public class HelpRequest {
         this.comment = comment;
     }
 
-    public String getDeploymentSite() {
-        return deploymentSite;
+    public String getSchoolID() {
+        return schoolID;
     }
 
-    public void setDeploymentSite(String deploymentSite) {
-        this.deploymentSite = deploymentSite;
+    public void setSchoolID(String schoolID) {
+        this.schoolID = schoolID;
     }
 
-    public String getDeploymentSiteId() {
-        return deploymentSiteId;
+    public String getRequestType() {
+        return requestType;
     }
 
-    public void setDeploymentSiteId(String deploymentSiteId) {
-        this.deploymentSiteId = deploymentSiteId;
-    }
-
-    public String getHelpCategory() {
-        return helpCategory;
-    }
-
-    public void setHelpCategory(String helpCategory) {
-        this.helpCategory = helpCategory;
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
     }
 
     public String getPriority() {
@@ -193,4 +164,19 @@ public class HelpRequest {
         this.approvalDate = approvalDate;
     }
 
+    public boolean isUploadedTeacher() {
+        return isUploadedTeacher;
+    }
+
+    public void setUploadedTeacher(boolean uploadedTeacher) {
+        isUploadedTeacher = uploadedTeacher;
+    }
+
+    public boolean isUploadedSupervisor() {
+        return isUploadedSupervisor;
+    }
+
+    public void setUploadedSupervisor(boolean uploadedSupervisor) {
+        isUploadedSupervisor = uploadedSupervisor;
+    }
 }

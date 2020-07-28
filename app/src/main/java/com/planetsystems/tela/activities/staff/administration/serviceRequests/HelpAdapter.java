@@ -25,10 +25,12 @@ public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.TaskViewHolder
     private LayoutInflater layoutInflater;
     private  Context mContext;
     private List<HelpRequest> mHelpRequests;
+    private String supervisorID;
 
-    public HelpAdapter(Context context, List<HelpRequest> mHelpRequests){
+    public HelpAdapter(Context context, List<HelpRequest> mHelpRequests, String supervisorID){
         layoutInflater = LayoutInflater.from(context);
         this.mContext = context;
+        this.supervisorID = supervisorID;
         this.mHelpRequests = mHelpRequests;
     }
 
@@ -45,10 +47,10 @@ public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.TaskViewHolder
         HelpRequest helpRequest = mHelpRequests.get(position);
         if (mHelpRequests != null){
 
-            holder.setData(helpRequest.getHelpCategory(), helpRequest.getRequestDate(), helpRequest.getEmployeeName(), position);
+            holder.setData(helpRequest.getRequestType(), helpRequest.getRequestDate(), helpRequest.getEmployeeName(), position);
 
-            String L= ""+mHelpRequests.get(position).getHelpCategory();
-            char k = mHelpRequests.get(position).getHelpCategory().charAt(0);
+            String L= ""+mHelpRequests.get(position).getRequestType();
+            char k = mHelpRequests.get(position).getRequestType().charAt(0);
             String Cap= ""+k+"".toString().toUpperCase();
             String s = Character.toString(k);
 
@@ -67,11 +69,12 @@ public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.TaskViewHolder
 
                     Intent ALR = new Intent(mContext, ApproveHelpRequests.class);
                     ALR.putExtra("db_id",helpRequest1.getPrimaryKey());
-                    ALR.putExtra("help", helpRequest1.getHelpCategory());
+                    ALR.putExtra("help", helpRequest1.getRequestType());
                     ALR.putExtra("employee_Name", helpRequest1.getEmployeeName());
                     ALR.putExtra("priority", helpRequest1.getPriority());
                     ALR.putExtra("requestDate", helpRequest1.getRequestDate());
                     ALR.putExtra("reason", helpRequest1.getComment());
+                    ALR.putExtra("supervisor", supervisorID);
                     mContext.startActivity(ALR);
                 }
             });

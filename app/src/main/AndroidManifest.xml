@@ -27,9 +27,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.staff.administration.enrollments.EnrolledTeachers"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.viewTimeOffRequest" />
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewHelpRequest"></activity>
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewMeetingRequest" />
+        <activity
+            android:name=".activities.staff.administration.enrollments.EnrolledTeachers"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewTimeOffRequest" />
         <activity
             android:name=".activities.logs.LogActivity"
             android:parentActivityName=".activities.clockInAndOutActivity.ClockInAndOutActivity" />

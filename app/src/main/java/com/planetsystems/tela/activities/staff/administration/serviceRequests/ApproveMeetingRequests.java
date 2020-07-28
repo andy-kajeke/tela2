@@ -112,7 +112,7 @@ public class ApproveMeetingRequests extends AppCompatActivity {
         String approvalStatus = "Approved";
         int row_id = db_id_extra;
 
-        serviceRequestsViewModel.updateLeaveApprovalStatus(approvalStatus,  dayString, supervisorID, row_id);
+        serviceRequestsViewModel.updateLeaveApprovalStatus(approvalStatus, dayString, supervisorID, row_id);
 
         startDate.setText("");
         endDate.setText("");

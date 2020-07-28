@@ -11,10 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.viewReplies.viewTimeOffRequest;
+import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.viewReplies.ViewHelpRequest;
+import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.viewReplies.ViewMeetingRequest;
+import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.viewReplies.ViewTimeOffRequest;
 
 public class MakeRequests extends AppCompatActivity {
 
@@ -135,7 +136,7 @@ public class MakeRequests extends AppCompatActivity {
         viewTimeOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), viewTimeOffRequest.class);
+                Intent i = new Intent(getApplicationContext(), ViewTimeOffRequest.class);
                 i.putExtra("id", id_extra);
                 startActivity(i);
             }
@@ -144,20 +145,18 @@ public class MakeRequests extends AppCompatActivity {
         viewMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(), viewMeetingRequest.class);
-//                i.putExtra("id", id_extra);
-//                i.putExtra("school", school_extra);
-//                startActivity(i);
+                Intent i = new Intent(getApplicationContext(), ViewMeetingRequest.class);
+                i.putExtra("id", id_extra);
+                startActivity(i);
             }
         });
 
         viewHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(), viewHelpRequest.class);
-//                i.putExtra("id", id_extra);
-//                i.putExtra("school", school_extra);
-//                startActivity(i);
+                Intent i = new Intent(getApplicationContext(), ViewHelpRequest.class);
+                i.putExtra("id", id_extra);
+                startActivity(i);
             }
         });
 

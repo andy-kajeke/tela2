@@ -27,7 +27,7 @@ public class HelpRequestRepository {
         return INSTANCE;
     }
 
-    public void  addNewHelpRequest(final HelpRequest helpRequest){
+    public void addNewHelpRequest(final HelpRequest helpRequest){
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -36,8 +36,17 @@ public class HelpRequestRepository {
         });
     }
 
-    public LiveData<List<HelpRequest>> getAllRequests(){
-        return helpRequestDao.getHelpRequests();
+    public void updateHelpApprovalStatus(final String approvalStatus, final String approvalDate, final String supervisorID, final int primaryKey){
+        TelaRoomDatabase.db_executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                helpRequestDao.update(approvalStatus, approvalDate, supervisorID, primaryKey);
+            }
+        });
+    }
+
+    public LiveData<List<HelpRequest>> getRequestsByEmployeeNo(final String employeeNo){
+        return helpRequestDao.getRequestByEmployeeNo(employeeNo);
     }
 
     public LiveData<List<HelpRequest>> getRequestByApprovalStatus(final String approvalStatus){

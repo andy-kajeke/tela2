@@ -29,7 +29,8 @@ public class ServiceRequestsViewModel extends AndroidViewModel {
         helpRequestRepository = MainRepository.getInstance(application).getHelpRequestRepository();
     }
 
-    //Time off/leave request
+    /////////////////////////////////Time off-leave request/////////////////////////////////////////////
+
     public void addNewTimeOffRequest(SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM){
         timeOffRequestRepository.addNewTimeOffRequest(syncEmployeeTimeOffRequestDM);
     }
@@ -58,12 +59,21 @@ public class ServiceRequestsViewModel extends AndroidViewModel {
         return timeOffRequestRepository.getRequestByApprovalStatus(approvalStatus);
     }
 
-    //Help request
+    /////////////////////////Help request///////////////////////////////////////////////////////
+
     public LiveData<List<HelpRequest>> getAllHelpRequests(final String approvalStatus){
         return helpRequestRepository.getRequestByApprovalStatus(approvalStatus);
     }
 
+    public LiveData<List<HelpRequest>> getRequestsByEmployeeNo(final String employeeNo){
+        return helpRequestRepository.getRequestsByEmployeeNo(employeeNo);
+    }
+
     public void addHelpRequest(HelpRequest helpRequest){
         helpRequestRepository.addNewHelpRequest(helpRequest);
+    }
+
+    public void updateHelpApprovalStatus(String approvalStatus, String approvalDate, String supervisorID, int primaryKey){
+        helpRequestRepository.updateHelpApprovalStatus(approvalStatus, approvalDate, supervisorID, primaryKey);
     }
 }

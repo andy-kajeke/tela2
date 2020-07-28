@@ -1,6 +1,7 @@
 package com.planetsystems.tela.activities.staff.administration.serviceRequests;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -8,8 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.ServiceRequestsViewModel;
 
 import java.text.SimpleDateFormat;
 
@@ -22,8 +25,9 @@ public class ApproveHelpRequests extends AppCompatActivity {
     String dayString;
     int db_id_extra;
     String help_extra, priority_extra;
-    String name_extra, school_extra, start_extra, end_extra;
+    String name_extra, supervisorID, start_extra, end_extra;
     String requestedOn_extra, reason_extra;
+    private ServiceRequestsViewModel serviceRequestsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class ApproveHelpRequests extends AppCompatActivity {
         priority_extra = bundle.getString("priority");
         requestedOn_extra = bundle.getString("requestDate");
         reason_extra = bundle.getString("reason");
+        supervisorID = bundle.getString("supervisor");
 
         helpType.setText(help_extra);
         priority.setText(priority_extra);
@@ -56,6 +61,8 @@ public class ApproveHelpRequests extends AppCompatActivity {
         long date = System.currentTimeMillis();
         SimpleDateFormat day = new SimpleDateFormat("dd /MM/ yyy");
         dayString = day.format(date);
+
+        serviceRequestsViewModel = new ViewModelProvider(this).get(ServiceRequestsViewModel.class);
 
         approve.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +75,7 @@ public class ApproveHelpRequests extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                //ApproveRequest();
+                                ApproveRequest();
                             }})
                         .setNegativeButton(android.R.string.no, null).show();
 
@@ -86,11 +93,37 @@ public class ApproveHelpRequests extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                // RejectRequest();
+                                 RejectRequest();
                             }})
                         .setNegativeButton(android.R.string.no, null).show();
 
             }
         });
+    }
+
+    private void ApproveRequest() {
+        String approvalStatus = "Approved";
+        int row_id = db_id_extra;
+
+        serviceRequestsViewModel.updateHelpApprovalStatus(approvalStatus, dayString, supervisorID, row_id);
+
+        requestedOn.setText("");
+        requestedBy.setText("");
+        reason.setText("");
+
+        Toast.makeText(getApplicationContext(),"Submitted Successfully " ,Toast.LENGTH_SHORT).show();
+    }
+
+    private void RejectRequest() {
+        String approvalStatus = "Rejected";
+        int row_id = db_id_extra;
+
+        serviceRequestsViewModel.updateHelpApprovalStatus(approvalStatus, dayString, supervisorID, row_id);
+
+        requestedOn.setText("");
+        requestedBy.setText("");
+        reason.setText("");
+
+        Toast.makeText(getApplicationContext(),"Submitted Successfully " ,Toast.LENGTH_SHORT).show();
     }
 }

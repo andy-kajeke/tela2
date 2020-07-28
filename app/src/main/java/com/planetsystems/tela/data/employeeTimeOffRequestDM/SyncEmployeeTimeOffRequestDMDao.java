@@ -35,7 +35,7 @@ public interface SyncEmployeeTimeOffRequestDMDao {
             + SyncEmployeeTimeOffRequestDMsConstants.COLUMN_APPROVAL_DATE + " =:approvalDate"
             + " WHERE "
             + SyncEmployeeTimeOffRequestDMsConstants.COLUMN_PRIMARY_KEY + " =:primaryKey")
-    void update(String approvalStatus, String supervisorID, String approvalDate, int primaryKey);
+    void update(String approvalStatus, String approvalDate, String supervisorID, int primaryKey);
 
     @Query("SELECT * FROM " + SyncEmployeeTimeOffRequestDMsConstants.TABLE_NAME)
     LiveData<List<SyncEmployeeTimeOffRequestDM>> getAllRecords();
