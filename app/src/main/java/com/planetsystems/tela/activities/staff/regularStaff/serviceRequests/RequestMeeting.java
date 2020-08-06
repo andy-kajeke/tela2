@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.School_ID;
 import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
 
 public class RequestMeeting extends AppCompatActivity {
@@ -224,7 +225,7 @@ public class RequestMeeting extends AppCompatActivity {
                 comment,
                 "Pending",
                 "",
-                DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+                School_ID,
                 employeeName,
                 employeeNo,
                 RequestType,

@@ -14,6 +14,7 @@ import com.planetsystems.tela.workers.fetch.SyncTimeTableWorker;
 import com.planetsystems.tela.workers.upload.SyncClockInTeacherUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncClockOutTeacherUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncConfirmTimeOnSiteAttendanceUploadWorker;
+import com.planetsystems.tela.workers.upload.SyncLeanersEnrrolledUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncLearnerAttendanceUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncSmcObservationsUploadWorker;
 import com.planetsystems.tela.workers.upload.SyncSupervisorTimeOffRequestUploadWorker;
@@ -43,7 +44,8 @@ public class WorkManagerTrigger {
         startUploadSyncSupervisorTimeOnTaskAttendanceUploadWorker(context);
         startUploadSyncSmcObservationsUploadWorker(context);
         startUploadSyncTeacherUploadWorker(context);
-        startUploadSyncTeachersEnrrolledUploadWorker(context);
+        startUploadSyncTeachersEnrolledUploadWorker(context);
+        startUploadSyncLeanersEnrolledUploadWorker(context);
         startUploadSyncTeacherTimeOffRequestUploadWorker(context);
         startUploadSyncSupervisorTimeOffRequestUploadWorker(context);
     }
@@ -121,11 +123,24 @@ public class WorkManagerTrigger {
     }
 
     //Upload enrolled teachers content to server
-    public static  void startUploadSyncTeachersEnrrolledUploadWorker(Context context) {
+    public static  void startUploadSyncTeachersEnrolledUploadWorker(Context context) {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
         PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncTeachersEnrrolledUploadWorker.class, 1, TimeUnit.SECONDS)
+                .setConstraints(constraints)
+                .build();
+
+        WorkManager.getInstance(context).enqueue(workRequest);
+
+    }
+
+    //Upload enrolled teachers content to server
+    public static  void startUploadSyncLeanersEnrolledUploadWorker(Context context) {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncLeanersEnrrolledUploadWorker.class, 1, TimeUnit.SECONDS)
                 .setConstraints(constraints)
                 .build();
 

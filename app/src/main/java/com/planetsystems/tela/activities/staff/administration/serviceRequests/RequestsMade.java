@@ -30,7 +30,7 @@ public class RequestsMade extends AppCompatActivity {
     CardView help;
     final String Pending = "Pending";
     final String Approved = "Approved";
-    final String TimeOff = "Time Off/ Leave";
+    final String TimeOff = "Time Off";
     final String Meeting = "Meeting";
     String supervisor;
 

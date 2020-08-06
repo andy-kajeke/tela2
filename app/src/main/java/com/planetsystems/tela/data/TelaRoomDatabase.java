@@ -6,6 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.planetsystems.tela.data.LearnersEnrolled.LearnersEnrolled;
+import com.planetsystems.tela.data.LearnersEnrolled.LearnersEnrolledDao;
 import com.planetsystems.tela.data.TeachersEnrolled.TeachersEnrolled;
 import com.planetsystems.tela.data.TeachersEnrolled.TeachersEnrolledDao;
 import com.planetsystems.tela.data.attendance.SyncAttendanceRecordDao;
@@ -60,6 +62,7 @@ import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
         SyncSMC.class,
         SyncTimeTable.class,
         TeachersEnrolled.class,
+        LearnersEnrolled.class,
         ExecutionLog.class
     }, version = 1, exportSchema = false)
 public abstract class TelaRoomDatabase extends RoomDatabase {
@@ -79,6 +82,7 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
     public abstract SyncSMCDao getSyncSMCDao();
     public abstract SyncTimeTableDao getSyncTimeTableDao();
     public abstract TeachersEnrolledDao getTeachersEnrolledDao();
+    public abstract LearnersEnrolledDao getLearnersEnrolledDao();
     public abstract ExecutionLogDao getExecutionLogDao();
 
 

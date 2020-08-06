@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import com.planetsystems.tela.data.ClockIn.ClockInRepository;;
 import com.planetsystems.tela.data.ClockIn.SyncClockInDao;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.TimeOnSiteAttendanceRepository;
+import com.planetsystems.tela.data.LearnersEnrolled.LearnersEnrolledRepository;
 import com.planetsystems.tela.data.Teacher.TeacherRepository;
 import com.planetsystems.tela.data.TeachersEnrolled.TeachersEnrolledRepository;
 import com.planetsystems.tela.data.attendance.LearnerRepository;
@@ -29,8 +30,6 @@ import java.util.List;
 public class MainRepository {
     private static MainRepository INSTANCE;
     private SyncTimeTableDao syncTimeTableDao;
-    private SyncClockInDao syncClockInDao;
-    private SyncSchoolClassesDao syncSchoolClassesDao;
 
     private ClockInRepository clockInRepository;
     private ClockOutRepository clockOutRepository;
@@ -45,6 +44,7 @@ public class MainRepository {
     private ConfirmTimeOnTaskRepository confirmTimeOnTaskRepository;
     private SmcRepository smcRepository;
     private TeachersEnrolledRepository teachersEnrolledRepository;
+    private LearnersEnrolledRepository learnersEnrolledRepository;
     private ExecutionLogRepository executionLogRepository;
 
     private MainRepository(Application application) {
@@ -63,6 +63,7 @@ public class MainRepository {
         confirmTimeOnTaskRepository = ConfirmTimeOnTaskRepository.getInstance(telaRoomDatabase);
         smcRepository = SmcRepository.getInstance(telaRoomDatabase);
         teachersEnrolledRepository = TeachersEnrolledRepository.getInstance(telaRoomDatabase);
+        learnersEnrolledRepository = LearnersEnrolledRepository.getInstance(telaRoomDatabase);
         executionLogRepository = ExecutionLogRepository.getInstance(telaRoomDatabase);
 
     }
@@ -127,6 +128,8 @@ public class MainRepository {
     public SmcRepository getSmcRepository() { return smcRepository; }
 
     public TeachersEnrolledRepository getTeachersEnrolledRepository() {return teachersEnrolledRepository;}
+
+    public LearnersEnrolledRepository getLearnersEnrolledRepository(){return learnersEnrolledRepository;}
 
     public ExecutionLogRepository getExecutionLogRepository() {
         return executionLogRepository;

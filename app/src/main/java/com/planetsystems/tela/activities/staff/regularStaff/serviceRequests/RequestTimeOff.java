@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.School_ID;
 import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
 
 public class RequestTimeOff extends AppCompatActivity {
@@ -229,7 +230,7 @@ public class RequestTimeOff extends AppCompatActivity {
         String comment = tstaff_comment.getText().toString();
         String employeeNo = id_extra;
         String employeeName = name_extra;
-        String RequestType = "Time Off/ Leave";
+        String RequestType = "Time Off";
 
         SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM = new SyncEmployeeTimeOffRequestDM(
                 GenerateRandomString.randomString(30),
@@ -237,7 +238,7 @@ public class RequestTimeOff extends AppCompatActivity {
                 comment,
                 "Pending",
                 "",
-                DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+                School_ID,
                 employeeName,
                 employeeNo,
                 RequestType,

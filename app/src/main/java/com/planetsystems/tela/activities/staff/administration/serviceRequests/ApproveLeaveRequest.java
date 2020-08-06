@@ -118,7 +118,7 @@ public class ApproveLeaveRequest extends AppCompatActivity {
         requestedBy.setText("");
         reason.setText("");
 
-        Toast.makeText(getApplicationContext(),"Submitted Successfully " ,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Submitted Successfully "+ "Row id " + row_id,Toast.LENGTH_SHORT).show();
     }
 
     private void RejectRequest() {

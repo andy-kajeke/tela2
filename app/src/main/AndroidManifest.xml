@@ -27,7 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewHelpRequest"></activity>
+        <activity android:name=".activities.staff.administration.enrollments.EnrolledLearners"></activity>
+        <activity android:name=".activities.staff.administration.enrollments.SelectLearnerClass" />
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewHelpRequest" />
         <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewMeetingRequest" />
         <activity
             android:name=".activities.staff.administration.enrollments.EnrolledTeachers"

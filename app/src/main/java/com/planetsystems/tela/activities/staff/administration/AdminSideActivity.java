@@ -22,6 +22,7 @@ import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.staff.administration.editStaff.EditStaffList;
 import com.planetsystems.tela.activities.staff.administration.editTimeTable.SelectClass;
 import com.planetsystems.tela.activities.staff.administration.enrollments.EnrolledTeachers;
+import com.planetsystems.tela.activities.staff.administration.enrollments.SelectLearnerClass;
 import com.planetsystems.tela.activities.staff.administration.learnerAttendance.LearnerClasses;
 import com.planetsystems.tela.activities.staff.administration.serviceRequests.RequestsMade;
 import com.planetsystems.tela.activities.staff.administration.taskAttendance.TaskAttendance;
@@ -178,8 +179,8 @@ public class AdminSideActivity extends AppCompatActivity {
         learners_enrolled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), EnrolledTeachers.class);
-                //i.putExtra("school", checkIn_schoolId);
+                Intent i = new Intent(getApplicationContext(), SelectLearnerClass.class);
+                i.putExtra("employeeNo", admin_id_extra);
                 startActivity(i);
             }
         });
@@ -199,7 +200,7 @@ public class AdminSideActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), SelectClass.class);
-                //i.putExtra("school", checkIn_schoolId);
+                i.putExtra("employeeNo", admin_id_extra);
                 startActivity(i);
             }
         });

@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities.staff.administration.editTimeTable;
+package com.planetsystems.tela.activities.staff.administration.enrollments;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.staff.administration.editTimeTable.SelectClassesListAdapter;
 import com.planetsystems.tela.activities.staff.administration.learnerAttendance.LearnerAttendanceViewModel;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 
@@ -17,19 +18,19 @@ import java.util.List;
 
 import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
 
-public class SelectClass extends AppCompatActivity {
+public class SelectLearnerClass extends AppCompatActivity {
 
     RecyclerView schoolClasses;
     private List<SyncSchoolClasses> mSyncSchoolClasses;
-    private SelectClassesListAdapter adapter;
+    private SelectLearnerClassesListAdapter adapter;
     private LearnerAttendanceViewModel learnerAttendanceViewModel;
     String employeeNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_class);
-        setTitle("Edit Timetable");
+        setContentView(R.layout.activity_select_learner_class);
+        setTitle("Learners Enrolled");
 
         schoolClasses = findViewById(R.id.class_list);
 
@@ -38,7 +39,7 @@ public class SelectClass extends AppCompatActivity {
 
         mSyncSchoolClasses = new ArrayList<>();
 
-        adapter = new SelectClassesListAdapter(this, mSyncSchoolClasses, employeeNo, SchoolDeviceIMEINumber);
+        adapter = new SelectLearnerClassesListAdapter(this, mSyncSchoolClasses, employeeNo, SchoolDeviceIMEINumber);
         schoolClasses.setAdapter(adapter);
         schoolClasses.setLayoutManager(new LinearLayoutManager(this));
 

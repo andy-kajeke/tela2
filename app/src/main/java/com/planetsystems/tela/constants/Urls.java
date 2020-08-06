@@ -48,6 +48,8 @@ public class Urls {
 
     public static final String ENROLLED_TEACHERS_URL = BASE_URL + "teachersenrolled";
 
+    public static final String ENROLLED_LEARNERS_URL_UPLOAD = BASE_URL + "learnersenrolled";
+
     public static final String TIME_OFF_REQUEST_URL = BASE_URL + "timerequest";
 
     public static final String DID_WORK = "Work Done!";
