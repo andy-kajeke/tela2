@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.ClockIn.SyncClockIn;
+import com.planetsystems.tela.workers.WorkManagerTrigger;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -35,6 +36,10 @@ public class TimeAttendanceList extends AppCompatActivity {
         long date = System.currentTimeMillis();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
         String dateOfDay = dateFormat.format(date);
+
+        /////////////////////////////Sync data/////////////////////////////////////////////////////////
+        WorkManagerTrigger.startFetchWorkers(getApplicationContext());
+        WorkManagerTrigger.startUploadWorkers(getApplicationContext());
 
         adapter = new ClockInListAdapter(this);
         staffs.setAdapter(adapter);

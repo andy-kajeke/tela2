@@ -4,7 +4,9 @@ public class SyncEmployeeTimeOffRequestDMsConstants {
 
     public static final String TABLE_NAME = "SyncEmployeeTimeOffRequestDMs";
 
-    public static final String COLUMN_PRIMARY_KEY = "requestId";
+    public static final String COLUMN_PRIMARY_KEY = "primaryKey";
+
+    public static final String COLUMN_REQUEST_ID = "requestId";
 
     public static final String COLUMN_DATE_CREATED = "dateCreated";
 

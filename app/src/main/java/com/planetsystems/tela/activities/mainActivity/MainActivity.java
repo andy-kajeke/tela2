@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -72,10 +73,21 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
             return;
         }
-        SchoolDeviceIMEINumber = telephonyManager.getDeviceId();
+//        SchoolDeviceIMEINumber = telephonyManager.getDeviceId();
         //SchoolDeviceIMEINumber = "354633111523205";
-        Toast.makeText(MainActivity.this, "IMEI_NO is: "+ SchoolDeviceIMEINumber, Toast.LENGTH_LONG).show();
-        DynamicData.getSchoolID(SchoolDeviceIMEINumber);
+//        Toast.makeText(MainActivity.this, "IMEI_NO is: "+ SchoolDeviceIMEINumber, Toast.LENGTH_LONG).show();
+        DynamicData.getSchoolID("354633111523205");
+
+        ///////////////////SIM Card reader//////////////////////////////////////////////////////
+//        TelephonyManager telemamanger = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+//        @SuppressLint("MissingPermission")
+//        String getSimSerialNumber = telephonyManager.getSimSerialNumber();
+//        String getSimNumber = telephonyManager.getLine1Number();
+//
+//        Toast.makeText(MainActivity.this, "IMEI_NO is: "+ getSimSerialNumber, Toast.LENGTH_LONG).show();
+//        if (getSimNumber != null)
+//            Toast.makeText(this, "Phone number: " + getSimNumber,
+//                    Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -90,4 +102,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }

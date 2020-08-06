@@ -13,13 +13,10 @@ public class SyncEmployeeTimeOffRequestDM {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_PRIMARY_KEY)
     @NonNull
-    private int requestId;
+    private int primaryKey;
 
-    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DATE_CREATED)
-    private String dateCreated;
-
-    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_DATE_UPDATED)
-    private String dateUpdated;
+    @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_REQUEST_ID)
+    private String requestId;
 
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_STATUS)
     private int status;
@@ -78,13 +75,12 @@ public class SyncEmployeeTimeOffRequestDM {
     @ColumnInfo(name = SyncEmployeeTimeOffRequestDMsConstants.COLUMN_IS_UPLOADED_SUPERVISOR)
     private boolean isUploadedSupervisor;
 
-    public SyncEmployeeTimeOffRequestDM(String dateCreated, String dateUpdated, int status, String comment,
+    public SyncEmployeeTimeOffRequestDM(String requestId, int status, String comment,
                                         String approvalStatus, String confirmation, String schoolId,
                                         String employee, String employeeNo, String employeeRequestType,
                                         String fromDate, String fromTime, String generalComment, String requestDate,
                                         String approvalDate, String supervisor, String toDate, String toTime, String typeOfLeave, boolean isUploadedTeacher, boolean isUploadedSupervisor) {
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
+        this.requestId = requestId;
         this.status = status;
         this.comment = comment;
         this.approvalStatus = approvalStatus;
@@ -106,28 +102,20 @@ public class SyncEmployeeTimeOffRequestDM {
         this.isUploadedSupervisor = isUploadedSupervisor;
     }
 
-    public int getRequestId() {
+    public int getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(int primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    public String getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(int requestId) {
+    public void setRequestId(String requestId) {
         this.requestId = requestId;
-    }
-
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public String getDateUpdated() {
-        return dateUpdated;
-    }
-
-    public void setDateUpdated(String dateUpdated) {
-        this.dateUpdated = dateUpdated;
     }
 
     public int getStatus() {

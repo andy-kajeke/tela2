@@ -152,7 +152,7 @@ public class AdminSideActivity extends AppCompatActivity {
         close =(TextView) updateDialog.findViewById(R.id.txclose);
         enroll_new_staff = (Button) updateDialog.findViewById(R.id.enrollNewStaff);
         teachers_enrolled = (Button) updateDialog.findViewById(R.id.enrolledStaff);
-        //learners_enrolled = (Button) updateDialog.findViewById(R.id.enrolledLearners);
+        learners_enrolled = (Button) updateDialog.findViewById(R.id.enrolledLearners);
         edit_staff_list = (Button) updateDialog.findViewById(R.id.staff_list);
         edit_time_table = (Button) updateDialog.findViewById(R.id.time_table);
         //update_staff =(Button) updateDialog.findViewById(R.id.out);
@@ -167,6 +167,15 @@ public class AdminSideActivity extends AppCompatActivity {
         });
 
         teachers_enrolled.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), EnrolledTeachers.class);
+                //i.putExtra("school", checkIn_schoolId);
+                startActivity(i);
+            }
+        });
+
+        learners_enrolled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), EnrolledTeachers.class);

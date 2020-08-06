@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDM;
 import com.planetsystems.tela.utils.DynamicData;
+import com.planetsystems.tela.utils.GenerateRandomString;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -231,8 +232,7 @@ public class RequestTimeOff extends AppCompatActivity {
         String RequestType = "Time Off/ Leave";
 
         SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM = new SyncEmployeeTimeOffRequestDM(
-                "",
-                "",
+                GenerateRandomString.randomString(30),
                 1,
                 comment,
                 "Pending",

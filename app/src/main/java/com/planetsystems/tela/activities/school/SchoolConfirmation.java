@@ -85,7 +85,7 @@ public class SchoolConfirmation extends AppCompatActivity {
             WorkManagerTrigger.startUploadWorkers(getApplicationContext());
 
             //Get device ownership by IMEI number
-            new Fetch_API_JSONAsyncTask().execute(Urls.DEVICE_OWNERSHIP + DynamicData.getSchoolID(SchoolDeviceIMEINumber));
+            new Fetch_API_JSONAsyncTask().execute(Urls.DEVICE_OWNERSHIP + deviceIMEI_extra);
         }
 
         confirm.setOnClickListener(new View.OnClickListener() {

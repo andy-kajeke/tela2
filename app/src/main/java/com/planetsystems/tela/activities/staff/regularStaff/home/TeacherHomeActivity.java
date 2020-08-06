@@ -22,6 +22,8 @@ import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActi
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.MakeRequests;
+import com.planetsystems.tela.utils.DynamicData;
+import com.planetsystems.tela.workers.WorkManagerTrigger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,6 +66,10 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
         dateString = dateFormat.format(date);
         timeString = time.format(date);
 
+        /////////////////////////////Sync data/////////////////////////////////////////////////////////
+        WorkManagerTrigger.startFetchWorkers(getApplicationContext());
+        WorkManagerTrigger.startUploadWorkers(getApplicationContext());
+
         Bundle bundle = getIntent().getExtras();
         emp_id_extra = bundle.getString("employee_No");
         emp_name_extra = bundle.getString("employee_Name");
@@ -79,7 +85,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements PopupMenu.
 
         teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
 
-        teacherHomeActivityViewModel.getSyncTimeTableByEmployeeIDForDay(emp_id_extra, dateString).observe(this, new Observer<List<SyncTimeTable>>() {
+        teacherHomeActivityViewModel.getSyncTimeTableByEmployeeIDForDay(emp_id_extra, DynamicData.getDay()).observe(this, new Observer<List<SyncTimeTable>>() {
             @Override
             public void onChanged(List<SyncTimeTable> syncTimeTables ) {
                 for (int i = 0; i < syncTimeTables.size(); i++){

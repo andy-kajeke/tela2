@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDM;
 import com.planetsystems.tela.utils.DynamicData;
+import com.planetsystems.tela.utils.GenerateRandomString;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -218,8 +219,7 @@ public class RequestMeeting extends AppCompatActivity {
         String RequestType = "Meeting";
 
         SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM = new SyncEmployeeTimeOffRequestDM(
-                "",
-                "",
+                GenerateRandomString.randomString(31),
                 1,
                 comment,
                 "Pending",

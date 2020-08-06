@@ -22,6 +22,7 @@ import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActi
 import com.planetsystems.tela.data.confirmTimeOnTaskAttendance.SyncConfirmTimeOnTaskAttendance;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
+import com.planetsystems.tela.workers.WorkManagerTrigger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,6 +69,10 @@ public class SupervisorObservations extends AppCompatActivity {
         dateString = dateFormat.format(date);
         timeString = time.format(date);
 
+        /////////////////////////////Sync data/////////////////////////////////////////////////////////
+        WorkManagerTrigger.startFetchWorkers(getApplicationContext());
+        WorkManagerTrigger.startUploadWorkers(getApplicationContext());
+
         Bundle bundle = getIntent().getExtras();
         admin_id_extra = bundle.getString("admin");
         emp_id_extra = bundle.getString("employee_No");
@@ -90,7 +95,6 @@ public class SupervisorObservations extends AppCompatActivity {
             public void onChanged(List<SynTimeOnTask> synTimeOnTasks) {
                 for (int i = 0; i < synTimeOnTasks.size(); i++){
                     Tasks taskList = new Tasks();
-
                     taskList.setTaskId(synTimeOnTasks.get(i).getTaskId());
                     taskList.setTaskName(synTimeOnTasks.get(i).getTaskName());
                     taskList.setStartTime(synTimeOnTasks.get(i).getStartTime());

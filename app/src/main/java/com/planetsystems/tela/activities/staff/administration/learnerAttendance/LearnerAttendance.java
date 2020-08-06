@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.data.attendance.SyncAttendanceRecord;
+import com.planetsystems.tela.workers.WorkManagerTrigger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -62,6 +63,10 @@ public class LearnerAttendance extends AppCompatActivity {
         cAbsent = (CheckBox) findViewById(R.id.checkAbsent);
         comment = (EditText) findViewById(R.id.edit_text);
         postInfo = (Button) findViewById(R.id.submit);
+
+        /////////////////////////////Sync data/////////////////////////////////////////////////////////
+        WorkManagerTrigger.startFetchWorkers(getApplicationContext());
+        WorkManagerTrigger.startUploadWorkers(getApplicationContext());
 
         Bundle bundle = getIntent().getExtras();
 //        id_extra = bundle.getString("id");

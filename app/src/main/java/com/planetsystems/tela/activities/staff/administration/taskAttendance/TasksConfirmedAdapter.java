@@ -68,12 +68,10 @@ public class TasksConfirmedAdapter extends RecyclerView.Adapter<TasksConfirmedAd
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                     if (!isChecked) {
                         mSynTimeOnTask.get(position).setStatus("Not Taught");
-                        Toast.makeText(mContext ,mSynTimeOnTask.get(position).getStatus(),Toast.LENGTH_SHORT).show();
-
                     } else {
                         mSynTimeOnTask.get(position).setStatus("Taught");
-                        Toast.makeText(mContext,mSynTimeOnTask.get(position).getStatus(),Toast.LENGTH_SHORT).show();
                     }
+                    Toast.makeText(mContext ,mSynTimeOnTask.get(position).getStatus(),Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -82,11 +80,10 @@ public class TasksConfirmedAdapter extends RecyclerView.Adapter<TasksConfirmedAd
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (!isChecked){
                         mSynTimeOnTask.get(position).setInTime("Past Time");
-                        Toast.makeText(mContext ,mSynTimeOnTask.get(position).getInTime(),Toast.LENGTH_SHORT).show();
                     }else {
                         mSynTimeOnTask.get(position).setInTime("In Time");
-                        Toast.makeText(mContext ,mSynTimeOnTask.get(position).getInTime(),Toast.LENGTH_SHORT).show();
                     }
+                    Toast.makeText(mContext ,mSynTimeOnTask.get(position).getInTime(),Toast.LENGTH_SHORT).show();
                 }
             });
 
