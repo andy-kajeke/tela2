@@ -52,6 +52,8 @@ public class Urls {
 
     public static final String TIME_OFF_REQUEST_URL = BASE_URL + "timerequest";
 
+    public static final String SCHOOL_MATERIALS_URL = BASE_URL + "materials";
+
     public static final String DID_WORK = "Work Done!";
 
     //uploading content to server

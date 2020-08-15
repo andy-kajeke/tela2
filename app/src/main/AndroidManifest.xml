@@ -27,7 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.staff.administration.enrollments.EnrolledLearners"></activity>
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.RequestSchoolMaterials"></activity>
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.SchoolMaterialsList" />
+        <activity android:name=".activities.staff.administration.enrollments.EnrolledLearners" />
         <activity android:name=".activities.staff.administration.enrollments.SelectLearnerClass" />
         <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewHelpRequest" />
         <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewMeetingRequest" />
@@ -47,10 +49,10 @@
         <activity android:name=".activities.staff.administration.serviceRequests.ApproveLeaveRequest" />
         <activity android:name=".activities.staff.administration.serviceRequests.PendingLeaveRequest" />
         <activity
-            android:name=".activities.staff.regularStaff.serviceRequests.RequestHelp"
+            android:name=".activities.staff.regularStaff.serviceRequests.request.RequestHelp"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.staff.regularStaff.serviceRequests.RequestMeeting"
+            android:name=".activities.staff.regularStaff.serviceRequests.request.RequestMeeting"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activities.staff.administration.serviceRequests.RequestsMade" />
         <activity
@@ -82,9 +84,9 @@
 
         <activity android:name=".activities.school.SchoolConfirmation" />
         <activity
-            android:name=".activities.staff.regularStaff.serviceRequests.RequestTimeOff"
+            android:name=".activities.staff.regularStaff.serviceRequests.request.RequestTimeOff"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activities.staff.regularStaff.serviceRequests.MakeRequests" />
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.MakeRequests" />
         <activity android:name=".activities.staff.regularStaff.home.TeacherHomeActivity" />
         <activity
             android:name=".activities.clockInWithEmployeeNumber.ClockInWithEmployeeNumberActivity"

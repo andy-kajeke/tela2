@@ -15,18 +15,22 @@ import com.planetsystems.tela.data.helprequest.HelpRequest;
 import com.planetsystems.tela.data.helprequest.HelpRequestRepository;
 import com.planetsystems.tela.data.schoolClasses.SchoolClassesRepository;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
+import com.planetsystems.tela.data.schoolMaterials.SchoolMaterials;
+import com.planetsystems.tela.data.schoolMaterials.SchoolMaterialsRepository;
 
 import java.util.List;
 
 public class ServiceRequestsViewModel extends AndroidViewModel {
     private TimeOffRequestRepository timeOffRequestRepository;
     private HelpRequestRepository helpRequestRepository;
+    SchoolMaterialsRepository schoolMaterialsRepository;
 
     public ServiceRequestsViewModel(@NonNull Application application) {
         super(application);
 
         timeOffRequestRepository = MainRepository.getInstance(application).getTimeOffRequestRepository();
         helpRequestRepository = MainRepository.getInstance(application).getHelpRequestRepository();
+        schoolMaterialsRepository = MainRepository.getInstance(application).getSchoolMaterialsRepository();
     }
 
     /////////////////////////////////Time off-leave request/////////////////////////////////////////////
@@ -75,5 +79,11 @@ public class ServiceRequestsViewModel extends AndroidViewModel {
 
     public void updateHelpApprovalStatus(String approvalStatus, String approvalDate, String supervisorID, int primaryKey){
         helpRequestRepository.updateHelpApprovalStatus(approvalStatus, approvalDate, supervisorID, primaryKey);
+    }
+
+    ///////////////////////////////////School material request///////////////////////////////////////////////////////////////
+
+    public LiveData<List<SchoolMaterials>> getAllSchoolMaterials(){
+        return schoolMaterialsRepository.getAllMaterials();
     }
 }

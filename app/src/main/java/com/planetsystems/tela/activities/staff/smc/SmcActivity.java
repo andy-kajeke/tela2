@@ -79,7 +79,7 @@ public class SmcActivity extends AppCompatActivity {
         smcCode_extra = bundle.getString("employee_No");
 
         h_present.setChecked(true);
-        status.setText("PRESENT");
+        status.setText("Present");
 
         if (!isConnected()) {
             Toast.makeText(this, "No Internet connection", Toast.LENGTH_SHORT).show();
@@ -104,13 +104,13 @@ public class SmcActivity extends AppCompatActivity {
 
                     Toast.makeText(SmcActivity.this,"Teacher Absent",Toast.LENGTH_SHORT).show();
 
-                    P1 = "TEACHER_ABSENT";
+                    P1 = "Teacher absent";
 
                 } else {
 
                     Toast.makeText(SmcActivity.this,"Teacher Present",Toast.LENGTH_SHORT).show();
 
-                    P1 = "TEACHER_PRESENT";
+                    P1 = "Teacher present";
                 }
             }
         });
@@ -121,13 +121,13 @@ public class SmcActivity extends AppCompatActivity {
 
                     Toast.makeText(SmcActivity.this,"Teacher Absent",Toast.LENGTH_SHORT).show();
 
-                    P2 = "TEACHER_ABSENT";
+                    P2 = "Teacher absent";
 
                 } else {
 
                     Toast.makeText(SmcActivity.this,"Teacher Present",Toast.LENGTH_SHORT).show();
 
-                    P2 = "TEACHER_PRESENT";
+                    P2 = "Teacher present";
                 }
             }
         });
@@ -138,13 +138,13 @@ public class SmcActivity extends AppCompatActivity {
 
                     Toast.makeText(SmcActivity.this,"Teacher Absent",Toast.LENGTH_SHORT).show();
 
-                    P3 = "TEACHER_ABSENT";
+                    P3 = "Teacher absent";
 
                 } else {
 
                     Toast.makeText(SmcActivity.this,"Teacher Present",Toast.LENGTH_SHORT).show();
 
-                    P3 = "TEACHER_PRESENT";
+                    P3 = "Teacher present";
                 }
             }
         });
@@ -155,13 +155,13 @@ public class SmcActivity extends AppCompatActivity {
 
                     Toast.makeText(SmcActivity.this,"Teacher Absent",Toast.LENGTH_SHORT).show();
 
-                    P4 = "TEACHER_ABSENT";
+                    P4 = "Teacher absent";
 
                 } else {
 
                     Toast.makeText(SmcActivity.this,"Teacher Present",Toast.LENGTH_SHORT).show();
 
-                    P4 = "TEACHER_PRESENT";
+                    P4 = "Teacher present";
                 }
             }
         });
@@ -172,13 +172,13 @@ public class SmcActivity extends AppCompatActivity {
 
                     Toast.makeText(SmcActivity.this,"Teacher Absent",Toast.LENGTH_SHORT).show();
 
-                    P5 = "TEACHER_ABSENT";
+                    P5 = "Teacher absent";
 
                 } else {
 
                     Toast.makeText(SmcActivity.this,"Teacher Present",Toast.LENGTH_SHORT).show();
 
-                    P5 = "TEACHER_PRESENT";
+                    P5 = "Teacher present";
                 }
             }
         });
@@ -189,13 +189,13 @@ public class SmcActivity extends AppCompatActivity {
 
                     Toast.makeText(SmcActivity.this,"Teacher Absent",Toast.LENGTH_SHORT).show();
 
-                    P6 = "TEACHER_ABSENT";
+                    P6 = "Teacher absent";
 
                 } else {
 
                     Toast.makeText(SmcActivity.this,"Teacher Present",Toast.LENGTH_SHORT).show();
 
-                    P6 = "TEACHER_PRESENT";
+                    P6 = "Teacher present";
                 }
             }
         });
@@ -206,13 +206,13 @@ public class SmcActivity extends AppCompatActivity {
 
                     Toast.makeText(SmcActivity.this,"Teacher Absent",Toast.LENGTH_SHORT).show();
 
-                    P7 = "TEACHER_ABSENT";
+                    P7 = "Teacher absent";
 
                 } else {
 
                     Toast.makeText(SmcActivity.this,"Teacher Present",Toast.LENGTH_SHORT).show();
 
-                    P7 = "TEACHER_PRESENT";
+                    P7 = "Teacher present";
                 }
             }
         });
@@ -224,7 +224,7 @@ public class SmcActivity extends AppCompatActivity {
 
                 } else {
                     h_absent.setChecked(false);
-                    status.setText("PRESENT");
+                    status.setText("Present");
                 }
             }
         });
@@ -237,7 +237,7 @@ public class SmcActivity extends AppCompatActivity {
                 } else {
 
                     h_present.setChecked(false);
-                    status.setText("ABSENT");
+                    status.setText("Absent");
 
                 }
             }
@@ -265,11 +265,12 @@ public class SmcActivity extends AppCompatActivity {
             }
         });
 
+        Toast.makeText(SmcActivity.this,"Sch ID: "+ DynamicData.getSchoolID(SchoolDeviceIMEINumber),Toast.LENGTH_SHORT).show();
     }
 
     private void SMCs() {
         SyncSMC syncSMC = new SyncSMC(
-                "",
+                "Good",
                 DynamicData.getDate(),
                 DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                 status.getText().toString(),

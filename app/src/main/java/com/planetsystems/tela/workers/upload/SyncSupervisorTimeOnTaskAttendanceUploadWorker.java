@@ -40,12 +40,13 @@ public class SyncSupervisorTimeOnTaskAttendanceUploadWorker extends Worker {
             // TODO: upload each individual syncTimeOnTask in to the backend
             try {
 
+                syncConfirmTimeOnTaskAttendance.getTaskId();
                 syncConfirmTimeOnTaskAttendance.getEmployeeId();
                 syncConfirmTimeOnTaskAttendance.getEmployeeNumber();
-                syncConfirmTimeOnTaskAttendance.getTaskId();
                 syncConfirmTimeOnTaskAttendance.getSupervisionStatus();
                 syncConfirmTimeOnTaskAttendance.getComment();
                 syncConfirmTimeOnTaskAttendance.getTransactionDate();
+                syncConfirmTimeOnTaskAttendance.getSupervisorId();
 
                 String resp = Urls.POST(Urls.SUPERVISOR_CONFIRMATION_ON_TASKS, new Gson().toJson(syncConfirmTimeOnTaskAttendance));
                 if (resp == Urls.DID_WORK) {

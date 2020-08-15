@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities.staff.regularStaff.serviceRequests;
+package com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.request;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.planetsystems.tela.R;
-import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDM;
+import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.ServiceRequestsViewModel;
 import com.planetsystems.tela.data.helprequest.HelpRequest;
 import com.planetsystems.tela.utils.DynamicData;
 import com.planetsystems.tela.utils.GenerateRandomString;
@@ -61,7 +62,7 @@ public class RequestHelp extends AppCompatActivity {
         serviceRequestsViewModel.getAllHelpRequests("Pending").observe(this, new Observer<List<HelpRequest>>() {
             @Override
             public void onChanged(List<HelpRequest> helpRequests) {
-                Toast.makeText(getApplicationContext(),"size : "+String.valueOf(helpRequests.size()) ,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"size : "+String.valueOf(helpRequests.size()) ,Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -150,5 +151,13 @@ public class RequestHelp extends AppCompatActivity {
         );
 
         serviceRequestsViewModel.addHelpRequest(helpRequest);
+        Toast.makeText(getApplicationContext(),"Submitted",Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(RequestHelp.this, MakeRequests.class);
+        intent.putExtra("id", employeeNo);
+        intent.putExtra("name", employeeName);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        RequestHelp.this.finish();
     }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".activities.staff.regularStaff.serviceRequests.RequestMeeting">
+    tools:context=".activities.staff.regularStaff.serviceRequests.request.RequestMeeting">
 
     <LinearLayout
         android:layout_width="match_parent"

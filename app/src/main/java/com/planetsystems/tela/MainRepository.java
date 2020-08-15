@@ -19,6 +19,7 @@ import com.planetsystems.tela.data.employeeTimeOffRequestDM.TimeOffRequestReposi
 import com.planetsystems.tela.data.helprequest.HelpRequestRepository;
 import com.planetsystems.tela.data.schoolClasses.SchoolClassesRepository;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClassesDao;
+import com.planetsystems.tela.data.schoolMaterials.SchoolMaterialsRepository;
 import com.planetsystems.tela.data.smc.SmcRepository;
 import com.planetsystems.tela.data.timeOnTask.TimeOnTaskRepository;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
@@ -45,6 +46,7 @@ public class MainRepository {
     private SmcRepository smcRepository;
     private TeachersEnrolledRepository teachersEnrolledRepository;
     private LearnersEnrolledRepository learnersEnrolledRepository;
+    private SchoolMaterialsRepository schoolMaterialsRepository;
     private ExecutionLogRepository executionLogRepository;
 
     private MainRepository(Application application) {
@@ -64,6 +66,7 @@ public class MainRepository {
         smcRepository = SmcRepository.getInstance(telaRoomDatabase);
         teachersEnrolledRepository = TeachersEnrolledRepository.getInstance(telaRoomDatabase);
         learnersEnrolledRepository = LearnersEnrolledRepository.getInstance(telaRoomDatabase);
+        schoolMaterialsRepository = SchoolMaterialsRepository.getInstance(telaRoomDatabase);
         executionLogRepository = ExecutionLogRepository.getInstance(telaRoomDatabase);
 
     }
@@ -130,6 +133,10 @@ public class MainRepository {
     public TeachersEnrolledRepository getTeachersEnrolledRepository() {return teachersEnrolledRepository;}
 
     public LearnersEnrolledRepository getLearnersEnrolledRepository(){return learnersEnrolledRepository;}
+
+    public SchoolMaterialsRepository getSchoolMaterialsRepository() {
+        return schoolMaterialsRepository;
+    }
 
     public ExecutionLogRepository getExecutionLogRepository() {
         return executionLogRepository;

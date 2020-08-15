@@ -21,7 +21,7 @@ import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
-import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.MakeRequests;
+import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.request.MakeRequests;
 import com.planetsystems.tela.utils.DynamicData;
 import com.planetsystems.tela.workers.WorkManagerTrigger;
 

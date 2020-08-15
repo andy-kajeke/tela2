@@ -20,7 +20,7 @@ import com.planetsystems.tela.data.helprequest.HelpRequest;
 import java.util.List;
 
 
-public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.TaskViewHolder> {
+public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.HelpViewHolder> {
 
     private LayoutInflater layoutInflater;
     private  Context mContext;
@@ -36,14 +36,14 @@ public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.TaskViewHolder
 
     @NonNull
     @Override
-    public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HelpViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = layoutInflater.inflate(R.layout.get_pending_requests, parent, false);
-        TaskViewHolder viewHolder = new TaskViewHolder(itemView);
+        HelpViewHolder viewHolder = new HelpViewHolder(itemView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull HelpViewHolder holder, final int position) {
         HelpRequest helpRequest = mHelpRequests.get(position);
         if (mHelpRequests != null){
 
@@ -98,14 +98,14 @@ public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.TaskViewHolder
         notifyDataSetChanged();
     }
 
-    public class TaskViewHolder extends RecyclerView.ViewHolder {
+    public class HelpViewHolder extends RecyclerView.ViewHolder {
         public TextView request_Type;
         public TextView request_Date;
         public TextView teacherName;
         public ImageView imageView;
         public int mPosition;
 
-        public TaskViewHolder(@NonNull View itemView) {
+        public HelpViewHolder(@NonNull View itemView) {
             super(itemView);
             request_Type = itemView.findViewById(R.id.requestDescription);
             request_Date = itemView.findViewById(R.id.requestDate);

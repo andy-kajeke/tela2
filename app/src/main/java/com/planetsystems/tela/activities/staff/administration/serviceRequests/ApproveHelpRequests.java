@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.request.MakeRequests;
 import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.ServiceRequestsViewModel;
 
 import java.text.SimpleDateFormat;
@@ -112,6 +114,12 @@ public class ApproveHelpRequests extends AppCompatActivity {
         reason.setText("");
 
         Toast.makeText(getApplicationContext(),"Submitted Successfully " ,Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(ApproveHelpRequests.this, MakeRequests.class);
+        intent.putExtra("supervisor", supervisorID);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        ApproveHelpRequests.this.finish();
     }
 
     private void RejectRequest() {
@@ -124,6 +132,12 @@ public class ApproveHelpRequests extends AppCompatActivity {
         requestedBy.setText("");
         reason.setText("");
 
-        Toast.makeText(getApplicationContext(),"Submitted Successfully " ,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Submitted Successfully" ,Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(ApproveHelpRequests.this, PendingHelpRequest.class);
+        intent.putExtra("supervisor", supervisorID);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        ApproveHelpRequests.this.finish();
     }
 }

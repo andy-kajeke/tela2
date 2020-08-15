@@ -1,4 +1,4 @@
-package com.planetsystems.tela.activities.staff.regularStaff.serviceRequests;
+package com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.request;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -61,11 +61,11 @@ public class MakeRequests extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                Intent sch = new Intent(MakeRequests.this, ListSchoolMaterial.class);
+                Intent sch = new Intent(MakeRequests.this, SchoolMaterialsList.class);
 //                sch.putExtra("id", id_extra);
 //                sch.putExtra("name", name_extra);
 //                sch.putExtra("school_id", school_extra);
-//                startActivity(sch);
+                startActivity(sch);
 
             }
         });

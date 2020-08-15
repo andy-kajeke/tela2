@@ -55,7 +55,6 @@ public class RequestsMade extends AppCompatActivity {
         meetings = (CardView) findViewById(R.id.cardMeetings);
         help = (CardView) findViewById(R.id.cardHelp);
 
-
         Bundle bundle = getIntent().getExtras();
         supervisor = bundle.getString("employee_No");
 

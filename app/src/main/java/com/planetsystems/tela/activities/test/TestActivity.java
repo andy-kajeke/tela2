@@ -21,6 +21,7 @@ import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActi
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.clockOut.SyncClockOut;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
+import com.planetsystems.tela.data.schoolMaterials.SchoolMaterials;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 
@@ -40,7 +41,7 @@ public class TestActivity extends AppCompatActivity implements LocationListener{
         setContentView(R.layout.activity_test);
         textView = findViewById(R.id.textView);
 
-//        TestActivityViewModel testActivityViewModel = new ViewModelProvider(this).get(TestActivityViewModel.class);
+        TestActivityViewModel testActivityViewModel = new ViewModelProvider(this).get(TestActivityViewModel.class);
 //        testActivityViewModel.schoolClasses().observe(this, new Observer<List<SyncSchoolClasses>>() {
 //            @Override
 //            public void onChanged(List<SyncSchoolClasses> schoolClasses) {
@@ -52,6 +53,18 @@ public class TestActivity extends AppCompatActivity implements LocationListener{
 //
 //            }
 //        });
+
+        testActivityViewModel.getAllMaterials().observe(this, new Observer<List<SchoolMaterials>>() {
+            @Override
+            public void onChanged(List<SchoolMaterials> schoolMaterials) {
+                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(schoolMaterials.size()), Toast.LENGTH_LONG).show();
+                String teacherName = "";
+                for (int i = 0; i < schoolMaterials.size(); i++) {
+                    teacherName = teacherName + " \n " + schoolMaterials.get(i).getItemName();
+                }
+                textView.setText(teacherName);
+            }
+        });
 
 //        ClockInAndOutActivityViewModel clockInAndOutActivityViewModel = new ViewModelProvider(this).get(ClockInAndOutActivityViewModel.class);
 //        clockInAndOutActivityViewModel.allClockOuts().observe(this, new Observer<List<SyncClockOut>>() {
@@ -67,18 +80,19 @@ public class TestActivity extends AppCompatActivity implements LocationListener{
 //            }
 //        });
 
-        TeacherHomeActivityViewModel teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
-        teacherHomeActivityViewModel.getTimeOnTasks().observe(this, new Observer<List<SynTimeOnTask>>() {
-            @Override
-            public void onChanged(List<SynTimeOnTask> synTimeOnTasks) {
-                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(synTimeOnTasks.size()), Toast.LENGTH_LONG).show();
-                String teacherName = "";
-                for (int i = 0; i < synTimeOnTasks.size(); i++) {
-                    teacherName = teacherName + " \n " + synTimeOnTasks.get(i).getEmployeeFirstName() + " | " + synTimeOnTasks.get(i).getTaskName() + " | " + synTimeOnTasks.get(i).getActionStatus();
-                }
-                textView.setText(teacherName);
-            }
-        });
+//        TeacherHomeActivityViewModel teacherHomeActivityViewModel = new ViewModelProvider(this).get(TeacherHomeActivityViewModel.class);
+//        teacherHomeActivityViewModel.getTimeOnTasks().observe(this, new Observer<List<SynTimeOnTask>>() {
+//            @Override
+//            public void onChanged(List<SynTimeOnTask> synTimeOnTasks) {
+//                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(synTimeOnTasks.size()), Toast.LENGTH_LONG).show();
+//                String teacherName = "";
+//                for (int i = 0; i < synTimeOnTasks.size(); i++) {
+//                    teacherName = teacherName + " \n " + synTimeOnTasks.get(i).getEmployeeFirstName() + " | " + synTimeOnTasks.get(i).getTaskName() + " | " + synTimeOnTasks.get(i).getActionStatus();
+//                }
+//                textView.setText(teacherName);
+//            }
+//        });
+
         getLocation();
     }
 

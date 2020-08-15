@@ -36,7 +36,7 @@ public class SyncSmcObservationsUploadWorker extends Worker {
         List<SyncSMC> syncSMCS = syncSMCDao.getUnSyncedRecords(false);
         for(SyncSMC syncSMC: syncSMCS) {
             Log.d(getClass().getSimpleName(), "Uploading: " + syncSMC.toString());
-            // TODO: upload each individual syncclock in to the backend
+            // TODO: upload smc observations into the backend
             try {
                 syncSMC.getDeploymentUnitId();
                 syncSMC.getSmcCode();

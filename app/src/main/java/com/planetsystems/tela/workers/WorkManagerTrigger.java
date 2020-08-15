@@ -9,6 +9,7 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.planetsystems.tela.workers.fetch.SyncSchoolClassesWorker;
+import com.planetsystems.tela.workers.fetch.SyncSchoolMaterialsWorker;
 import com.planetsystems.tela.workers.fetch.SyncTeacherWorker;
 import com.planetsystems.tela.workers.fetch.SyncTimeTableWorker;
 import com.planetsystems.tela.workers.upload.SyncClockInTeacherUploadWorker;
@@ -32,6 +33,7 @@ public class WorkManagerTrigger {
         startFetchSyncTimeTableWorker(context);
         startFetchSyncTeacherWorker(context);
         startFetchSyncSchoolClassesWorker(context);
+        startFetchSyncSchoolMaterialsWorker(context);
 
     }
 
@@ -79,6 +81,18 @@ public class WorkManagerTrigger {
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
         PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncSchoolClassesWorker.class, 1, TimeUnit.SECONDS)
+                .setConstraints(constraints)
+                .build();
+        WorkManager.getInstance(context).enqueue(workRequest);
+
+    }
+
+    // picking data from the cloud to SyncSchoolClasses table
+    public static void startFetchSyncSchoolMaterialsWorker(Context context) {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncSchoolMaterialsWorker.class, 1, TimeUnit.SECONDS)
                 .setConstraints(constraints)
                 .build();
         WorkManager.getInstance(context).enqueue(workRequest);

@@ -16,13 +16,13 @@ public class SyncClockOut {
     private int primaryKey;
 
     @ColumnInfo(name = SyncClockOutTableConstant.DATE_COLUMN_NAME)
-    private String date;
+    private String clockOutDate;
 
     @ColumnInfo(name = SyncClockOutTableConstant.DAY_COLUMN_NAME)
     private String day;
 
     @ColumnInfo(name = SyncClockOutTableConstant.TIME_COLUMN_NAME)
-    private String time;
+    private String clockOutTime;
 
     @ColumnInfo(name = SyncClockOutTableConstant.COMMENT_COLUMN_NAME)
     private String comment;
@@ -58,6 +58,26 @@ public class SyncClockOut {
     @ColumnInfo(name = SyncClockOutTableConstant.FINGER_PRINT_COLUMN_NAME)
     private final byte[] fingerPrint;
 
+    ////////////////////////////////////////constructor////////////////////////////////////////////
+    public SyncClockOut(String clockOutDate, String day, String clockOutTime, String comment, @NonNull String employeeNo, String employeeId, String latitude,
+                        String longitude, String schoolId, String schoolName, String firstName, String lastName, boolean isUploaded, byte[] fingerPrint) {
+        this.clockOutDate = clockOutDate;
+        this.day = day;
+        this.clockOutTime = clockOutTime;
+        this.comment = comment;
+        this.employeeNo = employeeNo;
+        this.employeeId = employeeId;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.schoolId = schoolId;
+        this.schoolName = schoolName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.isUploaded = isUploaded;
+        this.fingerPrint = fingerPrint;
+    }
+
+    ////////////////////////////////////////GETTERS and SETTERS///////////////////////////////////////////
     public int getPrimaryKey() {
         return primaryKey;
     }
@@ -66,12 +86,12 @@ public class SyncClockOut {
         this.primaryKey = primaryKey;
     }
 
-    public String getDate() {
-        return date;
+    public String getClockOutDate() {
+        return clockOutDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setClockOutDate(String clockOutDate) {
+        this.clockOutDate = clockOutDate;
     }
 
     public String getDay() {
@@ -82,12 +102,12 @@ public class SyncClockOut {
         this.day = day;
     }
 
-    public String getTime() {
-        return time;
+    public String getClockOutTime() {
+        return clockOutTime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setClockOutTime(String clockOutTime) {
+        this.clockOutTime = clockOutTime;
     }
 
     public String getComment() {
@@ -164,23 +184,6 @@ public class SyncClockOut {
         this.lastName = lastName;
     }
 
-    public SyncClockOut(String date, String day, String time, String comment, @NonNull String employeeNo, String employeeId, String latitude, String longitude, String schoolId, String schoolName, String firstName, String lastName, byte[] fingerPrint) {
-        this.date = date;
-        this.day = day;
-        this.time = time;
-        this.comment = comment;
-        this.employeeNo = employeeNo;
-        this.employeeId = employeeId;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.schoolId = schoolId;
-        this.schoolName = schoolName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.isUploaded = false;
-        this.fingerPrint = fingerPrint;
-    }
-
     public boolean isUploaded() {
         return isUploaded;
     }
@@ -197,9 +200,9 @@ public class SyncClockOut {
     public String toString() {
         return "SyncClockOut{" +
                 "primaryKey=" + primaryKey +
-                ", date='" + date + '\'' +
+                ", clockOutDate='" + clockOutDate + '\'' +
                 ", day='" + day + '\'' +
-                ", time='" + time + '\'' +
+                ", clockOutTime='" + clockOutTime + '\'' +
                 ", comment='" + comment + '\'' +
                 ", employeeNo='" + employeeNo + '\'' +
                 ", employeeId='" + employeeId + '\'' +

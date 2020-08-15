@@ -22,7 +22,7 @@ import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import java.util.List;
 
 
-public class LeaveAdapter extends RecyclerView.Adapter<LeaveAdapter.TaskViewHolder> {
+public class LeaveAdapter extends RecyclerView.Adapter<LeaveAdapter.LeaveViewHolder> {
 
     private LayoutInflater layoutInflater;
     private  Context mContext;
@@ -38,14 +38,14 @@ public class LeaveAdapter extends RecyclerView.Adapter<LeaveAdapter.TaskViewHold
 
     @NonNull
     @Override
-    public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LeaveViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = layoutInflater.inflate(R.layout.get_pending_requests, parent, false);
-        TaskViewHolder viewHolder = new TaskViewHolder(itemView);
+        LeaveViewHolder viewHolder = new LeaveViewHolder(itemView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull LeaveViewHolder holder, final int position) {
         SyncEmployeeTimeOffRequestDM syncEmployeeTimeOffRequestDM = mSyncEmployeeTimeOffRequestDMS.get(position);
         if (mSyncEmployeeTimeOffRequestDMS != null){
 
@@ -116,14 +116,14 @@ public class LeaveAdapter extends RecyclerView.Adapter<LeaveAdapter.TaskViewHold
         notifyDataSetChanged();
     }
 
-    public class TaskViewHolder extends RecyclerView.ViewHolder {
+    public class LeaveViewHolder extends RecyclerView.ViewHolder {
         public TextView request_Type;
         public TextView request_Date;
         public TextView teacherName;
         public ImageView imageView;
         public int mPosition;
 
-        public TaskViewHolder(@NonNull View itemView) {
+        public LeaveViewHolder(@NonNull View itemView) {
             super(itemView);
             request_Type = itemView.findViewById(R.id.requestDescription);
             request_Date = itemView.findViewById(R.id.requestDate);

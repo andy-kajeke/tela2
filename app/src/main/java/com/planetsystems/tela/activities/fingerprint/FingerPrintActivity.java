@@ -715,6 +715,7 @@ public class FingerPrintActivity extends Activity{
                             DynamicData.getSchoolName(),
                             syncTeacher.getFirstName(),
                             syncTeacher.getLastName(),
+                            false,
                             fingerPrintData
                     );
                     clockOutRepository.insertSynClockOut(syncClockOut);

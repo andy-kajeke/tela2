@@ -7,8 +7,8 @@ public class SyncClockOutTableConstant {
     static final String DAY_COLUMN_NAME = "day";
     static final String EMPLOYEE_ID_COLUMN_NAME = "employeeId";
     static final String PRIMARY_KEY = "primaryKey";
-    static final String DATE_COLUMN_NAME = "date";
-    static final String TIME_COLUMN_NAME = "time";
+    static final String DATE_COLUMN_NAME = "clockOutDate";
+    static final String TIME_COLUMN_NAME = "clockOutTime";
     static final String COMMENT_COLUMN_NAME = "comment";
     static final String EMPLOYEE_NUMBER_COLUMN_NAME = "employeeNo";
     static final String LATITUDE_COLUMN_NAME = "latitude";

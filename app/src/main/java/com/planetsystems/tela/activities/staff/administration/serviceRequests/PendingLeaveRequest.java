@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.planetsystems.tela.R;
@@ -23,6 +26,7 @@ public class PendingLeaveRequest extends AppCompatActivity {
     private RecyclerView requestList;
     String requestType, supervisor;
     final String Pending = "Pending";
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,24 @@ public class PendingLeaveRequest extends AppCompatActivity {
             @Override
             public void onChanged(List<SyncEmployeeTimeOffRequestDM> syncEmployeeTimeOffRequestDMS) {
                 //Toast.makeText(getApplicationContext(),"size : "+String.valueOf(syncEmployeeTimeOffRequestDMS.size()) ,Toast.LENGTH_SHORT).show();
-                adapter.setTaskList(syncEmployeeTimeOffRequestDMS);
+                if(syncEmployeeTimeOffRequestDMS.size() != count ){
+                    adapter.setTaskList(syncEmployeeTimeOffRequestDMS);
+                }else {
+                    new AlertDialog.Builder(PendingLeaveRequest.this)
+                            .setTitle(requestType)
+                            .setMessage("No pending request yet")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    Intent intent = new Intent(PendingLeaveRequest.this, RequestsMade.class);
+                                    intent.putExtra("request", requestType);
+                                    intent.putExtra("supervisor", supervisor);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    PendingLeaveRequest.this.finish();
+                                }}).show();
+                }
             }
         });
     }

@@ -11,6 +11,8 @@ import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.schoolClasses.SchoolClassesRepository;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClassesDao;
+import com.planetsystems.tela.data.schoolMaterials.SchoolMaterials;
+import com.planetsystems.tela.data.schoolMaterials.SchoolMaterialsRepository;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
 
@@ -20,15 +22,21 @@ public class TestActivityViewModel extends AndroidViewModel {
     SyncTeacherDao syncTeacherDao;
     SyncTimeTableDao syncTimeTableDao;
     SchoolClassesRepository schoolClassesRepository;
+    SchoolMaterialsRepository schoolMaterialsRepository;
     public TestActivityViewModel(@NonNull Application application) {
         super(application);
         //MainRepository mainRepository = MainRepository.getInstance(application);
 //        syncTeacherDao = new MainRepository(application).getSyncTeacherDao();
 //        syncTimeTableDao = new MainRepository(application).getSyncTimeTableDao();
         schoolClassesRepository = MainRepository.getInstance(application).getSchoolClassesRepository();
+        schoolMaterialsRepository = MainRepository.getInstance(application).getSchoolMaterialsRepository();
     }
 
     LiveData<List<SyncSchoolClasses>> schoolClasses() {
         return schoolClassesRepository.getAllClassesInSchool();
+    }
+
+    public LiveData<List<SchoolMaterials>> getAllMaterials(){
+        return schoolMaterialsRepository.getAllMaterials();
     }
 }

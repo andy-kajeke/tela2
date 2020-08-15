@@ -52,9 +52,9 @@ public class SyncClockOutTeacherUploadWorker extends Worker {
                 syncClockOut.getEmployeeId();
                 syncClockOut.getLatitude();
                 syncClockOut.getLongitude();
-                syncClockOut.getDate();
+                syncClockOut.getClockOutDate();
                 syncClockOut.getDay();
-                syncClockOut.getTime();
+                syncClockOut.getClockOutTime();
                 syncClockOut.getSchoolId();
 
                 String resp = Urls.POST( Urls.CLOCK_OUT_UPLOAD_URL,  new Gson().toJson(syncClockOut));

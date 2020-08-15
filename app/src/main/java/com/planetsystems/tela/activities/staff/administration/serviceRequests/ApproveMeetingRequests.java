@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -121,6 +122,12 @@ public class ApproveMeetingRequests extends AppCompatActivity {
         reason.setText("");
 
         Toast.makeText(getApplicationContext(),"Submitted Successfully " ,Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(ApproveMeetingRequests.this, PendingLeaveRequest.class);
+        intent.putExtra("supervisor", supervisorID);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        ApproveMeetingRequests.this.finish();
     }
 
     private void RejectRequest() {
@@ -136,5 +143,11 @@ public class ApproveMeetingRequests extends AppCompatActivity {
         reason.setText("");
 
         Toast.makeText(getApplicationContext(),"Submitted Successfully " ,Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(ApproveMeetingRequests.this, PendingLeaveRequest.class);
+        intent.putExtra("supervisor", supervisorID);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        ApproveMeetingRequests.this.finish();
     }
 }

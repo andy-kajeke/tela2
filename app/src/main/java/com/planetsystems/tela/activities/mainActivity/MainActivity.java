@@ -73,10 +73,11 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
             return;
         }
-//        SchoolDeviceIMEINumber = telephonyManager.getDeviceId();
+//       SchoolDeviceIMEINumber = telephonyManager.getDeviceId();
         //SchoolDeviceIMEINumber = "354633111523205";
 //        Toast.makeText(MainActivity.this, "IMEI_NO is: "+ SchoolDeviceIMEINumber, Toast.LENGTH_LONG).show();
-        DynamicData.getSchoolID("354633111523205");
+        SchoolDeviceIMEINumber = "354633111523205";
+        DynamicData.getSchoolID(SchoolDeviceIMEINumber);
 
         ///////////////////SIM Card reader//////////////////////////////////////////////////////
 //        TelephonyManager telemamanger = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);

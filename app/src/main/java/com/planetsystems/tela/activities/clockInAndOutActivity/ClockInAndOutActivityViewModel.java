@@ -60,6 +60,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                                         DynamicData.getSchoolName(),
                                         teacher.getFirstName(),
                                         teacher.getLastName(),
+                                        false,
                                         teacher.getFingerPrint()
                                 )
                         );
@@ -101,7 +102,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return new TeacherWrapper("Unknown Error Occurred", null);
+        return new TeacherWrapper("Try again..", null);
     }
 
     public static class TeacherWrapper {
