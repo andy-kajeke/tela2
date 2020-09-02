@@ -219,7 +219,7 @@ public class WorkManagerTrigger {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncTeacherUploadWorker.class , 1, TimeUnit.SECONDS)
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(SyncTeacherUploadWorker.class , 60, TimeUnit.SECONDS)
                 .setConstraints(constraints)
                 .build();
         WorkManager.getInstance(context).enqueue(workRequest);
