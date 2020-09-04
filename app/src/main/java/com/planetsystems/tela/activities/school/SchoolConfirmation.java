@@ -80,7 +80,11 @@ public class SchoolConfirmation extends AppCompatActivity {
                         }}).show();
         }
         else {
-            startRequestPhoneNuberActivity();
+            if (DynamicData.getSchoolID(this).isEmpty()) {
+                startRequestPhoneNuberActivity();
+            } else {
+                getSchoolInformationFromServer();
+            }
         }
     }
 
@@ -216,39 +220,47 @@ public class SchoolConfirmation extends AppCompatActivity {
                 WorkManagerTrigger.startUploadWorkers(getApplicationContext());
                 String phoneNumber = data.getStringExtra(PhoneNumberDialogActivity.PHONE_NUMBER_RESULT);
                 DynamicData.setSchoolID(phoneNumber, this);
-                deviceIMEI_extra = DynamicData.getSchoolID(this);
+                getSchoolInformationFromServer();
 
-                //Get device ownership by IMEI number
-                new Fetch_API_JSONAsyncTask().execute(Urls.DEVICE_OWNERSHIP + DynamicData.getSchoolID(this));
-
-                confirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(mResponse == true){
-
-                            Intent home = new Intent(SchoolConfirmation.this, ClockInAndOutActivity.class);
-                            home.putExtra("device_imei", DynamicData.getSchoolID(SchoolConfirmation.this));
-                            home.putExtra("schoolName", deploymentSiteName);
-                            home.putExtra("schoolId", schoolId);
-                            saveToSharePreference(deviceIMEI_extra, deploymentSiteName);
-                            startActivity(home);
-                        }
-                        else {
-                            new AlertDialog.Builder(SchoolConfirmation.this)
-                                    .setTitle("Confirmation")
-                                    .setMessage("You can't contiune. This phone is not registered on the TELA System. \n ")
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
-
-                                        public void onClick(DialogInterface dialog, int whichButton) {
-                                            SchoolConfirmation.this.finish();
-                                        }}).show();
-                            //.setNegativeButton("", null).show();
-                        }
-
-                    }
-                });
             }
         }
+    }
+
+    private void getSchoolInformationFromServer() {
+        deviceIMEI_extra = DynamicData.getSchoolID(this);
+        if (deviceIMEI_extra == null) {
+            finish();
+        }
+
+        //Get device ownership by IMEI number
+        new Fetch_API_JSONAsyncTask().execute(Urls.DEVICE_OWNERSHIP + DynamicData.getSchoolID(this));
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mResponse == true){
+
+                    Intent home = new Intent(SchoolConfirmation.this, ClockInAndOutActivity.class);
+                    home.putExtra("device_imei", DynamicData.getSchoolID(SchoolConfirmation.this));
+                    home.putExtra("schoolName", deploymentSiteName);
+                    home.putExtra("schoolId", schoolId);
+                    saveToSharePreference(deviceIMEI_extra, deploymentSiteName);
+                    startActivity(home);
+                }
+                else {
+                    new AlertDialog.Builder(SchoolConfirmation.this)
+                            .setTitle("Confirmation")
+                            .setMessage("You can't contiune. This phone is not registered on the TELA System. \n ")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    SchoolConfirmation.this.finish();
+                                }}).show();
+                    //.setNegativeButton("", null).show();
+                }
+
+            }
+        });
     }
 }

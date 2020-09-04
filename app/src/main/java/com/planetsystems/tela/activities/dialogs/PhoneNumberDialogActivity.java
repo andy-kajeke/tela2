@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.utils.DynamicData;
 
 public class PhoneNumberDialogActivity extends AppCompatActivity {
     public static final String PHONE_NUMBER_RESULT = "com.planetsystems.tela.activities.dialogs.PhoneNumberDialogActivity.PHONE_NUMBER_RESULT";
@@ -28,6 +29,7 @@ public class PhoneNumberDialogActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.putExtra(PHONE_NUMBER_RESULT, phoneNumber);
             setResult(RESULT_OK, intent);
+            DynamicData.setSchoolID(phoneNumber, this);
             finish();
         }
 
