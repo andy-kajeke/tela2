@@ -27,7 +27,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.RequestSchoolMaterials"></activity>
+        <activity android:name=".activities.dialogs.PhoneNumberDialogActivity"></activity>
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.RequestSchoolMaterials" />
         <activity android:name=".activities.staff.regularStaff.serviceRequests.request.SchoolMaterialsList" />
         <activity android:name=".activities.staff.administration.enrollments.EnrolledLearners" />
         <activity android:name=".activities.staff.administration.enrollments.SelectLearnerClass" />
