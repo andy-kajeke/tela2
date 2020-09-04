@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
 import com.planetsystems.tela.data.TelaRoomDatabase;
+import com.planetsystems.tela.utils.DynamicData;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,18 +25,20 @@ import static com.planetsystems.tela.constants.Urls.SYNC_TEACHER_URL;
 
 public class SyncTeacherWorker extends Worker {
     private SyncTeacherDao syncTeacherDao;
+    private Context context;
 
     public SyncTeacherWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(context);
         syncTeacherDao = telaRoomDatabase.getSyncTeachersDao();
+        this.context = context;
     }
 
     @NonNull
     @Override
     public Result doWork() {
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(SYNC_TEACHER_URL).openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL(SYNC_TEACHER_URL + DynamicData.getSchoolID(context)).openConnection();
             try {
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));

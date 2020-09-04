@@ -139,7 +139,7 @@ public class RequestHelp extends AppCompatActivity {
                 "Pending",
                 "",
                 comment,
-                DynamicData.getSchoolID(),
+                DynamicData.getSchoolID(getApplicationContext()),
                 helpType,
                 priority,
                 employeeNo,

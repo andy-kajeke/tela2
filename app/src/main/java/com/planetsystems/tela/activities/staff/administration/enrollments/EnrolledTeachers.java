@@ -61,7 +61,7 @@ public class EnrolledTeachers extends AppCompatActivity {
 
         TeachersEnrolled teachersEnrolled = new TeachersEnrolled(
                 School_ID,
-                DynamicData.getSchoolID(),
+                DynamicData.getSchoolID(getApplicationContext()),
                 male,
                 female,
                 DynamicData.getDate(),

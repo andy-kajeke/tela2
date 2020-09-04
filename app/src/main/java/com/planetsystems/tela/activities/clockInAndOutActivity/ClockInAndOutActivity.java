@@ -134,7 +134,7 @@ public class ClockInAndOutActivity extends AppCompatActivity implements Location
         schoolName.setText(schoolName_extra);
 
         //SCHOOL_ID = deviceIMEI_extra;
-        Toast.makeText(this, lat+"=="+lng +": "+ DynamicData.getSchoolID(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, lat+"=="+lng +": "+ DynamicData.getSchoolID(getApplicationContext()), Toast.LENGTH_LONG).show();
 
         checkInDialog = new Dialog(this);
         checkOutDialog = new Dialog(this);
