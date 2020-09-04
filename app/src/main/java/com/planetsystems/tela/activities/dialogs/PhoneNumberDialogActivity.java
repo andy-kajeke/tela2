@@ -21,10 +21,9 @@ public class PhoneNumberDialogActivity extends AppCompatActivity {
 
     public void saveResult(View view) {
         EditText phone = findViewById(R.id.phoneNumber);
-        String phoneNumber = phone.toString();
+        String phoneNumber = phone.getText().toString();
         if (phoneNumber.length() != 10) {
             phone.setError("Invalid Phone Number");
-            Toast.makeText(this, String.valueOf(phoneNumber.length()) + phoneNumber, Toast.LENGTH_LONG).show();
         } else {
             Intent intent = new Intent();
             intent.putExtra(PHONE_NUMBER_RESULT, phoneNumber);
