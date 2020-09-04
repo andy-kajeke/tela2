@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.planetsystems.tela.R;
 
@@ -23,6 +24,7 @@ public class PhoneNumberDialogActivity extends AppCompatActivity {
         String phoneNumber = phone.toString();
         if (phoneNumber.length() != 10) {
             phone.setError("Invalid Phone Number");
+            Toast.makeText(this, String.valueOf(phoneNumber.length()) + phoneNumber, Toast.LENGTH_LONG).show();
         } else {
             Intent intent = new Intent();
             intent.putExtra(PHONE_NUMBER_RESULT, phoneNumber);
