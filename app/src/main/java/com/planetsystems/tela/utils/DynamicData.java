@@ -10,13 +10,14 @@ import java.util.Date;
 import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.SchoolDeviceIMEINumber;
 import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.currentLatitude;
 import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.currentLongitude;
+import static com.planetsystems.tela.activities.school.SchoolConfirmation.mSharedPreferences;
+import static com.planetsystems.tela.activities.school.SchoolConfirmation.school_Device_Number;
 
 public class DynamicData {
 
-    private static final String SCHOOL_ID = "com.planetsystems.tela.utils.DynamicData.SCHOOL_ID";
-    public static String getSchoolID(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(SCHOOL_ID, "");
+    public static String getSchoolID(String schoolID) {
+        schoolID = mSharedPreferences.getString(school_Device_Number, "");
+        return schoolID;
     }
 
     public static double getLatitude(double latitude) {
@@ -47,14 +48,4 @@ public class DynamicData {
         return  dateFormat.format(date);
     }
 
-    public static String getSchoolName() {
-        return "Buganda Road";
-    }
-
-    public static void setSchoolID(String phoneNumber, Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(SCHOOL_ID, phoneNumber);
-        editor.apply();
-    }
 }

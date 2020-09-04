@@ -129,11 +129,8 @@ public class ClockInAndOutActivity extends AppCompatActivity implements GoogleAp
         schoolName.setText(mSharedPreferences.getString(school_Name, ""));
 
         //SCHOOL_ID = deviceIMEI_extra;
-<<<<<<< HEAD
+
         //Toast.makeText(this, SchoolDeviceIMEINumber+ " sch_id "+ School_ID, Toast.LENGTH_LONG).show();
-=======
-        Toast.makeText(this, lat+"=="+lng +": "+ DynamicData.getSchoolID(getApplicationContext()), Toast.LENGTH_LONG).show();
->>>>>>> 9ac0c9ad84d4e407977b7fc7c2bda54c0bfb3572
 
         checkInDialog = new Dialog(this);
         checkOutDialog = new Dialog(this);
