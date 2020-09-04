@@ -8,6 +8,9 @@ import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.MainRepository;
 import com.planetsystems.tela.data.Teacher.SyncTeacherDao;
+import com.planetsystems.tela.data.clockOut.ClockOutRepository;
+import com.planetsystems.tela.data.clockOut.SyncClockOut;
+import com.planetsystems.tela.data.clockOut.SyncClockOutDao;
 import com.planetsystems.tela.data.schoolClasses.SchoolClassesRepository;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClassesDao;
@@ -20,7 +23,7 @@ import java.util.List;
 
 public class TestActivityViewModel extends AndroidViewModel {
     SyncTeacherDao syncTeacherDao;
-    SyncTimeTableDao syncTimeTableDao;
+    ClockOutRepository clockOutRepository;
     SchoolClassesRepository schoolClassesRepository;
     SchoolMaterialsRepository schoolMaterialsRepository;
     public TestActivityViewModel(@NonNull Application application) {
@@ -30,6 +33,7 @@ public class TestActivityViewModel extends AndroidViewModel {
 //        syncTimeTableDao = new MainRepository(application).getSyncTimeTableDao();
         schoolClassesRepository = MainRepository.getInstance(application).getSchoolClassesRepository();
         schoolMaterialsRepository = MainRepository.getInstance(application).getSchoolMaterialsRepository();
+        clockOutRepository = MainRepository.getInstance(application).getClockOutRepository();
     }
 
     LiveData<List<SyncSchoolClasses>> schoolClasses() {
@@ -38,5 +42,9 @@ public class TestActivityViewModel extends AndroidViewModel {
 
     public LiveData<List<SchoolMaterials>> getAllMaterials(){
         return schoolMaterialsRepository.getAllMaterials();
+    }
+
+    public LiveData<List<SyncClockOut>> allClockOuts(){
+        return clockOutRepository.allClockOuts();
     }
 }

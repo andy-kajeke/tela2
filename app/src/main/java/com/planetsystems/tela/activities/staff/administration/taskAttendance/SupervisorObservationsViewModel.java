@@ -32,4 +32,8 @@ public class SupervisorObservationsViewModel extends AndroidViewModel {
     public LiveData<List<SyncConfirmTimeOnTaskAttendance>> getAllTimeOnTask() {
         return confirmTimeOnTaskRepository.getAllTimeOnTask();
     }
+
+    public LiveData<List<SyncConfirmTimeOnTaskAttendance>> getEmployeeNoAndDate(String employeeNumber, String date){
+        return confirmTimeOnTaskRepository.getEmployeeNoAndDate(employeeNumber, date);
+    }
 }

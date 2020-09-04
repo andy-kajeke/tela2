@@ -27,6 +27,17 @@ public interface SyncAttendanceRecordDao {
     @Query("SELECT * FROM " + SyncTableConstants.SyncAttendanceRecords)
     LiveData<List<SyncAttendanceRecord>> getAllRecords();
 
+    @Query("SELECT * FROM "
+            + SyncTableConstants.SyncAttendanceRecords
+            + " WHERE "
+            + SyncAttendanceRecordConstant.SUBMISSION_DATE
+            + " =:date"
+            + " AND "
+            + SyncAttendanceRecordConstant.DEPLOYMENT_UNIT
+            + " =:classUnit"
+    )
+    LiveData<List<SyncAttendanceRecord>> getAttendanceByClassAndDate(String classUnit, String date);
+
     @Query("SELECT * FROM " + SyncTableConstants.SyncAttendanceRecords + " WHERE " + SyncAttendanceRecordConstant.IS_UPLOADED_COLUMN_NAME + " =:isUploaded")
     List<SyncAttendanceRecord> getLearnerRecords(boolean isUploaded);
 }

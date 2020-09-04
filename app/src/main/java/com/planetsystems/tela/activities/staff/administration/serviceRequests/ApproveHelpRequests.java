@@ -117,7 +117,7 @@ public class ApproveHelpRequests extends AppCompatActivity {
 
         Intent intent = new Intent(ApproveHelpRequests.this, MakeRequests.class);
         intent.putExtra("supervisor", supervisorID);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         ApproveHelpRequests.this.finish();
     }
@@ -136,7 +136,7 @@ public class ApproveHelpRequests extends AppCompatActivity {
 
         Intent intent = new Intent(ApproveHelpRequests.this, PendingHelpRequest.class);
         intent.putExtra("supervisor", supervisorID);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         ApproveHelpRequests.this.finish();
     }

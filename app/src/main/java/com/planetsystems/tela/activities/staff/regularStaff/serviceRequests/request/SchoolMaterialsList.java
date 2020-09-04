@@ -10,11 +10,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.staff.administration.serviceRequests.LeaveAdapter;
 import com.planetsystems.tela.activities.staff.administration.serviceRequests.PendingLeaveRequest;
 import com.planetsystems.tela.activities.staff.administration.serviceRequests.RequestsMade;
+import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActivity;
 import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.ServiceRequestsViewModel;
 import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDM;
 import com.planetsystems.tela.data.schoolMaterials.SchoolMaterials;
@@ -28,19 +31,35 @@ public class SchoolMaterialsList extends AppCompatActivity {
     private List<SchoolMaterials> mSchoolMaterials;
     private SchoolMaterialsListAdapter adapter;
     private RecyclerView materialList;
+    ImageView back;
     int count = 0;
+    String emp_id, emp_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_school_materials_list);
-        setTitle("School Material List");
 
+        back = findViewById(R.id.back);
         materialList = findViewById(R.id.item_list);
+
+        Bundle bundle = getIntent().getExtras();
+        emp_id = bundle.getString("id");
+        emp_name = bundle.getString("name");
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bk = new Intent(getApplicationContext(), MakeRequests.class);
+                bk.putExtra("id", emp_id);
+                bk.putExtra("name", emp_name);
+                startActivity(bk);
+            }
+        });
 
         mSchoolMaterials = new ArrayList<>();
 
-        adapter = new SchoolMaterialsListAdapter(this, mSchoolMaterials);
+        adapter = new SchoolMaterialsListAdapter(this, mSchoolMaterials, emp_id, emp_name);
         materialList.setAdapter(adapter);
         materialList.setLayoutManager(new LinearLayoutManager(this));
 
@@ -60,7 +79,9 @@ public class SchoolMaterialsList extends AppCompatActivity {
 
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     Intent intent = new Intent(SchoolMaterialsList.this, MakeRequests.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.putExtra("id", emp_id);
+                                    intent.putExtra("name", emp_id);
+                                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     SchoolMaterialsList.this.finish();
                                 }}).show();

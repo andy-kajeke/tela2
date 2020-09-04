@@ -13,13 +13,13 @@ import java.util.List;
 @Dao
 public interface SyncClockOutDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertClockOutTeacher(SyncClockOut syncTeacher);
+    void insertClockOutTeacher(SyncClockOut syncClockOut);
 
     @Update
-    void update(SyncClockOut syncTeachers);
+    void update(SyncClockOut syncClockOut);
 
     @Delete
-    void delete(SyncClockOut syncTeachers);
+    void delete(SyncClockOut syncClockOut);
 
     @Query("SELECT * FROM " + SyncClockOutTableConstant.TABLE_NAME + " WHERE " + SyncClockOutTableConstant.IS_UPLOADED_COLUMN_NAME + " =:isUploaded")
     List<SyncClockOut> getSyncClockOutForBackUp(boolean isUploaded);

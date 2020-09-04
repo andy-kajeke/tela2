@@ -41,4 +41,8 @@ public class TimeAttendanceListViewModel extends AndroidViewModel {
     public void insertTimeOnSiteAttendance(SyncConfirmTimeOnSiteAttendance syncConfirmTimeOnSiteAttendance){
         timeOnSiteAttendanceRepository.insertTimeOnSiteAttendance(syncConfirmTimeOnSiteAttendance);
     }
+
+    public LiveData<List<SyncConfirmTimeOnSiteAttendance>> getEmployeeIDAndDate(String employeeNumber, String date){
+        return timeOnSiteAttendanceRepository.getEmployeeIDAndDate(employeeNumber, date);
+    }
 }

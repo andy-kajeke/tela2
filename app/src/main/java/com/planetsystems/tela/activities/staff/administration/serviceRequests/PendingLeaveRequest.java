@@ -39,7 +39,7 @@ public class PendingLeaveRequest extends AppCompatActivity {
         requestType = bundle.getString("request");
         supervisor = bundle.getString("supervisor");
 
-        setTitle("Pending"+ " "+ requestType);
+        setTitle("Pending"+ " "+ requestType + " Request");
 
         mSyncEmployeeTimeOffRequestDMS = new ArrayList<>();
 
@@ -57,8 +57,8 @@ public class PendingLeaveRequest extends AppCompatActivity {
                     adapter.setTaskList(syncEmployeeTimeOffRequestDMS);
                 }else {
                     new AlertDialog.Builder(PendingLeaveRequest.this)
-                            .setTitle(requestType)
-                            .setMessage("No pending request yet")
+                            .setTitle(requestType + " Request")
+                            .setMessage("No pending request to show")
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
 
@@ -66,7 +66,7 @@ public class PendingLeaveRequest extends AppCompatActivity {
                                     Intent intent = new Intent(PendingLeaveRequest.this, RequestsMade.class);
                                     intent.putExtra("request", requestType);
                                     intent.putExtra("supervisor", supervisor);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     PendingLeaveRequest.this.finish();
                                 }}).show();

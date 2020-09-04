@@ -51,7 +51,7 @@ public class UpdateStaffRecord extends AppCompatActivity {
         phoneNumber_extra = bundle.getString("emp_phoneNumber");
         deploymentSiteId_extra = bundle.getString("emp_deploymentSiteId");
         employmentRoleId_extra = bundle.getString("emp_employmentRoleId");
-        role_extra = bundle.getString("emp_role");;
+        role_extra = bundle.getString("emp_role");
         status_extra = bundle.getString("emp_status");
         dob_extra = bundle.getString("emp_dob");
         gender_extra = bundle.getString("emp_gender");

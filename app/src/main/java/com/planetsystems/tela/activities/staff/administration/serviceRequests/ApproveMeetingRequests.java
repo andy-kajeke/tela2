@@ -125,7 +125,7 @@ public class ApproveMeetingRequests extends AppCompatActivity {
 
         Intent intent = new Intent(ApproveMeetingRequests.this, PendingLeaveRequest.class);
         intent.putExtra("supervisor", supervisorID);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         ApproveMeetingRequests.this.finish();
     }
@@ -146,7 +146,7 @@ public class ApproveMeetingRequests extends AppCompatActivity {
 
         Intent intent = new Intent(ApproveMeetingRequests.this, PendingLeaveRequest.class);
         intent.putExtra("supervisor", supervisorID);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         ApproveMeetingRequests.this.finish();
     }

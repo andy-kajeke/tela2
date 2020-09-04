@@ -27,10 +27,12 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Task
     private LayoutInflater layoutInflater;
     private  Context mContext;
     private List<SyncTimeTable> mSyncTimeTables;
+    private String day;
 
-    public TimeTableAdapter(Context context, List<SyncTimeTable> mSyncTimeTables){
+    public TimeTableAdapter(Context context, List<SyncTimeTable> mSyncTimeTables, String day){
         layoutInflater = LayoutInflater.from(context);
         this.mContext = context;
+        this.day = day;
         this.mSyncTimeTables = mSyncTimeTables;
     }
 
@@ -68,6 +70,8 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.Task
                     Intent ET = new Intent(mContext, EditTimeTable.class);
                     ET.putExtra("row_id", syncTimeTable.getPrimaryKey());
                     ET.putExtra("taskName", syncTimeTable.getTaskName());
+                    ET.putExtra("classUnit", syncTimeTable.getClassUnit());
+                    ET.putExtra("day", day);
                     ET.putExtra("startTime", syncTimeTable.getStartTime());
                     ET.putExtra("endTime", syncTimeTable.getEndTime());
                     ET.putExtra("teacherName", syncTimeTable.getEmployName());

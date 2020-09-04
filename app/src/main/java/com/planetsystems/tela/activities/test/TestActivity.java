@@ -42,35 +42,36 @@ public class TestActivity extends AppCompatActivity implements LocationListener{
         textView = findViewById(R.id.textView);
 
         TestActivityViewModel testActivityViewModel = new ViewModelProvider(this).get(TestActivityViewModel.class);
-//        testActivityViewModel.schoolClasses().observe(this, new Observer<List<SyncSchoolClasses>>() {
-//            @Override
-//            public void onChanged(List<SyncSchoolClasses> schoolClasses) {
-//                String teacherName = "";
-//                for (int i = 0; i < schoolClasses.size(); i++) {
-//                    teacherName = teacherName + " \n " + schoolClasses.get(i).getClassName();
-//                }
-//                textView.setText(teacherName);
-//
-//            }
-//        });
-
-        testActivityViewModel.getAllMaterials().observe(this, new Observer<List<SchoolMaterials>>() {
+        testActivityViewModel.allClockOuts().observe(this, new Observer<List<SyncClockOut>>() {
             @Override
-            public void onChanged(List<SchoolMaterials> schoolMaterials) {
-                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(schoolMaterials.size()), Toast.LENGTH_LONG).show();
+            public void onChanged(List<SyncClockOut> syncClockOuts) {
+                Toast.makeText(getApplicationContext(), "clock-out size is: " + String.valueOf(syncClockOuts.size()), Toast.LENGTH_LONG).show();
                 String teacherName = "";
-                for (int i = 0; i < schoolMaterials.size(); i++) {
-                    teacherName = teacherName + " \n " + schoolMaterials.get(i).getItemName();
+                for (int i = 0; i < syncClockOuts.size(); i++) {
+                    teacherName = teacherName + " \n " + syncClockOuts.get(i).getFirstName() + " | "+ syncClockOuts.get(i).getComment() + " | "+ syncClockOuts.get(i).getClockOutTime()
+                    + " | " + syncClockOuts.get(i).getDay() + " | " + syncClockOuts.get(i).getEmployeeId();
                 }
                 textView.setText(teacherName);
             }
         });
 
+//        testActivityViewModel.getAllMaterials().observe(this, new Observer<List<SchoolMaterials>>() {
+//            @Override
+//            public void onChanged(List<SchoolMaterials> schoolMaterials) {
+//                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(schoolMaterials.size()), Toast.LENGTH_LONG).show();
+//                String teacherName = "";
+//                for (int i = 0; i < schoolMaterials.size(); i++) {
+//                    teacherName = teacherName + " \n " + schoolMaterials.get(i).getItemName();
+//                }
+//                textView.setText(teacherName);
+//            }
+//        });
+
 //        ClockInAndOutActivityViewModel clockInAndOutActivityViewModel = new ViewModelProvider(this).get(ClockInAndOutActivityViewModel.class);
 //        clockInAndOutActivityViewModel.allClockOuts().observe(this, new Observer<List<SyncClockOut>>() {
 //            @Override
 //            public void onChanged(List<SyncClockOut> syncClockOuts) {
-//                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(syncClockOuts.size()), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "clock-out size is: " + String.valueOf(syncClockOuts.size()), Toast.LENGTH_LONG).show();
 //                String teacherName = "";
 //                for (int i = 0; i < syncClockOuts.size(); i++) {
 //                    teacherName = teacherName + " \n " + syncClockOuts.get(i).getFirstName() + " | "+ syncClockOuts.get(i).getComment() + " | "+ syncClockOuts.get(i).getTime()

@@ -6,10 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewMeetingRequest">
 
+    <include layout="@layout/snippet_top_meeting_reply"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/request_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
         tools:listitem="@layout/view_replies"/>
 
 </RelativeLayout>

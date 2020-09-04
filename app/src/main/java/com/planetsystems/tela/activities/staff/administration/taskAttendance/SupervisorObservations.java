@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.staff.administration.serviceRequests.PendingHelpRequest;
+import com.planetsystems.tela.activities.staff.administration.serviceRequests.RequestsMade;
+import com.planetsystems.tela.activities.staff.administration.timeAttendance.ConfirmTimeAttendance;
+import com.planetsystems.tela.activities.staff.administration.timeAttendance.TimeAttendanceList;
 import com.planetsystems.tela.activities.staff.regularStaff.home.Tasks;
 import com.planetsystems.tela.activities.staff.regularStaff.home.TasksAdapter;
 import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActivity;
@@ -45,6 +50,7 @@ public class SupervisorObservations extends AppCompatActivity {
     Button submit, selfmenu;
     public String dateString, timeString;
     String emp_id_extra, emp_name_extra, admin_id_extra;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,41 +99,78 @@ public class SupervisorObservations extends AppCompatActivity {
         teacherHomeActivityViewModel.tasksWithPresentActionStatus(emp_id_extra, dateString, "Present").observe(this, new Observer<List<SynTimeOnTask>>() {
             @Override
             public void onChanged(List<SynTimeOnTask> synTimeOnTasks) {
-                for (int i = 0; i < synTimeOnTasks.size(); i++){
-                    Tasks taskList = new Tasks();
-                    taskList.setTaskId(synTimeOnTasks.get(i).getTaskId());
-                    taskList.setTaskName(synTimeOnTasks.get(i).getTaskName());
-                    taskList.setStartTime(synTimeOnTasks.get(i).getStartTime());
-                    taskList.setEndTime(synTimeOnTasks.get(i).getEndTime());
-                    taskList.setStatus("Taught");
-                    taskList.setInTime("In Time");
+                if(synTimeOnTasks.size() != count){
+                    for (int i = 0; i < synTimeOnTasks.size(); i++){
+                        Tasks taskList = new Tasks();
+                        taskList.setTaskId(synTimeOnTasks.get(i).getTaskId());
+                        taskList.setTaskName(synTimeOnTasks.get(i).getTaskName());
+                        taskList.setStartTime(synTimeOnTasks.get(i).getStartTime());
+                        taskList.setEndTime(synTimeOnTasks.get(i).getEndTime());
+                        taskList.setStatus("Taught");
+                        taskList.setInTime("In Time");
 
-                    tasksModel.add(taskList);
+                        tasksModel.add(taskList);
+                    }
+                    adapter.setTaskList(tasksModel);
+                }else {
+                    new AlertDialog.Builder(SupervisorObservations.this)
+                            .setTitle("Confirmation")
+                            .setMessage("Dear Supervisor, "+ emp_name_extra +" has not committed to any task today. \n So there is no task to show for supervision.")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    Intent intent = new Intent(SupervisorObservations.this, TaskAttendance.class);
+                                    intent.putExtra("admin", admin_id_extra);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    SupervisorObservations.this.finish();
+                                }}).show();
                 }
-                adapter.setTaskList(tasksModel);
             }
         });
 
         supervisorObservationsViewModel.getAllTimeOnTask().observe(this, new Observer<List<SyncConfirmTimeOnTaskAttendance>>() {
             @Override
             public void onChanged(List<SyncConfirmTimeOnTaskAttendance> syncConfirmTimeOnTaskAttendances) {
-                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(syncConfirmTimeOnTaskAttendances.size()), Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(syncConfirmTimeOnTaskAttendances.size()), Toast.LENGTH_LONG).show();
             }
         });
 
-        submit.setOnClickListener(new View.OnClickListener() {
+        supervisorObservationsViewModel.getEmployeeNoAndDate(emp_id_extra,dateString).observe(this, new Observer<List<SyncConfirmTimeOnTaskAttendance>>() {
             @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(SupervisorObservations.this)
-                        .setTitle("Confirmation")
-                        .setMessage("Do you really want to submit these observations?")
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onChanged(List<SyncConfirmTimeOnTaskAttendance> syncConfirmTimeOnTaskAttendances) {
+                if(syncConfirmTimeOnTaskAttendances.size() != count ){
+                    new AlertDialog.Builder(SupervisorObservations.this)
+                            .setTitle("Confirmation")
+                            .setMessage("Dear Supervisor, "+ emp_name_extra +"'s tasks have been already supervised and submitted successfully.")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
 
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                PostToSyncConfirmTimeOnTaskAttendance();
-                            }})
-                        .setNegativeButton(android.R.string.no, null).show();
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    Intent intent = new Intent(SupervisorObservations.this, TaskAttendance.class);
+                                    intent.putExtra("admin", admin_id_extra);
+                                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    SupervisorObservations.this.finish();
+                                }}).show();
+                }else {
+                    submit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new AlertDialog.Builder(SupervisorObservations.this)
+                                    .setTitle("Confirmation")
+                                    .setMessage("Do you really want to submit these observations?")
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            PostToSyncConfirmTimeOnTaskAttendance();
+                                        }})
+                                    .setNegativeButton(android.R.string.no, null).show();
+                        }
+                    });
+                }
             }
         });
     }
@@ -147,6 +190,13 @@ public class SupervisorObservations extends AppCompatActivity {
             );
 
             supervisorObservationsViewModel.insertNewConfirmations(syncConfirmTimeOnTaskAttendance);
+            Toast.makeText(getApplicationContext(),"Submitted Successfully " ,Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(SupervisorObservations.this, TaskAttendance.class);
+            intent.putExtra("admin", admin_id_extra);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            SupervisorObservations.this.finish();
         }
     }
 }

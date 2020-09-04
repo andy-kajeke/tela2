@@ -15,6 +15,8 @@ import com.planetsystems.tela.data.helprequest.HelpRequest;
 import com.planetsystems.tela.data.helprequest.HelpRequestRepository;
 import com.planetsystems.tela.data.schoolClasses.SchoolClassesRepository;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
+import com.planetsystems.tela.data.schoolMaterialRequests.SchoolMaterialRequestRepository;
+import com.planetsystems.tela.data.schoolMaterialRequests.SchoolMaterialRequests;
 import com.planetsystems.tela.data.schoolMaterials.SchoolMaterials;
 import com.planetsystems.tela.data.schoolMaterials.SchoolMaterialsRepository;
 
@@ -24,6 +26,7 @@ public class ServiceRequestsViewModel extends AndroidViewModel {
     private TimeOffRequestRepository timeOffRequestRepository;
     private HelpRequestRepository helpRequestRepository;
     SchoolMaterialsRepository schoolMaterialsRepository;
+    SchoolMaterialRequestRepository schoolMaterialRequestRepository;
 
     public ServiceRequestsViewModel(@NonNull Application application) {
         super(application);
@@ -31,6 +34,7 @@ public class ServiceRequestsViewModel extends AndroidViewModel {
         timeOffRequestRepository = MainRepository.getInstance(application).getTimeOffRequestRepository();
         helpRequestRepository = MainRepository.getInstance(application).getHelpRequestRepository();
         schoolMaterialsRepository = MainRepository.getInstance(application).getSchoolMaterialsRepository();
+        schoolMaterialRequestRepository = MainRepository.getInstance(application).getSchoolMaterialRequestRepository();
     }
 
     /////////////////////////////////Time off-leave request/////////////////////////////////////////////
@@ -85,5 +89,25 @@ public class ServiceRequestsViewModel extends AndroidViewModel {
 
     public LiveData<List<SchoolMaterials>> getAllSchoolMaterials(){
         return schoolMaterialsRepository.getAllMaterials();
+    }
+
+    public void addNewMaterialRequest(SchoolMaterialRequests schoolMaterialRequests){
+        schoolMaterialRequestRepository.addNewMaterialRequest(schoolMaterialRequests);
+    }
+
+    public void updateMaterialApprovalStatus(String approvalStatus,String approvalDate, String supervisorID, int primaryKey){
+        schoolMaterialRequestRepository.updateMaterialApprovalStatus(approvalStatus, approvalDate, supervisorID, primaryKey);
+    }
+
+    public LiveData<List<SchoolMaterialRequests>> getMaterialRequests(){
+        return schoolMaterialRequestRepository.getMaterialRequests();
+    }
+
+    public LiveData<List<SchoolMaterialRequests>> getMaterialRequestByApprovalStatus(final String approvalStatus){
+        return schoolMaterialRequestRepository.getRequestByApprovalStatus(approvalStatus);
+    }
+
+    public LiveData<List<SchoolMaterialRequests>> getMaterialRequestsByEmployeeNo(final String employeeNo){
+        return schoolMaterialRequestRepository.getRequestsByEmployeeNo(employeeNo);
     }
 }

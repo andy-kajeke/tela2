@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 <!--    <item android:id="@+id/enroll"-->
 <!--        android:title="@string/enroll" />-->
-    <item android:id="@+id/settings"
-        android:title="@string/settings" />
-
-<!--    <item android:id="@+id/testing"-->
+<!--    <item android:id="@+id/settings"-->
 <!--        android:title="@string/settings" />-->
+
+    <item android:id="@+id/logout"
+        android:title="@string/logout" />
 
 <!--    <item android:id="@+id/checkLogs"-->
 <!--        android:title="@string/app_logs" />-->

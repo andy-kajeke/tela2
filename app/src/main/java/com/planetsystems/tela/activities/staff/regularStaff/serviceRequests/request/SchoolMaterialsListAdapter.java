@@ -26,12 +26,13 @@ public class SchoolMaterialsListAdapter extends RecyclerView.Adapter<SchoolMater
     private LayoutInflater layoutInflater;
     private  Context mContext;
     private List<SchoolMaterials> mSchoolMaterials;
-    private String supervisorID;
+    private String employeeID, employeeName;
 
-    public SchoolMaterialsListAdapter(Context context, List<SchoolMaterials> mSchoolMaterials){
+    public SchoolMaterialsListAdapter(Context context, List<SchoolMaterials> mSchoolMaterials, String employeeID, String employeeName){
         layoutInflater = LayoutInflater.from(context);
         this.mContext = context;
-        //this.supervisorID = supervisorID;
+        this.employeeID = employeeID;
+        this.employeeName = employeeName;
         this.mSchoolMaterials = mSchoolMaterials;
     }
 
@@ -68,15 +69,12 @@ public class SchoolMaterialsListAdapter extends RecyclerView.Adapter<SchoolMater
                 public void onClick(View v) {
                     SchoolMaterials schoolMaterials1 = mSchoolMaterials.get(position);
 
-//                    Intent ALR = new Intent(mContext, ApproveHelpRequests.class);
-//                    ALR.putExtra("db_id",helpRequest1.getPrimaryKey());
-//                    ALR.putExtra("help", helpRequest1.getRequestType());
-//                    ALR.putExtra("employee_Name", helpRequest1.getEmployeeName());
-//                    ALR.putExtra("priority", helpRequest1.getPriority());
-//                    ALR.putExtra("requestDate", helpRequest1.getRequestDate());
-//                    ALR.putExtra("reason", helpRequest1.getComment());
-//                    ALR.putExtra("supervisor", supervisorID);
-//                    mContext.startActivity(ALR);
+                    Intent RSM = new Intent(mContext, RequestSchoolMaterials.class);
+                    RSM.putExtra("item_id", schoolMaterials1.getId());
+                    RSM.putExtra("item_name", schoolMaterials1.getItemName());
+                    RSM.putExtra("emp_id", employeeID);
+                    RSM.putExtra("emp_name", employeeName);
+                    mContext.startActivity(RSM);
                 }
             });
 

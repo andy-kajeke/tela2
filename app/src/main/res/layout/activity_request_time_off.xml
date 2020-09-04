@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,241 +7,254 @@
     android:padding="5dp"
     android:layout_gravity="center">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp">
+    <include layout="@layout/snippet_top_time_off_request"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Type of leave: "
-                android:layout_marginTop="0dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:textColor="#fff"
-                android:textStyle="bold"
-                android:textSize="16dp"/>
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
 
-            <Spinner
-                android:id="@+id/leaveType"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Type of leave: "
+                        android:layout_marginTop="0dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:textColor="#fff"
+                        android:textStyle="bold"
+                        android:textSize="16dp"/>
+
+                    <Spinner
+                        android:id="@+id/leaveType"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_style"
+                        android:drawablePadding="12dp"
+                        android:ems="10"
+                        android:textSize="15dp"
+                        android:hint="Enter Number"
+                        android:inputType="number"
+                        android:padding="8dp"
+                        android:text=""
+                        android:textColor="#000"
+                        android:textColorHint="#000" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginRight="22dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="fill_parent"
+                    android:text="Date"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:textSize="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="From: "
+                        android:textColor="#fff"
+                        android:layout_marginLeft="20dp"/>
+
+                    <EditText
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text_style"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:focusableInTouchMode="false"
+                        android:inputType="number"
+                        android:id="@+id/tDateFrom"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="To: "
+                        android:textColor="#fff"
+                        android:inputType="number"
+                        android:layout_marginLeft="38dp"/>
+
+                    <EditText
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text_style"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:focusableInTouchMode="false"
+                        android:inputType="number"
+                        android:id="@+id/tDateTo"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#fff"></View>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edit_text_style"
-                android:drawablePadding="12dp"
-                android:ems="10"
-                android:textSize="15dp"
-                android:hint="Enter Number"
-                android:inputType="number"
-                android:padding="8dp"
-                android:text=""
-                android:textColor="#000"
-                android:textColorHint="#000" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/calendarView5"
+                    android:layout_marginRight="22dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="fill_parent"
+                    android:text="Time"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:textSize="16dp"/>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="From: "
+                        android:textColor="#fff"
+                        android:layout_marginLeft="20dp"/>
+
+                    <EditText
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text_style"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:focusableInTouchMode="false"
+                        android:inputType="datetime"
+                        android:id="@+id/tTimeFrom"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="To: "
+                        android:textColor="#fff"
+                        android:inputType="number"
+                        android:layout_marginLeft="15dp"/>
+
+                    <EditText
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text_style"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:focusableInTouchMode="false"
+                        android:inputType="datetime"
+                        android:id="@+id/tTimeTo"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#fff"></View>
+
+
+                <EditText
+                    android:id="@+id/tcomment"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_text_style"
+                    android:drawablePadding="12dp"
+                    android:textSize="15dp"
+                    android:hint="Reason"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:ems="10"
+                    android:gravity="left|top"
+                    android:inputType="textMultiLine"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textColorHint="#000" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#fff"></View>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/tTimeOut"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="SUBMIT"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/layout"
+                    />
+            </LinearLayout>
 
         </LinearLayout>
+    </ScrollView>
 
-        <TextView
-            android:layout_marginRight="22dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_width="fill_parent"
-            android:text="Date"
-            android:textStyle="bold"
-            android:textColor="#fff"
-            android:textSize="16dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="From: "
-                android:textColor="#fff"
-                android:layout_marginLeft="20dp"/>
-
-            <EditText
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_style"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:focusableInTouchMode="false"
-                android:inputType="number"
-                android:id="@+id/tDateFrom"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="To: "
-                android:textColor="#fff"
-                android:inputType="number"
-                android:layout_marginLeft="38dp"/>
-
-            <EditText
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_style"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:focusableInTouchMode="false"
-                android:inputType="number"
-                android:id="@+id/tDateTo"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:background="#fff"></View>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/calendarView5"
-            android:layout_marginRight="22dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_width="fill_parent"
-            android:text="Time"
-            android:textStyle="bold"
-            android:textColor="#fff"
-            android:textSize="16dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="From: "
-                android:textColor="#fff"
-                android:layout_marginLeft="20dp"/>
-
-            <EditText
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_style"
-                android:paddingRight="5dp"
-                android:paddingLeft="5dp"
-                android:focusableInTouchMode="false"
-                android:inputType="datetime"
-                android:id="@+id/tTimeFrom"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="To: "
-                android:textColor="#fff"
-                android:inputType="number"
-                android:layout_marginLeft="15dp"/>
-
-            <EditText
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_style"
-                android:paddingRight="5dp"
-                android:paddingLeft="5dp"
-                android:focusableInTouchMode="false"
-                android:inputType="datetime"
-                android:id="@+id/tTimeTo"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:background="#fff"></View>
-
-
-        <EditText
-            android:id="@+id/tcomment"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edit_text_style"
-            android:drawablePadding="12dp"
-            android:textSize="15dp"
-            android:hint="Reason"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:ems="10"
-            android:gravity="left|top"
-            android:inputType="textMultiLine"
-            android:text=""
-            android:textColor="#000"
-            android:textColorHint="#000" />
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:background="#fff"></View>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="15dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/tTimeOut"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="SUBMIT"
-            android:textStyle="bold"
-            android:textColor="#fff"
-            android:layout_marginTop="0dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/layout"
-            />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

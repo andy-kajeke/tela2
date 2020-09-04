@@ -66,6 +66,9 @@ public class SyncTimeTable {
     @ColumnInfo(name = SyncTimeTableConstant.CONFIRMATION_STATUS)
     private String confirmationStatus;
 
+    @ColumnInfo(name = SyncTimeTableConstant.IS_UPDATED)
+    private boolean is_updated;
+
     public SyncTimeTable(String dateCreated, String dateUpdated, String status, String classId, String classUnit, String day, String employName, String employeeId, String employeeNo,
                          String endTime, String schoolId, String schoolName, String startTime, String subject, String subjectId, String taskId, String taskName) {
         this.dateCreated = dateCreated;
@@ -237,6 +240,14 @@ public class SyncTimeTable {
 
     public void setConfirmationStatus(String confirmationStatus) {
         this.confirmationStatus = confirmationStatus;
+    }
+
+    public boolean isIs_updated() {
+        return is_updated;
+    }
+
+    public void setIs_updated(boolean is_updated) {
+        this.is_updated = is_updated;
     }
 
     @Override

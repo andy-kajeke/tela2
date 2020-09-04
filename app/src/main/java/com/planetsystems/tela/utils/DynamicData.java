@@ -3,7 +3,9 @@ package com.planetsystems.tela.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.currentLatitude;
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.currentLongitude;
 
 public class DynamicData {
     public static String getSchoolID(String schoolDevice) {
@@ -12,12 +14,14 @@ public class DynamicData {
         return schoolDevice;
     }
 
-    public static String getLatitude() {
-        return "0.457799120686";
+    public static double getLatitude(double latitude) {
+        latitude = currentLatitude;
+        return latitude;
     }
 
-    public static String getLongitude() {
-        return "2.367903344715";
+    public static double getLongitude(double longitude) {
+        longitude = currentLongitude;
+        return longitude;
     }
 
     public static String getDay() {

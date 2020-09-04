@@ -123,7 +123,7 @@ public class ApproveLeaveRequest extends AppCompatActivity {
 
         Intent intent = new Intent(ApproveLeaveRequest.this, PendingLeaveRequest.class);
         intent.putExtra("supervisor", supervisorID);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         ApproveLeaveRequest.this.finish();
     }
@@ -145,7 +145,7 @@ public class ApproveLeaveRequest extends AppCompatActivity {
 
         Intent intent = new Intent(ApproveLeaveRequest.this, PendingLeaveRequest.class);
         intent.putExtra("supervisor", supervisorID);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         ApproveLeaveRequest.this.finish();
     }

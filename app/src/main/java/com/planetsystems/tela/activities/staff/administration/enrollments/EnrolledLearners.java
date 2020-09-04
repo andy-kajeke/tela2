@@ -18,8 +18,8 @@ import com.planetsystems.tela.utils.DynamicData;
 
 import java.util.List;
 
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.SchoolDeviceIMEINumber;
 import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.School_ID;
-import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
 
 public class EnrolledLearners extends AppCompatActivity {
 

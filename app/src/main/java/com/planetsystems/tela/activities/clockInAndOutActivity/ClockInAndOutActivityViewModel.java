@@ -17,7 +17,9 @@ import com.planetsystems.tela.utils.DynamicData;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.currentLatitude;
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.currentLongitude;
 
 public class ClockInAndOutActivityViewModel extends AndroidViewModel {
     private ClockOutRepository clockOutRepository;
@@ -43,7 +45,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                 return new TeacherWrapper("No Record for: " + staffID, null);
             } else {
                 if (clockIn == null) {
-                    return new TeacherWrapper("Teacher Did No Clocked In", teacher);
+                    return new TeacherWrapper("Teacher Did No Clock In", teacher);
                 } else {
                     if (clockOut == null ) {
                         clockOutRepository.insertSynClockOut(
@@ -54,8 +56,8 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                                         staffComment,
                                         teacher.getEmployeeNumber(),
                                         teacher.getEmployeeNumber(),
-                                        DynamicData.getLatitude(),
-                                        DynamicData.getLongitude(),
+                                        DynamicData.getLatitude(currentLatitude),
+                                        DynamicData.getLongitude(currentLongitude),
                                         DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                                         DynamicData.getSchoolName(),
                                         teacher.getFirstName(),
@@ -72,7 +74,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return new TeacherWrapper("Unknown Error", null);
+        return new TeacherWrapper("Try again..", null);
     }
 
     public TeacherWrapper clockInTeacherWithEmployeeNumber(String employeeNumber) {
@@ -88,8 +90,8 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                             syncTeacher.getEmployeeNumber(),
                             syncTeacher.getFirstName(),
                             syncTeacher.getLastName(),
-                            DynamicData.getLatitude(),
-                            DynamicData.getLongitude(),
+                            DynamicData.getLatitude(currentLatitude),
+                            DynamicData.getLongitude(currentLongitude),
                             DynamicData.getDate(),
                             DynamicData.getDay(),
                             DynamicData.getTime(),
@@ -97,7 +99,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                             syncTeacher.getFingerPrint()
                     ));
                     return new TeacherWrapper("Clocked In Successfully", syncTeacher);
-                } else return new TeacherWrapper("Clocked Already at: " + clockIn.getClockInTime(), syncTeacher);
+                } else return new TeacherWrapper("Clocked in Already at: " + clockIn.getClockInTime(), syncTeacher);
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();

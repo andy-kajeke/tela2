@@ -43,5 +43,5 @@ class SyncTimeTableConstant {
 
     static final String CONFIRMATION_STATUS = "confirmationStatus";
 
-    static final String ROW_ID = "rowId";
+    static final String IS_UPDATED = "is_updated";
 }

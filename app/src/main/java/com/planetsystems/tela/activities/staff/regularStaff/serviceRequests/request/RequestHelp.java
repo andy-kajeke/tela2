@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,15 +28,16 @@ import com.planetsystems.tela.utils.GenerateRandomString;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.SchoolDeviceIMEINumber;
 
 public class RequestHelp extends AppCompatActivity {
 
     Spinner category;
     EditText hcomment;
     RadioButton high, normal;
-    TextView hclose,priorityRate;
+    TextView priorityRate;
     Button hbtnFollow;
+    ImageView back;
     String id_extra, name_extra;
     String datetoday;
 
@@ -45,8 +47,8 @@ public class RequestHelp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_help);
-        setTitle("Help Request");
 
+        back = findViewById(R.id.back);
         priorityRate = (TextView) findViewById(R.id.priorityRate);
         high = (RadioButton) findViewById(R.id.High);
         normal = (RadioButton) findViewById(R.id.Normal);
@@ -57,6 +59,16 @@ public class RequestHelp extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         id_extra = bundle.getString("id");
         name_extra = bundle.getString("name");
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bk = new Intent(getApplicationContext(), MakeRequests.class);
+                bk.putExtra("id", id_extra);
+                bk.putExtra("name", name_extra);
+                startActivity(bk);
+            }
+        });
 
         serviceRequestsViewModel = new ViewModelProvider(this).get(ServiceRequestsViewModel.class);
         serviceRequestsViewModel.getAllHelpRequests("Pending").observe(this, new Observer<List<HelpRequest>>() {

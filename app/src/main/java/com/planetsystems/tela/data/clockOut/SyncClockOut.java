@@ -35,10 +35,10 @@ public class SyncClockOut {
     private String employeeId;
 
     @ColumnInfo(name = SyncClockOutTableConstant.LATITUDE_COLUMN_NAME)
-    private String latitude;
+    private double latitude;
 
     @ColumnInfo(name = SyncClockOutTableConstant.LONGITUDE_COLUMN_NAME)
-    private String longitude;
+    private double longitude;
 
     @ColumnInfo(name = SyncClockOutTableConstant.SCHOOL_ID_COLUMN_NAME)
     private String schoolId;
@@ -59,8 +59,8 @@ public class SyncClockOut {
     private final byte[] fingerPrint;
 
     ////////////////////////////////////////constructor////////////////////////////////////////////
-    public SyncClockOut(String clockOutDate, String day, String clockOutTime, String comment, @NonNull String employeeNo, String employeeId, String latitude,
-                        String longitude, String schoolId, String schoolName, String firstName, String lastName, boolean isUploaded, byte[] fingerPrint) {
+    public SyncClockOut(String clockOutDate, String day, String clockOutTime, String comment, @NonNull String employeeNo, String employeeId, double latitude,
+                        double longitude, String schoolId, String schoolName, String firstName, String lastName, boolean isUploaded, byte[] fingerPrint) {
         this.clockOutDate = clockOutDate;
         this.day = day;
         this.clockOutTime = clockOutTime;
@@ -136,19 +136,19 @@ public class SyncClockOut {
         this.employeeId = employeeId;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

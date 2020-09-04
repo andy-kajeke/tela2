@@ -25,6 +25,17 @@ public interface SyncConfirmTimeOnTaskAttendanceDao {
     @Query("SELECT * FROM " + SyncConfirmTimeOnTaskAttendanceConstants.TABLE_NAME)
     LiveData<List<SyncConfirmTimeOnTaskAttendance>> getAllRecords();
 
+    @Query("SELECT * FROM "
+            + SyncConfirmTimeOnTaskAttendanceConstants.TABLE_NAME
+            + " WHERE "
+            + SyncConfirmTimeOnTaskAttendanceConstants.TRANSACTION_DATE
+            + " =:date"
+            + " AND "
+            + SyncConfirmTimeOnTaskAttendanceConstants.EMPLOYEE_NO
+            + " =:employeeNumber"
+    )
+    LiveData<List<SyncConfirmTimeOnTaskAttendance>> getEmployeeIDAndDate(String employeeNumber, String date);
+
     @Query("SELECT * FROM " + SyncConfirmTimeOnTaskAttendanceConstants.TABLE_NAME +
             " WHERE "
             + SyncConfirmTimeOnTaskAttendanceConstants.IS_UPLOADED +

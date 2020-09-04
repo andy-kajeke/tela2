@@ -1,24 +1,30 @@
 package com.planetsystems.tela.activities.clockInAndOutActivity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -32,12 +38,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.snackbar.Snackbar;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.activities.clockInWithEmployeeNumber.ClockInWithEmployeeNumberActivity;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.fingerprint.FingerPrintActivity;
 import com.planetsystems.tela.activities.logs.LogActivity;
+import com.planetsystems.tela.activities.mainActivity.MainActivity;
 import com.planetsystems.tela.activities.staff.smc.SmcActivity;
 import com.planetsystems.tela.activities.test.TestActivity;
 import com.planetsystems.tela.constants.Role;
@@ -56,15 +68,28 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+import static com.google.android.gms.location.LocationServices.FusedLocationApi;
+import static com.planetsystems.tela.activities.school.SchoolConfirmation.mSharedPreferences;
+import static com.planetsystems.tela.activities.school.SchoolConfirmation.schoolPreference;
+import static com.planetsystems.tela.activities.school.SchoolConfirmation.school_Device_Number;
+import static com.planetsystems.tela.activities.school.SchoolConfirmation.school_Name;
+import static com.planetsystems.tela.activities.school.SchoolConfirmation.school_id;
 
-public class ClockInAndOutActivity extends AppCompatActivity implements LocationListener {
+public class ClockInAndOutActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private final int START_CLOCK_IN_WITH_STAFF_ID_ACTIVITY_FOR_RESULT = 123;
     public static final int CLOCK_IN_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 645;
     public static final int CLOCK_OUT_FINGER_PRINT_ACTIVITY_REQUEST_CODE = 445;
 
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
+    public static double currentLatitude;
+    public static double currentLongitude;
+
     public static String School_ID;
+    public static String SchoolDeviceIMEINumber;
     TextView dateDisplay, schoolName;
     TextView close_clockIn, close_clockOut;
     Button btnFingerprint_In, btnStaffId_In, btnFingerprint_Out, btnStaffId_Out;
@@ -81,11 +106,6 @@ public class ClockInAndOutActivity extends AppCompatActivity implements Location
     EditText staff_Id, staff_comment;
     CheckBox norm,oth;
 
-    LocationManager locationManager;
-    double lng;
-    double lat;
-
-
     @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,48 +113,23 @@ public class ClockInAndOutActivity extends AppCompatActivity implements Location
         setContentView(R.layout.activity_clockin__clock_out);
         viewModel = new ViewModelProvider(this).get(ClockInAndOutActivityViewModel.class);
 
-
         dateDisplay = findViewById(R.id.calendarView4);
         schoolName = findViewById(R.id.schoolName);
         datacenter = findViewById(R.id.cardview2);
         checkin = findViewById(R.id.cardview3);
         checkout = findViewById(R.id.cardview4);
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            // TODO: Please Mr Andrew please fix this, removing this if will make the app crush
-//            E/AndroidRuntime: FATAL EXCEPTION: main
-//            Process: com.planetsystems.tela, PID: 25994
-//            java.lang.RuntimeException: Unable to start activity ComponentInfo{com.planetsystems.tela/com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity}: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String android.os.Bundle.getString(java.lang.String)' on a null object reference
-//            at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3013)
-//            at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3148)
-//            at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:78)
-//            at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:108)
-//            at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:68)
-//            at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1861)
-//            at android.os.Handler.dispatchMessage(Handler.java:106)
-//            at android.os.Looper.loop(Looper.java:193)
-//            at android.app.ActivityThread.main(ActivityThread.java:6819)
-//            at java.lang.reflect.Method.invoke(Native Method)
-//            at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:497)
-//            at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:912)
-//            Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String android.os.Bundle.getString(java.lang.String)' on a null object reference
-//            at com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.onCreate(ClockInAndOutActivity.java:86)
-//            at android.app.Activity.performCreate(Activity.java:7136)
-//            at android.app.Activity.performCreate(Activity.java:7127)
-//            at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1271)
+        mSharedPreferences = getSharedPreferences(schoolPreference, Context.MODE_PRIVATE);
 
-            deviceIMEI_extra = bundle.getString("device_imei");
-            schoolName_extra = bundle.getString("schoolName");
-            schoolID_extra = bundle.getString("schoolId");
+        School_ID = mSharedPreferences.getString(school_id, "");
+        SchoolDeviceIMEINumber = mSharedPreferences.getString(school_Device_Number, "");
 
-            School_ID = schoolID_extra;
-        }
+        DynamicData.getSchoolID(SchoolDeviceIMEINumber);
 
-        schoolName.setText(schoolName_extra);
+        schoolName.setText(mSharedPreferences.getString(school_Name, ""));
 
         //SCHOOL_ID = deviceIMEI_extra;
-        Toast.makeText(this, lat+"=="+lng +": "+ DynamicData.getSchoolID(SchoolDeviceIMEINumber), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, SchoolDeviceIMEINumber+ " sch_id "+ School_ID, Toast.LENGTH_LONG).show();
 
         checkInDialog = new Dialog(this);
         checkOutDialog = new Dialog(this);
@@ -164,6 +159,22 @@ public class ClockInAndOutActivity extends AppCompatActivity implements Location
                 ClockOut();
             }
         });
+
+        /////////////////////////////////////////////GPS/////////////////////////////////////////////////////////
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                // The next two lines tell the new client that “this” current class will handle connection stuff
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                //fourth line adds the LocationServices API endpoint from GooglePlayServices
+                .addApi(LocationServices.API)
+                .build();
+
+        // Create the LocationRequest object
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
     }
 
     @Override
@@ -181,12 +192,15 @@ public class ClockInAndOutActivity extends AppCompatActivity implements Location
 //                Intent home = new Intent(ClockInAndOutActivity.this, EnrollmentActivity.class);
 //                startActivity(home);
 //                return true;
-            case R.id.settings:
-                startActivity(new Intent(this, TestActivity.class));
-                return true;
-
-//            case R.id.testing:
+//            case R.id.settings:
 //                startActivity(new Intent(this, TestActivity.class));
+//                return true;
+
+            case R.id.logout:
+                SharedPreferences.Editor editor = mSharedPreferences.edit();
+                editor.remove(school_Device_Number);
+                editor.commit();
+                startActivity(new Intent(this, MainActivity.class));
 //
 //            case R.id.checkLogs:
 //                startActivity(new Intent(this, LogActivity.class));
@@ -458,52 +472,95 @@ public class ClockInAndOutActivity extends AppCompatActivity implements Location
         } else {
             Toast.makeText(this, "No Information Provided", Toast.LENGTH_LONG).show();
         }
-
-        getLocation();
     }
 
-    //////////////////////GPS Functionality//////////////////////////////////////////////////////
-    void getLocation() {
-        try {
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 5, this);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Now lets connect to the API
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.v(this.getClass().getSimpleName(), "onPause()");
+
+        //Disconnect from API onPause()
+        if (mGoogleApiClient.isConnected()) {
+            FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
         }
-        catch(SecurityException e) {
-            e.printStackTrace();
+
+
+    }
+
+    /**
+     * If connected get lat and long
+     *
+     */
+    @Override
+    public void onConnected(Bundle bundle) {
+        Location location = FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        if (location == null) {
+            FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
+        } else {
+            //If everything went fine lets get latitude and longitude
+            currentLatitude = location.getLatitude();
+            currentLongitude = location.getLongitude();
+
+            //Toast.makeText(this, "Lat: "+DynamicData.getLatitude(currentLatitude) + " Long: "+ DynamicData.getLongitude(currentLongitude), Toast.LENGTH_LONG).show();
+            DynamicData.getLatitude(currentLatitude);
+            DynamicData.getLongitude(currentLongitude);
         }
     }
 
+
+    @Override
+    public void onConnectionSuspended(int i) {}
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        /*
+         * Google Play services can resolve some errors it detects.
+         * If the error has a resolution, try sending an Intent to
+         * start a Google Play services activity that can resolve
+         * error.
+         */
+        if (connectionResult.hasResolution()) {
+            try {
+                // Start an Activity that tries to resolve the error
+                connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                /*
+                 * Thrown if Google Play services canceled the original
+                 * PendingIntent
+                 */
+            } catch (IntentSender.SendIntentException e) {
+                // Log the error
+                e.printStackTrace();
+            }
+        } else {
+            /*
+             * If no resolution is available, display a dialog to the
+             * user with the error.
+             */
+            Log.e("Error", "++++Location services connection failed with code+++++ " + connectionResult.getErrorCode());
+        }
+    }
+
+    /**
+     * If locationChanges change lat and long
+     *
+     *
+     * @param location
+     */
     @Override
     public void onLocationChanged(Location location) {
-        lng = location.getLatitude();
-        lat = location.getLongitude();
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
 
-        try {
-            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            //LocName.setText("Town Name: " + addresses.get(0).getAddressLine(0));
-            if (null != addresses && addresses.size() > 0) {
-                String _addre = addresses.get(0).getAddressLine(0);
-                //LocName.setText(_addre);
-            }
-        }catch(Exception e)
-        {
-
-        }
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
+        //Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
     }
 }

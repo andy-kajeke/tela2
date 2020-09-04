@@ -27,16 +27,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.RequestSchoolMaterials"></activity>
-        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.SchoolMaterialsList" />
+        <activity android:name=".activities.staff.administration.syncData.SyncDataManually"
+            android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewMaterialRequest"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activities.staff.administration.serviceRequests.ApproveMaterialRequests" />
+        <activity android:name=".activities.staff.administration.serviceRequests.PendingMaterialRequest" />
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.RequestSchoolMaterials"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.SchoolMaterialsList"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.staff.administration.enrollments.EnrolledLearners" />
         <activity android:name=".activities.staff.administration.enrollments.SelectLearnerClass" />
-        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewHelpRequest" />
-        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewMeetingRequest" />
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewHelpRequest"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewMeetingRequest"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.staff.administration.enrollments.EnrolledTeachers"
-            android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewTimeOffRequest" />
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewTimeOffRequest"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.logs.LogActivity"
             android:parentActivityName=".activities.clockInAndOutActivity.ClockInAndOutActivity" />
@@ -50,11 +62,14 @@
         <activity android:name=".activities.staff.administration.serviceRequests.PendingLeaveRequest" />
         <activity
             android:name=".activities.staff.regularStaff.serviceRequests.request.RequestHelp"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.staff.regularStaff.serviceRequests.request.RequestMeeting"
-            android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activities.staff.administration.serviceRequests.RequestsMade" />
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activities.staff.administration.serviceRequests.RequestsMade"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.staff.administration.editTimeTable.EditTimeTable"
             android:windowSoftInputMode="stateHidden" />
@@ -64,18 +79,22 @@
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".activities.staff.administration.editTimeTable.SelectClass" />
         <activity android:name=".activities.staff.administration.taskAttendance.SupervisorObservations" />
-        <activity android:name=".activities.staff.administration.taskAttendance.TaskAttendance" />
+        <activity android:name=".activities.staff.administration.taskAttendance.TaskAttendance"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.staff.administration.timeAttendance.ConfirmTimeAttendance" />
         <activity
             android:name=".activities.staff.administration.learnerAttendance.LearnerAttendance"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activities.staff.administration.learnerAttendance.LearnerClasses" />
+        <activity android:name=".activities.staff.administration.learnerAttendance.LearnerClasses"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.staff.administration.editStaff.UpdateStaffRecord"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activities.staff.administration.timeAttendance.TimeAttendanceList" />
+        <activity android:name=".activities.staff.administration.timeAttendance.TimeAttendanceList"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.staff.administration.editStaff.EditStaffList" />
-        <activity android:name=".activities.staff.administration.AdminSideActivity" />
+        <activity android:name=".activities.staff.administration.AdminSideActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.test.TestActivity" />
 
         <uses-library
@@ -85,9 +104,12 @@
         <activity android:name=".activities.school.SchoolConfirmation" />
         <activity
             android:name=".activities.staff.regularStaff.serviceRequests.request.RequestTimeOff"
-            android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.MakeRequests" />
-        <activity android:name=".activities.staff.regularStaff.home.TeacherHomeActivity" />
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.MakeRequests"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activities.staff.regularStaff.home.TeacherHomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.clockInWithEmployeeNumber.ClockInWithEmployeeNumberActivity"
             android:theme="@android:style/Theme.Dialog"

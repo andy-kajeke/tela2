@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.timetable.SyncTimeTable;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
+import com.planetsystems.tela.utils.DynamicData;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -19,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.SchoolDeviceIMEINumber;
 import static com.planetsystems.tela.constants.Urls.SYNC_TIME_TABLE_URL;
 
 public class SyncTimeTableWorker extends Worker {
@@ -34,7 +36,7 @@ public class SyncTimeTableWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(SYNC_TIME_TABLE_URL).openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL(SYNC_TIME_TABLE_URL + DynamicData.getSchoolID(SchoolDeviceIMEINumber)).openConnection();
             try {
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));

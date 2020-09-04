@@ -12,6 +12,7 @@ import com.planetsystems.tela.data.Teacher.SyncTeacher;
 import com.planetsystems.tela.data.TelaRoomDatabase;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClassesDao;
+import com.planetsystems.tela.utils.DynamicData;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.SchoolDeviceIMEINumber;
 import static com.planetsystems.tela.constants.Urls.SCHOOL_CLASSES;
 import static com.planetsystems.tela.constants.Urls.SYNC_TEACHER_URL;
 
@@ -38,7 +40,7 @@ public class SyncSchoolClassesWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(SCHOOL_CLASSES).openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL(SCHOOL_CLASSES + DynamicData.getSchoolID(SchoolDeviceIMEINumber)).openConnection();
             try {
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));

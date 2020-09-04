@@ -6,10 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".activities.staff.administration.timeAttendance.TimeAttendanceList">
 
+    <include layout="@layout/snippet_top_time_attendance"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/staff_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
         tools:listitem="@layout/get_staff_list"/>
 
 </RelativeLayout>

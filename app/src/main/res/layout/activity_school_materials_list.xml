@@ -6,10 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".activities.staff.regularStaff.serviceRequests.request.SchoolMaterialsList">
 
+    <include layout="@layout/snippet_top_school_matieral_lis"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
         tools:listitem="@layout/get_school_materials"/>
 
 </RelativeLayout>

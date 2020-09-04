@@ -3,6 +3,7 @@ package com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance;
 import androidx.lifecycle.LiveData;
 
 import com.planetsystems.tela.data.TelaRoomDatabase;
+import com.planetsystems.tela.data.confirmTimeOnTaskAttendance.SyncConfirmTimeOnTaskAttendance;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
 import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
 
@@ -38,5 +39,9 @@ public class TimeOnSiteAttendanceRepository {
 
     public LiveData<List<SyncConfirmTimeOnSiteAttendance>> getAllTimeOnSiteAttendance() {
         return syncConfirmTimeOnSiteAttendanceDao.getSyncConfirmTimeOnSiteAttendance();
+    }
+
+    public LiveData<List<SyncConfirmTimeOnSiteAttendance>> getEmployeeIDAndDate(final String employeeNumber, final String date){
+        return syncConfirmTimeOnSiteAttendanceDao.getEmployeeIDAndDate(employeeNumber, date);
     }
 }

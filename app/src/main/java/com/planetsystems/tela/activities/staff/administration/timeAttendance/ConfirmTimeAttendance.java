@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.staff.administration.serviceRequests.ApproveMaterialRequests;
+import com.planetsystems.tela.activities.staff.administration.serviceRequests.PendingMaterialRequest;
 import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendance;
+import com.planetsystems.tela.utils.DynamicData;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +39,7 @@ public class ConfirmTimeAttendance extends AppCompatActivity {
     String supervisorID_extra;
     String dayOfTheWeek;
     String dateOfTheWeek;
+    int count = 0;
     List<SyncConfirmTimeOnSiteAttendance> onSiteAttendance;
     private TimeAttendanceListViewModel timeAttendanceListViewModel;
 
@@ -102,32 +107,54 @@ public class ConfirmTimeAttendance extends AppCompatActivity {
 
             }
         });
-        btnFollow.setOnClickListener(new View.OnClickListener() {
+
+        timeAttendanceListViewModel = new ViewModelProvider(this).get(TimeAttendanceListViewModel.class);
+
+        timeAttendanceListViewModel.getEmployeeIDAndDate(teacherID_extra, DynamicData.getDate()).observe(this, new Observer<List<SyncConfirmTimeOnSiteAttendance>>() {
             @Override
-            public void onClick(View view) {
-                if(staffId.getText().toString().equalsIgnoreCase("")){
-                    staffId.setError("Id Missing!");
-                }else{
+            public void onChanged(List<SyncConfirmTimeOnSiteAttendance> syncConfirmTimeOnSiteAttendances) {
+                if(syncConfirmTimeOnSiteAttendances.size() != count ){
                     new AlertDialog.Builder(ConfirmTimeAttendance.this)
                             .setTitle("Confirmation")
-                            .setMessage("Do you really want to submit this?")
+                            .setMessage("Dear Supervisor, "+ teacherName_extra +"'s attendance on site has been already confirmed and submitted successfully.")
                             .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
 
                                 public void onClick(DialogInterface dialog, int whichButton) {
-                                    PostToSyncConfirmTimeOnSiteAttendances();
-                                }})
-                            .setNegativeButton(android.R.string.no, null).show();
+                                    Intent intent = new Intent(ConfirmTimeAttendance.this, TimeAttendanceList.class);
+                                    intent.putExtra("admin", supervisorID_extra);
+                                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    ConfirmTimeAttendance.this.finish();
+                                }}).show();
+                }else {
+                    btnFollow.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(staffId.getText().toString().equalsIgnoreCase("")){
+                                staffId.setError("Id Missing!");
+                            }else{
+                                new AlertDialog.Builder(ConfirmTimeAttendance.this)
+                                        .setTitle("Confirmation")
+                                        .setMessage("Do you really want to submit this?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                                PostToSyncConfirmTimeOnSiteAttendances();
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+                            }
+                        }
+                    });
                 }
             }
         });
 
-        timeAttendanceListViewModel = new ViewModelProvider(this).get(TimeAttendanceListViewModel.class);
-
         timeAttendanceListViewModel.onSiteAttendance().observe(this, new Observer<List<SyncConfirmTimeOnSiteAttendance>>() {
             @Override
             public void onChanged(List<SyncConfirmTimeOnSiteAttendance> syncConfirmTimeOnSiteAttendances) {
-                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(syncConfirmTimeOnSiteAttendances.size()), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(syncConfirmTimeOnSiteAttendances.size()), Toast.LENGTH_LONG).show();
 
                 for (int i = 0; i < syncConfirmTimeOnSiteAttendances.size(); i++){
                     setTimeOnSiteDetails(syncConfirmTimeOnSiteAttendances);
@@ -154,14 +181,13 @@ public class ConfirmTimeAttendance extends AppCompatActivity {
         );
 
          timeAttendanceListViewModel.insertTimeOnSiteAttendance(syncConfirmTimeOnSiteAttendance);
+        Toast.makeText(getApplicationContext(),"Submitted Successfully " ,Toast.LENGTH_SHORT).show();
 
-//        for (int i = 0; i < onSiteAttendance.size(); i++){
-//            if(onSiteAttendance.get(i).getSupervisionDate().equals(dateOfTheWeek) && syncConfirmTimeOnSiteAttendance.getEmployeeNo().equals(teacherID_extra)){
-//                Toast.makeText(getApplicationContext(), "Already submitted for "+ " " + teacherName_extra, Toast.LENGTH_LONG).show();
-//            }else {
-//                timeAttendanceListViewModel.insertTimeOnSiteAttendance(syncConfirmTimeOnSiteAttendance);
-//            }
-//        }
+        Intent intent = new Intent(ConfirmTimeAttendance.this, TimeAttendanceList.class);
+        intent.putExtra("admin", supervisorID_extra);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        ConfirmTimeAttendance.this.finish();
     }
 
     public void setTimeOnSiteDetails(List<SyncConfirmTimeOnSiteAttendance> onSite){

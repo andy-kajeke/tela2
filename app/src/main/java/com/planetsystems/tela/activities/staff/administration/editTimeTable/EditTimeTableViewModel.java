@@ -29,7 +29,7 @@ public class EditTimeTableViewModel extends AndroidViewModel {
         return timeOnTaskRepository.getSyncTimeTableByEmployeeIDForClassUnit(day, classUnit);
     }
 
-    public void updateTimeTable(String startTime, String endTime, String employeeNo, String employeeName, int primaryKey){
-        timeTableRepository.updateTimeTable(startTime, endTime, employeeNo, employeeName, primaryKey);
+    public void updateTimeTable(String startTime, String endTime, String employeeNo, String employeeName, boolean is_updated, int primaryKey){
+        timeTableRepository.updateTimeTable(startTime, endTime, employeeNo, employeeName, is_updated, primaryKey);
     }
 }

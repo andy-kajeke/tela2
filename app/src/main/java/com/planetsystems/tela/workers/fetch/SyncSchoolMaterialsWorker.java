@@ -13,6 +13,7 @@ import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClassesDao;
 import com.planetsystems.tela.data.schoolMaterials.SchoolMaterials;
 import com.planetsystems.tela.data.schoolMaterials.SchoolMaterialsDao;
+import com.planetsystems.tela.utils.DynamicData;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.SchoolDeviceIMEINumber;
 import static com.planetsystems.tela.constants.Urls.SCHOOL_CLASSES;
 import static com.planetsystems.tela.constants.Urls.SCHOOL_MATERIALS_URL;
 

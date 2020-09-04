@@ -2,17 +2,9 @@ package com.planetsystems.tela.data.confirmTimeOnTaskAttendance;
 
 import androidx.lifecycle.LiveData;
 
-import com.planetsystems.tela.data.ConfirmTimeOnSiteAttendance.SyncConfirmTimeOnSiteAttendanceDao;
 import com.planetsystems.tela.data.TelaRoomDatabase;
-import com.planetsystems.tela.data.timeOnTask.SynTimeOnTask;
-import com.planetsystems.tela.data.timeOnTask.SynTimeOnTaskDao;
-import com.planetsystems.tela.data.timetable.SyncTimeTable;
-import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
 
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 public class ConfirmTimeOnTaskRepository {
     private SyncConfirmTimeOnTaskAttendanceDao syncConfirmTimeOnTaskAttendanceDao;
@@ -44,6 +36,10 @@ public class ConfirmTimeOnTaskRepository {
 
     public LiveData<List<SyncConfirmTimeOnTaskAttendance>> getAllTimeOnTask() {
         return syncConfirmTimeOnTaskAttendanceDao.getAllRecords();
+    }
+
+    public LiveData<List<SyncConfirmTimeOnTaskAttendance>> getEmployeeNoAndDate(final String employeeNumber, final String date){
+        return syncConfirmTimeOnTaskAttendanceDao.getEmployeeIDAndDate(employeeNumber, date);
     }
 
 }

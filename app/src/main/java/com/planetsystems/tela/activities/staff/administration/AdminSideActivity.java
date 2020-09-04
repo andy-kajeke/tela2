@@ -14,10 +14,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
 import com.planetsystems.tela.activities.enrollActivity.EnrollmentActivity;
 import com.planetsystems.tela.activities.staff.administration.editStaff.EditStaffList;
 import com.planetsystems.tela.activities.staff.administration.editTimeTable.SelectClass;
@@ -25,6 +27,7 @@ import com.planetsystems.tela.activities.staff.administration.enrollments.Enroll
 import com.planetsystems.tela.activities.staff.administration.enrollments.SelectLearnerClass;
 import com.planetsystems.tela.activities.staff.administration.learnerAttendance.LearnerClasses;
 import com.planetsystems.tela.activities.staff.administration.serviceRequests.RequestsMade;
+import com.planetsystems.tela.activities.staff.administration.syncData.SyncDataManually;
 import com.planetsystems.tela.activities.staff.administration.taskAttendance.TaskAttendance;
 import com.planetsystems.tela.activities.staff.administration.timeAttendance.TimeAttendanceList;
 import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActivity;
@@ -45,7 +48,7 @@ public class AdminSideActivity extends AppCompatActivity {
     CardView update;
     CardView sync;
     Dialog updateDialog;
-    Dialog selectDayDialog;
+    ImageView back;
     EditText _date, staff_comment;
 
     TextView close;
@@ -64,6 +67,7 @@ public class AdminSideActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_side);
 
+        back = findViewById(R.id.back);
         headName = findViewById(R.id.headTeacher);
         headRole = findViewById(R.id.adminPosition);
         myLessons = findViewById(R.id.cardview1);
@@ -83,6 +87,14 @@ public class AdminSideActivity extends AppCompatActivity {
 //
         headRole.setText("[ " + "Head Teacher" + " ]");
         headName.setText(name_extra);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bk = new Intent(getApplicationContext(), ClockInAndOutActivity.class);
+                startActivity(bk);
+            }
+        });
 
         if (!isConnected()) {
             Toast.makeText(this, "No Internet connection", Toast.LENGTH_SHORT).show();
@@ -107,7 +119,8 @@ public class AdminSideActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), TimeAttendanceList.class);
-//                i.putExtra("employee_No", HT_Id);
+                i.putExtra("admin", admin_id_extra);
+                i.putExtra("name", name_extra);
                 startActivity(i);
             }
         });
@@ -116,7 +129,8 @@ public class AdminSideActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), TaskAttendance.class);
-//                i.putExtra("id", HT_Id);
+                i.putExtra("admin", admin_id_extra);
+                i.putExtra("name", name_extra);
                 startActivity(i);
             }
         });
@@ -125,6 +139,8 @@ public class AdminSideActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), LearnerClasses.class);
+                i.putExtra("admin", admin_id_extra);
+                i.putExtra("name", name_extra);
                 startActivity(i);
             }
         });
@@ -134,6 +150,7 @@ public class AdminSideActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), RequestsMade.class);
                 i.putExtra("employee_No", admin_id_extra);
+                i.putExtra("name", name_extra);
                 startActivity(i);
             }
         });
@@ -142,6 +159,14 @@ public class AdminSideActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showUpdatePopup();
+            }
+        });
+
+        sync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AdminSideActivity.this, SyncDataManually.class);
+                startActivity(i);
             }
         });
     }

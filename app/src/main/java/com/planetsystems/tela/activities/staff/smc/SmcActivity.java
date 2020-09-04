@@ -30,7 +30,7 @@ import com.planetsystems.tela.workers.WorkManagerTrigger;
 
 import java.util.List;
 
-import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.SchoolDeviceIMEINumber;
 
 public class SmcActivity extends AppCompatActivity {
 
@@ -265,7 +265,7 @@ public class SmcActivity extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(SmcActivity.this,"Sch ID: "+ DynamicData.getSchoolID(SchoolDeviceIMEINumber),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(SmcActivity.this,"Sch ID: "+ DynamicData.getSchoolID(SchoolDeviceIMEINumber),Toast.LENGTH_SHORT).show();
     }
 
     private void SMCs() {

@@ -6,11 +6,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.staff.administration.taskAttendance.SupervisorObservations;
+import com.planetsystems.tela.activities.staff.administration.taskAttendance.TaskAttendance;
 import com.planetsystems.tela.data.timetable.SyncTimeTableDao;
 
 public class EditTimeTable extends AppCompatActivity {
@@ -26,7 +30,7 @@ public class EditTimeTable extends AppCompatActivity {
     int row_id_extra;
     String startTime_extra;
     String endTime_extra;
-    String staffName_extra;
+    String staffName_extra, classUnit_extra, day_extra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,8 @@ public class EditTimeTable extends AppCompatActivity {
         startTime_extra = bundle.getString("startTime");
         endTime_extra = bundle.getString("endTime");
         staffName_extra = bundle.getString("teacherName");
+        classUnit_extra = bundle.getString("classUnit");
+        day_extra = bundle.getString("day");
 
         task_Name.append(task_Name_extra);
         startTym.append(startTime_extra);
@@ -82,7 +88,16 @@ public class EditTimeTable extends AppCompatActivity {
         String endTime = endTym.getText().toString();
         String employeeNo = staff_code.getText().toString();
         String employeeName = staff_name.getText().toString();
+        boolean is_updated = false;
 
-        editTimeTableViewModel.updateTimeTable(startTime, endTime, employeeNo, employeeName, row_id_extra);
+        editTimeTableViewModel.updateTimeTable(startTime, endTime, employeeNo, employeeName, is_updated, row_id_extra);
+        Toast.makeText(getApplicationContext(),"Submitted Successfully " ,Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(EditTimeTable.this, TimeTable.class);
+        intent.putExtra("class", classUnit_extra);
+        intent.putExtra("day", day_extra);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        EditTimeTable.this.finish();
     }
 }

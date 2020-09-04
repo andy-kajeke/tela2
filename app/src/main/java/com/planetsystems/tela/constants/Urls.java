@@ -1,5 +1,7 @@
 package com.planetsystems.tela.constants;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.planetsystems.tela.utils.DynamicData;
@@ -13,18 +15,25 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.InputStream;
 import java.util.Objects;
 
-import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.school.SchoolConfirmation.mSharedPreferences;
+import static com.planetsystems.tela.activities.school.SchoolConfirmation.schoolPreference;
+import static com.planetsystems.tela.activities.school.SchoolConfirmation.school_Device_Number;
+import static com.planetsystems.tela.activities.school.SchoolConfirmation.school_Name;
 
 @SuppressWarnings("ALL")
 public class Urls {
-    public static final String DEVICE_IMEI = "354633111523205";
-    public static final String DEVICE = DynamicData.getSchoolID(SchoolDeviceIMEINumber);
+
+    public String DEVICE_IMEI = mSharedPreferences.getString(school_Device_Number, "");
+
+    //public static final String DEVICE = "0703413890";
 
     public static final String BASE_URL = "http://tela.planetsystems.co:8080/weca/webapi/attendance/";
 
     public static final String DEVICE_OWNERSHIP =  BASE_URL + "school/";
 
-    public static final String SYNC_TEACHER_URL = BASE_URL + "teachers/" + DEVICE_IMEI;
+    //public static final String SYNC_TEACHER_URL = BASE_URL + "teachers/" + DEVICE;
+    public static final String SYNC_TEACHER_URL = BASE_URL + "teachers/";
 
     public static final String CONFIRM_TASKS = BASE_URL + "confirmtasks";
 
@@ -36,13 +45,17 @@ public class Urls {
 
     public static final String CLOCK_OUT_UPLOAD_URL = BASE_URL + "clockout";
 
-    public static final String SYNC_TIME_TABLE_URL = BASE_URL + "timetable/" + DEVICE_IMEI;
+    //public static final String SYNC_TIME_TABLE_URL = BASE_URL + "timetable/" + DEVICE;
+    public static final String SYNC_TIME_TABLE_URL = BASE_URL + "timetable/";
 
-    public static final String SCHOOL_CLASSES = BASE_URL + "classes/" + DEVICE_IMEI;
+    public static final String SYNC_TIME_TABLE_UPDATE_URL = BASE_URL + "timetable";
+
+    //public static final String SCHOOL_CLASSES = BASE_URL + "classes/" + DEVICE;
+    public static final String SCHOOL_CLASSES = BASE_URL + "classes/";
 
     public static final String LEARNER_ATTENDANCE_UPLOAD_URL = BASE_URL + "learners/attendance";
 
-    public static final String SMC_SUPERVISION_URL = BASE_URL + "smcsupervision";
+    public static final String SMC_SUPERVISION_URL = BASE_URL + "captureteachers";
 
     public static final String ENROLL_URL = BASE_URL + "teachers";
 
@@ -53,6 +66,8 @@ public class Urls {
     public static final String TIME_OFF_REQUEST_URL = BASE_URL + "timerequest";
 
     public static final String SCHOOL_MATERIALS_URL = BASE_URL + "materials";
+
+    public static final String SCHOOL_MATERIAL_REQUEST_UPLOAD_URE = BASE_URL + "materialrequest";
 
     public static final String DID_WORK = "Work Done!";
 

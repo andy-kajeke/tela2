@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.planetsystems.tela.R;
@@ -22,6 +25,8 @@ public class PendingHelpRequest extends AppCompatActivity {
     private HelpAdapter adapter;
     RecyclerView requestList;
     String supervisor;
+    int count = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +49,23 @@ public class PendingHelpRequest extends AppCompatActivity {
         serviceRequestsViewModel.getAllHelpRequests("Pending").observe(this, new Observer<List<HelpRequest>>() {
             @Override
             public void onChanged(List<HelpRequest> helpRequests) {
-                adapter.setHelpRequestsList(helpRequests);
+                if(helpRequests.size() != count ){
+                    adapter.setHelpRequestsList(helpRequests);
+                }else {
+                    new AlertDialog.Builder(PendingHelpRequest.this)
+                            .setTitle("Help Request")
+                            .setMessage("No pending request to show")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    Intent intent = new Intent(PendingHelpRequest.this, RequestsMade.class);
+                                    intent.putExtra("supervisor", supervisor);
+                                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    PendingHelpRequest.this.finish();
+                                }}).show();
+                }
             }
         });
     }

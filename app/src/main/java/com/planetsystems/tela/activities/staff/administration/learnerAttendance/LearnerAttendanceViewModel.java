@@ -43,6 +43,10 @@ public class LearnerAttendanceViewModel extends AndroidViewModel {
         return learnerRepository.getAllLearnerRecords();
     }
 
+    public LiveData<List<SyncAttendanceRecord>> getAttendanceByClassAndDate(String classUnit, String date){
+        return learnerRepository.getAttendanceByClassAndDate(classUnit, date);
+    }
+
     //////////Learners enrolled/////////////////////////////////////////
     public void insertLearnersEnrolled(LearnersEnrolled learnersEnrolled){
         learnersEnrolledRepository.insertLearnersEnrolled(learnersEnrolled);
@@ -51,4 +55,5 @@ public class LearnerAttendanceViewModel extends AndroidViewModel {
     public LiveData<List<LearnersEnrolled>> getLearnersEnrolled() {
         return learnersEnrolledRepository.getLearnersEnrolled();
     }
+
 }

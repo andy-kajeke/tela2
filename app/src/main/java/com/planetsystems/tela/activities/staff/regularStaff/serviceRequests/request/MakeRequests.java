@@ -10,10 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity;
+import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActivity;
 import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.viewReplies.ViewHelpRequest;
+import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.viewReplies.ViewMaterialRequest;
 import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.viewReplies.ViewMeetingRequest;
 import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.viewReplies.ViewTimeOffRequest;
 
@@ -21,6 +25,7 @@ public class MakeRequests extends AppCompatActivity {
 
     EditText staffName, staffId;
     Button schoolMaterials, timeOff, meetings, help, replies;
+    ImageView back;
 
     TextView close;
     Button viewSchMaterials;
@@ -37,8 +42,8 @@ public class MakeRequests extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_requests);
-        setTitle("Service Requests");
 
+        back = findViewById(R.id.back);
         staffName = findViewById(R.id.employeeName);
         staffId = findViewById(R.id.employeeID);
         schoolMaterials = findViewById(R.id.SchoolMaterials);
@@ -51,6 +56,16 @@ public class MakeRequests extends AppCompatActivity {
         id_extra = bundle.getString("id");
         name_extra = bundle.getString("name");
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bk = new Intent(getApplicationContext(), TeacherHomeActivity.class);
+                bk.putExtra("employee_No", id_extra);
+                bk.putExtra("employee_Name", name_extra);
+                startActivity(bk);
+            }
+        });
+
         staffName.append(name_extra);
         staffId.append(id_extra);
 
@@ -60,46 +75,37 @@ public class MakeRequests extends AppCompatActivity {
         schoolMaterials.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent sch = new Intent(MakeRequests.this, SchoolMaterialsList.class);
-//                sch.putExtra("id", id_extra);
-//                sch.putExtra("name", name_extra);
-//                sch.putExtra("school_id", school_extra);
+                sch.putExtra("id", id_extra);
+                sch.putExtra("name", name_extra);
                 startActivity(sch);
-
             }
         });
         timeOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent sch = new Intent(MakeRequests.this, RequestTimeOff.class);
                 sch.putExtra("id", id_extra);
                 sch.putExtra("name", name_extra);
                 startActivity(sch);
-
             }
         });
         meetings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent sch = new Intent(MakeRequests.this, RequestMeeting.class);
                 sch.putExtra("id", id_extra);
                 sch.putExtra("name", name_extra);
                 startActivity(sch);
-
             }
         });
         help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent sch = new Intent(MakeRequests.this, RequestHelp.class);
                 sch.putExtra("id", id_extra);
                 sch.putExtra("name", name_extra);
                 startActivity(sch);
-
             }
         });
 
@@ -124,12 +130,10 @@ public class MakeRequests extends AppCompatActivity {
         viewSchMaterials.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                Intent i = new Intent(getApplicationContext(), viewSchoolMaterial.class);
-//                i.putExtra("id", id_extra);
-//                i.putExtra("school", school_extra);
-//                startActivity(i);
-
+                Intent i = new Intent(getApplicationContext(), ViewMaterialRequest.class);
+                i.putExtra("id", id_extra);
+                i.putExtra("name", name_extra);
+                startActivity(i);
             }
         });
 
@@ -138,6 +142,7 @@ public class MakeRequests extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ViewTimeOffRequest.class);
                 i.putExtra("id", id_extra);
+                i.putExtra("name", name_extra);
                 startActivity(i);
             }
         });
@@ -147,6 +152,7 @@ public class MakeRequests extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ViewMeetingRequest.class);
                 i.putExtra("id", id_extra);
+                i.putExtra("name", name_extra);
                 startActivity(i);
             }
         });
@@ -156,6 +162,7 @@ public class MakeRequests extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ViewHelpRequest.class);
                 i.putExtra("id", id_extra);
+                i.putExtra("name", name_extra);
                 startActivity(i);
             }
         });

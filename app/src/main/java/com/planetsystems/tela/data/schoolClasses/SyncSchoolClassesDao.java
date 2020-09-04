@@ -17,7 +17,7 @@ public interface SyncSchoolClassesDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertSchoolClasses(SyncSchoolClasses syncSchoolClasses);
 
-    @Query("SELECT * FROM " + SyncSchoolClassesConstants.TABLE_NAME)
+    @Query("SELECT * FROM " + SyncSchoolClassesConstants.TABLE_NAME + " ORDER BY " + SyncSchoolClassesConstants.COLUMN_CLASS_NAME)
     LiveData<List<SyncSchoolClasses>> getAllSchoolClasses();
 
     @Query(

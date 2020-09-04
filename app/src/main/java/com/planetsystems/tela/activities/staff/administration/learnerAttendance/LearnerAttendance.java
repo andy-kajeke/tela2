@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.staff.administration.serviceRequests.PendingHelpRequest;
+import com.planetsystems.tela.activities.staff.administration.serviceRequests.RequestsMade;
 import com.planetsystems.tela.data.attendance.SyncAttendanceRecord;
+import com.planetsystems.tela.utils.DynamicData;
 import com.planetsystems.tela.workers.WorkManagerTrigger;
 
 import java.text.SimpleDateFormat;
@@ -32,7 +36,7 @@ public class LearnerAttendance extends AppCompatActivity {
     EditText comment;
     Button postInfo;
 
-    String id_extra;
+    int count = 0;
     String class_extra;
     String class_id_extra;
     String admin_extra;
@@ -69,7 +73,6 @@ public class LearnerAttendance extends AppCompatActivity {
         WorkManagerTrigger.startUploadWorkers(getApplicationContext());
 
         Bundle bundle = getIntent().getExtras();
-//        id_extra = bundle.getString("id");
         class_extra = bundle.getString("class");
         class_id_extra = bundle.getString("class_id");
         admin_extra = bundle.getString("admin");
@@ -117,27 +120,52 @@ public class LearnerAttendance extends AppCompatActivity {
             }
         });
 
-        postInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(LearnerAttendance.this)
-                        .setTitle("Confirmation")
-                        .setMessage("Are you sure you want to submit?")
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                PostLearnerAttendance();
-                            }})
-                        .setNegativeButton(android.R.string.no, null).show();
-            }
-        });
-
         learnerAttendanceViewModel = new ViewModelProvider(this).get(LearnerAttendanceViewModel.class);
         learnerAttendanceViewModel.learnerRecords().observe(this, new Observer<List<SyncAttendanceRecord>>() {
             @Override
             public void onChanged(List<SyncAttendanceRecord> syncAttendanceRecords) {
-                Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(syncAttendanceRecords.size()), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "size is: " + String.valueOf(syncAttendanceRecords.size()), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        learnerAttendanceViewModel.getAttendanceByClassAndDate(class_extra, dateString).observe(this, new Observer<List<SyncAttendanceRecord>>() {
+            @Override
+            public void onChanged(List<SyncAttendanceRecord> syncAttendanceRecords) {
+                for(int i = 0; i < syncAttendanceRecords.size(); i++){
+                    if(syncAttendanceRecords.size() != count ){
+                        new AlertDialog.Builder(LearnerAttendance.this)
+                                .setTitle(class_extra + " Attendance submitted")
+                                .setMessage("=============================\n" + "Boys Present: " + syncAttendanceRecords.get(i).getMalePresent() +
+                                        "\n\n" + "Boys Absent: " + syncAttendanceRecords.get(i).getMaleAbsent() + "\n\n" + "Girls Present: " + syncAttendanceRecords.get(i).getFemalePresent() +
+                                        "\n\n" + "Girls Absent: " + syncAttendanceRecords.get(i).getFemaleAbsent())
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        Intent intent = new Intent(LearnerAttendance.this, LearnerClasses.class);
+                                        intent.putExtra("admin", admin_extra);
+                                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        LearnerAttendance.this.finish();
+                                    }}).show();
+                    }else {
+                        postInfo.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                new AlertDialog.Builder(LearnerAttendance.this)
+                                        .setTitle("Confirmation")
+                                        .setMessage("Are you sure you want to submit?")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                                PostLearnerAttendance();
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+                            }
+                        });
+                    }
+                }
             }
         });
 
@@ -155,12 +183,18 @@ public class LearnerAttendance extends AppCompatActivity {
                 numGalsPresent.getText().toString(),
                 numBoysAbsent.getText().toString(),
                 numBoysPresent.getText().toString(),
-                dateString,
+                DynamicData.getDate(),
                 admin_extra,
-                dayOfTheWeek,
+                DynamicData.getDay(),
                 false
         );
 
         learnerAttendanceViewModel.learnerAttendance(syncAttendanceRecord);
+        Toast.makeText(getApplicationContext(), "Submitted successfully", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(LearnerAttendance.this, LearnerClasses.class);
+        intent.putExtra("admin", admin_extra);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        LearnerAttendance.this.finish();
     }
 }

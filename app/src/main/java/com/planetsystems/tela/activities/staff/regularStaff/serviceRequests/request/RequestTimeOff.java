@@ -18,12 +18,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.planetsystems.tela.R;
+import com.planetsystems.tela.activities.staff.regularStaff.home.TeacherHomeActivity;
 import com.planetsystems.tela.activities.staff.regularStaff.serviceRequests.ServiceRequestsViewModel;
 import com.planetsystems.tela.data.employeeTimeOffRequestDM.SyncEmployeeTimeOffRequestDM;
 import com.planetsystems.tela.utils.DynamicData;
@@ -40,10 +42,9 @@ public class RequestTimeOff extends AppCompatActivity {
     ProgressDialog dialog;
     EditText dateFrom, dateTo, timeFrom, timeTo, tstaff_comment;
     Spinner leave;
-    TextView closeTimeOff;
     Button tbtnFollow;
+    ImageView back;
     String id_extra, name_extra;
-    String school_extra;
     String datetoday;
 
     private ServiceRequestsViewModel serviceRequestsViewModel;
@@ -56,8 +57,8 @@ public class RequestTimeOff extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_time_off);
-        setTitle("Time off / Leave");
 
+        back = findViewById(R.id.back);
         tbtnFollow =(Button) findViewById(R.id.tTimeOut);
         leave = (Spinner) findViewById(R.id.leaveType);
         dateFrom =(EditText) findViewById(R.id.tDateFrom);
@@ -69,6 +70,16 @@ public class RequestTimeOff extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         id_extra = bundle.getString("id");
         name_extra = bundle.getString("name");
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bk = new Intent(getApplicationContext(), MakeRequests.class);
+                bk.putExtra("id", id_extra);
+                bk.putExtra("name", name_extra);
+                startActivity(bk);
+            }
+        });
 
         ArrayAdapter<CharSequence> Adapter = ArrayAdapter.createFromResource(this, R.array.leave_type,
                 android.R.layout.simple_spinner_item);

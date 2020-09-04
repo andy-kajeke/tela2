@@ -43,4 +43,8 @@ public class LearnerRepository {
         return syncAttendanceRecordDao.getAllRecords();
     }
 
+    public LiveData<List<SyncAttendanceRecord>> getAttendanceByClassAndDate(final String classUnit, final String date){
+        return syncAttendanceRecordDao.getAttendanceByClassAndDate(classUnit, date);
+    }
+
 }

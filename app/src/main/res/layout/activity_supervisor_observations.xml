@@ -140,19 +140,19 @@
             android:layout_marginRight="0dp"
             android:layout_weight="1"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/menuBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Menu"
-                android:textColor="#fff"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="0dp"
-                android:layout_weight=".5"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="0dp"
                 android:layout_marginBottom="0dp"
+                android:layout_weight=".5"
                 android:background="#c20215"
-                />
+                android:text="Cancle"
+                android:textColor="#fff" />
             <Button
                 android:id="@+id/submit"
                 android:layout_width="wrap_content"

@@ -25,9 +25,11 @@ public class TaskAttendanceAdapter extends RecyclerView.Adapter<TaskAttendanceAd
     private LayoutInflater layoutInflater;
     private  Context mContext;
     private List<SyncClockIn> mSyncClockIn;
+    private String supervisor;
 
-    public TaskAttendanceAdapter(Context context){
+    public TaskAttendanceAdapter(Context context, String supervisor){
         layoutInflater = LayoutInflater.from(context);
+        supervisor = supervisor;
         mContext = context;
     }
 
@@ -64,7 +66,7 @@ public class TaskAttendanceAdapter extends RecyclerView.Adapter<TaskAttendanceAd
                 public void onClick(View v) {
                     SyncClockIn syncClockIn1 = mSyncClockIn.get(position);
                     Intent SO = new Intent(mContext, SupervisorObservations.class);
-                    SO.putExtra("admin","");
+                    SO.putExtra("admin",supervisor);
                     SO.putExtra("employee_No", syncClockIn1.getEmployeeNo());
                     SO.putExtra("employee_Name", syncClockIn1.getFirstName() + " " + syncClockIn1.getLastName());
                     //CTA.putExtra("teacher_name", syncClockIn1.getFirstName() + " " + syncClockIn1.getLastName());

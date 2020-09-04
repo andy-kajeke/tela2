@@ -272,7 +272,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/updateview"
         android:layout_marginTop="5sp"
-        android:text="Help line: +256 772 510 443"
+        android:text="Help line: 0800 377771"
         android:textColor="#000"/>
 
     <TextView

@@ -60,7 +60,9 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.SchoolDeviceIMEINumber;
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.currentLatitude;
+import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.currentLongitude;
 import static com.planetsystems.tela.utils.BitmapConverter.encodeBitmapToBase64;
 
 public class FingerPrintActivity extends Activity{
@@ -568,8 +570,8 @@ public class FingerPrintActivity extends Activity{
                         syncTeacher.getEmployeeId(),
                         syncTeacher.getFirstName(),
                         syncTeacher.getLastName(),
-                        DynamicData.getLatitude(),
-                        DynamicData.getLongitude(),
+                        DynamicData.getLatitude(currentLatitude),
+                        DynamicData.getLongitude(currentLongitude),
                         DynamicData.getDate(),
                         DynamicData.getDay(),
                         DynamicData.getTime(),
@@ -709,8 +711,8 @@ public class FingerPrintActivity extends Activity{
                             null,
                             syncTeacher.getEmployeeNumber(),
                             syncTeacher.getEmployeeId(),
-                            DynamicData.getLatitude(),
-                            DynamicData.getLongitude(),
+                            DynamicData.getLatitude(currentLatitude),
+                            DynamicData.getLongitude(currentLongitude),
                             DynamicData.getSchoolID(SchoolDeviceIMEINumber),
                             DynamicData.getSchoolName(),
                             syncTeacher.getFirstName(),

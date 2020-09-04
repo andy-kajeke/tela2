@@ -24,9 +24,11 @@ public class ClockInListAdapter extends RecyclerView.Adapter<ClockInListAdapter.
     private LayoutInflater layoutInflater;
     private  Context mContext;
     private List<SyncClockIn> mSyncClockIn;
+    private String supervisor;
 
-    public ClockInListAdapter(Context context){
+    public ClockInListAdapter(Context context, String supervisor){
         layoutInflater = LayoutInflater.from(context);
+        supervisor = supervisor;
         mContext = context;
     }
 
@@ -63,7 +65,7 @@ public class ClockInListAdapter extends RecyclerView.Adapter<ClockInListAdapter.
                 public void onClick(View v) {
                     SyncClockIn syncClockIn1 = mSyncClockIn.get(position);
                     Intent CTA = new Intent(mContext, ConfirmTimeAttendance.class);
-                    CTA.putExtra("admin","");
+                    CTA.putExtra("admin",supervisor);
                     CTA.putExtra("teacher_id", syncClockIn1.getEmployeeNo());
                     CTA.putExtra("teacher_name", syncClockIn1.getFirstName() + " " + syncClockIn1.getLastName());
                     mContext.startActivity(CTA);

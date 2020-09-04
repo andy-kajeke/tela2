@@ -44,6 +44,7 @@ public class SelectDay extends Activity {
                 //timetable.putExtra("schoolId", school_id_extra);
                 timetable.putExtra("day", "Monday");
                 timetable.putExtra("class", class_extra);
+                timetable.putExtra("class_id", class_id_extra);
                 startActivity(timetable);
 
             }
@@ -57,6 +58,7 @@ public class SelectDay extends Activity {
                 //timetable.putExtra("schoolId", school_id_extra);
                 timetable.putExtra("day", "Tuesday");
                 timetable.putExtra("class", class_extra);
+                timetable.putExtra("class_id", class_id_extra);
                 startActivity(timetable);
 
             }
@@ -70,6 +72,7 @@ public class SelectDay extends Activity {
                 //timetable.putExtra("schoolId", school_id_extra);
                 timetable.putExtra("day", "Wednesday");
                 timetable.putExtra("class", class_extra);
+                timetable.putExtra("class_id", class_id_extra);
                 startActivity(timetable);
 
             }
@@ -83,6 +86,7 @@ public class SelectDay extends Activity {
                 //timetable.putExtra("schoolId", school_id_extra);
                 timetable.putExtra("day", "Thursday");
                 timetable.putExtra("class", class_extra);
+                timetable.putExtra("class_id", class_id_extra);
                 startActivity(timetable);
 
             }
@@ -96,6 +100,7 @@ public class SelectDay extends Activity {
                 //timetable.putExtra("schoolId", school_id_extra);
                 timetable.putExtra("day", "Friday");
                 timetable.putExtra("class", class_extra);
+                timetable.putExtra("class_id", class_id_extra);
                 startActivity(timetable);
 
             }
@@ -109,6 +114,7 @@ public class SelectDay extends Activity {
                 //timetable.putExtra("schoolId", school_id_extra);
                 timetable.putExtra("day", "Saturday");
                 timetable.putExtra("class", class_extra);
+                timetable.putExtra("class_id", class_id_extra);
                 startActivity(timetable);
 
             }

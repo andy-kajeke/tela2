@@ -21,11 +21,11 @@ public class TimeTableRepository {
         return INSTANCE;
     }
 
-    public void  updateTimeTable(final String startTime, final String endTime, final String employeeNo, final String employeeName, final int primaryKey){
+    public void  updateTimeTable(final String startTime, final String endTime, final String employeeNo, final String employeeName, final boolean is_updated, final int primaryKey){
         TelaRoomDatabase.db_executor.execute(new Runnable() {
             @Override
             public void run() {
-                syncTimeTableDao.update(startTime, endTime, employeeNo, employeeName, primaryKey);
+                syncTimeTableDao.update(startTime, endTime, employeeNo, employeeName, is_updated, primaryKey);
             }
         });
     }

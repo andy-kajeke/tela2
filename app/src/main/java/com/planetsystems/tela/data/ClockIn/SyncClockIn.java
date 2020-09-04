@@ -31,10 +31,10 @@ public class SyncClockIn {
     private String lastName;
 
     @ColumnInfo(name = SyncClockInTableConstants.COLUMN_LATITUDE)
-    private String latitude;
+    private double latitude;
 
     @ColumnInfo(name = SyncClockInTableConstants.COLUMN_LONGITUDE)
-    private String longitude;
+    private double longitude;
 
     @ColumnInfo(name = SyncClockInTableConstants.COLUMN_CLOCK_IN_DATE)
     private String clockInDate;
@@ -54,7 +54,7 @@ public class SyncClockIn {
     @ColumnInfo(name = SyncClockInTableConstants.COLUMN_FINGER_PRINT)
     private byte[] fingerPrint;
 
-    public SyncClockIn(String employeeNo, String employeeId, String firstName, String lastName, String latitude, String longitude, String clockInDate, String day, String clockInTime, String schoolId, byte[] fingerPrint) {
+    public SyncClockIn(String employeeNo, String employeeId, String firstName, String lastName, double latitude, double longitude, String clockInDate, String day, String clockInTime, String schoolId, byte[] fingerPrint) {
         this.employeeNo = employeeNo;
         this.employeeId = employeeId;
         this.firstName = firstName;
@@ -93,19 +93,19 @@ public class SyncClockIn {
         this.employeeId = employeeId;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

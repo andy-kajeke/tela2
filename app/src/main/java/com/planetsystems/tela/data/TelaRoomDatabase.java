@@ -32,6 +32,8 @@ import com.planetsystems.tela.data.helprequest.HelpRequest;
 import com.planetsystems.tela.data.helprequest.HelpRequestDao;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClasses;
 import com.planetsystems.tela.data.schoolClasses.SyncSchoolClassesDao;
+import com.planetsystems.tela.data.schoolMaterialRequests.SchoolMaterialRequests;
+import com.planetsystems.tela.data.schoolMaterialRequests.SchoolMaterialRequestsDao;
 import com.planetsystems.tela.data.schoolMaterials.SchoolMaterials;
 import com.planetsystems.tela.data.schoolMaterials.SchoolMaterialsDao;
 import com.planetsystems.tela.data.smc.SyncSMC;
@@ -66,6 +68,7 @@ import static com.planetsystems.tela.constants.TelaDatabase.Tela_DB;
         TeachersEnrolled.class,
         LearnersEnrolled.class,
         SchoolMaterials.class,
+        SchoolMaterialRequests.class,
         ExecutionLog.class
     }, version = 1, exportSchema = false)
 public abstract class TelaRoomDatabase extends RoomDatabase {
@@ -87,6 +90,7 @@ public abstract class TelaRoomDatabase extends RoomDatabase {
     public abstract TeachersEnrolledDao getTeachersEnrolledDao();
     public abstract LearnersEnrolledDao getLearnersEnrolledDao();
     public abstract SchoolMaterialsDao getSchoolMaterialsDao();
+    public abstract SchoolMaterialRequestsDao getSchoolMaterialRequestsDao();
     public abstract ExecutionLogDao getExecutionLogDao();
 
 

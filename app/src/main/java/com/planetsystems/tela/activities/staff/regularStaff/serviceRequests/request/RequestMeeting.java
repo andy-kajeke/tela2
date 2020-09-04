@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAnd
 public class RequestMeeting extends AppCompatActivity {
 
     EditText mdateFrom, mdateTo, mtimeFrom, mtimeTo, mstaff_comment;
+    ImageView back;
     ProgressDialog dialog;
     Button mbtnFollow;
     String id_extra, name_extra;
@@ -51,8 +53,8 @@ public class RequestMeeting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_meeting);
-        setTitle("Meeting Request");
 
+        back = findViewById(R.id.back);
         mbtnFollow =(Button) findViewById(R.id.mTimeOut);
         mdateFrom =(EditText) findViewById(R.id.mDateFrom);
         mdateTo =(EditText) findViewById(R.id.mDateTo);
@@ -63,6 +65,16 @@ public class RequestMeeting extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         id_extra = bundle.getString("id");
         name_extra = bundle.getString("name");
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bk = new Intent(getApplicationContext(), MakeRequests.class);
+                bk.putExtra("id", id_extra);
+                bk.putExtra("name", name_extra);
+                startActivity(bk);
+            }
+        });
 
         long date = System.currentTimeMillis();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd /MM/ yyy");
