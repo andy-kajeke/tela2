@@ -161,7 +161,7 @@ public class SchoolConfirmation extends AppCompatActivity {
 
                     return true;
                 }else {
-
+                    startRequestPhoneNuberActivity();
                 }
 
                 //------------------>>
@@ -215,12 +215,12 @@ public class SchoolConfirmation extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if ((resultCode == RESULT_OK) && (data != null)) {
             if (requestCode == PHONE_NUMBER_REQUEST_CODE) {
-                //Synchronize the school data to phone and to the sever
-                WorkManagerTrigger.startFetchWorkers(getApplicationContext());
-                WorkManagerTrigger.startUploadWorkers(getApplicationContext());
                 String phoneNumber = data.getStringExtra(PhoneNumberDialogActivity.PHONE_NUMBER_RESULT);
                 DynamicData.setSchoolID(phoneNumber, this);
                 getSchoolInformationFromServer();
+                //Synchronize the school data to phone and to the sever
+                WorkManagerTrigger.startFetchWorkers(getApplicationContext());
+                WorkManagerTrigger.startUploadWorkers(getApplicationContext());
 
             }
         }
