@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.planetsystems.tela.R;
+
 public class PhoneNumberDialogActivity extends AppCompatActivity {
 
     @Override

@@ -6,14 +6,20 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
+    android:padding="16dp"
     tools:context=".activities.dialogs.PhoneNumberDialogActivity">
 
     <TextView
+        android:layout_marginVertical="20dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Enter Phone Number"/>
 
     <EditText
+        android:paddingHorizontal="5dp"
         android:id="@+id/phoneNumber"
         android:background="@drawable/edit_text_style"
         android:layout_width="match_parent"

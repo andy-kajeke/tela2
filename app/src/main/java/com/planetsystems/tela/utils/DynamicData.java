@@ -6,10 +6,9 @@ import java.util.Date;
 import static com.planetsystems.tela.activities.mainActivity.MainActivity.SchoolDeviceIMEINumber;
 
 public class DynamicData {
-    public static String getSchoolID(String schoolDevice) {
+    public static String getSchoolID() {
         //TODO: put codes here for finding school id
-        schoolDevice = SchoolDeviceIMEINumber;
-        return schoolDevice;
+        return "0772241709";
     }
 
     public static String getLatitude() {
@@ -40,5 +39,9 @@ public class DynamicData {
 
     public static String getSchoolName() {
         return "Buganda Road";
+    }
+
+    public static void setSchoolID(String phoneNumber) {
+
     }
 }

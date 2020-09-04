@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.planetsystems.tela.activities.dialogs.PhoneNumberDialogActivity;
 import com.planetsystems.tela.activities.school.SchoolConfirmation;
 import com.planetsystems.tela.R;
 import com.planetsystems.tela.utils.DynamicData;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void run() {
+
                 Intent home = new Intent(MainActivity.this, SchoolConfirmation.class);
                 //home.putExtra("device_imei", SchoolDeviceIMEINumber);
                 home.putExtra("device_imei", "354633111523205");
@@ -77,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         //SchoolDeviceIMEINumber = "354633111523205";
 //        Toast.makeText(MainActivity.this, "IMEI_NO is: "+ SchoolDeviceIMEINumber, Toast.LENGTH_LONG).show();
         SchoolDeviceIMEINumber = "354633111523205";
-        DynamicData.getSchoolID(SchoolDeviceIMEINumber);
 
         ///////////////////SIM Card reader//////////////////////////////////////////////////////
 //        TelephonyManager telemamanger = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
