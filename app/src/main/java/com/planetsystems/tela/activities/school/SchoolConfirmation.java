@@ -214,6 +214,8 @@ public class SchoolConfirmation extends AppCompatActivity {
                 //Synchronize the school data to phone and to the sever
                 WorkManagerTrigger.startFetchWorkers(getApplicationContext());
                 WorkManagerTrigger.startUploadWorkers(getApplicationContext());
+                deviceIMEI_extra = DynamicData.getSchoolID();
+
                 DynamicData.setSchoolID("0772241709");
 
                 //Get device ownership by IMEI number

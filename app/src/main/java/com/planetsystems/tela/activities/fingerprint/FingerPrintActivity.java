@@ -398,7 +398,7 @@ public class FingerPrintActivity extends Activity{
                         DynamicData.getDate(),
                         new Date().toString(),
                         getClass().getSimpleName(),
-                        DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+                        DynamicData.getSchoolID(),
                         DynamicData.getSchoolName(),
                         null,
                         lineNumber,
@@ -437,7 +437,7 @@ public class FingerPrintActivity extends Activity{
                             false,
                             intent.getStringExtra(TEACHER_NATIONAL_ID),
                             intent.getStringExtra(TEACHER_PHONE_NUMBER),
-                            DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+                            DynamicData.getSchoolID(),
                             fingerPrintData.length,
                             true
 
@@ -573,7 +573,7 @@ public class FingerPrintActivity extends Activity{
                         DynamicData.getDate(),
                         DynamicData.getDay(),
                         DynamicData.getTime(),
-                        DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+                        DynamicData.getSchoolID(),
                         fingerPrintData
                 );
                 clockInRepository.synClockInTeacher(clock);
@@ -711,7 +711,7 @@ public class FingerPrintActivity extends Activity{
                             syncTeacher.getEmployeeId(),
                             DynamicData.getLatitude(),
                             DynamicData.getLongitude(),
-                            DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+                            DynamicData.getSchoolID(),
                             DynamicData.getSchoolName(),
                             syncTeacher.getFirstName(),
                             syncTeacher.getLastName(),
