@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.planetsystems.tela.R;
 
 public class PhoneNumberDialogActivity extends AppCompatActivity {
-    private final String PHONE_NUMBER_RESULT = "com.planetsystems.tela.activities.dialogs.PhoneNumberDialogActivity.PHONE_NUMBER_RESULT";
+    public static final String PHONE_NUMBER_RESULT = "com.planetsystems.tela.activities.dialogs.PhoneNumberDialogActivity.PHONE_NUMBER_RESULT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

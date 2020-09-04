@@ -214,9 +214,9 @@ public class SchoolConfirmation extends AppCompatActivity {
                 //Synchronize the school data to phone and to the sever
                 WorkManagerTrigger.startFetchWorkers(getApplicationContext());
                 WorkManagerTrigger.startUploadWorkers(getApplicationContext());
+                String phoneNumber = data.getStringExtra(PhoneNumberDialogActivity.PHONE_NUMBER_RESULT);
+                DynamicData.setSchoolID(phoneNumber);
                 deviceIMEI_extra = DynamicData.getSchoolID();
-
-                DynamicData.setSchoolID("0772241709");
 
                 //Get device ownership by IMEI number
                 new Fetch_API_JSONAsyncTask().execute(Urls.DEVICE_OWNERSHIP + DynamicData.getSchoolID());
@@ -227,7 +227,7 @@ public class SchoolConfirmation extends AppCompatActivity {
                         if(mResponse == true){
 
                             Intent home = new Intent(SchoolConfirmation.this, ClockInAndOutActivity.class);
-                            home.putExtra("device_imei", deviceIMEI_extra);
+                            home.putExtra("device_imei", DynamicData.getSchoolID());
                             home.putExtra("schoolName", deploymentSiteName);
                             home.putExtra("schoolId", schoolId);
                             saveToSharePreference(deviceIMEI_extra, deploymentSiteName);
