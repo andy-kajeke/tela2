@@ -27,6 +27,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+<<<<<<< HEAD
         <activity android:name=".activities.staff.administration.syncData.SyncDataManually"
             android:theme="@android:style/Theme.Dialog"/>
         <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewMaterialRequest"
@@ -38,6 +39,14 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activities.staff.regularStaff.serviceRequests.request.SchoolMaterialsList"
             android:theme="@style/AppTheme.NoActionBar"/>
+=======
+        <activity
+            android:label="Phone Number"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:name=".activities.dialogs.PhoneNumberDialogActivity"></activity>
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.RequestSchoolMaterials" />
+        <activity android:name=".activities.staff.regularStaff.serviceRequests.request.SchoolMaterialsList" />
+>>>>>>> 9ac0c9ad84d4e407977b7fc7c2bda54c0bfb3572
         <activity android:name=".activities.staff.administration.enrollments.EnrolledLearners" />
         <activity android:name=".activities.staff.administration.enrollments.SelectLearnerClass" />
         <activity android:name=".activities.staff.regularStaff.serviceRequests.viewReplies.ViewHelpRequest"

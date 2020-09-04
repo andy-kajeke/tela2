@@ -26,18 +26,24 @@ import static com.planetsystems.tela.constants.Urls.SYNC_TEACHER_URL;
 
 public class SyncTeacherWorker extends Worker {
     private SyncTeacherDao syncTeacherDao;
+    private Context context;
 
     public SyncTeacherWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         TelaRoomDatabase telaRoomDatabase = TelaRoomDatabase.getInstance(context);
         syncTeacherDao = telaRoomDatabase.getSyncTeachersDao();
+        this.context = context;
     }
 
     @NonNull
     @Override
     public Result doWork() {
         try {
+<<<<<<< HEAD
             HttpURLConnection connection = (HttpURLConnection) new URL(SYNC_TEACHER_URL + DynamicData.getSchoolID(SchoolDeviceIMEINumber)).openConnection();
+=======
+            HttpURLConnection connection = (HttpURLConnection) new URL(SYNC_TEACHER_URL + DynamicData.getSchoolID(context)).openConnection();
+>>>>>>> 9ac0c9ad84d4e407977b7fc7c2bda54c0bfb3572
             try {
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));

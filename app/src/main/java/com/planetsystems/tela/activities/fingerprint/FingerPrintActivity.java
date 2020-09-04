@@ -400,7 +400,7 @@ public class FingerPrintActivity extends Activity{
                         DynamicData.getDate(),
                         new Date().toString(),
                         getClass().getSimpleName(),
-                        DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+                        DynamicData.getSchoolID(getApplicationContext()),
                         DynamicData.getSchoolName(),
                         null,
                         lineNumber,
@@ -439,7 +439,7 @@ public class FingerPrintActivity extends Activity{
                             false,
                             intent.getStringExtra(TEACHER_NATIONAL_ID),
                             intent.getStringExtra(TEACHER_PHONE_NUMBER),
-                            DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+                            DynamicData.getSchoolID(getApplicationContext()),
                             fingerPrintData.length,
                             true
 
@@ -575,7 +575,7 @@ public class FingerPrintActivity extends Activity{
                         DynamicData.getDate(),
                         DynamicData.getDay(),
                         DynamicData.getTime(),
-                        DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+                        DynamicData.getSchoolID(getApplicationContext()),
                         fingerPrintData
                 );
                 clockInRepository.synClockInTeacher(clock);
@@ -711,9 +711,15 @@ public class FingerPrintActivity extends Activity{
                             null,
                             syncTeacher.getEmployeeNumber(),
                             syncTeacher.getEmployeeId(),
+<<<<<<< HEAD
                             DynamicData.getLatitude(currentLatitude),
                             DynamicData.getLongitude(currentLongitude),
                             DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+=======
+                            DynamicData.getLatitude(),
+                            DynamicData.getLongitude(),
+                            DynamicData.getSchoolID(getApplicationContext()),
+>>>>>>> 9ac0c9ad84d4e407977b7fc7c2bda54c0bfb3572
                             DynamicData.getSchoolName(),
                             syncTeacher.getFirstName(),
                             syncTeacher.getLastName(),

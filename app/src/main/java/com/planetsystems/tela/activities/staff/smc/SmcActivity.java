@@ -265,14 +265,18 @@ public class SmcActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         //Toast.makeText(SmcActivity.this,"Sch ID: "+ DynamicData.getSchoolID(SchoolDeviceIMEINumber),Toast.LENGTH_SHORT).show();
+=======
+        Toast.makeText(SmcActivity.this,"Sch ID: "+ DynamicData.getSchoolID(getApplicationContext()),Toast.LENGTH_SHORT).show();
+>>>>>>> 9ac0c9ad84d4e407977b7fc7c2bda54c0bfb3572
     }
 
     private void SMCs() {
         SyncSMC syncSMC = new SyncSMC(
                 "Good",
                 DynamicData.getDate(),
-                DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+                DynamicData.getSchoolID(getApplicationContext()),
                 status.getText().toString(),
                 P1,
                 P2,

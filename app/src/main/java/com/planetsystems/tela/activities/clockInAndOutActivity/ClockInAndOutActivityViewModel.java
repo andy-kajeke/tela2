@@ -56,9 +56,15 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                                         staffComment,
                                         teacher.getEmployeeNumber(),
                                         teacher.getEmployeeNumber(),
+<<<<<<< HEAD
                                         DynamicData.getLatitude(currentLatitude),
                                         DynamicData.getLongitude(currentLongitude),
                                         DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+=======
+                                        DynamicData.getLatitude(),
+                                        DynamicData.getLongitude(),
+                                        DynamicData.getSchoolID(getApplication()),
+>>>>>>> 9ac0c9ad84d4e407977b7fc7c2bda54c0bfb3572
                                         DynamicData.getSchoolName(),
                                         teacher.getFirstName(),
                                         teacher.getLastName(),
@@ -95,7 +101,7 @@ public class ClockInAndOutActivityViewModel extends AndroidViewModel {
                             DynamicData.getDate(),
                             DynamicData.getDay(),
                             DynamicData.getTime(),
-                            DynamicData.getSchoolID(SchoolDeviceIMEINumber),
+                            DynamicData.getSchoolID(getApplication()),
                             syncTeacher.getFingerPrint()
                     ));
                     return new TeacherWrapper("Clocked In Successfully", syncTeacher);

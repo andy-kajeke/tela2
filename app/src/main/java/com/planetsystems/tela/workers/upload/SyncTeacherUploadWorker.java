@@ -47,8 +47,8 @@ public class SyncTeacherUploadWorker extends Worker {
 
             JSONObject params = new JSONObject();
             try {
-                params.put("fingerPrint", Base64.encode(teacher.getFingerPrint(), Base64.DEFAULT));
-                params.put("fingerPrintImage", teacher.getFingerImage());
+                params.put("fingerPrint", Base64.encodeToString(teacher.getFingerPrint(), Base64.DEFAULT));
+//                params.put("fingerPrintImage", teacher.getFingerImage());
                 params.put("nationalId", teacher.getNationalId());
                 params.put("firstName", teacher.getFirstName());
                 params.put("lastName",teacher.getLastName());
@@ -75,7 +75,7 @@ public class SyncTeacherUploadWorker extends Worker {
                         SyncTeacher savedTeacher = teacherRepository.getTeacherWithNationalIDNumber(teacher.getString("nationalId"));
                         if (savedTeacher != null) {
                             savedTeacher.setFingerImage(teacher.getString("fingerPrintImage"));
-                            savedTeacher.setFingerPrint(Base64.decode(teacher.getString("fingerPrint"), Base64.DEFAULT));
+//                            savedTeacher.setFingerPrint(Base64.de);
                             savedTeacher.setSchoolId(teacher.getString("schoolId"));
                             savedTeacher.setMPSComputerNumber(teacher.getString("MPSComputerNumber"));
                             savedTeacher.setEmailAddress(teacher.getString("emailAddress"));

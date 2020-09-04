@@ -23,16 +23,23 @@ import static com.planetsystems.tela.activities.school.SchoolConfirmation.school
 
 @SuppressWarnings("ALL")
 public class Urls {
+<<<<<<< HEAD
 
     public String DEVICE_IMEI = mSharedPreferences.getString(school_Device_Number, "");
 
     //public static final String DEVICE = "0703413890";
+=======
+//    public static final String DEVICE_IMEI = "354633111523205";
+>>>>>>> 9ac0c9ad84d4e407977b7fc7c2bda54c0bfb3572
 
     public static final String BASE_URL = "http://tela.planetsystems.co:8080/weca/webapi/attendance/";
 
     public static final String DEVICE_OWNERSHIP =  BASE_URL + "school/";
 
+<<<<<<< HEAD
     //public static final String SYNC_TEACHER_URL = BASE_URL + "teachers/" + DEVICE;
+=======
+>>>>>>> 9ac0c9ad84d4e407977b7fc7c2bda54c0bfb3572
     public static final String SYNC_TEACHER_URL = BASE_URL + "teachers/";
 
     public static final String CONFIRM_TASKS = BASE_URL + "confirmtasks";
@@ -45,12 +52,17 @@ public class Urls {
 
     public static final String CLOCK_OUT_UPLOAD_URL = BASE_URL + "clockout";
 
+<<<<<<< HEAD
     //public static final String SYNC_TIME_TABLE_URL = BASE_URL + "timetable/" + DEVICE;
     public static final String SYNC_TIME_TABLE_URL = BASE_URL + "timetable/";
 
     public static final String SYNC_TIME_TABLE_UPDATE_URL = BASE_URL + "timetable";
 
     //public static final String SCHOOL_CLASSES = BASE_URL + "classes/" + DEVICE;
+=======
+    public static final String SYNC_TIME_TABLE_URL = BASE_URL + "timetable/";
+
+>>>>>>> 9ac0c9ad84d4e407977b7fc7c2bda54c0bfb3572
     public static final String SCHOOL_CLASSES = BASE_URL + "classes/";
 
     public static final String LEARNER_ATTENDANCE_UPLOAD_URL = BASE_URL + "learners/attendance";

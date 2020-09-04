@@ -36,7 +36,11 @@ public class SyncTimeTableWorker extends Worker {
     @Override
     public Result doWork() {
         try {
+<<<<<<< HEAD
             HttpURLConnection connection = (HttpURLConnection) new URL(SYNC_TIME_TABLE_URL + DynamicData.getSchoolID(SchoolDeviceIMEINumber)).openConnection();
+=======
+            HttpURLConnection connection = (HttpURLConnection) new URL(SYNC_TIME_TABLE_URL + DynamicData.getSchoolID(getApplicationContext())).openConnection();
+>>>>>>> 9ac0c9ad84d4e407977b7fc7c2bda54c0bfb3572
             try {
                 InputStream inputStream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));

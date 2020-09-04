@@ -1,5 +1,9 @@
 package com.planetsystems.tela.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -8,10 +12,11 @@ import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAnd
 import static com.planetsystems.tela.activities.clockInAndOutActivity.ClockInAndOutActivity.currentLongitude;
 
 public class DynamicData {
-    public static String getSchoolID(String schoolDevice) {
-        //TODO: put codes here for finding school id
-        schoolDevice = SchoolDeviceIMEINumber;
-        return schoolDevice;
+
+    private static final String SCHOOL_ID = "com.planetsystems.tela.utils.DynamicData.SCHOOL_ID";
+    public static String getSchoolID(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getString(SCHOOL_ID, "");
     }
 
     public static double getLatitude(double latitude) {
@@ -44,5 +49,12 @@ public class DynamicData {
 
     public static String getSchoolName() {
         return "Buganda Road";
+    }
+
+    public static void setSchoolID(String phoneNumber, Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(SCHOOL_ID, phoneNumber);
+        editor.apply();
     }
 }
